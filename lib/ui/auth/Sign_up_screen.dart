@@ -20,9 +20,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: _getUI(context),
+    return SafeArea(
+      child:Scaffold(
+        backgroundColor: Colors.white,
+        body: _getUI(context),
+      )
     );
   }
 
@@ -36,8 +38,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Container(
-            height: 40,
-            width: 100,
+            height: 52,
+            width: 185,
             child: Image.asset('assets/images/appicon.png' , fit: BoxFit.fill,),
           ),
         ),

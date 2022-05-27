@@ -18,9 +18,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
       backgroundColor: Colors.white,
       body: _getUI(context),
+        )
     );
   }
 
@@ -32,9 +34,12 @@ class _LoginScreenState extends State<LoginScreen> {
           height: 90,
         ),
         Container(
-          height: 100,
-          width: 150,
+          height: 52,
+          width: 185,
           child: Image.asset('assets/images/appicon.png'),
+        ),
+        const SizedBox(
+          height: 30,
         ),
         CustomText(
             text: "Login Into You Account or Sign UP",

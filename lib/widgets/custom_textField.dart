@@ -34,7 +34,7 @@ class CustomTextFeild extends StatelessWidget {
           hintText: hint,
           hintStyle: const TextStyle(
             letterSpacing: 1,
-            color: Color(0xff3D3A3A),
+            color: Colors.black,
             fontSize: 10
           ),
           filled: true,

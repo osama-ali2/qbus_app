@@ -8,7 +8,7 @@ class PackageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 130,
+      height: 100,
       width: MediaQuery.of(context).size.width,
       child: Row(
         children: [
@@ -34,7 +34,7 @@ class PackageCard extends StatelessWidget {
                   text: "Umrah Package",
                   textSize: 14,
                   fontWeight: FontWeight.w700,
-                  textColor: Color(0xff747268)),
+                  textColor: Colors.black),
               const SizedBox(
                 height: 5,
               ),
@@ -45,7 +45,7 @@ class PackageCard extends StatelessWidget {
                   text: "Explore how to roast to brew coffee like the local.",
                   textSize: 10,
                   fontWeight: FontWeight.normal,
-                  textColor: Color(0xff747268),
+                  textColor: Colors.black,
                   textAlign: TextAlign.start,
                 ),
               ),
@@ -56,7 +56,7 @@ class PackageCard extends StatelessWidget {
                 text: "20/05/2022",
                 textSize: 10,
                 fontWeight: FontWeight.normal,
-                textColor: Color(0xff747268),
+                textColor: Colors.black,
                 textAlign: TextAlign.start,
               ),
               const SizedBox(
@@ -75,7 +75,7 @@ class PackageCard extends StatelessWidget {
                           text: "4.3",
                           textSize: 12,
                           fontWeight: FontWeight.normal,
-                          textColor: Color(0xff747268))
+                          textColor: Colors.black)
                     ],
                   ),
                   SizedBox(

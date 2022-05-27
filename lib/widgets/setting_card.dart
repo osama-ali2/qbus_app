@@ -24,7 +24,7 @@ class SettingCard extends StatelessWidget {
                   text: name,
                   textSize: 14,
                   fontWeight: FontWeight.w400,
-                  textColor: const Color(0xff747268)),
+                  textColor:  Colors.black),
               IconButton(
                   onPressed: ()=>onTap(),
                   icon: const Icon(

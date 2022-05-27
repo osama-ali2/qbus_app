@@ -26,9 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(child: _getUI(context)),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(child: _getUI(context)),
+      ),
     );
   }
 
@@ -112,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const CustomText(
               text: "Passengers count",
               textSize: 14,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.normal,
               textColor: Colors.black),
           const SizedBox(
             height: 10,
@@ -133,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 15,
           ),
           CustomButton(
-              name: "SEARCH",
+              name: "Search",
               buttonColor: appColor,
               height: 45,
               width: double.infinity,
@@ -155,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   text: "Packages",
                   textSize: 18,
                   fontWeight: FontWeight.normal,
-                  textColor: Color(0xff747268)),
+                  textColor: Colors.black),
               InkWell(
                 onTap: () {
                   NavigationHelper.pushRoute(context, const ExploreScreen());
@@ -166,7 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         text: "Explore",
                         textSize: 16,
                         fontWeight: FontWeight.normal,
-                        textColor: Color(0xff747268)),
+                        textColor: Colors.black
+                        ),
                     Icon(
                       Icons.arrow_forward_ios,
                       size: 18,

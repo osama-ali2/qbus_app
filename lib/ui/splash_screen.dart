@@ -25,8 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.white,
       body: Center(
         child: Container(
-          height: 100,
-          width: 250,
+          height: 52,
+          width: 185,
           child: Image.asset(
             "assets/images/appicon.png",
             fit: BoxFit.none,
