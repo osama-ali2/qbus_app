@@ -28,18 +28,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _getUI(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(
-          height: 90,
-        ),
         Container(
           height: 52,
           width: 185,
           child: Image.asset('assets/images/appicon.png'),
         ),
         const SizedBox(
-          height: 30,
+          height: 20,
         ),
         CustomText(
             text: "Login Into You Account or Sign UP",
@@ -47,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
             fontWeight: FontWeight.normal,
             textColor: Colors.black),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
         CustomTextFeild(
           controller: _email,

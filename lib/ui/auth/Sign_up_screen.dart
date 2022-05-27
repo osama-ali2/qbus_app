@@ -30,21 +30,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget _getUI(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(
-          height: 50,
-        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Container(
-            height: 52,
-            width: 185,
+          height: 52,
+          width: 185,
             child: Image.asset('assets/images/appicon.png' , fit: BoxFit.fill,),
           ),
         ),
+        const SizedBox(
+          height: 20,
+        ),
+        CustomText(
+            text: "Lets Get Started!",
+            textSize: 14,
+            fontWeight: FontWeight.normal,
+            textColor: Colors.black),
         SizedBox(
-          height: 36,
+          height: 20,
         ),
         CustomTextFeild(
           controller: _email,
@@ -89,10 +95,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Center(
               child: DropdownButton<String>(
                 hint: CustomText(
-                    text: "  Location",
+                    text: "  City",
                     textSize: 12,
                     fontWeight: FontWeight.normal,
-                    textColor: Colors.grey.shade700),
+                    textColor: Colors.black),
                 underline: SizedBox(),
                 isExpanded: true,
                 items: <String>['Riyadh', 'Abha', 'Dammam', 'Tabuk'].map((String value) {
@@ -135,7 +141,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     text: "  Marital Status",
                     textSize: 12,
                     fontWeight: FontWeight.normal,
-                    textColor: Colors.grey.shade700),
+                    textColor: Colors.black),
                 underline: SizedBox(),
                 isExpanded: true,
                 items: <String>['A', 'B', 'C', 'D'].map((String value) {
