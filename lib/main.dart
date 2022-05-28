@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:qbus/ui/splash_screen.dart';
 import 'package:qbus/L10n/L10n.dart';
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'QBUS',
       supportedLocales: L10n.all,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen(),
+      home: const SplashScreen(),
       //home: HomeScreen(),
       //locale: Locale('ar','Ar'),
       debugShowCheckedModeBanner: false,

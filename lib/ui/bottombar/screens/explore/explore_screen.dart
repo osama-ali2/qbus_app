@@ -35,18 +35,20 @@ class _ExploreScreenState extends State<ExploreScreen> {
   Widget _getUI(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 10,),
-        Container(
+        const SizedBox(
+          height: 10,
+        ),
+        SizedBox(
           height: MediaQuery.of(context).size.height * 0.75,
           width: MediaQuery.of(context).size.width,
           child: ListView.builder(
               itemCount: 2,
               itemBuilder: (context, i) {
-            return const Padding(
-              padding: EdgeInsets.only(bottom: 8.0),
-              child: PackageCard(),
-            );
-          }),
+                return const Padding(
+                  padding: EdgeInsets.only(bottom: 8.0),
+                  child: PackageCard(),
+                );
+              }),
         ),
         CustomButton(
             name: "Filter",
@@ -57,11 +59,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
             textColor: Colors.white,
             fontWeight: FontWeight.normal,
             borderRadius: 5,
-            onTapped: () {
-
-            },
+            onTapped: () {},
             padding: 0),
-
       ],
     );
   }

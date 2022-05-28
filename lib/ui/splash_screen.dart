@@ -15,6 +15,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    super.initState();
     Timer(const Duration(seconds: 3), () {
       NavigationHelper.pushReplacement(context, const HomeScreen());
     });
@@ -35,7 +36,7 @@ Widget _getUI(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       Center(
-        child: Container(
+        child: SizedBox(
           height: 52,
           width: 185,
           child: Image.asset('assets/images/appicon.png'),

@@ -7,6 +7,8 @@ import 'package:qbus/ui/bottombar/screens/setting_screen.dart';
 import '../../utils/constant.dart';
 
 class BottomBarScreen extends StatefulWidget {
+  const BottomBarScreen({Key? key}) : super(key: key);
+
   @override
   _BottomBarScreenState createState() => _BottomBarScreenState();
 }
@@ -17,7 +19,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   void _onItemTapped(int index) {
     _selectedIndex = index;
-
     setState(() {});
   }
 
@@ -77,7 +78,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           selectedItemColor: appColor,
           onTap: (index) => _onItemTapped(index),
           selectedLabelStyle:
-              TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+              const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
         ),
         body: _tabs[_selectedIndex],
       ),

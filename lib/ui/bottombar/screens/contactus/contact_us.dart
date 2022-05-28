@@ -13,7 +13,7 @@ class ContactUs extends StatefulWidget {
 }
 
 class _ContactUsState extends State<ContactUs> {
-  TextEditingController _email = TextEditingController();
+  final TextEditingController _email = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,39 +35,39 @@ class _ContactUsState extends State<ContactUs> {
   Widget _getUI(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 40),
-        CustomTextFeild(
+        const SizedBox(height: 40),
+        CustomTextField(
           controller: _email,
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.name,
           hint: "Name",
         ),
-        SizedBox(height: 10),
-        CustomTextFeild(
+        const SizedBox(height: 10),
+        CustomTextField(
           controller: _email,
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.name,
           hint: "Email address",
         ),
-        SizedBox(height: 10),
-        CustomTextFeild(
+        const SizedBox(height: 10),
+        CustomTextField(
           controller: _email,
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.name,
           hint: "Phone Number",
         ),
-        SizedBox(height: 10),
-        CustomTextFeild(
+        const SizedBox(height: 10),
+        CustomTextField(
           controller: _email,
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.name,
           hint: "Subject",
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Container(
@@ -79,7 +79,7 @@ class _ContactUsState extends State<ContactUs> {
               padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
               child: TextFormField(
                 maxLines: 1000,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: InputBorder.none, hintText: "Your Message"),
               ),
             ),

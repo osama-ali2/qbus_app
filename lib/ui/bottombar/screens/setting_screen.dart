@@ -32,8 +32,14 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget _getUI(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 10,),
-        SettingCard(onTap: (){}, name: 'Language',),],
+        const SizedBox(
+          height: 10,
+        ),
+        SettingCard(
+          onTap: () {},
+          name: 'Language',
+        ),
+      ],
     );
   }
 }

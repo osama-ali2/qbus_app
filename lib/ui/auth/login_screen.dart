@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 20,
               ),
-              CustomTextFeild(
+              CustomTextField(
                 controller: mobileOrEmailController,
                 padding: 20,
                 validator: (val) => null,
@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 15,
               ),
-              CustomTextFeild(
+              CustomTextField(
                 controller: passwordController,
                 padding: 20,
                 validator: (val) => null,

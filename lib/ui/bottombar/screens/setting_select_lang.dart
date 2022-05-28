@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_text.dart';
-import 'package:qbus/widgets/setting_card.dart';
 
 class SettingScreenSelectLang extends StatefulWidget {
   const SettingScreenSelectLang({Key? key}) : super(key: key);
@@ -31,9 +30,11 @@ class _SettingScreenState extends State<SettingScreenSelectLang> {
 
   Widget _getUI(BuildContext context) {
     return Column(
-      children: [
-        SizedBox(height: 10,),
-        ],
+      children: const [
+        SizedBox(
+          height: 10,
+        ),
+      ],
     );
   }
 }

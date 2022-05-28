@@ -20,7 +20,7 @@ class _SelectAdditionState extends State<SelectAddition> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
+      bottomNavigationBar: SizedBox(
         height: 130,
         width: MediaQuery.of(context).size.width,
         child: Column(
@@ -77,7 +77,7 @@ class _SelectAdditionState extends State<SelectAddition> {
   Widget _getUI(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         _items(context, "Hotel 5 Sar (600)", () {
@@ -128,7 +128,7 @@ class _SelectAdditionState extends State<SelectAddition> {
                 text: name,
                 textSize: 16,
                 fontWeight: FontWeight.normal,
-                textColor: Color(0xff747268)),
+                textColor: const Color(0xff747268)),
             Counter(number: number, onAdd: () => add(), onMinus: () => minus())
           ],
         ),

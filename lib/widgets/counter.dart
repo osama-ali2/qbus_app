@@ -25,23 +25,23 @@ class Counter extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
                 border: Border.all(color: Colors.grey.shade400)),
-            child: Center(
+            child: const Center(
                 child: CustomText(
                     text: "-",
                     textSize: 22,
                     fontWeight: FontWeight.w500,
-                    textColor:Colors.grey)),
+                    textColor: Colors.grey)),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 5,
         ),
         CustomText(
-            text: "${number}",
+            text: "$number",
             textSize: 16,
             fontWeight: FontWeight.normal,
             textColor: Colors.black),
-        SizedBox(
+        const SizedBox(
           width: 5,
         ),
         InkWell(
@@ -52,7 +52,7 @@ class Counter extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
                 border: Border.all(color: Colors.grey.shade400)),
-            child: Center(
+            child: const Center(
                 child: CustomText(
                     text: "+",
                     textSize: 16,

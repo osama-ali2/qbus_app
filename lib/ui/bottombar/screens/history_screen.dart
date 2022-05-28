@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../utils/constant.dart';
 import '../../../widgets/custom_text.dart';
 
@@ -36,8 +35,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
       child: ListView.builder(
           itemCount: 3,
           itemBuilder: (context, i) {
-        return _card(context);
-      }),
+            return _card(context);
+          }),
     );
   }
 
@@ -82,7 +81,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   width: 55,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(2), color: appColor),
-                  child: Center(
+                  child: const Center(
                     child: CustomText(
                         text: "SAR 90",
                         textSize: 10,
@@ -98,13 +97,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomText(
+                const CustomText(
                     text: "Jeddah Trip",
                     textSize: 16,
                     fontWeight: FontWeight.w500,
                     textColor: Color(0xff747268)),
                 Row(
-                  children: [
+                  children: const [
                     Icon(
                       Icons.star,
                       color: Colors.yellow,
@@ -119,7 +118,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 )
               ],
             ),
-            SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             Container(
               height: 20,
               width: 60,

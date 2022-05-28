@@ -39,66 +39,66 @@ class _ProfileScreenState extends State<ProfileScreen> {
           height: 10,
         ),
         //Padding(
-          //padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          // child: Container(
-          //   height: 100,
-          //   width: MediaQuery.of(context).size.width,
-          //   decoration: BoxDecoration(
-          //       border: Border.all(
-          //     color: const Color(0xffE7E8E8),
-          //   )),
-          //   child: Padding(
-          //     padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          //     child: Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         const SizedBox(
-          //           height: 10,
-          //         ),
-          //         Row(
-          //           crossAxisAlignment: CrossAxisAlignment.start,
-          //           children:  [
-          //             const Icon(
-          //               Icons.person_outline,
-          //               color: Colors.grey,
-          //               size: 26,
-          //             ),
-          //             const SizedBox(
-          //               width: 5,
-          //             ),
-          //             Column(
-          //               crossAxisAlignment: CrossAxisAlignment.start,
-          //               children: const [
-          //                 CustomText(
-          //                     text: "Abdelhadi Mohammed",
-          //                     textSize: 15,
-          //                     fontWeight: FontWeight.w400,
-          //                     textColor: Colors.black),
-          //                 SizedBox(
-          //                   height: 5,
-          //                 ),
-          //                 CustomText(
-          //                     text: "Male",
-          //                     textSize: 15,
-          //                     fontWeight: FontWeight.w400,
-          //                     textColor: Colors.black),
-          //                 SizedBox(
-          //                   height: 5,
-          //                 ),
-          //                 CustomText(
-          //                     text: "093138941",
-          //                     textSize: 15,
-          //                     fontWeight: FontWeight.w400,
-          //                     textColor: Colors.black),
-          //               ],
-          //             )
-          //           ],
-          //         ),
+        //padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        // child: Container(
+        //   height: 100,
+        //   width: MediaQuery.of(context).size.width,
+        //   decoration: BoxDecoration(
+        //       border: Border.all(
+        //     color: const Color(0xffE7E8E8),
+        //   )),
+        //   child: Padding(
+        //     padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        //     child: Column(
+        //       crossAxisAlignment: CrossAxisAlignment.start,
+        //       children: [
+        //         const SizedBox(
+        //           height: 10,
+        //         ),
+        //         Row(
+        //           crossAxisAlignment: CrossAxisAlignment.start,
+        //           children:  [
+        //             const Icon(
+        //               Icons.person_outline,
+        //               color: Colors.grey,
+        //               size: 26,
+        //             ),
+        //             const SizedBox(
+        //               width: 5,
+        //             ),
+        //             Column(
+        //               crossAxisAlignment: CrossAxisAlignment.start,
+        //               children: const [
+        //                 CustomText(
+        //                     text: "Abdelhadi Mohammed",
+        //                     textSize: 15,
+        //                     fontWeight: FontWeight.w400,
+        //                     textColor: Colors.black),
+        //                 SizedBox(
+        //                   height: 5,
+        //                 ),
+        //                 CustomText(
+        //                     text: "Male",
+        //                     textSize: 15,
+        //                     fontWeight: FontWeight.w400,
+        //                     textColor: Colors.black),
+        //                 SizedBox(
+        //                   height: 5,
+        //                 ),
+        //                 CustomText(
+        //                     text: "093138941",
+        //                     textSize: 15,
+        //                     fontWeight: FontWeight.w400,
+        //                     textColor: Colors.black),
+        //               ],
+        //             )
+        //           ],
+        //         ),
 
-          //       ],
-          //     ),
-          //   ),
-          // ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
         //),
         // const SizedBox(
         //   height: 15,
@@ -129,7 +129,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         SettingCard(
           onTap: () {
-            NavigationHelper.pushRoute(context, ContactUs());
+            NavigationHelper.pushRoute(context, const ContactUs());
           },
           name: 'Contact us',
         ),

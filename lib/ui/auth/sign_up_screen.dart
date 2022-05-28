@@ -52,7 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         const SizedBox(
           height: 20,
         ),
-        CustomTextFeild(
+        CustomTextField(
           controller: _email,
           padding: 20,
           validator: (val) => null,
@@ -62,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         const SizedBox(
           height: 15,
         ),
-        CustomTextFeild(
+        CustomTextField(
           controller: _email,
           padding: 20,
           validator: (val) => null,
@@ -72,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         const SizedBox(
           height: 15,
         ),
-        CustomTextFeild(
+        CustomTextField(
           controller: _email,
           padding: 20,
           validator: (val) => null,
@@ -114,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         const SizedBox(
           height: 15,
         ),
-        CustomTextFeild(
+        CustomTextField(
           controller: _email,
           padding: 20,
           validator: (val) => null,
@@ -155,7 +155,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         const SizedBox(
           height: 15,
         ),
-        CustomTextFeild(
+        CustomTextField(
           controller: _email,
           padding: 20,
           validator: (val) => null,

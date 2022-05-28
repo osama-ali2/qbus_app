@@ -107,7 +107,7 @@ void _changeLanguage(lang){
           const SizedBox(
             height: 20,
           ),
-          CustomTextFeild(
+          CustomTextField(
             controller: _email,
             padding: 0,
             validator: (val) => null,
@@ -117,7 +117,7 @@ void _changeLanguage(lang){
           const SizedBox(
             height: 10,
           ),
-          CustomTextFeild(
+          CustomTextField(
             controller: _email,
             padding: 0,
             validator: (val) => null,
@@ -127,7 +127,7 @@ void _changeLanguage(lang){
           const SizedBox(
             height: 10,
           ),
-          CustomTextFeild(
+          CustomTextField(
             controller: _email,
             padding: 0,
             validator: (val) => null,

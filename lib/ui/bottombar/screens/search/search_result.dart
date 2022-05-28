@@ -36,7 +36,7 @@ class _SearchResultState extends State<SearchResult> {
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(itemBuilder: (context, i) {
         return InkWell(
-            onTap: (){
+            onTap: () {
               NavigationHelper.pushRoute(context, const SelectAddition());
             },
             child: _card(context));
@@ -85,7 +85,7 @@ class _SearchResultState extends State<SearchResult> {
                   width: 55,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(2), color: appColor),
-                  child: Center(
+                  child: const Center(
                     child: CustomText(
                         text: "SAR 90",
                         textSize: 10,
@@ -120,26 +120,26 @@ class _SearchResultState extends State<SearchResult> {
                         textColor: Color(0xff747268)),
                   ],
                 ),
-                CustomText(
+                const CustomText(
                     text: "5 Stops",
                     textSize: 14,
                     fontWeight: FontWeight.w400,
                     textColor: Color(0xff747268))
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomText(
+                const CustomText(
                     text: "Jeddah Trip",
                     textSize: 16,
                     fontWeight: FontWeight.w500,
                     textColor: Color(0xff747268)),
                 Row(
-                  children: [
+                  children: const [
                     Icon(
                       Icons.star,
                       color: Colors.yellow,
@@ -154,10 +154,10 @@ class _SearchResultState extends State<SearchResult> {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            CustomText(
+            const CustomText(
                 text: "Ac / Hotel 3 star / meal",
                 textSize: 14,
                 fontWeight: FontWeight.w500,

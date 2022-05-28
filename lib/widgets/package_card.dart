@@ -7,7 +7,7 @@ class PackageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 100,
       width: MediaQuery.of(context).size.width,
       child: Row(
@@ -23,7 +23,7 @@ class PackageCard extends StatelessWidget {
                   fit: BoxFit.fill,
                 )),
           ),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           Column(
@@ -65,7 +65,7 @@ class PackageCard extends StatelessWidget {
               Row(
                 children: [
                   Row(
-                    children: [
+                    children: const [
                       Icon(
                         Icons.star,
                         color: Colors.yellow,
@@ -87,7 +87,7 @@ class PackageCard extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: appColor,
                         borderRadius: BorderRadius.circular(5)),
-                    child: Center(
+                    child: const Center(
                       child: CustomText(
                           text: "SKR 3.8k",
                           textSize: 10,
