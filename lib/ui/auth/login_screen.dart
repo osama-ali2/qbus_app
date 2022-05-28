@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
-import 'package:qbus/ui/auth/Sign_up_screen.dart';
 import 'package:qbus/ui/bottombar/screens/home_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
@@ -10,6 +8,7 @@ import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/custom_textField.dart';
 import 'package:qbus/core/api_client.dart';
 import 'dart:async';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -18,35 +17,34 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController mobileOrEmailController   = TextEditingController();
-  TextEditingController passwordController        = TextEditingController();
+  TextEditingController mobileOrEmailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final ApiClient _apiClient = ApiClient();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+        child: Scaffold(
       backgroundColor: Colors.white,
       body: _getUI(context),
-        )
-    );
+    ));
   }
 
   Widget _getUI(BuildContext context) {
-   return Scaffold(
-          backgroundColor: Colors.white,
-          body: Form(
-            key: _formKey,
-            child: Column(
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Form(
+          key: _formKey,
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-           crossAxisAlignment: CrossAxisAlignment.center,
-           children: [
-               Container(
-                 height: 52,
-                 width: 185,
-                 child: Image.asset('assets/images/appicon.png'),
-               ),
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 52,
+                width: 185,
+                child: Image.asset('assets/images/appicon.png'),
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -56,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   textSize: 14,
                   fontWeight: FontWeight.normal,
                   textColor: Colors.black),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               CustomTextFeild(
@@ -113,7 +111,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           textColor: appColor),
                     ],
                   ),
-                  SizedBox(width: 10,),
+                  const SizedBox(
+                    width: 10,
+                  ),
                   const CustomText(
                       text: "Forget password",
                       textSize: 13,
@@ -121,15 +121,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       textColor: appColor),
                 ],
               )
-      ],
-    ),
-          )
-   );
+            ],
+          ),
+        ));
   }
 
-
-Future<void> loginhandler() async {
-    if (mobileOrEmailController.text != "" && passwordController.text != "" ) {
+  Future<void> loginhandler() async {
+    if (mobileOrEmailController.text != "" && passwordController.text != "") {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text('Loging in ...'),
         backgroundColor: Colors.green.shade300,
@@ -137,31 +135,31 @@ Future<void> loginhandler() async {
 
       // String phone = "0552837665";
       // String password = "123456789";
-      dynamic res = await _apiClient.login(mobileOrEmailController.text,passwordController.text);
-    
+      dynamic res = await _apiClient.login(
+          mobileOrEmailController.text, passwordController.text);
+
       if (res.data['error'] != "Unauthorised") {
         String accessToken = res.data['success']['token'];
         //sucess
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Sucess Login"),
+          content: const Text("Success Login"),
           backgroundColor: Colors.green.shade300,
         ));
 
         Timer(const Duration(seconds: 2), () {
-       NavigationHelper.pushReplacement(context, const HomeScreen());
-    });
+          NavigationHelper.pushReplacement(context, const HomeScreen());
+        });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(res.data['error']),
           backgroundColor: Colors.red.shade300,
         ));
       }
-    }else{
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("All fields requred"),
-          backgroundColor: Colors.red.shade300,
-        ));
+        content: const Text("All fields requred"),
+        backgroundColor: Colors.red.shade300,
+      ));
     }
   }
 }
-
