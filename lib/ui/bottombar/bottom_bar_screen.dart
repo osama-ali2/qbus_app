@@ -44,25 +44,28 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.home_outlined,
-                size: 24,
+                size: 28,
               ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage("assets/images/list.png") ,size: 20,),
+              icon: Icon(
+                Icons.list,
+                size: 28,
+              ),
               label: 'History',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.person_outline,
-                size: 24,
+                size: 28,
               ),
               label: 'Profile',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.settings,
-                size: 24,
+                size: 28,
               ),
               label: 'Settings',
             ),

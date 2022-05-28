@@ -5,7 +5,7 @@ import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/package_card.dart';
-
+import 'package:qbus/language.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_textField.dart';
 import 'explore/explore_screen.dart';
@@ -34,6 +34,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+void _changeLanguage(lang){
+  Locale("ar",'Ar');
+  print(lang.name);
+}
+
   Widget _getUI(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -43,13 +48,34 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 13,
           ),
-          const CustomText(
-            text: "Book Bus\nLet's Do Now!",
-            textSize: 18,
-            fontWeight: FontWeight.w500,
-            textColor: Colors.black,
-            textAlign: TextAlign.start,
-          ),
+           Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+             const CustomText(
+                    text: "Book Bus\nLet's Do Now!",
+                    textSize: 18,
+                    fontWeight: FontWeight.w500,
+                    textColor: Colors.black,
+                    textAlign: TextAlign.start,
+                  ),
+                DropdownButton(
+                  onChanged: (language) { _changeLanguage(language); },
+                  underline: SizedBox(),
+                  icon: Icon(Icons.language,size: 28,),
+                  items: 
+                    Language.languageList().map<DropdownMenuItem<Language>>((language) => DropdownMenuItem(
+                      value: language,
+                      child: Row(
+                        children: <Widget>[
+                          Text(language.flag),
+                          Text(language.name),
+                        ],
+                      ),
+                    )).toList()
+                  ,
+                ),
+              ]
+           ),
           const SizedBox(
             height: 20,
           ),

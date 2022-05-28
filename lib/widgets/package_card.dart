@@ -14,7 +14,7 @@ class PackageCard extends StatelessWidget {
         children: [
           Container(
             height: 130,
-            width: 150,
+            //width: 150,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(6),
