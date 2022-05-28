@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:qbus/ui/bottombar/bottom_bar_screen.dart';
-
 import '../../navigation/navigation_helper.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
@@ -16,40 +14,42 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  TextEditingController _email = TextEditingController();
+  final TextEditingController _email = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child:Scaffold(
-        backgroundColor: Colors.white,
-        body: _getUI(context),
-      )
-    );
+        child: Scaffold(
+      backgroundColor: Colors.white,
+      body: _getUI(context),
+    ));
   }
 
   Widget _getUI(BuildContext context) {
     return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Container(
-          height: 52,
-          width: 185,
-            child: Image.asset('assets/images/appicon.png' , fit: BoxFit.fill,),
+            height: 52,
+            width: 185,
+            child: Image.asset(
+              'assets/images/appicon.png',
+              fit: BoxFit.fill,
+            ),
           ),
         ),
         const SizedBox(
           height: 20,
         ),
-        CustomText(
+        const CustomText(
             text: "Lets Get Started!",
             textSize: 14,
             fontWeight: FontWeight.normal,
             textColor: Colors.black),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         CustomTextFeild(
@@ -59,7 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           inputType: TextInputType.name,
           hint: "Full name",
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         CustomTextFeild(
@@ -69,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           inputType: TextInputType.name,
           hint: "Mobile number",
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         CustomTextFeild(
@@ -79,7 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           inputType: TextInputType.name,
           hint: "Email address",
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         Padding(
@@ -87,21 +87,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 58,
-            decoration:
-            BoxDecoration(
+            decoration: BoxDecoration(
                 color: Colors.white,
-
                 border: Border.all(color: Colors.grey.shade400)),
             child: Center(
               child: DropdownButton<String>(
-                hint: CustomText(
+                hint: const CustomText(
                     text: "  City",
                     textSize: 12,
                     fontWeight: FontWeight.normal,
                     textColor: Colors.black),
-                underline: SizedBox(),
+                underline: const SizedBox(),
                 isExpanded: true,
-                items: <String>['Riyadh', 'Abha', 'Dammam', 'Tabuk'].map((String value) {
+                items: <String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
+                    .map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
@@ -112,7 +111,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         CustomTextFeild(
@@ -122,7 +121,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           inputType: TextInputType.name,
           hint: "Your address",
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         Padding(
@@ -130,19 +129,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 58,
-            decoration:
-                BoxDecoration(
-                    color: Colors.white,
-
-                    border: Border.all(color: Colors.grey.shade400)),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.grey.shade400)),
             child: Center(
               child: DropdownButton<String>(
-                hint: CustomText(
+                hint: const CustomText(
                     text: "  Marital Status",
                     textSize: 12,
                     fontWeight: FontWeight.normal,
                     textColor: Colors.black),
-                underline: SizedBox(),
+                underline: const SizedBox(),
                 isExpanded: true,
                 items: <String>['A', 'B', 'C', 'D'].map((String value) {
                   return DropdownMenuItem<String>(
@@ -155,7 +152,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         CustomTextFeild(

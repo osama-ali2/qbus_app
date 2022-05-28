@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   // onTapped: () {
                   //   NavigationHelper.pushRoute(context, SignUpScreen());
                   // },
-                  onTapped: loginhandler,
+                  onTapped: loginHandler,
                   padding: 20),
               const SizedBox(
                 height: 15,
@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
   }
 
-  Future<void> loginhandler() async {
+  Future<void> loginHandler() async {
     if (mobileOrEmailController.text != "" && passwordController.text != "") {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text('Loging in ...'),
