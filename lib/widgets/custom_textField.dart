@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:qbus/utils/constant.dart';
 
-import 'custom_text.dart';
-
-class CustomTextFeild extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final double padding;
   final Function(String) validator;
   final TextInputType inputType;
   final String hint;
-  const CustomTextFeild(
+
+  const CustomTextField(
       {Key? key,
       required this.controller,
       required this.padding,
       required this.validator,
-      required this.inputType, required this.hint})
+      required this.inputType,
+      required this.hint})
       : super(key: key);
 
   @override
@@ -33,24 +33,21 @@ class CustomTextFeild extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hint,
           hintStyle: const TextStyle(
-            letterSpacing: 1,
-            color: Colors.black,
-            fontSize: 10
-          ),
+              letterSpacing: 1, color: Colors.black, fontSize: 10),
           filled: true,
           fillColor: Colors.white,
-          enabledBorder: new OutlineInputBorder(
+          enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(0),
-              borderSide: new BorderSide(color: Colors.grey.shade400)),
+              borderSide: BorderSide(color: Colors.grey.shade400)),
           errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
+              borderSide: const BorderSide(color: Colors.red),
               borderRadius: BorderRadius.circular(0)),
           focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: appColor),
+              borderSide: const BorderSide(color: appColor),
               borderRadius: BorderRadius.circular(0)),
-          focusedBorder: new OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(0),
-              borderSide: new BorderSide(color: appColor)),
+              borderSide: const BorderSide(color: appColor)),
         ),
       ),
     );
