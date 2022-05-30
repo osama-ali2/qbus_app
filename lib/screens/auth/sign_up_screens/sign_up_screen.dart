@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:qbus/ui/bottombar/bottom_bar_screen.dart';
-import '../../navigation/navigation_helper.dart';
-import '../../utils/constant.dart';
-import '../../widgets/custom_button.dart';
-import '../../widgets/custom_text.dart';
-import '../../widgets/custom_textField.dart';
+import 'package:qbus/screens/auth/login_screens/login_screen.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
+import '../../../navigation/navigation_helper.dart';
+import '../../../utils/constant.dart';
+import '../../../widgets/custom_button.dart';
+import '../../../widgets/custom_text.dart';
+import '../../../widgets/custom_textField.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -175,7 +176,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             fontWeight: FontWeight.normal,
             borderRadius: 5,
             onTapped: () {
-              NavigationHelper.pushReplacement(context, BottomBarScreen());
+              NavigationHelper.pushReplacement(
+                  context, const BottomBarScreen());
             },
             padding: 20),
         const SizedBox(
@@ -183,17 +185,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            CustomText(
+          children: [
+            const CustomText(
                 text: "Already have an account? ",
                 textSize: 13,
                 fontWeight: FontWeight.normal,
                 textColor: Colors.black),
-            CustomText(
-                text: "Sign In",
-                textSize: 13,
-                fontWeight: FontWeight.normal,
-                textColor: appColor),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()));
+              },
+              child: const CustomText(
+                  text: "Sign In",
+                  textSize: 13,
+                  fontWeight: FontWeight.normal,
+                  textColor: appColor),
+            ),
           ],
         )
       ],

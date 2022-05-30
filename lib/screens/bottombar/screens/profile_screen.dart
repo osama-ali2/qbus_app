@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
-import 'package:qbus/ui/bottombar/screens/contactus/contact_us.dart';
+import 'package:qbus/screens/auth/login_screens/login_screen.dart';
+import 'package:qbus/screens/bottombar/screens/contactus/contact_us.dart';
 
 import '../../../utils/constant.dart';
 import '../../../widgets/custom_text.dart';
@@ -134,7 +135,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           name: 'Contact us',
         ),
         SettingCard(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                (route) => false);
+          },
           name: 'Logout',
         ),
       ],

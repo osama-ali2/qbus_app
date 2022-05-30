@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
-import 'package:qbus/ui/bottombar/screens/search/search_result.dart';
+import 'package:qbus/screens/bottombar/screens/search/search_result.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool roundTrip = false;
   bool multiTrip = false;
   int number = 0;
-  TextEditingController _email = TextEditingController();
+  final TextEditingController _email = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-void _changeLanguage(lang){
-  Locale("ar",'Ar');
-  print(lang.name);
-}
+  void _changeLanguage(lang) {
+    const Locale("ar", 'Ar');
+    debugPrint(lang.name);
+  }
 
   Widget _getUI(BuildContext context) {
     return Padding(
@@ -48,40 +48,42 @@ void _changeLanguage(lang){
           const SizedBox(
             height: 13,
           ),
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-             const CustomText(
-                    text: "Book Bus\nLet's Do Now!",
-                    textSize: 18,
-                    fontWeight: FontWeight.w500,
-                    textColor: Colors.black,
-                    textAlign: TextAlign.start,
-                  ),
-                DropdownButton(
-                  onChanged: (language) { _changeLanguage(language); },
-                  underline: SizedBox(),
-                  icon: Icon(Icons.language,size: 28,),
-                  items: 
-                    Language.languageList().map<DropdownMenuItem<Language>>((language) => DropdownMenuItem(
-                      value: language,
-                      child: Row(
-                        children: <Widget>[
-                          Text(language.flag),
-                          Text(language.name),
-                        ],
-                      ),
-                    )).toList()
-                  ,
-                ),
-              ]
-           ),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            const CustomText(
+              text: "Book Bus\nLet's Do Now!",
+              textSize: 18,
+              fontWeight: FontWeight.w500,
+              textColor: Colors.black,
+              textAlign: TextAlign.start,
+            ),
+            DropdownButton(
+              onChanged: (language) {
+                _changeLanguage(language);
+              },
+              underline: const SizedBox(),
+              icon: const Icon(
+                Icons.language,
+                size: 28,
+              ),
+              items: Language.languageList()
+                  .map<DropdownMenuItem<Language>>(
+                      (language) => DropdownMenuItem(
+                            value: language,
+                            child: Row(
+                              children: <Widget>[
+                                Text(language.flag),
+                                Text(language.name),
+                              ],
+                            ),
+                          ))
+                  .toList(),
+            ),
+          ]),
           const SizedBox(
             height: 20,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween
-            ,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               checkBox(context, oneRoad, "One Way", () {
                 multiTrip = false;
@@ -194,8 +196,7 @@ void _changeLanguage(lang){
                         text: "Explore",
                         textSize: 16,
                         fontWeight: FontWeight.normal,
-                        textColor: Colors.black
-                        ),
+                        textColor: Colors.black),
                     Icon(
                       Icons.arrow_forward_ios,
                       size: 18,

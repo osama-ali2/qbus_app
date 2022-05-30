@@ -1,9 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
-import 'package:qbus/ui/auth/login_screen.dart';
-import 'package:qbus/ui/bottombar/screens/home_screen.dart';
+import 'package:qbus/screens/splash_screens/splash_provider.dart';
+import '../../res/res.dart';
+import '../bottombar/screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -13,9 +14,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  late SplashProvider splashProvider;
+
   @override
   void initState() {
     super.initState();
+    splashProvider = SplashProvider();
+    splashProvider = Provider.of<SplashProvider>(context, listen: false);
+    splashProvider.init(context: context);
     Timer(const Duration(seconds: 3), () {
       NavigationHelper.pushReplacement(context, const HomeScreen());
     });
@@ -23,6 +29,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    initializeResources(context: context);
+    Provider.of<SplashProvider>(context, listen: true);
     return Scaffold(
       body: _getUI(context),
       backgroundColor: Colors.white,

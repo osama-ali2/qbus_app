@@ -4,6 +4,7 @@ import 'package:qbus/widgets/custom_button.dart';
 
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
+import '../../../auth/login_screens/login_screen.dart';
 
 class SelectAddition extends StatefulWidget {
   const SelectAddition({Key? key}) : super(key: key);
@@ -41,18 +42,26 @@ class _SelectAdditionState extends State<SelectAddition> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Container(
-                height: 45,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: appColor)),
-                child: const Center(
-                  child: CustomText(
-                      text: "SKIP",
-                      textSize: 15,
-                      fontWeight: FontWeight.w500,
-                      textColor: appColor),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginScreen()));
+                },
+                child: Container(
+                  height: 45,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: appColor)),
+                  child: const Center(
+                    child: CustomText(
+                        text: "Login",
+                        textSize: 15,
+                        fontWeight: FontWeight.w500,
+                        textColor: appColor),
+                  ),
                 ),
               ),
             )

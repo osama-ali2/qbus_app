@@ -1,7 +1,8 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
-import 'package:qbus/ui/bottombar/screens/home_screen.dart';
+import 'package:qbus/screens/auth/sign_up_screens/sign_up_screen.dart';
+import 'package:qbus/screens/bottombar/screens/home_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
@@ -94,31 +95,45 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 15,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: const [
-                      CustomText(
-                          text: "Don’t have account ? ",
-                          textSize: 13,
-                          fontWeight: FontWeight.normal,
-                          textColor: Colors.black),
-                      CustomText(
-                          text: "Sign Up",
-                          textSize: 13,
-                          fontWeight: FontWeight.normal,
-                          textColor: appColor),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const CustomText(
+              const Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: CustomText(
                       text: "Forget password",
                       textSize: 13,
                       fontWeight: FontWeight.normal,
                       textColor: appColor),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      const CustomText(
+                          text: "Don’t have account ? ",
+                          textSize: 13,
+                          fontWeight: FontWeight.normal,
+                          textColor: Colors.black),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUpScreen()));
+                        },
+                        child: const CustomText(
+                            text: "Sign Up",
+                            textSize: 13,
+                            fontWeight: FontWeight.normal,
+                            textColor: appColor),
+                      ),
+                    ],
+                  ),
                 ],
               )
             ],
@@ -129,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> loginHandler() async {
     if (mobileOrEmailController.text != "" && passwordController.text != "") {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('Loging in ...'),
+        content: const Text('Logging in ...'),
         backgroundColor: Colors.green.shade300,
       ));
 
@@ -140,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (res.data['error'] != "Unauthorised") {
         String accessToken = res.data['success']['token'];
-        //sucess
+        //success
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: const Text("Success Login"),
           backgroundColor: Colors.green.shade300,
@@ -157,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text("All fields requred"),
+        content: const Text("All fields required"),
         backgroundColor: Colors.red.shade300,
       ));
     }
