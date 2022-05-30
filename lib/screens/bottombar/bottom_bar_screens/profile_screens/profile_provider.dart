@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
-class ExploreProvider with ChangeNotifier {
+class ProfileProvider with ChangeNotifier {
   BuildContext? context;
   final Logger _logger = Logger();
 

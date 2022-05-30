@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
-import 'package:qbus/screens/bottombar/screens/search_screens/search_result.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/package_card.dart';
 import 'package:qbus/language.dart';
-import '../../../widgets/custom_button.dart';
-import '../../../widgets/custom_textField.dart';
-import 'explore_screens/explore_screen.dart';
+import '../../../../widgets/custom_button.dart';
+import '../../../../widgets/custom_textField.dart';
+import '../explore_screens/explore_screen.dart';
+import '../search_screens/search_result.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class GetStartedScreen extends StatefulWidget {
+  const GetStartedScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<GetStartedScreen> createState() => _GetStartedScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _GetStartedScreenState extends State<GetStartedScreen> {
   bool oneRoad = false;
   bool roundTrip = false;
   bool multiTrip = false;

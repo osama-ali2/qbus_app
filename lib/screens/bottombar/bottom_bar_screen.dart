@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:qbus/screens/bottombar/screens/history_screens/history_screen.dart';
-import 'package:qbus/screens/bottombar/screens/home_screen.dart';
-import 'package:qbus/screens/bottombar/screens/profile_screen.dart';
-import 'package:qbus/screens/bottombar/screens/setting_screen.dart';
 
 import '../../utils/constant.dart';
+import '../get_started_screens/get_started_screen.dart';
+import 'bottom_bar_screens/history_screens/history_screen.dart';
+import 'bottom_bar_screens/profile_screens/profile_screen.dart';
+import 'bottom_bar_screens/setting_screens/setting_screen.dart';
 
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     // TODO: implement initState
     super.initState();
     _tabs = [
-      const HomeScreen(),
+      const GetStartedScreen(),
       const HistoryScreen(),
       const ProfileScreen(),
       const SettingScreen()

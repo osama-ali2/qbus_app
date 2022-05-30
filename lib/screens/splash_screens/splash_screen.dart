@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
+import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
 import 'package:qbus/screens/splash_screens/splash_provider.dart';
 import '../../res/res.dart';
-import '../bottombar/screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     splashProvider = Provider.of<SplashProvider>(context, listen: false);
     splashProvider.init(context: context);
     Timer(const Duration(seconds: 3), () {
-      NavigationHelper.pushReplacement(context, const HomeScreen());
+      NavigationHelper.pushReplacement(context, const GetStartedScreen());
     });
   }
 

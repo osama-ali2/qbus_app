@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
-class SelectAdditionProvider with ChangeNotifier {
+class GetStartedProvider with ChangeNotifier {
   BuildContext? context;
   final Logger _logger = Logger();
 

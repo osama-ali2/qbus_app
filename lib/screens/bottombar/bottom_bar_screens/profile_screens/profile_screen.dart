@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
-import 'package:qbus/screens/bottombar/screens/contact_us_screens/contact_us_screen.dart';
 
-import '../../../utils/constant.dart';
-import '../../../widgets/custom_text.dart';
-import '../../../widgets/setting_card.dart';
+import '../../../../utils/constant.dart';
+import '../../../../widgets/custom_text.dart';
+import '../../../../widgets/setting_card.dart';
+import '../contact_us_screens/contact_us_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);

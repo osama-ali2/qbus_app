@@ -2,7 +2,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/screens/auth/sign_up_screens/sign_up_screen.dart';
-import 'package:qbus/screens/bottombar/screens/home_screen.dart';
+import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
@@ -167,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
 
         Timer(const Duration(seconds: 2), () {
-          NavigationHelper.pushReplacement(context, const HomeScreen());
+          NavigationHelper.pushReplacement(context, const GetStartedScreen());
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
