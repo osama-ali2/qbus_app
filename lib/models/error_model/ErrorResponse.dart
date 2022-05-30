@@ -4,25 +4,29 @@
 
 class ErrorResponse {
   ErrorResponse({
-      String? message, 
-      int? code, 
-      Data? data,}){
+    String? message,
+    int? code,
+    Data? data,
+  }) {
     _message = message;
     _code = code;
     _data = data;
-}
+  }
 
   ErrorResponse.fromJson(dynamic json) {
     _message = json['message'];
     _code = json['code'];
     _data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
+
   String? _message;
   int? _code;
   Data? _data;
 
   String? get message => _message;
+
   int? get code => _code;
+
   Data? get data => _data;
 
   Map<String, dynamic> toJson() {
@@ -34,20 +38,21 @@ class ErrorResponse {
     }
     return map;
   }
-
 }
 
 /// message : "The email is not verified. Please verify it to proceed"
 
 class Data {
   Data({
-      String? message,}){
+    String? message,
+  }) {
     _message = message;
-}
+  }
 
   Data.fromJson(dynamic json) {
     _message = json['message'];
   }
+
   String? _message;
 
   String? get message => _message;
@@ -57,5 +62,4 @@ class Data {
     map['message'] = _message;
     return map;
   }
-
 }
