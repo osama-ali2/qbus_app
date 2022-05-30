@@ -5,14 +5,14 @@ import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_text.dart';
 import '../../../../widgets/custom_textField.dart';
 
-class ContactUs extends StatefulWidget {
-  const ContactUs({Key? key}) : super(key: key);
+class ContactUsScreen extends StatefulWidget {
+  const ContactUsScreen({Key? key}) : super(key: key);
 
   @override
-  State<ContactUs> createState() => _ContactUsState();
+  State<ContactUsScreen> createState() => _ContactUsScreenState();
 }
 
-class _ContactUsState extends State<ContactUs> {
+class _ContactUsScreenState extends State<ContactUsScreen> {
   final TextEditingController _email = TextEditingController();
 
   @override

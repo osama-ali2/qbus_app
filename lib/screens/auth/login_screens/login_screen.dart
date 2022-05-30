@@ -10,6 +10,8 @@ import 'package:qbus/widgets/custom_textField.dart';
 import 'package:qbus/core/api_client.dart';
 import 'dart:async';
 
+import '../../bottombar/bottom_bar_screen.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -90,7 +92,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   // onTapped: () {
                   //   NavigationHelper.pushRoute(context, SignUpScreen());
                   // },
-                  onTapped: loginHandler,
+                  onTapped: () {
+                    NavigationHelper.pushReplacement(
+                        context, const BottomBarScreen());
+                  },
                   padding: 20),
               const SizedBox(
                 height: 15,

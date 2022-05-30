@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
-import 'package:qbus/screens/bottombar/screens/search/search_result.dart';
+import 'package:qbus/screens/bottombar/screens/search_screens/search_result.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
@@ -8,7 +8,7 @@ import 'package:qbus/widgets/package_card.dart';
 import 'package:qbus/language.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_textField.dart';
-import 'explore/explore_screen.dart';
+import 'explore_screens/explore_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

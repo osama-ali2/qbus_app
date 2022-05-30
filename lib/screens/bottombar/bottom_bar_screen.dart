@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qbus/screens/bottombar/screens/history_screen.dart';
+import 'package:qbus/screens/bottombar/screens/history_screens/history_screen.dart';
 import 'package:qbus/screens/bottombar/screens/home_screen.dart';
 import 'package:qbus/screens/bottombar/screens/profile_screen.dart';
 import 'package:qbus/screens/bottombar/screens/setting_screen.dart';

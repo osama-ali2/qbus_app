@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
-import '../../../utils/constant.dart';
-import '../../../widgets/custom_text.dart';
 
-class HistoryScreen extends StatefulWidget {
-  const HistoryScreen({Key? key}) : super(key: key);
+import '../../../../navigation/navigation_helper.dart';
+import '../../../../utils/constant.dart';
+import '../../../../widgets/custom_text.dart';
+import '../selectAddition/select_addition_screen.dart';
+
+class SearchResult extends StatefulWidget {
+  const SearchResult({Key? key}) : super(key: key);
 
   @override
-  State<HistoryScreen> createState() => _HistoryScreenState();
+  State<SearchResult> createState() => _SearchResultState();
 }
 
-class _HistoryScreenState extends State<HistoryScreen> {
+class _SearchResultState extends State<SearchResult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
-        automaticallyImplyLeading: false,
+        centerTitle: false,
         title: const CustomText(
-            text: "Booking History",
+            text: "Makkah - Al madina",
             textSize: 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
       ),
-      backgroundColor: Colors.white,
       body: _getUI(context),
     );
   }
@@ -32,17 +34,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      child: ListView.builder(
-          itemCount: 3,
-          itemBuilder: (context, i) {
-            return _card(context);
-          }),
+      child: ListView.builder(itemBuilder: (context, i) {
+        return InkWell(
+            onTap: () {
+              NavigationHelper.pushRoute(context, const SelectAdditionScreen());
+            },
+            child: _card(context));
+      }),
     );
   }
 
   Widget _card(BuildContext context) {
     return Container(
-      height: 100,
+      height: 130,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: Colors.grey.shade300))),
@@ -60,7 +64,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 Row(
                   children: const [
                     CustomText(
-                        text: " 10:30 Makkah",
+                        text: "10:30 Makkah",
                         textSize: 14,
                         fontWeight: FontWeight.w400,
                         textColor: Color(0xff747268)),
@@ -70,7 +74,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       size: 18,
                     ),
                     CustomText(
-                        text: " 10:30 Makkah",
+                        text: "10:30 Makkah",
                         textSize: 14,
                         fontWeight: FontWeight.w400,
                         textColor: Color(0xff747268)),
@@ -89,6 +93,38 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         textColor: Colors.white),
                   ),
                 )
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: const [
+                    CustomText(
+                        text: "Station A",
+                        textSize: 14,
+                        fontWeight: FontWeight.w400,
+                        textColor: Color(0xff747268)),
+                    Icon(
+                      Icons.play_arrow,
+                      color: Color(0xff747268),
+                      size: 18,
+                    ),
+                    CustomText(
+                        text: "Station B",
+                        textSize: 14,
+                        fontWeight: FontWeight.w400,
+                        textColor: Color(0xff747268)),
+                  ],
+                ),
+                const CustomText(
+                    text: "5 Stops",
+                    textSize: 14,
+                    fontWeight: FontWeight.w400,
+                    textColor: Color(0xff747268))
               ],
             ),
             const SizedBox(
@@ -121,20 +157,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
             const SizedBox(
               height: 10,
             ),
-            Container(
-              height: 20,
-              width: 60,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(2),
-                  border: Border.all(color: appColor)),
-              child: const Center(
-                child: CustomText(
-                    text: "Booked",
-                    textSize: 10,
-                    fontWeight: FontWeight.normal,
-                    textColor: appColor),
-              ),
-            )
+            const CustomText(
+                text: "Ac / Hotel 3 star / meal",
+                textSize: 14,
+                fontWeight: FontWeight.w500,
+                textColor: Colors.grey),
           ],
         ),
       ),

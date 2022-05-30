@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
-import 'package:qbus/screens/bottombar/screens/contactus/contact_us.dart';
+import 'package:qbus/screens/bottombar/screens/contact_us_screens/contact_us_screen.dart';
 
 import '../../../utils/constant.dart';
 import '../../../widgets/custom_text.dart';
@@ -130,7 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         SettingCard(
           onTap: () {
-            NavigationHelper.pushRoute(context, const ContactUs());
+            NavigationHelper.pushRoute(context, const ContactUsScreen());
           },
           name: 'Contact us',
         ),

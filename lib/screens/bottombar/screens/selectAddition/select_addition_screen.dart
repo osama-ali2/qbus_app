@@ -6,14 +6,14 @@ import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
 import '../../../auth/login_screens/login_screen.dart';
 
-class SelectAddition extends StatefulWidget {
-  const SelectAddition({Key? key}) : super(key: key);
+class SelectAdditionScreen extends StatefulWidget {
+  const SelectAdditionScreen({Key? key}) : super(key: key);
 
   @override
-  State<SelectAddition> createState() => _SelectAdditionState();
+  State<SelectAdditionScreen> createState() => _SelectAdditionScreenState();
 }
 
-class _SelectAdditionState extends State<SelectAddition> {
+class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
   int hotel = 0;
   int chicken = 0;
   int water = 0;
