@@ -5,7 +5,9 @@ class SettingCard extends StatelessWidget {
   final String name;
   final Function onTap;
 
-  const SettingCard({Key? key, required this.name, required this.onTap}) : super(key: key);
+  const SettingCard({Key? key, required this.name, required this.onTap})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,7 +16,8 @@ class SettingCard extends StatelessWidget {
         height: 52,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xffE7E8E8)), color: Colors.white),
+            border: Border.all(color: const Color(0xffE7E8E8)),
+            color: Colors.white),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5.0),
           child: Row(
@@ -24,15 +27,14 @@ class SettingCard extends StatelessWidget {
                   text: name,
                   textSize: 14,
                   fontWeight: FontWeight.w400,
-                  textColor:  Colors.black),
+                  textColor: Colors.black),
               IconButton(
-                  onPressed: ()=>onTap(),
+                  onPressed: () => onTap(),
                   icon: const Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.black,
                     size: 18,
                   ))
-
             ],
           ),
         ),
