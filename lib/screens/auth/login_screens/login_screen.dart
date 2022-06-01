@@ -1,6 +1,7 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
+import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/auth/sign_up_screens/sign_up_screen.dart';
 import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
 import 'package:qbus/utils/constant.dart';
@@ -23,7 +24,6 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController mobileOrEmailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final ApiClient _apiClient = ApiClient();
 
   @override
   Widget build(BuildContext context) {
@@ -147,39 +147,49 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> loginHandler() async {
-    if (mobileOrEmailController.text != "" && passwordController.text != "") {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('Logging in ...'),
-        backgroundColor: Colors.green.shade300,
-      ));
+    var mobileOrEmail = mobileOrEmailController.text.toString().trim();
+    var password = passwordController.text.toString().trim();
 
-      // String phone = "0552837665";
-      // String password = "123456789";
-      dynamic res = await _apiClient.login(
-          mobileOrEmailController.text, passwordController.text);
-
-      if (res.data['error'] != "Unauthorised") {
-        String accessToken = res.data['success']['token'];
-        //success
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: const Text("Success Login"),
-          backgroundColor: Colors.green.shade300,
-        ));
-
-        Timer(const Duration(seconds: 2), () {
-          NavigationHelper.pushReplacement(context, const GetStartedScreen());
-        });
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(res.data['error']),
-          backgroundColor: Colors.red.shade300,
-        ));
-      }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text("All fields required"),
-        backgroundColor: Colors.red.shade300,
-      ));
+    if (mobileOrEmail.isNotEmpty && password.isNotEmpty) {
+    } else if (mobileOrEmail.isEmpty) {
+      Toasts.getErrorToast(text: "Mobile/Email Field is required");
+    } else if (password.isEmpty) {
+      Toasts.getErrorToast(text: "Password Field is required");
     }
+
+    // if (mobileOrEmailController.text != "" && passwordController.text != "") {
+    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //     content: const Text('Logging in ...'),
+    //     backgroundColor: Colors.green.shade300,
+    //   ));
+    //
+    //   // String phone = "0552837665";
+    //   // String password = "123456789";
+    //   dynamic res = await _apiClient.login(
+    //       mobileOrEmailController.text, passwordController.text);
+    //
+    //   if (res.data['error'] != "Unauthorised") {
+    //     String accessToken = res.data['success']['token'];
+    //     //success
+    //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //       content: const Text("Success Login"),
+    //       backgroundColor: Colors.green.shade300,
+    //     ));
+    //
+    //     Timer(const Duration(seconds: 2), () {
+    //       NavigationHelper.pushReplacement(context, const GetStartedScreen());
+    //     });
+    //   } else {
+    //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //       content: Text(res.data['error']),
+    //       backgroundColor: Colors.red.shade300,
+    //     ));
+    //   }
+    // } else {
+    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //     content: const Text("All fields required"),
+    //     backgroundColor: Colors.red.shade300,
+    //   ));
+    // }
   }
 }

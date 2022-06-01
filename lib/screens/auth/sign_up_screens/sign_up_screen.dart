@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
 import '../../../navigation/navigation_helper.dart';
@@ -15,7 +16,14 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController _email = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _yourAddressController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  var selectedCity = "";
+  var selectedMartialStatus = "";
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +41,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Container(
+          child: SizedBox(
             height: 52,
             width: 185,
             child: Image.asset(
@@ -54,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           height: 20,
         ),
         CustomTextField(
-          controller: _email,
+          controller: _fullNameController,
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.name,
@@ -64,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           height: 15,
         ),
         CustomTextField(
-          controller: _email,
+          controller: _phoneNumberController,
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.name,
@@ -74,7 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           height: 15,
         ),
         CustomTextField(
-          controller: _email,
+          controller: _emailController,
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.name,
@@ -94,7 +102,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Center(
               child: DropdownButton<String>(
                 hint: const CustomText(
-                    text: "  City",
+                    text: "City",
                     textSize: 12,
                     fontWeight: FontWeight.normal,
                     textColor: Colors.black),
@@ -107,7 +115,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Text(value),
                   );
                 }).toList(),
-                onChanged: (_) {},
+                onChanged: (value) {
+                  setState(() {
+                    selectedCity = value!;
+                  });
+                  debugPrint("selectedCity: $selectedCity");
+                },
               ),
             ),
           ),
@@ -116,7 +129,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           height: 15,
         ),
         CustomTextField(
-          controller: _email,
+          controller: _yourAddressController,
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.name,
@@ -148,7 +161,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Text(value),
                   );
                 }).toList(),
-                onChanged: (_) {},
+                onChanged: (value) {
+                  setState(() {
+                    selectedMartialStatus = value!;
+                  });
+                  debugPrint(
+                      "selected Martial Status: $selectedMartialStatus ");
+                },
               ),
             ),
           ),
@@ -157,7 +176,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           height: 15,
         ),
         CustomTextField(
-          controller: _email,
+          controller: _passwordController,
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.name,
@@ -176,8 +195,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             fontWeight: FontWeight.normal,
             borderRadius: 5,
             onTapped: () {
-              NavigationHelper.pushReplacement(
-                  context, const BottomBarScreen());
+              validateSignUpData();
             },
             padding: 20),
         const SizedBox(
@@ -208,5 +226,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
         )
       ],
     );
+  }
+
+  Future<void> validateSignUpData() async {
+    var fullName = _fullNameController.text.toString().trim();
+    var mobilePhone = _phoneNumberController.text.toString().trim();
+    var email = _emailController.text.toString().trim();
+    var yourAddress = _yourAddressController.text.toString().trim();
+    var password = _passwordController.text.toString().trim();
+
+    if (fullName.isNotEmpty &&
+        mobilePhone.isNotEmpty &&
+        email.isNotEmpty &&
+        yourAddress.isNotEmpty &&
+        password.isNotEmpty &&
+        selectedMartialStatus != "" &&
+        selectedCity != "") {
+      NavigationHelper.pushReplacement(context, const BottomBarScreen());
+    } else if (fullName.isEmpty) {
+      Toasts.getErrorToast(text: "Field is required");
+    } else if (mobilePhone.isEmpty) {
+      Toasts.getErrorToast(text: "Field is required");
+    } else if (email.isEmpty) {
+      Toasts.getErrorToast(text: "Field is required");
+    } else if (yourAddress.isEmpty) {
+      Toasts.getErrorToast(text: "Field is required");
+    } else if (password.isEmpty) {
+      Toasts.getErrorToast(text: "Field is required");
+    } else if (selectedMartialStatus == "") {
+      Toasts.getErrorToast(text: "Field is required");
+    } else if (selectedCity == "") {
+      Toasts.getErrorToast(text: "Field is required");
+    }
   }
 }
