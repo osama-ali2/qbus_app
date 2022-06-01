@@ -1,27 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const primary50 = Color.fromRGBO(224, 228, 255, 1);
-  static const primary100 = Color.fromRGBO(181, 190, 255, 1);
-  static const primary200 = Color.fromRGBO(143, 155, 243, 1);
-  static const primary300 = Color.fromRGBO(112, 127, 243, 1);
-  static const primary400 = Color.fromRGBO(63, 84, 243, 1);
-  static const primary500 = Color.fromRGBO(33, 57, 243, 1);
-  static const primary800 = Color.fromRGBO(36, 53, 112, 1);
-  static const primary900 = Color.fromRGBO(20, 30, 65, 1);
+  static const primary = Color.fromRGBO(99, 102, 241, 1);
+  static const containerShadowColor = Color.fromRGBO(99, 102, 241, 0.1);
+  static const white = Color.fromRGBO(255, 255, 255, 1);
+  static const black900 = Color.fromRGBO(25, 26, 64, 1);
 
-  static const neutral900 = Color.fromRGBO(15, 23, 40, 1);
-  static const neutral500 = Color.fromRGBO(117, 127, 148, 1);
-  static const neutral600 = Color.fromRGBO(75, 85, 105, 1);
-  static const neutral400 = Color.fromRGBO(158, 165, 181, 1);
-  static const neutral300 = Color.fromRGBO(0xB8, 0xBE, 0xCC, 1);
-  static const neutral50 = Color.fromRGBO(240, 244, 252, 1);
-  static const drawerDividerColor = Color.fromRGBO(184, 190, 204, 1);
-  static const settingContainerShadowColor = Color.fromRGBO(203, 206, 228, 0.47);
-  static const mainHomePageUserContainerColor = Color.fromRGBO(0xF0, 0xF4, 0xFC, 1);
-  static const profileContainerShadowColor = Color.fromRGBO(163, 53, 150, 0.1);
 
-  static const transactionContainerShadowColor = Color.fromRGBO(163, 53, 150, 0.2);
+  static const transactionContainerShadowColor =
+      Color.fromRGBO(163, 53, 150, 0.2);
   static const premiumCardColor = Color.fromRGBO(255, 248, 254, 1);
 
   static const success50 = Color.fromRGBO(239, 255, 232, 1);
@@ -37,8 +24,6 @@ class AppColors {
 
   static const error400 = Color.fromRGBO(240, 79, 79, 1);
   static const error500 = Color.fromRGBO(227, 57, 57, 1);
-
-
 
   static const secondary50 = Color.fromRGBO(252, 243, 229, 1);
   static const secondary100 = Color.fromRGBO(252, 236, 209, 1);
@@ -57,7 +42,8 @@ class AppColors {
   static const tertiary500Opectiy = Color.fromRGBO(163, 53, 150, 0.1);
   static const tertiary900 = Color.fromRGBO(132, 0, 117, 1);
   static const tertiaryDrawer = Color.fromRGBO(255, 241, 253, 1);
-  static const manageSessionContainerShadow = Color.fromRGBO(203, 206, 228, 0.29);
+  static const manageSessionContainerShadow =
+      Color.fromRGBO(203, 206, 228, 0.29);
 
   // rgba(163, 53, 150, 0.1)
 
@@ -65,9 +51,6 @@ class AppColors {
   // rgba(166, 19, 148, 1)
   static const creditLinearColorOne = Color.fromRGBO(190, 27, 171, 1);
   static const creditLinearColorTwo = Color.fromRGBO(166, 19, 148, 1);
-
-
-
 
   // Packages Mall
   static const pmGetStartedButtonColor = Color.fromRGBO(7, 122, 197, 1);
