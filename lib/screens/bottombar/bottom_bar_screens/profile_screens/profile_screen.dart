@@ -30,98 +30,97 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: appColor,
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const CustomText(
-            text: "Profile",
-            textSize: 18,
-            fontWeight: FontWeight.w400,
-            textColor: Colors.white),
+        title: const Center(
+          child: CustomText(
+              text: "Profile",
+              textSize: 18,
+              fontWeight: FontWeight.w700,
+              textColor: Colors.white),
+        ),
       ),
-      body: _getUI(context),
-    );
-  }
-
-  Widget _getUI(BuildContext context) {
-    return Column(
-      children: [
-        CommonPadding.sizeBoxWithHeight(height: 20),
-        Container(
-          height: sizes!.heightRatio * 80,
-          width: sizes!.widthRatio * 345,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: const [
-                BoxShadow(
-                  color: AppColors.containerShadowColor,
-                  blurRadius: 10.0,
-                  offset: Offset(0, 2),
-                ),
-              ],
-              color: Colors.white),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: sizes!.heightRatio * 12,
-                vertical: sizes!.heightRatio * 12),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SvgPicture.asset(
-                  "assets/svg/user_icon.svg",
-                  height: sizes!.heightRatio * 30,
-                  width: sizes!.widthRatio * 30,
-                ),
-                CommonPadding.sizeBoxWithWidth(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextView.getMediumText14(
-                        "Abdelhadi Mohammed", Assets.latoBold,
-                        color: AppColors.black900,
-                        fontWeight: FontWeight.w400,
-                        lines: 1),
-                    CommonPadding.sizeBoxWithHeight(height: 4),
-                    TextView.getMediumText14("Male", Assets.latoBold,
-                        color: AppColors.black900,
-                        fontWeight: FontWeight.w400,
-                        lines: 1),
-                    CommonPadding.sizeBoxWithHeight(height: 4),
-                    TextView.getMediumText14("0507070656", Assets.latoBold,
-                        color: AppColors.black900,
-                        fontWeight: FontWeight.w400,
-                        lines: 1),
-                  ],
-                )
-              ],
+      body: Column(
+        children: [
+          CommonPadding.sizeBoxWithHeight(height: 20),
+          Container(
+            height: sizes!.heightRatio * 80,
+            width: sizes!.widthRatio * 345,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: const [
+                  BoxShadow(
+                    color: AppColors.containerShadowColor,
+                    blurRadius: 10.0,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+                color: Colors.white),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: sizes!.heightRatio * 12,
+                  vertical: sizes!.heightRatio * 12),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SvgPicture.asset(
+                    "assets/svg/user_icon.svg",
+                    height: sizes!.heightRatio * 30,
+                    width: sizes!.widthRatio * 30,
+                  ),
+                  CommonPadding.sizeBoxWithWidth(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextView.getMediumText14(
+                          "Abdelhadi Mohammed", Assets.latoBold,
+                          color: AppColors.black900,
+                          fontWeight: FontWeight.w400,
+                          lines: 1),
+                      CommonPadding.sizeBoxWithHeight(height: 4),
+                      TextView.getMediumText14("Male", Assets.latoBold,
+                          color: AppColors.black900,
+                          fontWeight: FontWeight.w400,
+                          lines: 1),
+                      CommonPadding.sizeBoxWithHeight(height: 4),
+                      TextView.getMediumText14("0507070656", Assets.latoBold,
+                          color: AppColors.black900,
+                          fontWeight: FontWeight.w400,
+                          lines: 1),
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-        ).get20HorizontalPadding(),
-        CommonPadding.sizeBoxWithHeight(height: 15),
-        getRow(title: 'Booking History', onPress: () {}),
-        CommonPadding.sizeBoxWithHeight(height: 15),
-        getRow(title: 'Wallet', onPress: () {}),
-        CommonPadding.sizeBoxWithHeight(height: 15),
-        getRow(title: 'Full Bus Reservation', onPress: () {}),
-        CommonPadding.sizeBoxWithHeight(height: 15),
-        getRow(title: 'About us', onPress: () {}),
-        CommonPadding.sizeBoxWithHeight(height: 15),
-        getRow(title: 'Privacy Policy', onPress: () {}),
-        CommonPadding.sizeBoxWithHeight(height: 15),
-        getRow(title: 'Return Policy', onPress: () {}),
-        CommonPadding.sizeBoxWithHeight(height: 15),
-        getRow(
-            title: "Contact us",
-            onPress: () {
-              NavigationHelper.pushRoute(context, const ContactUsScreen());
-            }),
-        CommonPadding.sizeBoxWithHeight(height: 15),
-        getRow(
-            title: "Logout",
-            onPress: () {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginScreen()),
-                  (route) => false);
-            }),
-      ],
+          ).get20HorizontalPadding(),
+          CommonPadding.sizeBoxWithHeight(height: 15),
+          getRow(title: 'Booking History', onPress: () {}),
+          CommonPadding.sizeBoxWithHeight(height: 15),
+          getRow(title: 'Wallet', onPress: () {}),
+          CommonPadding.sizeBoxWithHeight(height: 15),
+          getRow(title: 'Full Bus Reservation', onPress: () {}),
+          CommonPadding.sizeBoxWithHeight(height: 15),
+          getRow(title: 'About us', onPress: () {}),
+          CommonPadding.sizeBoxWithHeight(height: 15),
+          getRow(title: 'Privacy Policy', onPress: () {}),
+          CommonPadding.sizeBoxWithHeight(height: 15),
+          getRow(title: 'Return Policy', onPress: () {}),
+          CommonPadding.sizeBoxWithHeight(height: 15),
+          getRow(
+              title: "Contact us",
+              onPress: () {
+                NavigationHelper.pushRoute(context, const ContactUsScreen());
+              }),
+          CommonPadding.sizeBoxWithHeight(height: 15),
+          getRow(
+              title: "Logout",
+              onPress: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()),
+                    (route) => false);
+              }),
+        ],
+      ),
     );
   }
 
