@@ -1,3 +1,4 @@
+import 'package:qbus/models/trips/TripsResponse.dart';
 import '../models/error_model/ErrorResponse.dart';
 import '../models/packages/PackagesResponse.dart';
 
@@ -6,6 +7,7 @@ class Models {
   static const String errorModel = "errorModel";
 
   static const String packagesModel = "packagesModel";
+  static const String tripsModel = "tripsModel";
 
   static const String loginModel = "loginModel";
   static const String signupModel = "signupModel";
@@ -15,8 +17,8 @@ class Models {
     switch (modelName) {
       case packagesModel:
         return PackagesResponse.fromJson(json);
-      // case signupModel:
-      //   return RegisterResponse.fromJson(json);
+      case tripsModel:
+        return TripsResponse.fromJson(json);
       case errorModel:
         return ErrorResponse.fromJson(json);
     }

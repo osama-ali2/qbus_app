@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:qbus/screens/search_screens/search_provider.dart';
 
 import '../../../../navigation/navigation_helper.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
+import '../../res/assets.dart';
+import '../../res/colors.dart';
+import '../../widgets/text_views.dart';
 import '../selectAddition/select_addition_screen.dart';
 
 class SearchResult extends StatefulWidget {
@@ -13,34 +18,64 @@ class SearchResult extends StatefulWidget {
 }
 
 class _SearchResultState extends State<SearchResult> {
+  late SearchProvider searchProvider;
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: appColor,
-        elevation: 0,
-        centerTitle: false,
-        title: const CustomText(
-            text: "Makkah - Al madina",
-            textSize: 18,
-            fontWeight: FontWeight.w400,
-            textColor: Colors.white),
-      ),
-      body: _getUI(context),
-    );
+  void initState() {
+    super.initState();
+
+    searchProvider = SearchProvider();
+    searchProvider = Provider.of<SearchProvider>(context, listen: false);
+    searchProvider.init(context: context);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      searchProvider.getTripsData();
+    });
   }
 
-  Widget _getUI(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: ListView.builder(itemBuilder: (context, i) {
-        return InkWell(
-            onTap: () {
-              NavigationHelper.pushRoute(context, const SelectAdditionScreen());
-            },
-            child: _card(context));
-      }),
+  @override
+  Widget build(BuildContext context) {
+    Provider.of<SearchProvider>(context, listen: true);
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: appColor,
+          elevation: 0,
+          centerTitle: false,
+          title: const CustomText(
+              text: "Makkah - Al Madina",
+              textSize: 18,
+              fontWeight: FontWeight.w400,
+              textColor: Colors.white),
+        ),
+        body: Column(
+          children: [
+            searchProvider.isTripDataLoaded
+                ? Expanded(
+                    child: searchProvider.tripsResponse.data!.trips!.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: searchProvider
+                                .tripsResponse.data!.trips!.length,
+                            itemBuilder: (context, i) {
+                              return InkWell(
+                                  onTap: () {
+                                    NavigationHelper.pushRoute(
+                                        context, const SelectAdditionScreen());
+                                  },
+                                  child: _card(context));
+                            })
+                        : Center(
+                            child: TextView.getSubHeadingTextWith15(
+                                "No Data Available", Assets.latoBold,
+                                color: AppColors.blueHomeColor,
+                                lines: 1,
+                                fontWeight: FontWeight.normal),
+                          ),
+                  )
+                : Container()
+          ],
+        ),
+      ),
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:qbus/models/trips/TripsResponse.dart';
 import 'package:qbus/widgets/loader.dart';
 
 import '../../models/packages/PackagesResponse.dart';
@@ -13,12 +14,16 @@ class GetStartedProvider with ChangeNotifier {
   final Loader _loader = Loader();
 
   bool isDataLoaded = false;
+
   PackagesResponse packagesResponse = PackagesResponse();
+
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
     isDataLoaded = false;
+
   }
+
 
   Future<void> getPackagesData() async {
     try {
