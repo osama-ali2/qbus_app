@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
-import 'package:qbus/network_manager/api_url.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
-import 'package:qbus/widgets/package_card.dart';
 import 'package:qbus/language.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_textField.dart';
+import '../../res/assets.dart';
+import '../../res/colors.dart';
+import '../../widgets/text_views.dart';
 import '../explore_screens/explore_screen.dart';
 import '../search_screens/search_result.dart';
 
@@ -232,29 +233,43 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               ? SizedBox(
                   height: 250,
                   width: MediaQuery.of(context).size.width,
-                  child: ListView.builder(
-                      itemCount:
-                          getStartedProvider.packagesResponse.data!.length,
-                      itemBuilder: (context, i) {
-                        var data = getStartedProvider.packagesResponse.data![i];
-                        var packageName = data.name!.en.toString();
-                        var rating = data.rate.toString();
-                        var fee = data.fees.toString();
-                        var thumbnailImage = data.image.toString();
-                        var dateFrom = data.dateFrom.toString();
-                        var detail = data.description!.en.toString();
-                        debugPrint("thumbnailImage: $baseUrl/$thumbnailImage");
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: packageCardContainer(
-                            title: packageName,
-                            rating: rating,
-                            fee: fee,
-                            dateFrom: dateFrom,
-                            detail: detail,
-                          ),
-                        );
-                      }),
+                  child: getStartedProvider
+                          .packagesResponse.data!.packages!.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: getStartedProvider
+                              .packagesResponse.data!.packages!.length,
+                          itemBuilder: (context, i) {
+                            var data = getStartedProvider
+                                .packagesResponse.data!.packages![i];
+                            var packageName = data.name!.en.toString();
+                            var rating = data.rate.toString();
+                            var fee = data.fees.toString();
+                            var image = data.image.toString();
+                            var baseUrl = getStartedProvider
+                                .packagesResponse.data!.imageBase
+                                .toString();
+                            var thumbnailImage = "$baseUrl/$image";
+                            var dateFrom = data.dateFrom.toString();
+                            var detail = data.description!.en.toString();
+                            debugPrint("thumbnailImage: $thumbnailImage");
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: packageCardContainer(
+                                  title: packageName,
+                                  rating: rating,
+                                  fee: fee,
+                                  dateFrom: dateFrom,
+                                  detail: detail,
+                                  image: thumbnailImage),
+                            );
+                          })
+                      : Center(
+                          child: TextView.getSubHeadingTextWith15(
+                              "No Data Available", Assets.latoBold,
+                              color: AppColors.blueHomeColor,
+                              lines: 1,
+                              fontWeight: FontWeight.normal),
+                        ),
                 )
               : Container()
         ],
@@ -268,6 +283,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     required String fee,
     required String dateFrom,
     required String detail,
+    required String image,
   }) =>
       SizedBox(
         height: 100,
@@ -280,11 +296,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(12)),
               child: ClipRRect(
-                  borderRadius: BorderRadius.circular(6),
-                  child: Image.asset(
-                    "assets/images/asste.png",
-                    fit: BoxFit.fill,
-                  )),
+                borderRadius: BorderRadius.circular(6),
+                child: Image.network(image),
+              ),
             ),
             const SizedBox(
               width: 5,
@@ -305,7 +319,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   height: 30,
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: CustomText(
-                    text: "${detail.substring(0, 60)}...",
+                    text: "$detail...",
                     textSize: 10,
                     fontWeight: FontWeight.normal,
                     textColor: Colors.black,

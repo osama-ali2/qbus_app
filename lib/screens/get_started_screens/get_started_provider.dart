@@ -13,7 +13,6 @@ class GetStartedProvider with ChangeNotifier {
   final Loader _loader = Loader();
 
   bool isDataLoaded = false;
-
   PackagesResponse packagesResponse = PackagesResponse();
 
   Future<void> init({@required BuildContext? context}) async {
