@@ -7,6 +7,9 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/about_us_screens/about_us_screen.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/privacy_policy_screens/privacy_policy_screen.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/return_policy_screens/return_policy_screen.dart';
 import 'package:qbus/widgets/text_views.dart';
 
 import '../../../../utils/constant.dart';
@@ -98,11 +101,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
           CommonPadding.sizeBoxWithHeight(height: 15),
           getRow(title: 'Full Bus Reservation', onPress: () {}),
           CommonPadding.sizeBoxWithHeight(height: 15),
-          getRow(title: 'About us', onPress: () {}),
+          getRow(
+              title: 'About us',
+              onPress: () {
+                NavigationHelper.pushRoute(context, const AboutUsScreen());
+              }),
           CommonPadding.sizeBoxWithHeight(height: 15),
-          getRow(title: 'Privacy Policy', onPress: () {}),
+          getRow(
+              title: 'Privacy Policy',
+              onPress: () {
+                NavigationHelper.pushRoute(
+                    context, const PrivacyPolicyScreen());
+              }),
           CommonPadding.sizeBoxWithHeight(height: 15),
-          getRow(title: 'Return Policy', onPress: () {}),
+          getRow(
+              title: 'Return Policy',
+              onPress: () {
+                NavigationHelper.pushRoute(context, const ReturnPolicyScreen());
+              }),
           CommonPadding.sizeBoxWithHeight(height: 15),
           getRow(
               title: "Contact us",
@@ -125,42 +141,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget getRow({required String title, required Function? onPress}) =>
-      Container(
-        height: sizes!.heightRatio * 42,
-        width: sizes!.widthRatio * 335,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: const [
-              BoxShadow(
-                color: AppColors.containerShadowColor,
-                blurRadius: 10.0,
-                offset: Offset(0, 2),
-              ),
-            ],
-            color: Colors.white),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextView.getMediumText14(title, Assets.latoBold,
-                  color: AppColors.black900,
-                  fontWeight: FontWeight.w400,
-                  lines: 1),
-              GestureDetector(
-                onTap: () {
-                  if (onPress != null) {
-                    onPress.call();
-                  }
-                },
-                child: SvgPicture.asset(
+      GestureDetector(
+        onTap: () {
+          if (onPress != null) {
+            onPress.call();
+          }
+        },
+        child: Container(
+          height: sizes!.heightRatio * 42,
+          width: sizes!.widthRatio * 335,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: const [
+                BoxShadow(
+                  color: AppColors.containerShadowColor,
+                  blurRadius: 10.0,
+                  offset: Offset(0, 2),
+                ),
+              ],
+              color: Colors.white),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextView.getMediumText14(title, Assets.latoBold,
+                    color: AppColors.black900,
+                    fontWeight: FontWeight.w400,
+                    lines: 1),
+                SvgPicture.asset(
                   "assets/svg/forward_icon.svg",
                   width: sizes!.widthRatio * 24,
                   height: sizes!.heightRatio * 24,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ).get20HorizontalPadding();
+        ).get20HorizontalPadding(),
+      );
 }

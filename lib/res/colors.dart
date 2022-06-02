@@ -8,7 +8,6 @@ class AppColors {
   static const gray = Color.fromRGBO(124, 125, 153, 1);
 
 
-
   static const transactionContainerShadowColor =
       Color.fromRGBO(163, 53, 150, 0.2);
   static const premiumCardColor = Color.fromRGBO(255, 248, 254, 1);
