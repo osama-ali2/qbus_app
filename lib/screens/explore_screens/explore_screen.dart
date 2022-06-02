@@ -4,6 +4,7 @@ import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/screens/explore_screens/explore_provider.dart';
+import 'package:qbus/screens/package_filter_screens/package_filter_screen.dart';
 import 'package:qbus/widgets/text_views.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_button.dart';
@@ -111,7 +112,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
             textColor: Colors.white,
             fontWeight: FontWeight.normal,
             borderRadius: 5,
-            onTapped: () {},
+            onTapped: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PackageFilterScreen()));
+            },
             padding: 0),
         CommonPadding.sizeBoxWithHeight(height: 30),
       ],

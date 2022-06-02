@@ -16,7 +16,6 @@ import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
 import '../../../../widgets/setting_card.dart';
 import '../contact_us_screens/contact_us_screen.dart';
-import 'booking_history_screens/booking_history_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -95,13 +94,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ).get20HorizontalPadding(),
-          CommonPadding.sizeBoxWithHeight(height: 15),
-          getRow(
-              title: 'Booking History',
-              onPress: () {
-                NavigationHelper.pushRoute(
-                    context, const BookingHistoryScreen());
-              }),
           CommonPadding.sizeBoxWithHeight(height: 15),
           getRow(title: 'Wallet', onPress: () {}),
           CommonPadding.sizeBoxWithHeight(height: 15),

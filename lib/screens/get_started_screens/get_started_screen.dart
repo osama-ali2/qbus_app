@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
+import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
@@ -26,8 +27,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   bool roundTrip = false;
   bool multiTrip = false;
   int number = 0;
-  final TextEditingController _email = TextEditingController();
 
+  bool tripType = false;
+
+  late TextEditingController departureFromController;
+  late TextEditingController arrivalToController;
+  late TextEditingController dateController;
   late GetStartedProvider getStartedProvider;
 
   @override
@@ -37,7 +42,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     getStartedProvider =
         Provider.of<GetStartedProvider>(context, listen: false);
     getStartedProvider.init(context: context);
-
+    departureFromController = TextEditingController();
+    arrivalToController = TextEditingController();
+    dateController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getStartedProvider.getPackagesData();
     });
@@ -109,20 +116,26 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 multiTrip = false;
                 roundTrip = false;
                 oneRoad = true;
-                setState(() {});
+                setState(() {
+                  tripType = oneRoad;
+                });
               }),
               checkBox(context, roundTrip, "Round Trip", () {
                 multiTrip = false;
                 roundTrip = true;
                 oneRoad = false;
-                setState(() {});
+                setState(() {
+                  tripType = roundTrip;
+                });
               }),
               checkBox(context, multiTrip, "Multi Destination", () {
                 multiTrip = true;
                 roundTrip = false;
                 oneRoad = false;
 
-                setState(() {});
+                setState(() {
+                  tripType = multiTrip;
+                });
               }),
             ],
           ),
@@ -130,7 +143,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: 20,
           ),
           CustomTextField(
-            controller: _email,
+            controller: departureFromController,
             padding: 0,
             validator: (val) => null,
             inputType: TextInputType.name,
@@ -140,7 +153,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: 10,
           ),
           CustomTextField(
-            controller: _email,
+            controller: arrivalToController,
             padding: 0,
             validator: (val) => null,
             inputType: TextInputType.name,
@@ -150,7 +163,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: 10,
           ),
           CustomTextField(
-            controller: _email,
+            controller: dateController,
             padding: 0,
             validator: (val) => null,
             inputType: TextInputType.name,
@@ -185,9 +198,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           CustomButton(
               name: "Search",
               buttonColor: appColor,
-              height: 45,
+              height: sizes!.heightRatio * 45,
               width: double.infinity,
-              textSize: 14,
+              textSize: sizes!.fontRatio * 16,
               textColor: Colors.white,
               fontWeight: FontWeight.normal,
               borderRadius: 5,
@@ -231,7 +244,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           ),
           getStartedProvider.isDataLoaded
               ? SizedBox(
-                  height: 250,
+                  height: sizes!.height / 2,
                   width: MediaQuery.of(context).size.width,
                   child: getStartedProvider
                           .packagesResponse.data!.packages!.isNotEmpty
