@@ -1,5 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/about_us_screens/about_us_provider.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/booking_history_screens/booking_history_provider.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/privacy_policy_screens/privacy_policy_provider.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import '../screens/auth/login_screens/login_provider.dart';
@@ -72,8 +73,13 @@ final multiProviders = [
   ChangeNotifierProvider<PrivacyPolicyProvider>(
     create: (_) => PrivacyPolicyProvider(),
     lazy: true,
-  ),ChangeNotifierProvider<ReturnPolicyProvider>(
+  ),
+  ChangeNotifierProvider<ReturnPolicyProvider>(
     create: (_) => ReturnPolicyProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<BookingHistoryProvider>(
+    create: (_) => BookingHistoryProvider(),
     lazy: true,
   ),
 ];
