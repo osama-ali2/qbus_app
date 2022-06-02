@@ -97,8 +97,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           CommonPadding.sizeBoxWithHeight(height: 15),
           getRow(title: 'Wallet', onPress: () {}),
           CommonPadding.sizeBoxWithHeight(height: 15),
-          getRow(title: 'Full Bus Reservation', onPress: () {}),
-          CommonPadding.sizeBoxWithHeight(height: 15),
           getRow(
               title: 'About us',
               onPress: () {

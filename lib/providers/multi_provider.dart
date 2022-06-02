@@ -1,4 +1,6 @@
 import 'package:provider/provider.dart';
+import 'package:qbus/screens/auth/forgot_screens/forgot_provider.dart';
+import 'package:qbus/screens/auth/phone_activation_screens/phone_activation_provider.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/about_us_screens/about_us_provider.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/privacy_policy_screens/privacy_policy_provider.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
@@ -85,6 +87,14 @@ final multiProviders = [
   ),
   ChangeNotifierProvider<TripFilterProvider>(
     create: (_) => TripFilterProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PhoneActivationProvider>(
+    create: (_) => PhoneActivationProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<ForgotProvider>(
+    create: (_) => ForgotProvider(),
     lazy: true,
   ),
 ];
