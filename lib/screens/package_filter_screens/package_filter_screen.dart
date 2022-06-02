@@ -18,9 +18,12 @@ class PackageFilterScreen extends StatefulWidget {
 class _PackageFilterScreenState extends State<PackageFilterScreen> {
   late TextEditingController couponController;
   var selectedCity = "";
-  bool hotel5start = false;
+
   bool internet = false;
   bool meal = false;
+  bool hostel5Stars = false;
+  int number = 0;
+
   bool additional = false;
 
   @override
@@ -62,7 +65,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
               padding: 0,
               validator: (val) => null,
               inputType: TextInputType.name,
-              hint: "Moving Date",
+              hint: "Start Date",
             ).get20HorizontalPadding(),
             CommonPadding.sizeBoxWithHeight(height: 20),
             CustomTextField(
@@ -70,7 +73,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
               padding: 0,
               validator: (val) => null,
               inputType: TextInputType.name,
-              hint: "Moving Time",
+              hint: "End Date",
             ).get20HorizontalPadding(),
             CommonPadding.sizeBoxWithHeight(height: 20),
             CustomTextField(
@@ -78,7 +81,89 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
               padding: 0,
               validator: (val) => null,
               inputType: TextInputType.name,
-              hint: "Rating",
+              hint: "Start Time",
+            ).get20HorizontalPadding(),
+            CommonPadding.sizeBoxWithHeight(height: 20),
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 20.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 58,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.grey.shade400),
+                    borderRadius: BorderRadius.circular(5)),
+                child: Center(
+                  child: DropdownButton<String>(
+                    hint: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: sizes!.widthRatio * 10),
+                      child: const CustomText(
+                          text: "Starting City",
+                          textSize: 12,
+                          fontWeight: FontWeight.normal,
+                          textColor: Colors.black),
+                    ),
+                    underline: const SizedBox(),
+                    isExpanded: true,
+                    items: <String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
+                        .map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        selectedCity = value!;
+                      });
+                      debugPrint("selectedCity: $selectedCity");
+                    },
+                  ),
+                ),
+              ),
+            ),
+            CommonPadding.sizeBoxWithHeight(height: 20),
+            CustomText(
+              text: "Additional",
+              textSize: sizes!.fontRatio * 18,
+              fontWeight: FontWeight.w500,
+              textColor: Colors.black,
+              textAlign: TextAlign.start,
+            ).get20HorizontalPadding(),
+            CommonPadding.sizeBoxWithHeight(height: 15),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                checkBox(context, internet, "Hostel 5 Stars", () {
+                  hostel5Stars = false;
+                  meal = false;
+                  internet = true;
+                  setState(() {
+                    additional = internet;
+                  });
+                }),
+                CommonPadding.sizeBoxWithHeight(height: 15),
+                checkBox(context, meal, "Meal", () {
+                  hostel5Stars = false;
+                  meal = true;
+                  internet = false;
+                  setState(() {
+                    additional = meal;
+                  });
+                }),
+                CommonPadding.sizeBoxWithHeight(height: 15),
+                checkBox(context, hostel5Stars, "Internet", () {
+                  hostel5Stars = true;
+                  meal = false;
+                  internet = false;
+
+                  setState(() {
+                    additional = hostel5Stars;
+                  });
+                }),
+              ],
             ).get20HorizontalPadding(),
             CommonPadding.sizeBoxWithHeight(height: 20),
             CustomButton(
@@ -92,7 +177,6 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                     borderRadius: 5,
                     onTapped: () {
                       Navigator.pop(context);
-                      // NavigationHelper.pushRoute(context, const SearchResult());
                     },
                     padding: 0)
                 .get20HorizontalPadding(),
@@ -118,7 +202,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                     color: isSelected ? appColor : Colors.grey.shade400)),
             child: const Icon(
               Icons.check,
-              size: 14,
+              size: 16,
               color: Colors.white,
             ),
           ),

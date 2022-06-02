@@ -2,6 +2,7 @@ import 'package:provider/provider.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/about_us_screens/about_us_provider.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/privacy_policy_screens/privacy_policy_provider.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
+import 'package:qbus/screens/trip_filter_screens/trip_filter_provider.dart';
 import '../screens/auth/login_screens/login_provider.dart';
 import '../screens/auth/sign_up_screens/sign_up_provider.dart';
 import '../screens/bottombar/bottom_bar_screens/booking_history_screens/booking_history_provider.dart';
@@ -80,6 +81,10 @@ final multiProviders = [
   ),
   ChangeNotifierProvider<PackageFilterProvider>(
     create: (_) => PackageFilterProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<TripFilterProvider>(
+    create: (_) => TripFilterProvider(),
     lazy: true,
   ),
 ];
