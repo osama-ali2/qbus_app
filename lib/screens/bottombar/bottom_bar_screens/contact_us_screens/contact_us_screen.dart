@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qbus/res/res.dart';
 
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_button.dart';
@@ -13,7 +14,22 @@ class ContactUsScreen extends StatefulWidget {
 }
 
 class _ContactUsScreenState extends State<ContactUsScreen> {
-  final TextEditingController _email = TextEditingController();
+  late TextEditingController fullNameController;
+  late TextEditingController emailController;
+  late TextEditingController phoneNumberController;
+  late TextEditingController subjectController;
+  late TextEditingController messageController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    fullNameController = TextEditingController();
+    emailController = TextEditingController();
+    phoneNumberController = TextEditingController();
+    subjectController = TextEditingController();
+    messageController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +53,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       children: [
         const SizedBox(height: 40),
         CustomTextField(
-          controller: _email,
+          controller: fullNameController,
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.name,
@@ -45,7 +61,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ),
         const SizedBox(height: 10),
         CustomTextField(
-          controller: _email,
+          controller: emailController,
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.name,
@@ -53,7 +69,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ),
         const SizedBox(height: 10),
         CustomTextField(
-          controller: _email,
+          controller: phoneNumberController,
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.name,
@@ -61,7 +77,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ),
         const SizedBox(height: 10),
         CustomTextField(
-          controller: _email,
+          controller: subjectController,
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.name,
@@ -73,31 +89,35 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           child: Container(
             height: 200,
             width: MediaQuery.of(context).size.width,
-            decoration:
-                BoxDecoration(border: Border.all(color: Colors.grey.shade400)),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey.shade400),
+                borderRadius: BorderRadius.circular(5)),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
               child: TextFormField(
-                maxLines: 1000,
+                controller: messageController,
+                maxLines: 20,
                 decoration: const InputDecoration(
                     border: InputBorder.none, hintText: "Your Message"),
               ),
             ),
           ),
         ),
-        const SizedBox(
-          height: 15,
+        SizedBox(
+          height: sizes!.heightRatio * 20,
         ),
         CustomButton(
             name: "Send",
             buttonColor: appColor,
-            height: 45,
+            height: sizes!.heightRatio * 45,
             width: double.infinity,
-            textSize: 14,
+            textSize: sizes!.fontRatio * 14,
             textColor: Colors.white,
             fontWeight: FontWeight.normal,
             borderRadius: 5,
-            onTapped: () {},
+            onTapped: () {
+              Navigator.pop(context);
+            },
             padding: 20),
       ],
     );
