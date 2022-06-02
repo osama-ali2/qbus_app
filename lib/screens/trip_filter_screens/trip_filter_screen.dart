@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
+
+import '../../navigation/navigation_helper.dart';
 import '../../res/res.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text.dart';
 import '../../widgets/custom_textField.dart';
+import '../search_screens/search_result.dart';
 
-class PackageFilterScreen extends StatefulWidget {
-  const PackageFilterScreen({Key? key}) : super(key: key);
+class TripFilterScreen extends StatefulWidget {
+  const TripFilterScreen({Key? key}) : super(key: key);
 
   @override
-  State<PackageFilterScreen> createState() => _PackageFilterScreenState();
+  State<TripFilterScreen> createState() => _TripFilterScreenState();
 }
 
-class _PackageFilterScreenState extends State<PackageFilterScreen> {
+class _TripFilterScreenState extends State<TripFilterScreen> {
   late TextEditingController couponController;
   var selectedCity = "";
   bool hotel5start = false;
@@ -38,7 +41,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
         elevation: 0,
         automaticallyImplyLeading: true,
         title: const CustomText(
-            text: "Packages",
+            text: "Trips",
             textSize: 18,
             fontWeight: FontWeight.w700,
             textColor: Colors.white),

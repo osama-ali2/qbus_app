@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/res/common_padding.dart';
+import 'package:qbus/res/extensions.dart';
 import 'package:qbus/screens/search_screens/search_provider.dart';
+import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';
 
 import '../../../../navigation/navigation_helper.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
 import '../../res/assets.dart';
 import '../../res/colors.dart';
+import '../../res/res.dart';
+import '../../widgets/custom_button.dart';
 import '../../widgets/text_views.dart';
 import '../selectAddition/select_addition_screen.dart';
 
@@ -72,7 +77,26 @@ class _SearchResultState extends State<SearchResult> {
                                 fontWeight: FontWeight.normal),
                           ),
                   )
-                : Container()
+                : Container(),
+            CommonPadding.sizeBoxWithHeight(height: 20),
+            CustomButton(
+                    name: "Filter Result",
+                    buttonColor: appColor,
+                    height: sizes!.heightRatio * 45,
+                    width: double.infinity,
+                    textSize: sizes!.fontRatio * 16,
+                    textColor: Colors.white,
+                    fontWeight: FontWeight.normal,
+                    borderRadius: 5,
+                    onTapped: () {
+                      Navigator.pop(context);
+                      NavigationHelper.pushRoute(
+                          context, const TripFilterScreen());
+                    },
+                    padding: 0)
+                .get20HorizontalPadding(),
+            CommonPadding.sizeBoxWithHeight(height: 20),
+
           ],
         ),
       ),
