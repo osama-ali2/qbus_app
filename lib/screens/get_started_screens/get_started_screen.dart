@@ -413,7 +413,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               color: Colors.white,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 3,
           ),
           CustomText(
