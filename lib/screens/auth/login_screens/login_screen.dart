@@ -28,11 +28,12 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            body: Container(
-      color: Colors.white,
-      child: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
+            body: SingleChildScrollView(
+      child: Container(
+        color: Colors.white,
+        height: sizes!.height,
+        child: Form(
+          key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
