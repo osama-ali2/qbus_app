@@ -11,6 +11,7 @@ import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/about_
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/edit_user_profile_screens/edit_user_profile_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/privacy_policy_screens/privacy_policy_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/return_policy_screens/return_policy_screen.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/wallet_screens/wallet_screen.dart';
 import 'package:qbus/widgets/text_views.dart';
 
 import '../../../../utils/constant.dart';
@@ -104,7 +105,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ).get20HorizontalPadding(),
           ),
           CommonPadding.sizeBoxWithHeight(height: 15),
-          getRow(title: 'Wallet', onPress: () {}),
+          getRow(title: 'Wallet', onPress: () {
+            NavigationHelper.pushRoute(context, const WalletScreen());
+
+          }),
           CommonPadding.sizeBoxWithHeight(height: 15),
           getRow(
               title: 'About us',
