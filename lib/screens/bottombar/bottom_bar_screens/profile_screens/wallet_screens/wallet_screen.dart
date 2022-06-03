@@ -54,9 +54,15 @@ class _WalletScreenState extends State<WalletScreen> {
                 height: sizes!.heightRatio * 150,
                 width: sizes!.widthRatio * 335,
                 decoration: BoxDecoration(
-                  color: const Color.fromRGBO(128, 128, 128, 1),
-                  borderRadius: BorderRadius.circular(5),
-                ),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: AppColors.containerShadowColor,
+                        blurRadius: 10.0,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                    color: Colors.white),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: sizes!.widthRatio * 10,
