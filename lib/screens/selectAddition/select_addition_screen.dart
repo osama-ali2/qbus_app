@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qbus/res/toasts.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
 
@@ -35,7 +36,9 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                 textColor: Colors.white,
                 fontWeight: FontWeight.w500,
                 borderRadius: 5,
-                onTapped: () {},
+                onTapped: () {
+                  Toasts.getErrorToast(text: "Try it Later");
+                },
                 padding: 20),
             const SizedBox(
               height: 10,

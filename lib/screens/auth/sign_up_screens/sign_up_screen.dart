@@ -9,6 +9,7 @@ import '../../../utils/constant.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_text.dart';
 import '../../../widgets/custom_textField.dart';
+import '../phone_activation_screens/phone_activation_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -255,7 +256,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         password.isNotEmpty &&
         selectedMartialStatus != "" &&
         selectedCity != "") {
-      NavigationHelper.pushReplacement(context, const BottomBarScreen());
+      NavigationHelper.pushRoute(context, const PhoneActivationScreen());
     } else if (fullName.isEmpty) {
       Toasts.getErrorToast(text: "Field is required");
     } else if (mobilePhone.isEmpty) {
