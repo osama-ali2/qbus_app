@@ -8,6 +8,7 @@ import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/about_us_screens/about_us_screen.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/edit_user_profile_screens/edit_user_profile_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/privacy_policy_screens/privacy_policy_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/return_policy_screens/return_policy_screen.dart';
 import 'package:qbus/widgets/text_views.dart';
@@ -44,56 +45,64 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Column(
         children: [
           CommonPadding.sizeBoxWithHeight(height: 20),
-          Container(
-            height: sizes!.heightRatio * 80,
-            width: sizes!.widthRatio * 345,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(
-                    color: AppColors.containerShadowColor,
-                    blurRadius: 10.0,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-                color: Colors.white),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: sizes!.heightRatio * 12,
-                  vertical: sizes!.heightRatio * 12),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SvgPicture.asset(
-                    "assets/svg/user_icon.svg",
-                    height: sizes!.heightRatio * 30,
-                    width: sizes!.widthRatio * 30,
-                  ),
-                  CommonPadding.sizeBoxWithWidth(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextView.getMediumText14(
-                          "Abdelhadi Mohammed", Assets.latoBold,
-                          color: AppColors.black900,
-                          fontWeight: FontWeight.w400,
-                          lines: 1),
-                      CommonPadding.sizeBoxWithHeight(height: 4),
-                      TextView.getMediumText14("Male", Assets.latoBold,
-                          color: AppColors.black900,
-                          fontWeight: FontWeight.w400,
-                          lines: 1),
-                      CommonPadding.sizeBoxWithHeight(height: 4),
-                      TextView.getMediumText14("0507070656", Assets.latoBold,
-                          color: AppColors.black900,
-                          fontWeight: FontWeight.w400,
-                          lines: 1),
-                    ],
-                  )
-                ],
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const EditUserProfileScreen()));
+            },
+            child: Container(
+              height: sizes!.heightRatio * 80,
+              width: sizes!.widthRatio * 345,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppColors.containerShadowColor,
+                      blurRadius: 10.0,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                  color: Colors.white),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: sizes!.heightRatio * 12,
+                    vertical: sizes!.heightRatio * 12),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SvgPicture.asset(
+                      "assets/svg/user_icon.svg",
+                      height: sizes!.heightRatio * 30,
+                      width: sizes!.widthRatio * 30,
+                    ),
+                    CommonPadding.sizeBoxWithWidth(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextView.getMediumText14(
+                            "Abdelhadi Mohammed", Assets.latoBold,
+                            color: AppColors.black900,
+                            fontWeight: FontWeight.w400,
+                            lines: 1),
+                        CommonPadding.sizeBoxWithHeight(height: 4),
+                        TextView.getMediumText14("Male", Assets.latoBold,
+                            color: AppColors.black900,
+                            fontWeight: FontWeight.w400,
+                            lines: 1),
+                        CommonPadding.sizeBoxWithHeight(height: 4),
+                        TextView.getMediumText14("0507070656", Assets.latoBold,
+                            color: AppColors.black900,
+                            fontWeight: FontWeight.w400,
+                            lines: 1),
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-          ).get20HorizontalPadding(),
+            ).get20HorizontalPadding(),
+          ),
           CommonPadding.sizeBoxWithHeight(height: 15),
           getRow(title: 'Wallet', onPress: () {}),
           CommonPadding.sizeBoxWithHeight(height: 15),

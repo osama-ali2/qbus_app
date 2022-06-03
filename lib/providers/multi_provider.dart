@@ -9,6 +9,8 @@ import '../screens/auth/login_screens/login_provider.dart';
 import '../screens/auth/sign_up_screens/sign_up_provider.dart';
 import '../screens/bottombar/bottom_bar_screens/booking_history_screens/booking_history_provider.dart';
 import '../screens/bottombar/bottom_bar_screens/contact_us_screens/contact_us_provider.dart';
+import '../screens/bottombar/bottom_bar_screens/profile_screens/change_password_screens/change_password_provider.dart';
+import '../screens/bottombar/bottom_bar_screens/profile_screens/edit_user_profile_screens/edit_user_profile_provider.dart';
 import '../screens/bottombar/bottom_bar_screens/profile_screens/profile_provider.dart';
 import '../screens/bottombar/bottom_bar_screens/profile_screens/return_policy_screens/return_policy_provider.dart';
 import '../screens/bottombar/bottom_bar_screens/setting_screens/setting_provider.dart';
@@ -95,6 +97,14 @@ final multiProviders = [
   ),
   ChangeNotifierProvider<ForgotProvider>(
     create: (_) => ForgotProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<EditUserProfileProvider>(
+    create: (_) => EditUserProfileProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<ChangePasswordProvider>(
+    create: (_) => ChangePasswordProvider(),
     lazy: true,
   ),
 ];
