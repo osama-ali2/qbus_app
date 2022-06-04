@@ -79,24 +79,25 @@ class _SearchResultState extends State<SearchResult> {
                   )
                 : Container(),
             CommonPadding.sizeBoxWithHeight(height: 20),
-            CustomButton(
-                    name: "Filter Result",
-                    buttonColor: appColor,
-                    height: sizes!.heightRatio * 45,
-                    width: double.infinity,
-                    textSize: sizes!.fontRatio * 16,
-                    textColor: Colors.white,
-                    fontWeight: FontWeight.normal,
-                    borderRadius: 5,
-                    onTapped: () {
-                      Navigator.pop(context);
-                      NavigationHelper.pushRoute(
-                          context, const TripFilterScreen());
-                    },
-                    padding: 0)
-                .get20HorizontalPadding(),
+            searchProvider.isTripDataLoaded
+                ? CustomButton(
+                        name: "Filter Result",
+                        buttonColor: appColor,
+                        height: sizes!.heightRatio * 45,
+                        width: double.infinity,
+                        textSize: sizes!.fontRatio * 16,
+                        textColor: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        borderRadius: 5,
+                        onTapped: () {
+                          Navigator.pop(context);
+                          NavigationHelper.pushRoute(
+                              context, const TripFilterScreen());
+                        },
+                        padding: 0)
+                    .get20HorizontalPadding()
+                : Container(),
             CommonPadding.sizeBoxWithHeight(height: 20),
-
           ],
         ),
       ),

@@ -103,22 +103,24 @@ class _ExploreScreenState extends State<ExploreScreen> {
               )
             : Container(),
         CommonPadding.sizeBoxWithHeight(height: 15),
-        CustomButton(
-            name: "Filter",
-            buttonColor: appColor,
-            height: 45,
-            width: double.infinity,
-            textSize: 14,
-            textColor: Colors.white,
-            fontWeight: FontWeight.normal,
-            borderRadius: 5,
-            onTapped: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PackageFilterScreen()));
-            },
-            padding: 0),
+        exploreProvider.isDataLoaded
+            ? CustomButton(
+                name: "Filter",
+                buttonColor: appColor,
+                height: 45,
+                width: double.infinity,
+                textSize: 14,
+                textColor: Colors.white,
+                fontWeight: FontWeight.normal,
+                borderRadius: 5,
+                onTapped: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PackageFilterScreen()));
+                },
+                padding: 0)
+            : Container(),
         CommonPadding.sizeBoxWithHeight(height: 30),
       ],
     );

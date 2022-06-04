@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
@@ -23,16 +24,16 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: SizedBox(
-        height: 130,
+        height: sizes!.heightRatio * 130,
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: [
             CustomButton(
                 name: "PROCEED TO PAYMENT",
                 buttonColor: appColor,
-                height: 45,
+                height: sizes!.heightRatio * 45,
                 width: double.infinity,
-                textSize: 14,
+                textSize: sizes!.fontRatio * 14,
                 textColor: Colors.white,
                 fontWeight: FontWeight.w500,
                 borderRadius: 5,
@@ -53,15 +54,15 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                           builder: (context) => const LoginScreen()));
                 },
                 child: Container(
-                  height: 45,
+                  height: sizes!.heightRatio * 45,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: appColor)),
-                  child: const Center(
+                  child: Center(
                     child: CustomText(
                         text: "Continue",
-                        textSize: 15,
+                        textSize: sizes!.fontRatio * 15,
                         fontWeight: FontWeight.w500,
                         textColor: appColor),
                   ),
@@ -75,9 +76,9 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
         backgroundColor: appColor,
         elevation: 0,
         centerTitle: false,
-        title: const CustomText(
+        title: CustomText(
             text: "Select Additions",
-            textSize: 18,
+            textSize: sizes!.fontRatio * 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
       ),
@@ -126,19 +127,19 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
   Widget _items(BuildContext context, String name, Function add, Function minus,
       int number) {
     return Container(
-      height: 60,
+      height: sizes!.heightRatio * 60,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           border: Border(
               bottom: BorderSide(width: 1, color: Colors.grey.shade300))),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 20.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomText(
                 text: name,
-                textSize: 16,
+                textSize: sizes!.fontRatio * 16,
                 fontWeight: FontWeight.normal,
                 textColor: const Color(0xff747268)),
             Counter(number: number, onAdd: () => add(), onMinus: () => minus())
