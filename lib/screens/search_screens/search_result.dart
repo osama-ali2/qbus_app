@@ -67,7 +67,12 @@ class _SearchResultState extends State<SearchResult> {
                                     NavigationHelper.pushRoute(
                                         context, const SelectAdditionScreen());
                                   },
-                                  child: _card(context));
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: sizes!.widthRatio * 20,
+                                        vertical: sizes!.heightRatio * 5),
+                                    child: _card(context),
+                                  ));
                             })
                         : Center(
                             child: TextView.getSubHeadingTextWith15(
@@ -106,120 +111,128 @@ class _SearchResultState extends State<SearchResult> {
 
   Widget _card(BuildContext context) {
     return Container(
-      height: 130,
+      height: sizes!.heightRatio * 130,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.grey.shade300))),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: const [
+            BoxShadow(
+              color: AppColors.containerShadowColor,
+              blurRadius: 10.0,
+              offset: Offset(0, 2),
+            ),
+          ],
+          color: Colors.white),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        padding: EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: sizes!.heightRatio * 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  children: const [
+                  children: [
                     CustomText(
                         text: "10:30 Makkah",
-                        textSize: 14,
+                        textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
-                        textColor: Color(0xff747268)),
-                    Icon(
+                        textColor: const Color(0xff747268)),
+                    const Icon(
                       Icons.play_arrow,
                       color: Color(0xff747268),
                       size: 18,
                     ),
                     CustomText(
                         text: "10:30 Makkah",
-                        textSize: 14,
+                        textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
-                        textColor: Color(0xff747268)),
+                        textColor: const Color(0xff747268)),
                   ],
                 ),
                 Container(
-                  height: 20,
-                  width: 55,
+                  height: sizes!.heightRatio * 20,
+                  width: sizes!.widthRatio * 55,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(2), color: appColor),
-                  child: const Center(
+                      borderRadius: BorderRadius.circular(5), color: appColor),
+                  child: Center(
                     child: CustomText(
                         text: "SAR 90",
-                        textSize: 10,
+                        textSize: sizes!.fontRatio * 10,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.white),
                   ),
                 )
               ],
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: sizes!.heightRatio * 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  children: const [
+                  children: [
                     CustomText(
                         text: "Station A",
-                        textSize: 14,
+                        textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
-                        textColor: Color(0xff747268)),
-                    Icon(
+                        textColor: const Color(0xff747268)),
+                    const Icon(
                       Icons.play_arrow,
                       color: Color(0xff747268),
                       size: 18,
                     ),
                     CustomText(
                         text: "Station B",
-                        textSize: 14,
+                        textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
-                        textColor: Color(0xff747268)),
+                        textColor: const Color(0xff747268)),
                   ],
                 ),
-                const CustomText(
+                CustomText(
                     text: "5 Stops",
-                    textSize: 14,
+                    textSize: sizes!.fontRatio * 14,
                     fontWeight: FontWeight.w400,
-                    textColor: Color(0xff747268))
+                    textColor: const Color(0xff747268))
               ],
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: sizes!.heightRatio * 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const CustomText(
+                CustomText(
                     text: "Jeddah Trip",
-                    textSize: 16,
+                    textSize: sizes!.fontRatio * 16,
                     fontWeight: FontWeight.w500,
-                    textColor: Color(0xff747268)),
+                    textColor: const Color(0xff747268)),
                 Row(
-                  children: const [
-                    Icon(
+                  children: [
+                    const Icon(
                       Icons.star,
                       color: Colors.yellow,
                       size: 18,
                     ),
                     CustomText(
                         text: "(4/5)",
-                        textSize: 16,
+                        textSize: sizes!.fontRatio * 16,
                         fontWeight: FontWeight.normal,
-                        textColor: Color(0xff747268)),
+                        textColor: const Color(0xff747268)),
                   ],
                 )
               ],
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: sizes!.heightRatio * 10,
             ),
-            const CustomText(
+            CustomText(
                 text: "Ac / Hotel 3 star / meal",
-                textSize: 14,
+                textSize: sizes!.fontRatio * 14,
                 fontWeight: FontWeight.w500,
                 textColor: Colors.grey),
           ],

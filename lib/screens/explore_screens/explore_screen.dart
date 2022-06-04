@@ -3,13 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
+import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/explore_screens/explore_provider.dart';
 import 'package:qbus/screens/package_filter_screens/package_filter_screen.dart';
 import 'package:qbus/widgets/text_views.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_text.dart';
-import '../../../../widgets/package_card.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({Key? key}) : super(key: key);
@@ -41,15 +41,15 @@ class _ExploreScreenState extends State<ExploreScreen> {
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
-        title: const CustomText(
+        title: CustomText(
             text: "Explore Package",
-            textSize: 18,
+            textSize: sizes!.fontRatio * 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
       ),
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: sizes!.fontRatio * 20.0),
         child: _getUI(context),
       ),
     );
@@ -58,8 +58,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
   Widget _getUI(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: sizes!.heightRatio * 10,
         ),
         exploreProvider.isDataLoaded
             ? Expanded(
@@ -107,17 +107,19 @@ class _ExploreScreenState extends State<ExploreScreen> {
             ? CustomButton(
                 name: "Filter",
                 buttonColor: appColor,
-                height: 45,
+                height: sizes!.heightRatio * 45,
                 width: double.infinity,
-                textSize: 14,
+                textSize: sizes!.fontRatio * 14,
                 textColor: Colors.white,
                 fontWeight: FontWeight.normal,
                 borderRadius: 5,
                 onTapped: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PackageFilterScreen()));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PackageFilterScreen(),
+                    ),
+                  );
                 },
                 padding: 0)
             : Container(),
@@ -134,13 +136,23 @@ class _ExploreScreenState extends State<ExploreScreen> {
     required String detail,
     required String image,
   }) =>
-      SizedBox(
-        height: 100,
+      Container(
+        height: sizes!.heightRatio * 100,
         width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: const [
+              BoxShadow(
+                color: AppColors.containerShadowColor,
+                blurRadius: 10.0,
+                offset: Offset(0, 2),
+              ),
+            ],
+            color: Colors.white),
         child: Row(
           children: [
             Container(
-              height: 130,
+              height: sizes!.heightRatio * 130,
               //width: 150,
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(12)),
@@ -149,8 +161,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 child: Image.network(image),
               ),
             ),
-            const SizedBox(
-              width: 5,
+            SizedBox(
+              width: sizes!.widthRatio * 5,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,11 +173,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     textSize: 14,
                     fontWeight: FontWeight.w700,
                     textColor: Colors.black),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  width: sizes!.widthRatio * 5,
                 ),
                 SizedBox(
-                  height: 30,
+                  height: sizes!.heightRatio * 30,
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: CustomText(
                     text: "$detail...",
@@ -175,18 +187,18 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     textAlign: TextAlign.start,
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  width: sizes!.widthRatio * 5,
                 ),
                 CustomText(
                   text: dateFrom,
-                  textSize: 10,
+                  textSize: sizes!.fontRatio * 10,
                   fontWeight: FontWeight.normal,
                   textColor: Colors.black,
                   textAlign: TextAlign.start,
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  width: sizes!.widthRatio * 5,
                 ),
                 Row(
                   children: [
@@ -199,7 +211,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         ),
                         CustomText(
                             text: rating,
-                            textSize: 12,
+                            textSize: sizes!.fontRatio * 10,
                             fontWeight: FontWeight.normal,
                             textColor: Colors.black)
                       ],
@@ -208,15 +220,15 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       width: MediaQuery.of(context).size.width * 0.2,
                     ),
                     Container(
-                      height: 20,
-                      width: 60,
+                      height: sizes!.heightRatio * 20,
+                      width: sizes!.widthRatio * 60,
                       decoration: BoxDecoration(
                           color: appColor,
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(
                         child: CustomText(
                             text: "SKR $fee",
-                            textSize: 10,
+                            textSize: sizes!.fontRatio * 10,
                             fontWeight: FontWeight.normal,
                             textColor: Colors.white),
                       ),

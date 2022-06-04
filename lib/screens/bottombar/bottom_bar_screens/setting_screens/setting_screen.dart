@@ -5,8 +5,6 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_text.dart';
-import 'package:qbus/widgets/setting_card.dart';
-
 import '../../../../res/assets.dart';
 import '../../../../res/res.dart';
 import '../../../../widgets/text_views.dart';
@@ -27,10 +25,10 @@ class _SettingScreenState extends State<SettingScreen> {
         backgroundColor: appColor,
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const Center(
+        title: Center(
           child: CustomText(
               text: "Settings",
-              textSize: 18,
+              textSize: sizes!.fontRatio * 18,
               fontWeight: FontWeight.w700,
               textColor: Colors.white),
         ),
@@ -56,11 +54,17 @@ class _SettingScreenState extends State<SettingScreen> {
         height: sizes!.heightRatio * 42,
         width: sizes!.widthRatio * 335,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: AppColors.gray, width: 1),
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: const [
+              BoxShadow(
+                color: AppColors.containerShadowColor,
+                blurRadius: 10.0,
+                offset: Offset(0, 2),
+              ),
+            ],
             color: Colors.white),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -91,17 +95,17 @@ class _SettingScreenState extends State<SettingScreen> {
         ),
       ).get20HorizontalPadding();
 
-  Widget _getUI(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 10,
-        ),
-        SettingCard(
-          onTap: () {},
-          name: 'Language',
-        ),
-      ],
-    );
-  }
+// Widget _getUI(BuildContext context) {
+//   return Column(
+//     children: [
+//       const SizedBox(
+//         height: 10,
+//       ),
+//       SettingCard(
+//         onTap: () {},
+//         name: 'Language',
+//       ),
+//     ],
+//   );
+// }
 }

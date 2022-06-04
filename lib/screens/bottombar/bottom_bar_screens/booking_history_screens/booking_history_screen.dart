@@ -111,7 +111,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CommonPadding.sizeBoxWithHeight(height: 20),
+            // CommonPadding.sizeBoxWithHeight(height: 20),
             Expanded(
                 child: ListView.builder(
                     itemCount: dataMap.length,
@@ -123,13 +123,18 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                       var rating = dataMap[index]['rating'].toString();
                       var type = dataMap[index]['type'].toString();
 
-                      return bookingContainer(
-                          from: from,
-                          to: to,
-                          fee: fee,
-                          trip: trip,
-                          rating: rating,
-                          type: type);
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: sizes!.widthRatio * 20,
+                            vertical: sizes!.heightRatio * 5),
+                        child: bookingContainer(
+                            from: from,
+                            to: to,
+                            fee: fee,
+                            trip: trip,
+                            rating: rating,
+                            type: type),
+                      );
                     })),
           ],
         ),
@@ -149,9 +154,15 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
         height: sizes!.heightRatio * 110,
         width: sizes!.widthRatio * 375,
         decoration: BoxDecoration(
-          color: AppColors.white,
-          border: Border.all(width: 1, color: AppColors.borderColor),
-        ),
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: const [
+              BoxShadow(
+                color: AppColors.containerShadowColor,
+                blurRadius: 10.0,
+                offset: Offset(0, 2),
+              ),
+            ],
+            color: Colors.white),
         child: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: sizes!.widthRatio * 15,

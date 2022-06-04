@@ -6,7 +6,6 @@ import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
-import 'package:qbus/language.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_textField.dart';
 import '../../res/assets.dart';
@@ -68,46 +67,46 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
 
   Widget _getUI(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(
-            height: 13,
+          SizedBox(
+            height: sizes!.heightRatio * 14,
           ),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            const CustomText(
+            CustomText(
               text: "Book Bus\nLet's Do Now!",
-              textSize: 18,
+              textSize: sizes!.fontRatio * 18,
               fontWeight: FontWeight.w500,
               textColor: Colors.black,
               textAlign: TextAlign.start,
             ),
-            DropdownButton(
-              onChanged: (language) {
-                _changeLanguage(language);
-              },
-              underline: const SizedBox(),
-              icon: const Icon(
-                Icons.language,
-                size: 28,
-              ),
-              items: Language.languageList()
-                  .map<DropdownMenuItem<Language>>(
-                      (language) => DropdownMenuItem(
-                            value: language,
-                            child: Row(
-                              children: <Widget>[
-                                Text(language.flag),
-                                Text(language.name),
-                              ],
-                            ),
-                          ))
-                  .toList(),
-            ),
+            // DropdownButton(
+            //   onChanged: (language) {
+            //     _changeLanguage(language);
+            //   },
+            //   underline: const SizedBox(),
+            //   icon: const Icon(
+            //     Icons.language,
+            //     size: 28,
+            //   ),
+            //   items: Language.languageList()
+            //       .map<DropdownMenuItem<Language>>(
+            //           (language) => DropdownMenuItem(
+            //                 value: language,
+            //                 child: Row(
+            //                   children: <Widget>[
+            //                     Text(language.flag),
+            //                     Text(language.name),
+            //                   ],
+            //                 ),
+            //               ))
+            //       .toList(),
+            // ),
           ]),
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: sizes!.fontRatio * 20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -139,8 +138,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               }),
             ],
           ),
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: sizes!.fontRatio * 20,
           ),
           CustomTextField(
             controller: departureFromController,
@@ -149,8 +148,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             inputType: TextInputType.name,
             hint: "Departure from",
           ),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: sizes!.heightRatio * 10,
           ),
           CustomTextField(
             controller: arrivalToController,
@@ -159,8 +158,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             inputType: TextInputType.name,
             hint: "Arrival to",
           ),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: sizes!.heightRatio * 10,
           ),
           CustomTextField(
             controller: dateController,
@@ -169,16 +168,16 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             inputType: TextInputType.name,
             hint: "Select Dates",
           ),
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: sizes!.heightRatio * 20,
           ),
-          const CustomText(
+          CustomText(
               text: "Passengers count",
-              textSize: 14,
+              textSize: sizes!.fontRatio * 14,
               fontWeight: FontWeight.normal,
               textColor: Colors.black),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: sizes!.heightRatio * 10,
           ),
           Counter(
               number: number,
@@ -192,8 +191,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   setState(() {});
                 }
               }),
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: sizes!.heightRatio * 15,
           ),
           CustomButton(
               name: "Search",
@@ -208,15 +207,15 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 NavigationHelper.pushRoute(context, const SearchResult());
               },
               padding: 0),
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: sizes!.heightRatio * 15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const CustomText(
+              CustomText(
                   text: "Packages",
-                  textSize: 18,
+                  textSize: sizes!.fontRatio * 18,
                   fontWeight: FontWeight.normal,
                   textColor: Colors.black),
               InkWell(
@@ -224,13 +223,13 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   NavigationHelper.pushRoute(context, const ExploreScreen());
                 },
                 child: Row(
-                  children: const [
+                  children: [
                     CustomText(
                         text: "Explore",
-                        textSize: 16,
+                        textSize: sizes!.fontRatio * 16,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.black),
-                    Icon(
+                    const Icon(
                       Icons.arrow_forward_ios,
                       size: 18,
                     )
@@ -239,8 +238,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               ),
             ],
           ),
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: sizes!.heightRatio * 15,
           ),
           getStartedProvider.isDataLoaded
               ? SizedBox(
@@ -298,14 +297,23 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     required String detail,
     required String image,
   }) =>
-      SizedBox(
-        height: 100,
+      Container(
+        height: sizes!.heightRatio * 100,
         width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: const [
+              BoxShadow(
+                color: AppColors.containerShadowColor,
+                blurRadius: 10.0,
+                offset: Offset(0, 2),
+              ),
+            ],
+            color: Colors.white),
         child: Row(
           children: [
             Container(
-              height: 130,
-              //width: 150,
+              height: sizes!.heightRatio * 130,
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(12)),
               child: ClipRRect(
@@ -313,8 +321,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 child: Image.network(image),
               ),
             ),
-            const SizedBox(
-              width: 5,
+            SizedBox(
+              height: sizes!.heightRatio * 5,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -322,25 +330,25 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               children: [
                 CustomText(
                     text: title,
-                    textSize: 14,
+                    textSize: sizes!.fontRatio * 14,
                     fontWeight: FontWeight.w700,
                     textColor: Colors.black),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: sizes!.heightRatio * 5,
                 ),
                 SizedBox(
-                  height: 30,
+                  height: sizes!.heightRatio * 30,
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: CustomText(
                     text: "$detail...",
-                    textSize: 10,
+                    textSize: sizes!.fontRatio * 10,
                     fontWeight: FontWeight.normal,
                     textColor: Colors.black,
                     textAlign: TextAlign.start,
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: sizes!.heightRatio * 5,
                 ),
                 CustomText(
                   text: dateFrom,
@@ -349,8 +357,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   textColor: Colors.black,
                   textAlign: TextAlign.start,
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: sizes!.heightRatio * 5,
                 ),
                 Row(
                   children: [
@@ -363,7 +371,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                         ),
                         CustomText(
                             text: rating,
-                            textSize: 12,
+                            textSize: sizes!.fontRatio * 12,
                             fontWeight: FontWeight.normal,
                             textColor: Colors.black)
                       ],
@@ -372,15 +380,15 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                       width: MediaQuery.of(context).size.width * 0.2,
                     ),
                     Container(
-                      height: 20,
-                      width: 60,
+                      height: sizes!.heightRatio * 20,
+                      width: sizes!.widthRatio * 60,
                       decoration: BoxDecoration(
                           color: appColor,
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(
                         child: CustomText(
                             text: "SKR $fee",
-                            textSize: 10,
+                            textSize: sizes!.fontRatio * 10,
                             fontWeight: FontWeight.normal,
                             textColor: Colors.white),
                       ),
@@ -400,8 +408,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       child: Row(
         children: [
           Container(
-            height: 18,
-            width: 18,
+            height: sizes!.heightRatio * 18,
+            width: sizes!.widthRatio * 18,
             decoration: BoxDecoration(
                 color: isSelected ? appColor : Colors.white,
                 borderRadius: BorderRadius.circular(2),
@@ -418,7 +426,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           ),
           CustomText(
               text: name,
-              textSize: 12,
+              textSize: sizes!.fontRatio * 12,
               fontWeight: FontWeight.normal,
               textColor: Colors.black)
         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/widgets/counter.dart';
@@ -111,6 +112,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
             setState(() {});
           }
         }, chicken),
+
         _items(context, "Water (1)", () {
           water++;
           setState(() {});
@@ -130,10 +132,12 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
       height: sizes!.heightRatio * 60,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(width: 1, color: Colors.grey.shade300))),
+        border: Border(
+          bottom: BorderSide(width: 1, color: Colors.grey.shade300),
+        ),
+      ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 20.0),
+        padding: EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 10.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -146,6 +150,6 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
           ],
         ),
       ),
-    );
+    ).get20HorizontalPadding();
   }
 }
