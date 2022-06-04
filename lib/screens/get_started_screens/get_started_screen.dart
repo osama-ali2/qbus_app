@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
+import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:qbus/utils/constant.dart';
@@ -243,7 +244,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           ),
           getStartedProvider.isDataLoaded
               ? SizedBox(
-                  height: sizes!.height / 2,
+                  height: sizes!.heightRatio * 250,
                   width: MediaQuery.of(context).size.width,
                   child: getStartedProvider
                           .packagesResponse.data!.packages!.isNotEmpty
@@ -265,7 +266,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             var detail = data.description!.en.toString();
                             debugPrint("thumbnailImage: $thumbnailImage");
                             return Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
+                              padding: EdgeInsets.only(
+                                  bottom: sizes!.heightRatio * 8.0),
                               child: packageCardContainer(
                                   title: packageName,
                                   rating: rating,
@@ -283,7 +285,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                               fontWeight: FontWeight.normal),
                         ),
                 )
-              : Container()
+              : Container(),
+          CommonPadding.sizeBoxWithHeight(height: 20),
         ],
       ),
     );
