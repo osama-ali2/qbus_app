@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screens/booking_history_screens/booking_history_screen.dart';
 
 import '../../utils/constant.dart';
 import '../get_started_screens/get_started_screen.dart';
-import 'bottom_bar_screens/history_screens/history_screen.dart';
 import 'bottom_bar_screens/profile_screens/profile_screen.dart';
 import 'bottom_bar_screens/setting_screens/setting_screen.dart';
 
@@ -28,7 +28,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     super.initState();
     _tabs = [
       const GetStartedScreen(),
-      const HistoryScreen(),
+      const BookingHistoryScreen(),
       const ProfileScreen(),
       const SettingScreen()
     ];

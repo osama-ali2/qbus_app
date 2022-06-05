@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qbus/res/colors.dart';
 import 'package:qbus/widgets/custom_text.dart';
 
 class Counter extends StatelessWidget {
@@ -24,13 +25,13 @@ class Counter extends StatelessWidget {
             width: 30,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: Colors.grey.shade400)),
+                border: Border.all(color: AppColors.primary)),
             child: const Center(
                 child: CustomText(
                     text: "-",
                     textSize: 22,
                     fontWeight: FontWeight.w500,
-                    textColor: Colors.grey)),
+                    textColor: AppColors.primary)),
           ),
         ),
         const SizedBox(
@@ -51,13 +52,13 @@ class Counter extends StatelessWidget {
             width: 30,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: Colors.grey.shade400)),
+                border: Border.all(color: AppColors.primary)),
             child: const Center(
                 child: CustomText(
                     text: "+",
                     textSize: 16,
                     fontWeight: FontWeight.bold,
-                    textColor: Colors.grey)),
+                    textColor: AppColors.primary)),
           ),
         ),
       ],
