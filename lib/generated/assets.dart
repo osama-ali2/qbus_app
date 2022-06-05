@@ -7,6 +7,7 @@ class Assets {
   static const String imagesList = 'assets/images/list.png';
   static const String jsonBlueSimple = 'assets/json/blueSimple.json';
   static const String pngMainLogo = 'assets/png/main_logo.png';
+  static const String pngThumbnail = 'assets/png/thumbnail.png';
   static const String svgForwardIcon = 'assets/svg/forward_icon.svg';
   static const String svgSkipIcon = 'assets/svg/skip_icon.svg';
   static const String svgStarIcon = 'assets/svg/star_icon.svg';

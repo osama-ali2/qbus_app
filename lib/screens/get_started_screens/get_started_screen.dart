@@ -13,6 +13,7 @@ import '../../res/assets.dart';
 import '../../res/colors.dart';
 import '../../widgets/text_views.dart';
 import '../explore_screens/explore_screen.dart';
+import '../explore_screens/package_detail_screens/package_detail_screen.dart';
 import '../search_screens/search_result.dart';
 
 class GetStartedScreen extends StatefulWidget {
@@ -268,13 +269,19 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             return Padding(
                               padding: EdgeInsets.only(
                                   bottom: sizes!.heightRatio * 8.0),
-                              child: packageCardContainer(
-                                  title: packageName,
-                                  rating: rating,
-                                  fee: fee,
-                                  dateFrom: dateFrom,
-                                  detail: detail,
-                                  image: thumbnailImage),
+                              child: GestureDetector(
+                                onTap: () {
+                                  NavigationHelper.pushRoute(
+                                      context, const PackageDetailScreen());
+                                },
+                                child: packageCardContainer(
+                                    title: packageName,
+                                    rating: rating,
+                                    fee: fee,
+                                    dateFrom: dateFrom,
+                                    detail: detail,
+                                    image: thumbnailImage),
+                              ),
                             );
                           })
                       : Center(
@@ -316,12 +323,30 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
         child: Row(
           children: [
             Container(
-              height: sizes!.heightRatio * 130,
+              height: sizes!.heightRatio * 100,
+              width: sizes!.widthRatio * 140,
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(12)),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(6),
-                child: Image.network(image),
+                child: Image.network(
+                  image,
+                  height: sizes!.heightRatio * 100,
+                  width: sizes!.widthRatio * 140,
+                  fit: BoxFit.fill,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             SizedBox(
@@ -355,7 +380,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 ),
                 CustomText(
                   text: dateFrom,
-                  textSize: 10,
+                  textSize: sizes!.fontRatio * 10,
                   fontWeight: FontWeight.normal,
                   textColor: Colors.black,
                   textAlign: TextAlign.start,
@@ -364,6 +389,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   height: sizes!.heightRatio * 5,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
@@ -379,9 +405,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             textColor: Colors.black)
                       ],
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.2,
-                    ),
+                    CommonPadding.sizeBoxWithWidth(width: 85),
                     Container(
                       height: sizes!.heightRatio * 20,
                       width: sizes!.widthRatio * 60,
