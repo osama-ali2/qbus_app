@@ -89,7 +89,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                 child: GestureDetector(
                                   onTap: () {
                                     NavigationHelper.pushRoute(
-                                        context, const PackageDetailScreen());
+                                        context,  PackageDetailScreen(packageTitle: packageName,));
                                   },
                                   child: packageCardContainer(
                                       title: packageName,

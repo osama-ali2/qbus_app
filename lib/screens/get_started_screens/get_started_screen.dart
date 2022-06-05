@@ -272,7 +272,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                               child: GestureDetector(
                                 onTap: () {
                                   NavigationHelper.pushRoute(
-                                      context, const PackageDetailScreen());
+                                      context,
+                                      PackageDetailScreen(
+                                        packageTitle: packageName,
+                                      ));
                                 },
                                 child: packageCardContainer(
                                     title: packageName,
