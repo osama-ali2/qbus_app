@@ -46,7 +46,7 @@ class SignUpProvider with ChangeNotifier {
       debugPrint("URL: $signUpApiUrl");
 
       signUpResponse = await MyApi.callPostApi(
-          url: packagesApiUrl,
+          url: signUpApiUrl,
           body: body,
           myHeaders: header,
           modelName: Models.signupModel);
