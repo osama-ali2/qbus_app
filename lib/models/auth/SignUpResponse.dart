@@ -1,0 +1,170 @@
+/// message : "A fresh verification code has been sent to your phone number Code : 448535"
+/// code : 1
+/// data : {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZjdlM2QzM2UwMzViZTE0MDQxYjVhNDlmZWEzODYzOWQwZDExN2QzYzhhYmJhZDMzN2E4OTk5MGZjYzBjZjVhMmQ5ZTA5ZTM5YjNhMzI3OWMiLCJpYXQiOjE2NTQ2MjM3MTEuOTg1NzkxOTIxNjE1NjAwNTg1OTM3NSwibmJmIjoxNjU0NjIzNzExLjk4NTc5NjkyODQwNTc2MTcxODc1LCJleHAiOjE2ODYxNTk3MTEuOTcyNzE5OTA3NzYwNjIwMTE3MTg3NSwic3ViIjoiMzgiLCJzY29wZXMiOltdfQ.XlU42JBINA5tBpi0DaNvUzrz-3cKaplaTte4NDyCLkWBq5kTMPVlkWRW6jG57UxT6hgmaEoxdK9jTp-qzFh05Xpkvp88ac4W6psYb4717XDg25vZgF54j7Mjgwv4BTJZ4pB5Ei6veA-QPLgMWOwC-S_oBV09ikotuBaCulkAuhcmt9_FIr5MYQyPr0z5mOkvjmDuY6eC9ueE-e-OBOQ9sOqBjRicXkcSsJ4QPZBoi2yDHnF38VCdLL_S2wM8q3X8OPzBj2lm8uQq129gwlOGfcDC6zOb1hkNGkfJKB48HhLnk-PxO5HJj4v6RTgZ0pPaTTjVRo_zPOiW5qzrS-CMVRq6krZKhf3qCHOpA4ZU_fvggLnnQyUGSLzpRk1fDNCBVoJoedAM8qVHCL4yDK_HRTqjUdemZ-CptLR42iUipBD7Yob2r5MatR7FxbmTfUwes8CK50Gn8XRjA92hQ4XrIE_MPsu-Q04FwBvvgLH1x_1umhbrXPsHzXgDajBIu2onHYjTnhAwYOgGHNVXonGiZGP8M89h8AcJpnzaGAJLttmlxsivmzN1I3u5W1HmILhRpbcoXHa2uaoM6B0nWnOu1tL_hOBj_J2Xl3a-m6Bb6M_ZIIFW3NcmVAX8APaPUH3506IsKOgyhVDw5_d_S0oPOQnSXnRKIegovRLpE9jglJI","user":{"id":38,"name":"Thor","email":"Tohr@gmail.com","phone":"0508080100","image":"","address":"address add 256","date_of_birth":"30-05-2000","marital_status":"married","block":0,"block_notes":"","wallet":"","language":"ar"}}
+
+class SignUpResponse {
+  SignUpResponse({
+      String? message, 
+      int? code, 
+      Data? data,}){
+    _message = message;
+    _code = code;
+    _data = data;
+}
+
+  SignUpResponse.fromJson(dynamic json) {
+    _message = json['message'];
+    _code = json['code'];
+    _data = json['data'] != null ? Data.fromJson(json['data']) : null;
+  }
+  String? _message;
+  int? _code;
+  Data? _data;
+
+  String? get message => _message;
+  int? get code => _code;
+  Data? get data => _data;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['message'] = _message;
+    map['code'] = _code;
+    if (_data != null) {
+      map['data'] = _data?.toJson();
+    }
+    return map;
+  }
+
+}
+
+/// token : "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZjdlM2QzM2UwMzViZTE0MDQxYjVhNDlmZWEzODYzOWQwZDExN2QzYzhhYmJhZDMzN2E4OTk5MGZjYzBjZjVhMmQ5ZTA5ZTM5YjNhMzI3OWMiLCJpYXQiOjE2NTQ2MjM3MTEuOTg1NzkxOTIxNjE1NjAwNTg1OTM3NSwibmJmIjoxNjU0NjIzNzExLjk4NTc5NjkyODQwNTc2MTcxODc1LCJleHAiOjE2ODYxNTk3MTEuOTcyNzE5OTA3NzYwNjIwMTE3MTg3NSwic3ViIjoiMzgiLCJzY29wZXMiOltdfQ.XlU42JBINA5tBpi0DaNvUzrz-3cKaplaTte4NDyCLkWBq5kTMPVlkWRW6jG57UxT6hgmaEoxdK9jTp-qzFh05Xpkvp88ac4W6psYb4717XDg25vZgF54j7Mjgwv4BTJZ4pB5Ei6veA-QPLgMWOwC-S_oBV09ikotuBaCulkAuhcmt9_FIr5MYQyPr0z5mOkvjmDuY6eC9ueE-e-OBOQ9sOqBjRicXkcSsJ4QPZBoi2yDHnF38VCdLL_S2wM8q3X8OPzBj2lm8uQq129gwlOGfcDC6zOb1hkNGkfJKB48HhLnk-PxO5HJj4v6RTgZ0pPaTTjVRo_zPOiW5qzrS-CMVRq6krZKhf3qCHOpA4ZU_fvggLnnQyUGSLzpRk1fDNCBVoJoedAM8qVHCL4yDK_HRTqjUdemZ-CptLR42iUipBD7Yob2r5MatR7FxbmTfUwes8CK50Gn8XRjA92hQ4XrIE_MPsu-Q04FwBvvgLH1x_1umhbrXPsHzXgDajBIu2onHYjTnhAwYOgGHNVXonGiZGP8M89h8AcJpnzaGAJLttmlxsivmzN1I3u5W1HmILhRpbcoXHa2uaoM6B0nWnOu1tL_hOBj_J2Xl3a-m6Bb6M_ZIIFW3NcmVAX8APaPUH3506IsKOgyhVDw5_d_S0oPOQnSXnRKIegovRLpE9jglJI"
+/// user : {"id":38,"name":"Thor","email":"Tohr@gmail.com","phone":"0508080100","image":"","address":"address add 256","date_of_birth":"30-05-2000","marital_status":"married","block":0,"block_notes":"","wallet":"","language":"ar"}
+
+class Data {
+  Data({
+      String? token, 
+      User? user,}){
+    _token = token;
+    _user = user;
+}
+
+  Data.fromJson(dynamic json) {
+    _token = json['token'];
+    _user = json['user'] != null ? User.fromJson(json['user']) : null;
+  }
+  String? _token;
+  User? _user;
+
+  String? get token => _token;
+  User? get user => _user;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['token'] = _token;
+    if (_user != null) {
+      map['user'] = _user?.toJson();
+    }
+    return map;
+  }
+
+}
+
+/// id : 38
+/// name : "Thor"
+/// email : "Tohr@gmail.com"
+/// phone : "0508080100"
+/// image : ""
+/// address : "address add 256"
+/// date_of_birth : "30-05-2000"
+/// marital_status : "married"
+/// block : 0
+/// block_notes : ""
+/// wallet : ""
+/// language : "ar"
+
+class User {
+  User({
+      int? id, 
+      String? name, 
+      String? email, 
+      String? phone, 
+      String? image, 
+      String? address, 
+      String? dateOfBirth, 
+      String? maritalStatus, 
+      int? block, 
+      String? blockNotes, 
+      String? wallet, 
+      String? language,}){
+    _id = id;
+    _name = name;
+    _email = email;
+    _phone = phone;
+    _image = image;
+    _address = address;
+    _dateOfBirth = dateOfBirth;
+    _maritalStatus = maritalStatus;
+    _block = block;
+    _blockNotes = blockNotes;
+    _wallet = wallet;
+    _language = language;
+}
+
+  User.fromJson(dynamic json) {
+    _id = json['id'];
+    _name = json['name'];
+    _email = json['email'];
+    _phone = json['phone'];
+    _image = json['image'];
+    _address = json['address'];
+    _dateOfBirth = json['date_of_birth'];
+    _maritalStatus = json['marital_status'];
+    _block = json['block'];
+    _blockNotes = json['block_notes'];
+    _wallet = json['wallet'];
+    _language = json['language'];
+  }
+  int? _id;
+  String? _name;
+  String? _email;
+  String? _phone;
+  String? _image;
+  String? _address;
+  String? _dateOfBirth;
+  String? _maritalStatus;
+  int? _block;
+  String? _blockNotes;
+  String? _wallet;
+  String? _language;
+
+  int? get id => _id;
+  String? get name => _name;
+  String? get email => _email;
+  String? get phone => _phone;
+  String? get image => _image;
+  String? get address => _address;
+  String? get dateOfBirth => _dateOfBirth;
+  String? get maritalStatus => _maritalStatus;
+  int? get block => _block;
+  String? get blockNotes => _blockNotes;
+  String? get wallet => _wallet;
+  String? get language => _language;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = _id;
+    map['name'] = _name;
+    map['email'] = _email;
+    map['phone'] = _phone;
+    map['image'] = _image;
+    map['address'] = _address;
+    map['date_of_birth'] = _dateOfBirth;
+    map['marital_status'] = _maritalStatus;
+    map['block'] = _block;
+    map['block_notes'] = _blockNotes;
+    map['wallet'] = _wallet;
+    map['language'] = _language;
+    return map;
+  }
+
+}
