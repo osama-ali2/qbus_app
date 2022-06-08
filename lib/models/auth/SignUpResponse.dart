@@ -1,6 +1,6 @@
-/// message : "A fresh verification code has been sent to your phone number Code : 448535"
+/// message : "A fresh verification code has been sent to your phone number Code : 155062"
 /// code : 1
-/// data : {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZjdlM2QzM2UwMzViZTE0MDQxYjVhNDlmZWEzODYzOWQwZDExN2QzYzhhYmJhZDMzN2E4OTk5MGZjYzBjZjVhMmQ5ZTA5ZTM5YjNhMzI3OWMiLCJpYXQiOjE2NTQ2MjM3MTEuOTg1NzkxOTIxNjE1NjAwNTg1OTM3NSwibmJmIjoxNjU0NjIzNzExLjk4NTc5NjkyODQwNTc2MTcxODc1LCJleHAiOjE2ODYxNTk3MTEuOTcyNzE5OTA3NzYwNjIwMTE3MTg3NSwic3ViIjoiMzgiLCJzY29wZXMiOltdfQ.XlU42JBINA5tBpi0DaNvUzrz-3cKaplaTte4NDyCLkWBq5kTMPVlkWRW6jG57UxT6hgmaEoxdK9jTp-qzFh05Xpkvp88ac4W6psYb4717XDg25vZgF54j7Mjgwv4BTJZ4pB5Ei6veA-QPLgMWOwC-S_oBV09ikotuBaCulkAuhcmt9_FIr5MYQyPr0z5mOkvjmDuY6eC9ueE-e-OBOQ9sOqBjRicXkcSsJ4QPZBoi2yDHnF38VCdLL_S2wM8q3X8OPzBj2lm8uQq129gwlOGfcDC6zOb1hkNGkfJKB48HhLnk-PxO5HJj4v6RTgZ0pPaTTjVRo_zPOiW5qzrS-CMVRq6krZKhf3qCHOpA4ZU_fvggLnnQyUGSLzpRk1fDNCBVoJoedAM8qVHCL4yDK_HRTqjUdemZ-CptLR42iUipBD7Yob2r5MatR7FxbmTfUwes8CK50Gn8XRjA92hQ4XrIE_MPsu-Q04FwBvvgLH1x_1umhbrXPsHzXgDajBIu2onHYjTnhAwYOgGHNVXonGiZGP8M89h8AcJpnzaGAJLttmlxsivmzN1I3u5W1HmILhRpbcoXHa2uaoM6B0nWnOu1tL_hOBj_J2Xl3a-m6Bb6M_ZIIFW3NcmVAX8APaPUH3506IsKOgyhVDw5_d_S0oPOQnSXnRKIegovRLpE9jglJI","user":{"id":38,"name":"Thor","email":"Tohr@gmail.com","phone":"0508080100","image":"","address":"address add 256","date_of_birth":"30-05-2000","marital_status":"married","block":0,"block_notes":"","wallet":"","language":"ar"}}
+/// data : {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZWY2OGJiODJlMWJjYjZjOWU2NTkyZmE4NzkyYjI1ZDA1YjNjOTAyMWNkMzE0Y2E3MjBmMmM2YWNlZjFmMmY4ZjJkYjIxYWZmNWMwN2NjODQiLCJpYXQiOjE2NTQ2Mjk1OTYuNTM0NTQ4MDQ0MjA0NzExOTE0MDYyNSwibmJmIjoxNjU0NjI5NTk2LjUzNDU1MzA1MDk5NDg3MzA0Njg3NSwiZXhwIjoxNjg2MTY1NTk2LjUyNjIxNzkzNzQ2OTQ4MjQyMTg3NSwic3ViIjoiNDAiLCJzY29wZXMiOltdfQ.dDeBtX5Ys-FQ1g_LL6ciIcGy8c9PgM2ELPfAqw2EeHQK0DS5G8suxtdCYRlrzPEYmiiI2Pd85IEn0Owo8Xx7VivinyyxtX9HQXoHp2Jef8E12dt6c5fl94ia4-e8YguBCVwVzQzcYSJyFbhGQBr1Hg3Xct6_PY_B4SIIGVS8__h5Iigke1mmx_wK-rzez62LlwYmfjdIVuq5NIo0hphCjSluUxo2eyG5QpQVfAIS-Jrr2YJ7FyDLW0w_VSSbNJAp2e9T2ntVOWenmKy0glU3mYYpdYSMEnrB8gICsAmhoBY07qTY4TpwcBF2nbN8WkobBzbCBqwLADYE-ti6kvXG0jB1LQDwax2xXBplxCPPA4Q_3-w1StSSfviV4GeRvNIPjZjf89b5JcRcTJpRluAvBpcq31s_ibRctAE_27b1wZbyQKzZ4YD5HxePLJ06DrqCn9g0FxmE9GnD4RzU6A3md52rZ2KiooO3MO8o31vGLYkmKuDT1_UGbNlu5TldkM9eYGYfilj-Hp9-n3juKuJDczjtZEZcPPT5icDms1UI8s4QMDB-v3YQbUP1S-lY0jPtwazCCmICYo2j_O4dolXlCr_cQ9UUAwLkjyWAL8EB7xyB3HNz12LWxDRvsNkNmzv0piXrxc2K2psRYn4VUnwE7NRDX9kYnxB-W6-QsjMF8og","user":{"id":40,"name":"PLL","email":"PLL0@gmail.com","phone":"0508000100","image":"","address":"address add 256","date_of_birth":"30-05-2000","marital_status":"married","block":0,"block_notes":"","wallet":"","language":"ar"}}
 
 class SignUpResponse {
   SignUpResponse({
@@ -37,8 +37,8 @@ class SignUpResponse {
 
 }
 
-/// token : "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZjdlM2QzM2UwMzViZTE0MDQxYjVhNDlmZWEzODYzOWQwZDExN2QzYzhhYmJhZDMzN2E4OTk5MGZjYzBjZjVhMmQ5ZTA5ZTM5YjNhMzI3OWMiLCJpYXQiOjE2NTQ2MjM3MTEuOTg1NzkxOTIxNjE1NjAwNTg1OTM3NSwibmJmIjoxNjU0NjIzNzExLjk4NTc5NjkyODQwNTc2MTcxODc1LCJleHAiOjE2ODYxNTk3MTEuOTcyNzE5OTA3NzYwNjIwMTE3MTg3NSwic3ViIjoiMzgiLCJzY29wZXMiOltdfQ.XlU42JBINA5tBpi0DaNvUzrz-3cKaplaTte4NDyCLkWBq5kTMPVlkWRW6jG57UxT6hgmaEoxdK9jTp-qzFh05Xpkvp88ac4W6psYb4717XDg25vZgF54j7Mjgwv4BTJZ4pB5Ei6veA-QPLgMWOwC-S_oBV09ikotuBaCulkAuhcmt9_FIr5MYQyPr0z5mOkvjmDuY6eC9ueE-e-OBOQ9sOqBjRicXkcSsJ4QPZBoi2yDHnF38VCdLL_S2wM8q3X8OPzBj2lm8uQq129gwlOGfcDC6zOb1hkNGkfJKB48HhLnk-PxO5HJj4v6RTgZ0pPaTTjVRo_zPOiW5qzrS-CMVRq6krZKhf3qCHOpA4ZU_fvggLnnQyUGSLzpRk1fDNCBVoJoedAM8qVHCL4yDK_HRTqjUdemZ-CptLR42iUipBD7Yob2r5MatR7FxbmTfUwes8CK50Gn8XRjA92hQ4XrIE_MPsu-Q04FwBvvgLH1x_1umhbrXPsHzXgDajBIu2onHYjTnhAwYOgGHNVXonGiZGP8M89h8AcJpnzaGAJLttmlxsivmzN1I3u5W1HmILhRpbcoXHa2uaoM6B0nWnOu1tL_hOBj_J2Xl3a-m6Bb6M_ZIIFW3NcmVAX8APaPUH3506IsKOgyhVDw5_d_S0oPOQnSXnRKIegovRLpE9jglJI"
-/// user : {"id":38,"name":"Thor","email":"Tohr@gmail.com","phone":"0508080100","image":"","address":"address add 256","date_of_birth":"30-05-2000","marital_status":"married","block":0,"block_notes":"","wallet":"","language":"ar"}
+/// token : "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZWY2OGJiODJlMWJjYjZjOWU2NTkyZmE4NzkyYjI1ZDA1YjNjOTAyMWNkMzE0Y2E3MjBmMmM2YWNlZjFmMmY4ZjJkYjIxYWZmNWMwN2NjODQiLCJpYXQiOjE2NTQ2Mjk1OTYuNTM0NTQ4MDQ0MjA0NzExOTE0MDYyNSwibmJmIjoxNjU0NjI5NTk2LjUzNDU1MzA1MDk5NDg3MzA0Njg3NSwiZXhwIjoxNjg2MTY1NTk2LjUyNjIxNzkzNzQ2OTQ4MjQyMTg3NSwic3ViIjoiNDAiLCJzY29wZXMiOltdfQ.dDeBtX5Ys-FQ1g_LL6ciIcGy8c9PgM2ELPfAqw2EeHQK0DS5G8suxtdCYRlrzPEYmiiI2Pd85IEn0Owo8Xx7VivinyyxtX9HQXoHp2Jef8E12dt6c5fl94ia4-e8YguBCVwVzQzcYSJyFbhGQBr1Hg3Xct6_PY_B4SIIGVS8__h5Iigke1mmx_wK-rzez62LlwYmfjdIVuq5NIo0hphCjSluUxo2eyG5QpQVfAIS-Jrr2YJ7FyDLW0w_VSSbNJAp2e9T2ntVOWenmKy0glU3mYYpdYSMEnrB8gICsAmhoBY07qTY4TpwcBF2nbN8WkobBzbCBqwLADYE-ti6kvXG0jB1LQDwax2xXBplxCPPA4Q_3-w1StSSfviV4GeRvNIPjZjf89b5JcRcTJpRluAvBpcq31s_ibRctAE_27b1wZbyQKzZ4YD5HxePLJ06DrqCn9g0FxmE9GnD4RzU6A3md52rZ2KiooO3MO8o31vGLYkmKuDT1_UGbNlu5TldkM9eYGYfilj-Hp9-n3juKuJDczjtZEZcPPT5icDms1UI8s4QMDB-v3YQbUP1S-lY0jPtwazCCmICYo2j_O4dolXlCr_cQ9UUAwLkjyWAL8EB7xyB3HNz12LWxDRvsNkNmzv0piXrxc2K2psRYn4VUnwE7NRDX9kYnxB-W6-QsjMF8og"
+/// user : {"id":40,"name":"PLL","email":"PLL0@gmail.com","phone":"0508000100","image":"","address":"address add 256","date_of_birth":"30-05-2000","marital_status":"married","block":0,"block_notes":"","wallet":"","language":"ar"}
 
 class Data {
   Data({
@@ -69,10 +69,10 @@ class Data {
 
 }
 
-/// id : 38
-/// name : "Thor"
-/// email : "Tohr@gmail.com"
-/// phone : "0508080100"
+/// id : 40
+/// name : "PLL"
+/// email : "PLL0@gmail.com"
+/// phone : "0508000100"
 /// image : ""
 /// address : "address add 256"
 /// date_of_birth : "30-05-2000"

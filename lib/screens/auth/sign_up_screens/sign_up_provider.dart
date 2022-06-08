@@ -33,14 +33,14 @@ class SignUpProvider with ChangeNotifier {
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
       Map<String, dynamic> body = {
-        "name": "Thor",
-        "phone": "0508080100",
-        "email": "Tohr@gmail.com",
-        "address": "address add 256",
+        "name": userName,
+        "phone": phoneNumber,
+        "email": email,
+        "address": address,
         "date_of_birth": "30-05-2000",
         "city_id": "2",
         "marital_status": "married",
-        "password": "password"
+        "password": password
       };
 
       debugPrint("URL: $signUpApiUrl");
