@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
@@ -10,6 +12,7 @@ import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/about_us_screens/about_us_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/edit_user_profile_screens/edit_user_profile_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/privacy_policy_screens/privacy_policy_screen.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/profile_provider.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/return_policy_screens/return_policy_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/wallet_screens/wallet_screen.dart';
 import 'package:qbus/widgets/text_views.dart';
@@ -27,8 +30,19 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  late ProfileProvider profileProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    profileProvider = ProfileProvider();
+    profileProvider = Provider.of<ProfileProvider>(context, listen: false);
+    profileProvider.init(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
+    Provider.of<ProfileProvider>(context, listen: true);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -105,10 +119,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ).get20HorizontalPadding(),
           ),
           CommonPadding.sizeBoxWithHeight(height: 15),
-          getRow(title: 'Wallet', onPress: () {
-            NavigationHelper.pushRoute(context, const WalletScreen());
-
-          }),
+          getRow(
+              title: 'Wallet',
+              onPress: () {
+                NavigationHelper.pushRoute(context, const WalletScreen());
+              }),
           CommonPadding.sizeBoxWithHeight(height: 15),
           getRow(
               title: 'About us',
@@ -138,15 +153,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
           getRow(
               title: "Logout",
               onPress: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginScreen()),
-                    (route) => false);
+                _lagOut();
               }),
         ],
       ),
     );
+  }
+
+  Future<void> _lagOut() async {
+    await profileProvider.logoutUser();
+    await PreferenceUtils.clearPreferences();
+    if (profileProvider.isUserLogout) {
+      if (!mounted) return;
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+          (route) => false);
+    }
   }
 
   Widget getRow({required String title, required Function? onPress}) =>

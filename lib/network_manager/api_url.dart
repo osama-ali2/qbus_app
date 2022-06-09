@@ -10,6 +10,7 @@ const String getCitiesApiUrl = "$baseUrl/cites";
 
 const String loginApiUrl = "$baseUrl/login";
 const String signUpApiUrl = "$baseUrl/signup";
+const String logoutApiUrl = "$baseUrl/logout";
 
 const String verifyPhoneNumberApiUrl = "$baseUrl/verify_phone";
 const String contactUsApiUrl = "$baseUrl/contact_us";
