@@ -21,6 +21,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   late TextEditingController emailController;
   late TextEditingController subjectController;
   late TextEditingController messageController;
+  late TextEditingController phoneNumberController;
 
   late ContactUsProvider contactUsProvider;
 
@@ -32,6 +33,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
     emailController = TextEditingController();
     subjectController = TextEditingController();
     messageController = TextEditingController();
+    phoneNumberController = TextEditingController();
 
     contactUsProvider = ContactUsProvider();
     contactUsProvider = Provider.of<ContactUsProvider>(context, listen: false);
@@ -75,14 +77,14 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           inputType: TextInputType.emailAddress,
           hint: "Email address",
         ),
-        // const SizedBox(height: 10),
-        // CustomTextField(
-        //   controller: phoneNumberController,
-        //   padding: 20,
-        //   validator: (val) => null,
-        //   inputType: TextInputType.phone,
-        //   hint: "Phone Number",
-        // ),
+        const SizedBox(height: 10),
+        CustomTextField(
+          controller: phoneNumberController,
+          padding: 20,
+          validator: (val) => null,
+          inputType: TextInputType.phone,
+          hint: "Phone Number",
+        ),
         const SizedBox(height: 10),
         CustomTextField(
           controller: subjectController,
@@ -135,15 +137,21 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   Future<void> validateData() async {
     var name = fullNameController.text.toString().trim();
     var email = emailController.text.toString().trim();
+    var phoneNumber = phoneNumberController.text.toString().trim();
     var subject = subjectController.text.toString().trim();
     var message = messageController.text.toString().trim();
 
     if (name.isNotEmpty &&
         email.isNotEmpty &&
         subject.isNotEmpty &&
-        message.isNotEmpty) {
+        message.isNotEmpty &&
+        phoneNumber.isNotEmpty) {
       await contactUsProvider.contactUsSubmit(
-          name: name, email: email, subject: subject, message: message);
+          name: name,
+          email: email,
+          subject: subject,
+          message: message,
+          phoneNumber: phoneNumber);
       if (contactUsProvider.isDataSubmitted) {
         if (!mounted) return;
         Navigator.pop(context);
@@ -156,6 +164,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       Toasts.getErrorToast(text: "Subject field is required");
     } else if (message.isEmpty) {
       Toasts.getErrorToast(text: "Message field is required");
+    } else if (phoneNumber.isEmpty) {
+      Toasts.getErrorToast(text: "Phone Number field is required");
     }
   }
 }

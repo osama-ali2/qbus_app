@@ -18,16 +18,20 @@ class ExploreProvider with ChangeNotifier {
     this.context = context;
   }
 
-  Future<void> getPackagesData() async {
+  Future<void> getPackagesData({
+    @required String? dateFrom,
+    @required String? dateTo,
+    @required String? timeFrom,
+  }) async {
     try {
       _loader.showLoader(context: context);
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
       Map<String, dynamic> body = {
         "code": "",
-        "date_from": "",
-        "date_to": "",
-        "time_from": "",
+        "date_from": dateFrom ?? "",
+        "date_to": dateTo ?? "",
+        "time_from": timeFrom ?? "",
         "starting_city_id": "",
         "additional": []
       };

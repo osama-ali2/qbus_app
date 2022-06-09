@@ -83,13 +83,16 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               var thumbnailImage = "$baseUrl/$image";
                               var dateFrom = data.dateFrom.toString();
                               var detail = data.description!.en.toString();
-                              debugPrint("thumbnailImage: $thumbnailImage");
+                              // debugPrint("thumbnailImage: $thumbnailImage");
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 8.0),
                                 child: GestureDetector(
                                   onTap: () {
                                     NavigationHelper.pushRoute(
-                                        context,  PackageDetailScreen(packageTitle: packageName,));
+                                        context,
+                                        PackageDetailScreen(
+                                          packageTitle: packageName,
+                                        ));
                                   },
                                   child: packageCardContainer(
                                       title: packageName,

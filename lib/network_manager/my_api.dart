@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
 import '../models/error_model/ErrorResponse.dart';
 import '../res/strings.dart';
 import '../res/toasts.dart';
@@ -63,7 +64,18 @@ class MyApi {
             }
             return null;
           case 401:
-            Toasts.getErrorToast(text: errorResponse.data?.message);
+            ValidatingErrorResponse validatingErrorResponse =
+                await Models.getModelObject(
+                    Models.validateErrorModel, ex.response?.data);
+            validatingErrorResponse.data!.validateErrors!.map((res) {
+              Toasts.getErrorToast(text: res.toString());
+            });
+            if (validatingErrorResponse.code == 0) {
+              return validatingErrorResponse;
+            } else {
+              Toasts.getErrorToast(text: validatingErrorResponse.message);
+            }
+
             return null;
           case 500:
             Toasts.getErrorToast(text: "Internal Server Error");

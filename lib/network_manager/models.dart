@@ -2,15 +2,17 @@ import 'package:qbus/models/about_us/GetAboutUsResponse.dart';
 import 'package:qbus/models/additional/GetAdditionalResponse.dart';
 import 'package:qbus/models/auth/LoginResponse.dart';
 import 'package:qbus/models/auth/SignUpResponse.dart';
+import 'package:qbus/models/contact_us/GetContactUsResponse.dart';
+import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
 import '../models/cities/GetCitiesResponse.dart';
-import '../models/contact_us/ContactUsResponse.dart';
 import '../models/error_model/ErrorResponse.dart';
 import '../models/packages/PackagesResponse.dart';
 
 class Models {
   //Error
   static const String errorModel = "errorModel";
+  static const String validateErrorModel = "validateErrorModel";
 
   static const String packagesModel = "packagesModel";
   static const String tripsModel = "tripsModel";
@@ -26,7 +28,7 @@ class Models {
       String modelName, Map<String, dynamic> json) async {
     switch (modelName) {
       case contactUsModel:
-        return ContactUsResponse.fromJson(json);
+        return GetContactUsResponse.fromJson(json);
       case loginModel:
         return LoginResponse.fromJson(json);
       case citiesModel:
@@ -43,6 +45,8 @@ class Models {
         return TripsResponse.fromJson(json);
       case errorModel:
         return ErrorResponse.fromJson(json);
+      case validateErrorModel:
+        return ValidatingErrorResponse.fromJson(json);
     }
   }
 }
