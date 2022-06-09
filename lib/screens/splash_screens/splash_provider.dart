@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
+import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
 
 import '../../local_cache/utils.dart';
 import '../../res/strings.dart';
@@ -14,22 +16,26 @@ class SplashProvider with ChangeNotifier {
     // await navigateToNextScreen();
   }
 
-// Future<void> navigateToNextScreen() async {
-//   await Future.delayed(const Duration(
-//     seconds: 3,
-//   ));
-//
-//   if (PreferenceUtils.getString(Strings.loginEmail)!.isNotEmpty &&
-//       PreferenceUtils.getString(Strings.loginUserToken)!.isNotEmpty) {
-//     _logger.d("loginEmail: ${PreferenceUtils.getString(Strings.loginEmail)}");
-//     _logger.d(
-//         "loginUserToken: ${PreferenceUtils.getString(Strings.loginUserToken)}");
-//     await Navigator.pushReplacement(
-//         context!, SlideRightRoute(page: const MainHomeScreen()));
-//   } else {
-//     await Navigator.pushReplacement(
-//         context!, SlideRightRoute(page: const LoginScreen()));
-//   }
-//   notifyListeners();
-// }
+  Future<void> navigateToNextScreen({required BuildContext context}) async {
+    await Future.delayed(const Duration(
+      seconds: 3,
+    ));
+    if (PreferenceUtils.getString(Strings.loginEmail)!.isNotEmpty &&
+        PreferenceUtils.getString(Strings.loginUserToken)!.isNotEmpty) {
+      _logger.d("loginEmail: ${PreferenceUtils.getString(Strings.loginEmail)}");
+      _logger.d(
+          "loginUserToken: ${PreferenceUtils.getString(Strings.loginUserToken)}");
+
+      await Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const BottomBarScreen()),
+          (route) => false);
+    } else {
+      await Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const GetStartedScreen()),
+          (route) => false);
+    }
+    notifyListeners();
+  }
 }

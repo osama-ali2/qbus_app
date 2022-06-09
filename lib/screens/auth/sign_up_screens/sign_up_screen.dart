@@ -267,6 +267,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     var yourAddress = _yourAddressController.text.toString().trim();
     var password = _passwordController.text.toString().trim();
 
+
+
     if (fullName.isNotEmpty &&
         mobilePhone.isNotEmpty &&
         email.isNotEmpty &&
@@ -279,7 +281,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           phoneNumber: mobilePhone,
           email: email,
           address: yourAddress,
-          password: password);
+          password: password, status: selectedMartialStatus);
       if (signUpProvider.isDataLoaded) {
         if (!mounted) return;
         NavigationHelper.pushRoute(context, const PhoneActivationScreen());

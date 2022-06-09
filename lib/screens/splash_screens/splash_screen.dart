@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
 import 'package:qbus/screens/splash_screens/splash_provider.dart';
+import 'package:qbus/widgets/loader.dart';
 import '../../res/res.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -22,9 +23,14 @@ class _SplashScreenState extends State<SplashScreen> {
     splashProvider = SplashProvider();
     splashProvider = Provider.of<SplashProvider>(context, listen: false);
     splashProvider.init(context: context);
-    Timer(const Duration(seconds: 3), () {
-      NavigationHelper.pushReplacement(context, const GetStartedScreen());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Loader().showLoader(context: context);
+      splashProvider.navigateToNextScreen(context: context);
     });
+    // Timer(const Duration(seconds: 3), () {
+    //   NavigationHelper.pushReplacement(context, const GetStartedScreen());
+    // });
   }
 
   @override

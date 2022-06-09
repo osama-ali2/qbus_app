@@ -3,9 +3,11 @@ import 'package:logger/logger.dart';
 import 'package:qbus/models/auth/LoginResponse.dart';
 import 'package:qbus/widgets/loader.dart';
 
+import '../../../local_cache/utils.dart';
 import '../../../network_manager/api_url.dart';
 import '../../../network_manager/models.dart';
 import '../../../network_manager/my_api.dart';
+import '../../../res/strings.dart';
 
 class LoginProvider with ChangeNotifier {
   BuildContext? context;
@@ -40,10 +42,28 @@ class LoginProvider with ChangeNotifier {
       debugPrint("loginBody: $body");
 
       if (loginResponse.code == 1) {
+        PreferenceUtils.clearPreferences();
         _logger.d("loginResponse: ${loginResponse.toJson()}");
-        _loader.hideLoader(context!);
-        isDataLoaded = true;
-        notifyListeners();
+
+        await PreferenceUtils.setLoginResponse(loginResponse).then((_) async {
+          String name = PreferenceUtils.getString(Strings.loginName) ?? "";
+          String loginEmail =
+              PreferenceUtils.getString(Strings.loginEmail) ?? "";
+          String savedToken =
+              PreferenceUtils.getString(Strings.loginUserToken) ?? "";
+          String loginWallet =
+              PreferenceUtils.getString(Strings.loginWallet) ?? "";
+
+          _logger.d(
+              "savedToken: $savedToken, name: $name, loginEmail $loginEmail, loginWallet: $loginWallet");
+          _loader.hideLoader(context!);
+          isDataLoaded = true;
+
+          notifyListeners();
+        }).onError((error, stackTrace) {
+          _logger.d("Save Error: ${error.toString()}");
+          _loader.hideLoader(context!);
+        });
       } else {
         debugPrint("loginResponse: Something wrong");
         _loader.hideLoader(context!);

@@ -27,6 +27,7 @@ class SignUpProvider with ChangeNotifier {
     required String email,
     required String address,
     required String password,
+    required String status,
   }) async {
     try {
       _loader.showLoader(context: context);
