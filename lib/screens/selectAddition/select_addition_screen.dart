@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
+import 'package:qbus/screens/selectAddition/select_addition_provider.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
 
@@ -21,8 +23,24 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
   int chicken = 0;
   int water = 0;
 
+  late SelectAdditionProvider selectAdditionProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    selectAdditionProvider = SelectAdditionProvider();
+    selectAdditionProvider =
+        Provider.of<SelectAdditionProvider>(context, listen: false);
+    selectAdditionProvider.init(context: context);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      selectAdditionProvider.getAdditionalData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    Provider.of<SelectAdditionProvider>(context, listen: true);
     return Scaffold(
       bottomNavigationBar: SizedBox(
         height: sizes!.heightRatio * 130,
@@ -84,9 +102,38 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
             textColor: Colors.white),
       ),
       backgroundColor: Colors.white,
-      body: _getUI(context),
+      body: selectAdditionProvider.isDataLoaded == true
+          ? ListView.builder(
+              itemCount: selectAdditionProvider
+                  .getAdditionalResponse.data!.additional!.length,
+              itemBuilder: (context, index) {
+                var name = selectAdditionProvider
+                    .getAdditionalResponse.data!.additional![index].name!.en
+                    .toString();
+                return itemContainer(name: name);
+              })
+          : const Center(
+              child: Text("No Data Available"),
+            ),
     );
   }
+
+  Widget itemContainer({required String name}) => Column(
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          _items(context, name, () {
+            hotel++;
+            setState(() {});
+          }, () {
+            if (hotel > 0) {
+              hotel--;
+              setState(() {});
+            }
+          }, hotel),
+        ],
+      );
 
   Widget _getUI(BuildContext context) {
     return Column(
@@ -112,7 +159,6 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
             setState(() {});
           }
         }, chicken),
-
         _items(context, "Water (1)", () {
           water++;
           setState(() {});

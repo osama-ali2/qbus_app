@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:qbus/res/res.dart';
+import 'package:qbus/res/toasts.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screens/contact_us_screens/contact_us_provider.dart';
 
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_button.dart';
@@ -16,9 +19,11 @@ class ContactUsScreen extends StatefulWidget {
 class _ContactUsScreenState extends State<ContactUsScreen> {
   late TextEditingController fullNameController;
   late TextEditingController emailController;
-  late TextEditingController phoneNumberController;
   late TextEditingController subjectController;
   late TextEditingController messageController;
+  late TextEditingController phoneNumberController;
+
+  late ContactUsProvider contactUsProvider;
 
   @override
   void initState() {
@@ -26,13 +31,18 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
 
     fullNameController = TextEditingController();
     emailController = TextEditingController();
-    phoneNumberController = TextEditingController();
     subjectController = TextEditingController();
     messageController = TextEditingController();
+    phoneNumberController = TextEditingController();
+
+    contactUsProvider = ContactUsProvider();
+    contactUsProvider = Provider.of<ContactUsProvider>(context, listen: false);
+    contactUsProvider.init(context: context);
   }
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<ContactUsProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
@@ -44,7 +54,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             textColor: Colors.white),
       ),
       backgroundColor: Colors.white,
-      body: _getUI(context),
+      body: SingleChildScrollView(child: _getUI(context)),
     );
   }
 
@@ -64,7 +74,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           controller: emailController,
           padding: 20,
           validator: (val) => null,
-          inputType: TextInputType.name,
+          inputType: TextInputType.emailAddress,
           hint: "Email address",
         ),
         const SizedBox(height: 10),
@@ -72,7 +82,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           controller: phoneNumberController,
           padding: 20,
           validator: (val) => null,
-          inputType: TextInputType.name,
+          inputType: TextInputType.phone,
           hint: "Phone Number",
         ),
         const SizedBox(height: 10),
@@ -80,7 +90,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           controller: subjectController,
           padding: 20,
           validator: (val) => null,
-          inputType: TextInputType.name,
+          inputType: TextInputType.text,
           hint: "Subject",
         ),
         const SizedBox(height: 10),
@@ -96,6 +106,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
               child: TextFormField(
                 controller: messageController,
+                keyboardType: TextInputType.text,
                 maxLines: 20,
                 decoration: const InputDecoration(
                     border: InputBorder.none, hintText: "Your Message"),
@@ -116,10 +127,45 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             fontWeight: FontWeight.normal,
             borderRadius: 5,
             onTapped: () {
-              Navigator.pop(context);
+              validateData();
             },
             padding: 20),
       ],
     );
+  }
+
+  Future<void> validateData() async {
+    var name = fullNameController.text.toString().trim();
+    var email = emailController.text.toString().trim();
+    var phoneNumber = phoneNumberController.text.toString().trim();
+    var subject = subjectController.text.toString().trim();
+    var message = messageController.text.toString().trim();
+
+    if (name.isNotEmpty &&
+        email.isNotEmpty &&
+        subject.isNotEmpty &&
+        message.isNotEmpty &&
+        phoneNumber.isNotEmpty) {
+      await contactUsProvider.contactUsSubmit(
+          name: name,
+          email: email,
+          subject: subject,
+          message: message,
+          phoneNumber: phoneNumber);
+      if (contactUsProvider.isDataSubmitted) {
+        if (!mounted) return;
+        Navigator.pop(context);
+      }
+    } else if (name.isEmpty) {
+      Toasts.getErrorToast(text: "Name field is required");
+    } else if (email.isEmpty) {
+      Toasts.getErrorToast(text: "Email field is required");
+    } else if (subject.isEmpty) {
+      Toasts.getErrorToast(text: "Subject field is required");
+    } else if (message.isEmpty) {
+      Toasts.getErrorToast(text: "Message field is required");
+    } else if (phoneNumber.isEmpty) {
+      Toasts.getErrorToast(text: "Phone Number field is required");
+    }
   }
 }

@@ -13,7 +13,9 @@ import '../../../widgets/custom_text.dart';
 import '../../../widgets/text_views.dart';
 
 class PackageDetailScreen extends StatefulWidget {
-  const PackageDetailScreen({Key? key}) : super(key: key);
+  final String? packageTitle;
+
+  const PackageDetailScreen({Key? key, this.packageTitle}) : super(key: key);
 
   @override
   State<PackageDetailScreen> createState() => _PackageDetailScreenState();
@@ -28,7 +30,7 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
           backgroundColor: appColor,
           elevation: 0,
           title: CustomText(
-              text: "Package Detail",
+              text: widget.packageTitle ?? "Package Detail",
               textSize: sizes!.fontRatio * 18,
               fontWeight: FontWeight.w700,
               textColor: Colors.white),
