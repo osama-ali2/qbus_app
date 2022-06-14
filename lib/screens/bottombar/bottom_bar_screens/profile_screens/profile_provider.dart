@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/auth/LogoutResponse.dart';
+import 'package:qbus/models/auth/UserResponse.dart';
 import 'package:qbus/res/strings.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/widgets/loader.dart';
@@ -16,11 +17,14 @@ class ProfileProvider with ChangeNotifier {
   final Loader _loader = Loader();
 
   LogoutResponse logoutResponse = LogoutResponse();
+  UserResponse userResponse = UserResponse();
   bool isUserLogout = false;
+  bool isProfileLoading = false;
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
     isUserLogout = false;
+    isProfileLoading = false;
   }
 
   Future<void> logoutUser() async {
@@ -51,6 +55,39 @@ class ProfileProvider with ChangeNotifier {
       }
     } catch (e) {
       debugPrint("logoutResponseError: ${e.toString()}");
+      _loader.hideLoader(context!);
+    }
+  }
+
+  Future<void> getUserProfile() async {
+    try {
+      _loader.showLoader(context: context);
+
+      var userToken = PreferenceUtils.getString(Strings.loginUserToken);
+      _logger.d("userToken: $userToken");
+
+      Map<String, dynamic> header = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $userToken"
+      };
+
+      debugPrint("URL: $getUserInfoApiUrl");
+      userResponse = await MyApi.callGetApi(
+          url: getUserInfoApiUrl,
+          myHeaders: header,
+          modelName: Models.userProfileModel);
+
+      if (userResponse.code == 1) {
+        _logger.d("userResponse: ${userResponse.toJson()}");
+        _loader.hideLoader(context!);
+        isProfileLoading = true;
+        notifyListeners();
+      } else {
+        debugPrint("userResponse: Something wrong");
+        _loader.hideLoader(context!);
+      }
+    } catch (e) {
+      debugPrint("userResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }
