@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
-
-import '../../navigation/navigation_helper.dart';
 import '../../res/res.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text.dart';
 import '../../widgets/custom_textField.dart';
-import '../search_screens/search_result.dart';
 
 class TripFilterScreen extends StatefulWidget {
   const TripFilterScreen({Key? key}) : super(key: key);
@@ -20,16 +18,79 @@ class TripFilterScreen extends StatefulWidget {
 
 class _TripFilterScreenState extends State<TripFilterScreen> {
   late TextEditingController couponController;
-  var selectedCity = "";
+
+  var selectedFromCity = "From City";
+  var selectedToCity = "To City";
+
+  var selectedRating = "Rating";
+
   bool hotel5stars = false;
-  bool internet = false;
+  bool internet = true;
   bool meal = false;
   bool additional = false;
+
+  late DateTime _selectedStartDate;
+  late DateTime _selectedEndDate;
+  late TimeOfDay _selectedTime;
+
+  String _startDate = "Start Date";
+  String _endDate = "End Date";
+  String _startTime = "Start Time";
 
   @override
   void initState() {
     super.initState();
     couponController = TextEditingController();
+    _selectedStartDate = DateTime.now();
+    _selectedEndDate = DateTime.now();
+    _selectedTime = TimeOfDay.now();
+  }
+
+  void _presentStartDate() {
+    showDatePicker(
+      initialEntryMode: DatePickerEntryMode.input,
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2022),
+      lastDate: DateTime(2050),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return 'no date selected';
+      }
+      setState(() {
+        _selectedStartDate = pickedDate;
+      });
+    });
+  }
+
+  void _presentEndDate() {
+    showDatePicker(
+      initialEntryMode: DatePickerEntryMode.input,
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2022),
+      lastDate: DateTime(2050),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return 'no date selected';
+      }
+      setState(() {
+        _selectedEndDate = pickedDate;
+      });
+    });
+  }
+
+  void _presentTime() {
+    showTimePicker(context: context, initialTime: TimeOfDay.now())
+        .then((pickedTime) {
+      if (pickedTime == null) {
+        return 'no time selected';
+      }
+
+      setState(() {
+        _selectedTime = pickedTime;
+      });
+    });
   }
 
   @override
@@ -61,29 +122,100 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                 hint: "Coupon",
               ).get20HorizontalPadding(),
               CommonPadding.sizeBoxWithHeight(height: 20),
-              CustomTextField(
-                controller: couponController,
-                padding: 0,
-                validator: (val) => null,
-                inputType: TextInputType.name,
-                hint: "Start Date",
-              ).get20HorizontalPadding(),
+              GestureDetector(
+                onTap: () {
+                  _presentStartDate();
+
+                  setState(() {
+                    var date = DateFormat('yyyy-MM-dd')
+                        .format(_selectedStartDate)
+                        .toString();
+                    _startDate = date;
+                  });
+                },
+                child: Container(
+                  height: sizes!.heightRatio * 48,
+                  width: sizes!.widthRatio * 380,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.grey.shade400)),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: sizes!.widthRatio * 6),
+                        child: Text(
+                          _startDate,
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 10),
+                        ),
+                      )
+                    ],
+                  ),
+                ).get20HorizontalPadding(),
+              ),
               CommonPadding.sizeBoxWithHeight(height: 20),
-              CustomTextField(
-                controller: couponController,
-                padding: 0,
-                validator: (val) => null,
-                inputType: TextInputType.name,
-                hint: "End Date",
-              ).get20HorizontalPadding(),
+              GestureDetector(
+                onTap: () {
+                  _presentEndDate();
+                  setState(() {
+                    var date = DateFormat('yyyy-MM-dd')
+                        .format(_selectedEndDate)
+                        .toString();
+                    _endDate = date;
+                  });
+                },
+                child: Container(
+                  height: sizes!.heightRatio * 48,
+                  width: sizes!.widthRatio * 380,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.grey.shade400)),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: sizes!.widthRatio * 6),
+                        child: Text(
+                          _endDate,
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 10),
+                        ),
+                      )
+                    ],
+                  ),
+                ).get20HorizontalPadding(),
+              ),
               CommonPadding.sizeBoxWithHeight(height: 20),
-              CustomTextField(
-                controller: couponController,
-                padding: 0,
-                validator: (val) => null,
-                inputType: TextInputType.name,
-                hint: "Start Time",
-              ).get20HorizontalPadding(),
+              GestureDetector(
+                onTap: () {
+                  _presentTime();
+                  setState(() {
+                    _startTime =
+                        "${_selectedTime.hour.toString()}:${_selectedTime.minute.toString()} ${_selectedTime.period.name.toUpperCase()}";
+                  });
+                },
+                child: Container(
+                  height: sizes!.heightRatio * 48,
+                  width: sizes!.widthRatio * 380,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.grey.shade400)),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: sizes!.widthRatio * 6),
+                        child: Text(
+                          _startTime,
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 10),
+                        ),
+                      )
+                    ],
+                  ),
+                ).get20HorizontalPadding(),
+              ),
               CommonPadding.sizeBoxWithHeight(height: 20),
               Padding(
                 padding:
@@ -100,8 +232,8 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                       hint: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: sizes!.widthRatio * 10),
-                        child: const CustomText(
-                            text: "From City",
+                        child: CustomText(
+                            text: selectedFromCity,
                             textSize: 12,
                             fontWeight: FontWeight.normal,
                             textColor: Colors.black),
@@ -117,9 +249,9 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                       }).toList(),
                       onChanged: (value) {
                         setState(() {
-                          selectedCity = value!;
+                          selectedFromCity = value!;
                         });
-                        debugPrint("selectedCity: $selectedCity");
+                        debugPrint("selectedCity: $selectedFromCity");
                       },
                     ),
                   ),
@@ -141,8 +273,8 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                       hint: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: sizes!.widthRatio * 10),
-                        child: const CustomText(
-                            text: "To City",
+                        child: CustomText(
+                            text: selectedToCity,
                             textSize: 12,
                             fontWeight: FontWeight.normal,
                             textColor: Colors.black),
@@ -158,9 +290,9 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                       }).toList(),
                       onChanged: (value) {
                         setState(() {
-                          selectedCity = value!;
+                          selectedToCity = value!;
                         });
-                        debugPrint("selectedCity: $selectedCity");
+                        debugPrint("selectedCity: $selectedToCity");
                       },
                     ),
                   ),
@@ -182,16 +314,16 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                       hint: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: sizes!.widthRatio * 10),
-                        child: const CustomText(
-                            text: "Rating",
+                        child: CustomText(
+                            text: selectedRating,
                             textSize: 12,
                             fontWeight: FontWeight.normal,
                             textColor: Colors.black),
                       ),
                       underline: const SizedBox(),
                       isExpanded: true,
-                      items:
-                          <String>['1', '2', '3', '4', '5'].map((String value) {
+                      items: <String>['1.0', '2.0', '3.0', '4.0', '5.0']
+                          .map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
@@ -199,9 +331,9 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                       }).toList(),
                       onChanged: (value) {
                         setState(() {
-                          selectedCity = value!;
+                          selectedRating = value!;
                         });
-                        debugPrint("selectedCity: $selectedCity");
+                        debugPrint("selectedRating: $selectedRating");
                       },
                     ),
                   ),
