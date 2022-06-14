@@ -14,6 +14,7 @@ import 'package:qbus/widgets/text_views.dart';
 
 import '../../../utils/constant.dart';
 import '../../../widgets/custom_button.dart';
+import '../../../widgets/custom_password_textField.dart';
 import '../../../widgets/custom_textField.dart';
 
 class ForgotScreen extends StatefulWidget {
@@ -31,6 +32,9 @@ class _ForgotScreenState extends State<ForgotScreen> {
   final formKey = GlobalKey<FormState>();
   final focusNode = FocusNode();
   bool showError = false;
+
+  final ValueNotifier<bool> _isNewPassword = ValueNotifier<bool>(true);
+  final ValueNotifier<bool> _isConfirmPassword = ValueNotifier<bool>(true);
 
   @override
   void initState() {
@@ -132,20 +136,38 @@ class _ForgotScreenState extends State<ForgotScreen> {
                 ),
               ),
               CommonPadding.sizeBoxWithHeight(height: 50),
-              CustomTextField(
-                controller: passwordController,
-                padding: 20,
-                validator: (val) => null,
-                inputType: TextInputType.name,
-                hint: "New Password",
+              ValueListenableBuilder(
+                builder: (BuildContext context, value, Widget? child) {
+                  return CustomPasswordTextField(
+                    controller: passwordController,
+                    padding: 20,
+                    validator: (val) => null,
+                    inputType: TextInputType.name,
+                    hint: "New Password",
+                    isVisible: _isNewPassword.value,
+                    onPress: () {
+                      _isNewPassword.value = !_isNewPassword.value;
+                    },
+                  );
+                },
+                valueListenable: _isNewPassword,
               ),
               CommonPadding.sizeBoxWithHeight(height: 15),
-              CustomTextField(
-                controller: confirmPasswordController,
-                padding: 20,
-                validator: (val) => null,
-                inputType: TextInputType.name,
-                hint: "Confirm Password",
+              ValueListenableBuilder(
+                builder: (BuildContext context, value, Widget? child) {
+                  return CustomPasswordTextField(
+                    controller: confirmPasswordController,
+                    padding: 20,
+                    validator: (val) => null,
+                    inputType: TextInputType.name,
+                    hint: "Confirm Password",
+                    isVisible: _isConfirmPassword.value,
+                    onPress: () {
+                      _isConfirmPassword.value = !_isConfirmPassword.value;
+                    },
+                  );
+                },
+                valueListenable: _isConfirmPassword,
               ),
               CommonPadding.sizeBoxWithHeight(height: 60),
               CustomButton(

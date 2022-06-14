@@ -25,7 +25,7 @@ class GetStartedScreen extends StatefulWidget {
 
 class _GetStartedScreenState extends State<GetStartedScreen> {
   bool oneRoad = false;
-  bool roundTrip = false;
+  bool roundTrip = true;
   bool multiTrip = false;
   int number = 0;
 

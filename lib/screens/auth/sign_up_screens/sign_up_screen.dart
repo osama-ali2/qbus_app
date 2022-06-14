@@ -9,6 +9,7 @@ import 'package:qbus/screens/auth/sign_up_screens/sign_up_provider.dart';
 import '../../../navigation/navigation_helper.dart';
 import '../../../utils/constant.dart';
 import '../../../widgets/custom_button.dart';
+import '../../../widgets/custom_password_textField.dart';
 import '../../../widgets/custom_text.dart';
 import '../../../widgets/custom_textField.dart';
 import '../phone_activation_screens/phone_activation_screen.dart';
@@ -31,6 +32,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var selectedMartialStatus = "Single";
 
   late SignUpProvider signUpProvider;
+  final ValueNotifier<bool> _isVisible = ValueNotifier<bool>(true);
 
   @override
   void initState() {
@@ -204,12 +206,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: sizes!.heightRatio * 10,
               ),
-              CustomTextField(
-                controller: _passwordController,
-                padding: 20,
-                validator: (val) => null,
-                inputType: TextInputType.text,
-                hint: "Password",
+              ValueListenableBuilder(
+                builder: (BuildContext context, value, Widget? child) {
+                  return CustomPasswordTextField(
+                    controller: _passwordController,
+                    padding: 20,
+                    validator: (val) => null,
+                    inputType: TextInputType.name,
+                    hint: "Password",
+                    isVisible: _isVisible.value,
+                    onPress: () {
+                      _isVisible.value = !_isVisible.value;
+                    },
+                  );
+                },
+                valueListenable: _isVisible,
               ),
               SizedBox(
                 height: sizes!.heightRatio * 10,
@@ -267,8 +278,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     var yourAddress = _yourAddressController.text.toString().trim();
     var password = _passwordController.text.toString().trim();
 
-
-
     if (fullName.isNotEmpty &&
         mobilePhone.isNotEmpty &&
         email.isNotEmpty &&
@@ -281,7 +290,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           phoneNumber: mobilePhone,
           email: email,
           address: yourAddress,
-          password: password, status: selectedMartialStatus);
+          password: password,
+          status: selectedMartialStatus);
       if (signUpProvider.isDataLoaded) {
         if (!mounted) return;
         NavigationHelper.pushRoute(context, const PhoneActivationScreen());

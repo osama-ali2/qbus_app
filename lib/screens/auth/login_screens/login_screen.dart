@@ -9,6 +9,7 @@ import 'package:qbus/screens/auth/login_screens/login_provider.dart';
 import 'package:qbus/screens/auth/sign_up_screens/sign_up_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
+import 'package:qbus/widgets/custom_password_textField.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/custom_textField.dart';
 import 'dart:async';
@@ -27,6 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   late LoginProvider loginProvider;
+
+  final ValueNotifier<bool> _isVisible = ValueNotifier<bool>(true);
 
   @override
   void initState() {
@@ -83,12 +86,20 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: sizes!.heightRatio * 15,
               ),
-              CustomTextField(
-                controller: passwordController,
-                padding: 20,
-                validator: (val) => null,
-                inputType: TextInputType.name,
-                hint: "Password",
+              ValueListenableBuilder(
+                builder: (BuildContext context, value, Widget? child) {
+                  return CustomPasswordTextField(
+                    controller: passwordController,
+                    padding: 20,
+                    validator: (val) => null,
+                    inputType: TextInputType.name,
+                    hint: "Password",
+                    isVisible: _isVisible.value, onPress: () {
+                      _isVisible.value = !_isVisible.value;
+                  },
+                  );
+                },
+                valueListenable: _isVisible,
               ),
               SizedBox(
                 height: sizes!.heightRatio * 15,
@@ -173,6 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
         NavigationHelper.pushReplacement(context, const BottomBarScreen());
       }
     } else if (mobileOrEmail.isEmpty) {
+      Toasts.getErrorToast(text: "Phone Number Field is required");
       Toasts.getErrorToast(text: "Phone Number Field is required");
     } else if (password.isEmpty) {
       Toasts.getErrorToast(text: "Password Field is required");
