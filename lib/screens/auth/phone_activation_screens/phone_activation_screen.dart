@@ -2,8 +2,10 @@ import 'package:custom_timer/custom_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/extensions.dart';
+import 'package:qbus/screens/auth/phone_activation_screens/phone_activation_provider.dart';
 import '../../../navigation/navigation_helper.dart';
 import '../../../res/assets.dart';
 import '../../../res/common_padding.dart';
@@ -34,11 +36,18 @@ class _PhoneActivationScreenState extends State<PhoneActivationScreen> {
   int endMinute = 0;
   int endSecond = 0;
 
+  late PhoneActivationProvider phoneActivationProvider;
+
   @override
   void initState() {
     super.initState();
     codeController = TextEditingController();
     _timerController.start();
+
+    phoneActivationProvider = PhoneActivationProvider();
+    phoneActivationProvider =
+        Provider.of<PhoneActivationProvider>(context, listen: false);
+    phoneActivationProvider.init(context: context);
   }
 
   @override
@@ -51,6 +60,7 @@ class _PhoneActivationScreenState extends State<PhoneActivationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<PhoneActivationProvider>(context, listen: true);
     const length = 4;
     const borderColor = AppColors.primary;
     const errorColor = AppColors.error400;
@@ -214,7 +224,11 @@ class _PhoneActivationScreenState extends State<PhoneActivationScreen> {
   Future<void> validateData() async {
     var code = codeController.text.toString().trim();
     if (code.isNotEmpty) {
-      NavigationHelper.pushReplacement(context, const BottomBarScreen());
+      await phoneActivationProvider.verifyPhoneNumber(code: code);
+      if (phoneActivationProvider.isDataLoaded) {
+        if (!mounted) return;
+        NavigationHelper.pushReplacement(context, const BottomBarScreen());
+      }
     } else if (code.isEmpty) {
       Toasts.getErrorToast(text: "Field is required");
     }

@@ -1,6 +1,6 @@
-
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/auth/LoginResponse.dart';
 import '../res/strings.dart';
 
 class PreferenceUtils {
@@ -59,23 +59,16 @@ class PreferenceUtils {
     return userImage;
   }
 
-  // static Future setLoginResponse(LoginResponse loginResponse) async {
-  //   await PreferenceUtils.setString(
-  //       Strings.loginUserToken, loginResponse.data?.token ?? "");
-  //   await PreferenceUtils.setString(
-  //       Strings.loginFirstName, loginResponse.data?.user?.firstName ?? "");
-  //
-  //   await PreferenceUtils.setString(
-  //       Strings.loginName, loginResponse.data?.user?.userName ?? "");
-  //
-  //   await PreferenceUtils.setString(
-  //       Strings.loginLastName, loginResponse.data?.user?.lastName ?? "");
-  //   await PreferenceUtils.setString(
-  //       Strings.loginEmail, loginResponse.data?.user?.email ?? "");
-  //
-  //   await PreferenceUtils.setString(Strings.loginEmailVerify,
-  //       loginResponse.data?.user?.emailVerified.toString() ?? "");
-  // }
+  static Future setLoginResponse(LoginResponse loginResponse) async {
+    await PreferenceUtils.setString(
+        Strings.loginUserToken, loginResponse.data?.token ?? "");
+    await PreferenceUtils.setString(
+        Strings.loginName, loginResponse.data?.user?.name ?? "");
+    await PreferenceUtils.setString(
+        Strings.loginEmail, loginResponse.data?.user?.email ?? "");
+    await PreferenceUtils.setString(
+        Strings.loginWallet, loginResponse.data?.user?.wallet.toString() ?? "");
+  }
 
   // static Future setSignUpResponse(RegisterResponse registerResponse) async {
   //   await PreferenceUtils.setString(

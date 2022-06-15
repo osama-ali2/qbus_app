@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:qbus/res/colors.dart';
+import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
+import 'package:qbus/screens/auth/sign_up_screens/sign_up_provider.dart';
 import '../../../navigation/navigation_helper.dart';
 import '../../../utils/constant.dart';
 import '../../../widgets/custom_button.dart';
@@ -25,11 +27,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _yourAddressController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  var selectedCity = "";
-  var selectedMartialStatus = "";
+  var selectedCity = "Riyadh";
+  var selectedMartialStatus = "Single";
+
+  late SignUpProvider signUpProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    signUpProvider = SignUpProvider();
+    signUpProvider = Provider.of<SignUpProvider>(context, listen: false);
+    signUpProvider.init(context: context);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      signUpProvider.getCitiesData();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<SignUpProvider>(context, listen: true);
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.white,
@@ -40,6 +57,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              CommonPadding.sizeBoxWithHeight(height: 60),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: SizedBox(
@@ -51,16 +69,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: sizes!.heightRatio * 10,
               ),
               const CustomText(
                   text: "Lets Get Started!",
                   textSize: 14,
                   fontWeight: FontWeight.normal,
                   textColor: Colors.black),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: sizes!.heightRatio * 20,
               ),
               CustomTextField(
                 controller: _fullNameController,
@@ -69,34 +87,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 inputType: TextInputType.name,
                 hint: "Full name",
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: sizes!.heightRatio * 15,
               ),
               CustomTextField(
                 controller: _phoneNumberController,
                 padding: 20,
                 validator: (val) => null,
-                inputType: TextInputType.name,
+                inputType: TextInputType.number,
                 hint: "Mobile number",
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: sizes!.heightRatio * 15,
               ),
               CustomTextField(
                 controller: _emailController,
                 padding: 20,
                 validator: (val) => null,
-                inputType: TextInputType.name,
+                inputType: TextInputType.emailAddress,
                 hint: "Email address",
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: sizes!.heightRatio * 15,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 58,
+                  height: sizes!.heightRatio * 48,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: Colors.grey.shade400),
@@ -106,8 +124,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       hint: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: sizes!.widthRatio * 10),
-                        child: const CustomText(
-                            text: "City",
+                        child: CustomText(
+                            text: selectedCity,
                             textSize: 12,
                             fontWeight: FontWeight.normal,
                             textColor: Colors.black),
@@ -124,31 +142,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       onChanged: (value) {
                         setState(() {
                           selectedCity = value!;
+                          debugPrint("selectedCity: $selectedCity");
                         });
-                        debugPrint("selectedCity: $selectedCity");
                       },
                     ),
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: sizes!.heightRatio * 10,
               ),
               CustomTextField(
                 controller: _yourAddressController,
                 padding: 20,
                 validator: (val) => null,
-                inputType: TextInputType.name,
+                inputType: TextInputType.text,
                 hint: "Your address",
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: sizes!.heightRatio * 10,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 58,
+                  height: sizes!.heightRatio * 48,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: Colors.grey.shade400),
@@ -158,15 +176,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       hint: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: sizes!.widthRatio * 10),
-                        child: const CustomText(
-                            text: "Marital Status",
-                            textSize: 12,
+                        child: CustomText(
+                            text: selectedMartialStatus,
+                            textSize: sizes!.fontRatio * 12,
                             fontWeight: FontWeight.normal,
                             textColor: Colors.black),
                       ),
                       underline: const SizedBox(),
                       isExpanded: true,
-                      items: <String>['A', 'B', 'C', 'D'].map((String value) {
+                      items: <String>["Single", "Married"].map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
@@ -183,18 +201,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: sizes!.heightRatio * 10,
               ),
               CustomTextField(
                 controller: _passwordController,
                 padding: 20,
                 validator: (val) => null,
-                inputType: TextInputType.name,
+                inputType: TextInputType.text,
                 hint: "Password",
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: sizes!.heightRatio * 10,
               ),
               CustomButton(
                   name: "Sign up",
@@ -209,15 +227,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     validateSignUpData();
                   },
                   padding: 20),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: sizes!.heightRatio * 15,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const CustomText(
+                  CustomText(
                       text: "Already have an account? ",
-                      textSize: 13,
+                      textSize: sizes!.fontRatio * 13,
                       fontWeight: FontWeight.normal,
                       textColor: Colors.black),
                   GestureDetector(
@@ -227,9 +245,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           MaterialPageRoute(
                               builder: (context) => const LoginScreen()));
                     },
-                    child: const CustomText(
+                    child: CustomText(
                         text: "Sign In",
-                        textSize: 13,
+                        textSize: sizes!.fontRatio * 13,
                         fontWeight: FontWeight.normal,
                         textColor: appColor),
                   ),
@@ -249,6 +267,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     var yourAddress = _yourAddressController.text.toString().trim();
     var password = _passwordController.text.toString().trim();
 
+
+
     if (fullName.isNotEmpty &&
         mobilePhone.isNotEmpty &&
         email.isNotEmpty &&
@@ -256,7 +276,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
         password.isNotEmpty &&
         selectedMartialStatus != "" &&
         selectedCity != "") {
-      NavigationHelper.pushRoute(context, const PhoneActivationScreen());
+      await signUpProvider.signUpNewUser(
+          userName: fullName,
+          phoneNumber: mobilePhone,
+          email: email,
+          address: yourAddress,
+          password: password, status: selectedMartialStatus);
+      if (signUpProvider.isDataLoaded) {
+        if (!mounted) return;
+        NavigationHelper.pushRoute(context, const PhoneActivationScreen());
+      }
     } else if (fullName.isEmpty) {
       Toasts.getErrorToast(text: "Field is required");
     } else if (mobilePhone.isEmpty) {

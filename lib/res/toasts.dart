@@ -5,7 +5,7 @@ import 'package:qbus/res/res.dart';
 class Toasts {
   static getErrorToast({@required String? text}) async {
     await Fluttertoast.showToast(
-        msg: text ?? "please try again",
+        msg: text ?? "Please try again Toasts",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 2,
@@ -16,7 +16,7 @@ class Toasts {
 
   static getSuccessToast({@required String? text}) async {
     await Fluttertoast.showToast(
-        msg: text ?? "please try again",
+        msg: text ?? "Please try again Toasts",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 2,
@@ -27,7 +27,7 @@ class Toasts {
 
   static getWarningToast({@required String? text}) async {
     await Fluttertoast.showToast(
-        msg: text ?? "please try again",
+        msg: text ?? "Please try again Toasts.",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 2,

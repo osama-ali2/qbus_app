@@ -265,14 +265,17 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             var thumbnailImage = "$baseUrl/$image";
                             var dateFrom = data.dateFrom.toString();
                             var detail = data.description!.en.toString();
-                            debugPrint("thumbnailImage: $thumbnailImage");
+                            // debugPrint("thumbnailImage: $thumbnailImage");
                             return Padding(
                               padding: EdgeInsets.only(
                                   bottom: sizes!.heightRatio * 8.0),
                               child: GestureDetector(
                                 onTap: () {
                                   NavigationHelper.pushRoute(
-                                      context, const PackageDetailScreen());
+                                      context,
+                                      PackageDetailScreen(
+                                        packageTitle: packageName,
+                                      ));
                                 },
                                 child: packageCardContainer(
                                     title: packageName,
