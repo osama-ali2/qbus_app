@@ -4,18 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
 import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
+import 'package:qbus/screens/auth/forgot_screens/forgot_provider.dart';
 import 'package:qbus/widgets/text_views.dart';
 
 import '../../../utils/constant.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_password_textField.dart';
-import '../../../widgets/custom_textField.dart';
 
 class ForgotScreen extends StatefulWidget {
   const ForgotScreen({Key? key}) : super(key: key);
@@ -36,12 +37,18 @@ class _ForgotScreenState extends State<ForgotScreen> {
   final ValueNotifier<bool> _isNewPassword = ValueNotifier<bool>(true);
   final ValueNotifier<bool> _isConfirmPassword = ValueNotifier<bool>(true);
 
+  ForgotProvider forgotProvider = ForgotProvider();
+
   @override
   void initState() {
     super.initState();
     codeController = TextEditingController();
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
+
+    forgotProvider = ForgotProvider();
+    forgotProvider = Provider.of<ForgotProvider>(context, listen: false);
+    forgotProvider.init(context: context);
   }
 
   @override
@@ -55,6 +62,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<ForgotProvider>(context, listen: true);
     const length = 4;
     const borderColor = AppColors.primary;
     const errorColor = AppColors.error400;

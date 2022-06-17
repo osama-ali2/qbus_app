@@ -1,5 +1,6 @@
 import 'package:qbus/models/about_us/GetAboutUsResponse.dart';
 import 'package:qbus/models/additional/GetAdditionalResponse.dart';
+import 'package:qbus/models/auth/ForgotPasswordResponse.dart';
 import 'package:qbus/models/auth/GetVerifyPhoneResponse.dart';
 import 'package:qbus/models/auth/LoginResponse.dart';
 import 'package:qbus/models/auth/LogoutResponse.dart';
@@ -31,12 +32,15 @@ class Models {
   static const String loginModel = "loginModel";
   static const String signupModel = "signupModel";
   static const String logoutModel = "logoutModel";
+  static const String forgotPasswordModel = "forgotPasswordModel";
 
   static Future<dynamic> getModelObject(
       String modelName, Map<String, dynamic> json) async {
     switch (modelName) {
       case privacyPolicyModel:
         return PrivacyPolicyResponse.fromJson(json);
+      case forgotPasswordModel:
+        return ForgotPasswordResponse.fromJson(json);
       case userProfileModel:
         return UserResponse.fromJson(json);
       case logoutModel:
