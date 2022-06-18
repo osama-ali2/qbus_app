@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/models/PackageFilterModel.dart';
+import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:qbus/utils/constant.dart';
@@ -257,7 +258,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               fontWeight: FontWeight.normal,
               borderRadius: 5,
               onTapped: () {
-                NavigationHelper.pushRoute(context, const SearchResult());
+                NavigationHelper.pushRoute(
+                    context,
+                    SearchResult(
+                      tripFilterModel: TripFilterModel(),
+                    ));
               },
               padding: 0),
           SizedBox(
@@ -273,7 +278,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   textColor: Colors.black),
               InkWell(
                 onTap: () {
-                  NavigationHelper.pushRoute(context, const ExploreScreen());
+                  NavigationHelper.pushRoute(
+                      context,
+                      ExploreScreen(
+                        packageFilterModel: PackageFilterModel(),
+                      ));
                 },
                 child: Row(
                   children: [

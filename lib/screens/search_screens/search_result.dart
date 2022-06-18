@@ -17,7 +17,9 @@ import '../../widgets/text_views.dart';
 import '../selectAddition/select_addition_screen.dart';
 
 class SearchResult extends StatefulWidget {
-  const SearchResult({Key? key}) : super(key: key);
+  final TripFilterModel? tripFilterModel;
+
+  const SearchResult({Key? key, this.tripFilterModel}) : super(key: key);
 
   @override
   State<SearchResult> createState() => _SearchResultState();
@@ -35,7 +37,7 @@ class _SearchResultState extends State<SearchResult> {
     searchProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      searchProvider.getTripsData();
+      searchProvider.getTripsData(tripFilterModel: widget.tripFilterModel!);
     });
   }
 
@@ -100,10 +102,7 @@ class _SearchResultState extends State<SearchResult> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const TripFilterScreen())).then((value) {
-                            searchProvider.getTripsDataByFilter(
-                                tripFilterModel: TripFilterModel());
-                          });
+                                      const TripFilterScreen()));
                         },
                         padding: 0)
                     .get20HorizontalPadding()

@@ -20,13 +20,13 @@ class TripFilterModel {
   });
 
   Map<String, dynamic> toJson() => {
-        "code": code,
-        "date_from": date_from,
-        "date_to": date_to,
-        "time_from": time_from,
-        "from_city_id": from_city_id,
-        "to_city_id": to_city_id,
-        "additional": additional,
-        "offset": offset
+        "code": code ?? "",
+        "date_from": date_from ?? "",
+        "date_to": date_to ?? "",
+        "time_from": time_from ?? "" ,
+        "from_city_id": from_city_id ?? "",
+        "to_city_id": to_city_id ?? "",
+        "additional": additional ?? "",
+        "offset": offset ?? 0
       };
 }

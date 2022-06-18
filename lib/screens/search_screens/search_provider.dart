@@ -20,20 +20,22 @@ class SearchProvider with ChangeNotifier {
     isTripDataLoaded = false;
   }
 
-  Future<void> getTripsData() async {
+  Future<void> getTripsData({required TripFilterModel tripFilterModel}) async {
     try {
       _loader.showLoader(context: context);
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
-      Map<String, dynamic> body = {
-        "code": "",
-        "date_from": "",
-        "date_to": "",
-        "time_from": "",
-        "from_city_id": 4,
-        "to_city_id": 3,
-        "additional": []
-      };
+      // Map<String, dynamic> body = {
+      //   "code": "",
+      //   "date_from": "",
+      //   "date_to": "",
+      //   "time_from": "",
+      //   "from_city_id": 4,
+      //   "to_city_id": 3,
+      //   "additional": []
+      // };
+
+      var body = tripFilterModel.toJson();
 
       debugPrint("URL: $tripsApiUrl");
 

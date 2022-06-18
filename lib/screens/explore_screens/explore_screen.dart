@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/PackageFilterModel.dart';
-import 'package:qbus/my_global/my_global.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
@@ -16,7 +15,9 @@ import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_text.dart';
 
 class ExploreScreen extends StatefulWidget {
-  const ExploreScreen({Key? key}) : super(key: key);
+  final PackageFilterModel? packageFilterModel;
+
+  const ExploreScreen({Key? key, this.packageFilterModel}) : super(key: key);
 
   @override
   State<ExploreScreen> createState() => _ExploreScreenState();
@@ -39,7 +40,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
     _controller = ScrollController();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      exploreProvider.getPackagesData();
+      exploreProvider.getPackagesData(
+          packageFilterModel: widget.packageFilterModel!);
     });
   }
 
@@ -144,10 +146,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     MaterialPageRoute(
                       builder: (context) => const PackageFilterScreen(),
                     ),
-                  ).then((value) {
-                    exploreProvider.getPackageDataByFilters(
-                        packageFilterModel: PackageFilterModel());
-                  });
+                  );
                 },
                 padding: 0)
             : Container(),

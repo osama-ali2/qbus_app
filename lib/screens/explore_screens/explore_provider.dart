@@ -19,23 +19,22 @@ class ExploreProvider with ChangeNotifier {
     this.context = context;
   }
 
-  Future<void> getPackagesData({
-    @required String? dateFrom,
-    @required String? dateTo,
-    @required String? timeFrom,
-  }) async {
+  Future<void> getPackagesData(
+      {required PackageFilterModel packageFilterModel}) async {
     try {
       _loader.showLoader(context: context);
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
-      Map<String, dynamic> body = {
-        "code": "",
-        "date_from": dateFrom ?? "",
-        "date_to": dateTo ?? "",
-        "time_from": timeFrom ?? "",
-        "starting_city_id": "",
-        "additional": []
-      };
+      // Map<String, dynamic> body = {
+      //   "code": "",
+      //   "date_from": dateFrom ?? "",
+      //   "date_to": dateTo ?? "",
+      //   "time_from": timeFrom ?? "",
+      //   "starting_city_id": "",
+      //   "additional": []
+      // };
+
+      var body = packageFilterModel.toJson();
 
       debugPrint("URL: $packagesApiUrl");
 

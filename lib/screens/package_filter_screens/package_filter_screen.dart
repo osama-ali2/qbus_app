@@ -5,6 +5,7 @@ import 'package:qbus/my_global/my_global.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
+import 'package:qbus/screens/explore_screens/explore_screen.dart';
 import '../../res/res.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
@@ -21,7 +22,7 @@ class PackageFilterScreen extends StatefulWidget {
 class _PackageFilterScreenState extends State<PackageFilterScreen> {
   late TextEditingController couponController;
 
-  var selectedCity = "";
+  var selectedCity = "Starting City";
 
   bool internet = false;
   bool meal = false;
@@ -180,11 +181,8 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                   _presentTime();
 
                   setState(() {
-                    // var date = DateFormat('Hm')
-                    //     .format(_selectedTime)
-                    //     .toString();
                     _startTime =
-                        "${_selectedTime.hour.toString()}:${_selectedTime.minute.toString()} ${_selectedTime.period.name.toUpperCase()}";
+                        "${_selectedTime.hour.toString()}:${_selectedTime.minute.toString()}";
                   });
                 },
                 child: Container(
@@ -224,8 +222,8 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                       hint: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: sizes!.widthRatio * 10),
-                        child: const CustomText(
-                            text: "Starting City",
+                        child: CustomText(
+                            text: selectedCity,
                             textSize: 12,
                             fontWeight: FontWeight.normal,
                             textColor: Colors.black),
@@ -306,7 +304,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
 
                         var filterData = PackageFilterModel(
                             code: couponCode,
-                            starting_city_id: "1",
+                            starting_city_id: "",
                             date_from: _startDate,
                             date_to: _endDate,
                             time_from: _startTime,
@@ -315,6 +313,12 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
 
                         debugPrint("myGlobal: ${filterData.toJson()}");
                         Navigator.pop(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ExploreScreen(
+                                      packageFilterModel: filterData,
+                                    )));
                       },
                       padding: 0)
                   .get20HorizontalPadding(),

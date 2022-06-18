@@ -4,6 +4,7 @@ import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
+import 'package:qbus/screens/search_screens/search_result.dart';
 import '../../res/res.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
@@ -415,6 +416,12 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
 
                         debugPrint("filterData: ${filterData.toJson()}");
                         Navigator.pop(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SearchResult(
+                                      tripFilterModel: filterData,
+                                    )));
                       },
                       padding: 0)
                   .get20HorizontalPadding(),

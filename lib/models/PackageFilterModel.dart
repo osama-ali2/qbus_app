@@ -17,12 +17,12 @@ class PackageFilterModel {
       this.offset});
 
   Map<String, dynamic> toJson() => {
-        "code": code,
-        "date_from": date_from,
-        "date_to": date_to,
-        "time_from": time_from,
-        "starting_city_id": starting_city_id,
-        "additional": additional,
-        "offset": offset,
+        "code": code ?? "",
+        "date_from": date_from ?? "",
+        "date_to": date_to ?? "",
+        "time_from": time_from ?? "",
+        "starting_city_id": starting_city_id ?? "",
+        "additional": additional ?? [],
+        "offset": offset ?? 0,
       };
 }
