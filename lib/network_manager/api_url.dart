@@ -12,6 +12,7 @@ const String loginApiUrl = "$baseUrl/login";
 const String signUpApiUrl = "$baseUrl/signup";
 const String logoutApiUrl = "$baseUrl/logout";
 const String forgetPasswordApiUrl = "$baseUrl/forget_password";
+const String resetPasswordApiUrl = "$baseUrl/reset_password";
 
 const String verifyPhoneNumberApiUrl = "$baseUrl/verify_phone";
 const String contactUsApiUrl = "$baseUrl/contact_us";

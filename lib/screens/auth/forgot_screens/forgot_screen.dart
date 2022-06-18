@@ -203,14 +203,24 @@ class _ForgotScreenState extends State<ForgotScreen> {
     var password = passwordController.text.toString().trim();
     var confirmPassword = confirmPasswordController.text.toString().trim();
 
-    if (code.isNotEmpty && password.isNotEmpty && confirmPassword.isNotEmpty) {
-      Navigator.pop(context);
+    if (code.isNotEmpty &&
+        password.isNotEmpty &&
+        confirmPassword.isNotEmpty &&
+        password == confirmPassword) {
+      await forgotProvider.forgetPasswordUser(password: password, code: code);
+
+      if (forgotProvider.isSuccessful) {
+        if (!mounted) return;
+        Navigator.pop(context);
+      }
     } else if (code.isEmpty) {
       Toasts.getErrorToast(text: "Field is required");
     } else if (password.isEmpty) {
       Toasts.getErrorToast(text: "Field is required");
     } else if (confirmPassword.isEmpty) {
       Toasts.getErrorToast(text: "Field is required");
+    } else if (password != confirmPassword) {
+      Toasts.getErrorToast(text: "Password isn't matched");
     }
   }
 }

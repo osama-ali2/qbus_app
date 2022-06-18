@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/models/auth/ForgotPasswordResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
+import 'package:qbus/res/toasts.dart';
 import 'package:qbus/widgets/loader.dart';
 
 import '../../../network_manager/models.dart';
@@ -22,17 +23,19 @@ class ForgotProvider with ChangeNotifier {
   }
 
   Future<void> forgetPasswordUser({
-    required String phoneNumber,
+    required String password,
+    required String code,
   }) async {
     try {
       _loader.showLoader(context: context);
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
-      Map<String, dynamic> body = {"phone": phoneNumber};
-      debugPrint("URL: $forgetPasswordApiUrl");
+      Map<String, dynamic> body = {"code": code, "password": password};
+
+      debugPrint("URL: $resetPasswordApiUrl");
 
       forgotPasswordResponse = await MyApi.callPostApi(
-          url: forgetPasswordApiUrl,
+          url: resetPasswordApiUrl,
           body: body,
           myHeaders: header,
           modelName: Models.forgotPasswordModel);
@@ -42,6 +45,7 @@ class ForgotProvider with ChangeNotifier {
         _logger.d("forgotPasswordResponse: ${forgotPasswordResponse.toJson()}");
         _loader.hideLoader(context!);
         isSuccessful = true;
+        Toasts.getSuccessToast(text: forgotPasswordResponse.message.toString());
         notifyListeners();
       } else {
         debugPrint("forgotPasswordResponse: Something wrong");
