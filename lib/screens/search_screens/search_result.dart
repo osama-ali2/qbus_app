@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/screens/search_screens/search_provider.dart';
@@ -95,9 +96,14 @@ class _SearchResultState extends State<SearchResult> {
                         fontWeight: FontWeight.normal,
                         borderRadius: 5,
                         onTapped: () {
-                          Navigator.pop(context);
-                          NavigationHelper.pushRoute(
-                              context, const TripFilterScreen());
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const TripFilterScreen())).then((value) {
+                            searchProvider.getTripsDataByFilter(
+                                tripFilterModel: TripFilterModel());
+                          });
                         },
                         padding: 0)
                     .get20HorizontalPadding()

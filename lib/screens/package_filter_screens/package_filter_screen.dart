@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:qbus/models/PackageFilterModel.dart';
+import 'package:qbus/my_global/my_global.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
@@ -24,7 +26,6 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
   bool internet = false;
   bool meal = false;
   bool hostel5Stars = false;
-  int number = 0;
 
   bool additional = false;
 
@@ -140,9 +141,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                   ),
                 ).get20HorizontalPadding(),
               ),
-
               CommonPadding.sizeBoxWithHeight(height: 20),
-
               GestureDetector(
                 onTap: () {
                   _presentDate();
@@ -175,18 +174,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                   ),
                 ).get20HorizontalPadding(),
               ),
-
-              // CustomTextField(
-              //   controller: couponController,
-              //   padding: 0,
-              //   validator: (val) => null,
-              //   inputType: TextInputType.name,
-              //   hint: "End Date",
-              // ).get20HorizontalPadding(),
-              //
-
               CommonPadding.sizeBoxWithHeight(height: 20),
-
               GestureDetector(
                 onTap: () {
                   _presentTime();
@@ -220,14 +208,6 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                   ),
                 ).get20HorizontalPadding(),
               ),
-
-              // CustomTextField(
-              //   controller: couponController,
-              //   padding: 0,
-              //   validator: (val) => null,
-              //   inputType: TextInputType.name,
-              //   hint: "Start Time",
-              // ).get20HorizontalPadding(),
               CommonPadding.sizeBoxWithHeight(height: 20),
               Padding(
                 padding:
@@ -321,6 +301,19 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                       fontWeight: FontWeight.normal,
                       borderRadius: 5,
                       onTapped: () {
+                        var couponCode =
+                            couponController.text.toString().trim();
+
+                        var filterData = PackageFilterModel(
+                            code: couponCode,
+                            starting_city_id: "1",
+                            date_from: _startDate,
+                            date_to: _endDate,
+                            time_from: _startTime,
+                            additional: [],
+                            offset: 0);
+
+                        debugPrint("myGlobal: ${filterData.toJson()}");
                         Navigator.pop(context);
                       },
                       padding: 0)
@@ -330,11 +323,6 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
         ),
       ),
     ));
-  }
-
-  Future<void> validateFilterData() async {
-    var couponCode = couponController.text.toString().trim();
-    // var startDate = startda
   }
 
   Widget checkBox(

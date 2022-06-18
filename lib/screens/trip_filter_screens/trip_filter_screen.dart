@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
@@ -391,6 +392,28 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                       fontWeight: FontWeight.normal,
                       borderRadius: 5,
                       onTapped: () {
+                        var couponCode =
+                            couponController.text.toString().trim();
+                        // "code": code,
+                        // "date_from": date_from,
+                        // "date_to": date_to,
+                        // "time_from": time_from,
+                        // "from_city_id": from_city_id,
+                        // "to_city_id": to_city_id,
+                        // "additional": additional,
+                        // "offset": offset
+
+                        var filterData = TripFilterModel(
+                            code: couponCode,
+                            date_to: _endDate,
+                            date_from: _startDate,
+                            time_from: _startTime,
+                            from_city_id: selectedFromCity,
+                            to_city_id: selectedToCity,
+                            additional: [],
+                            offset: 0);
+
+                        debugPrint("filterData: ${filterData.toJson()}");
                         Navigator.pop(context);
                       },
                       padding: 0)
