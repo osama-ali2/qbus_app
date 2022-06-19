@@ -16,6 +16,8 @@ class SelectAdditionProvider with ChangeNotifier {
 
   GetAdditionalResponse getAdditionalResponse = GetAdditionalResponse();
 
+  List<int> selectAdditionalList = [];
+
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
   }
@@ -43,6 +45,14 @@ class SelectAdditionProvider with ChangeNotifier {
 
       if (getAdditionalResponse.code == 1) {
         _logger.d("getAdditionalResponse: ${getAdditionalResponse.toJson()}");
+
+        for (int i = 0;
+            i < getAdditionalResponse.data!.additional!.length;
+            i++) {
+          selectAdditionalList.add(0);
+          debugPrint("selectAdditionalList: ${selectAdditionalList.length}");
+        }
+
         _loader.hideLoader(context!);
         isDataLoaded = true;
         notifyListeners();

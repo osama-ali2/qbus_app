@@ -134,8 +134,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       underline: const SizedBox(),
                       isExpanded: true,
-                      items: <String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
-                          .map((String value) {
+                      items: signUpProvider.cityList.map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),

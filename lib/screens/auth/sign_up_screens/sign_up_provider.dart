@@ -17,6 +17,8 @@ class SignUpProvider with ChangeNotifier {
   GetCitiesResponse getCitiesResponse = GetCitiesResponse();
   bool isDataLoaded = false;
 
+  List<String> cityList = [];
+
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
   }
@@ -81,6 +83,13 @@ class SignUpProvider with ChangeNotifier {
 
       if (getCitiesResponse.code == 1) {
         _logger.d("getCitiesResponse: ${getCitiesResponse.toJson()}");
+
+        for (int i = 0; i < getCitiesResponse.data!.cites!.length; i++) {
+          var name = getCitiesResponse.data!.cites![i].name!.en.toString();
+          _logger.d("name: $name");
+          cityList.add(name);
+        }
+
         _loader.hideLoader(context!);
         isDataLoaded = true;
         notifyListeners();

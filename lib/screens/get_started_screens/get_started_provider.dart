@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/widgets/loader.dart';
+import '../../models/cities/GetCitiesResponse.dart';
 import '../../models/packages/PackagesResponse.dart';
 import '../../network_manager/api_url.dart';
 import '../../network_manager/models.dart';
@@ -13,10 +14,13 @@ class GetStartedProvider with ChangeNotifier {
 
   bool isDataLoaded = false;
   PackagesResponse packagesResponse = PackagesResponse();
+  GetCitiesResponse getCitiesResponse = GetCitiesResponse();
+  List<String> cityList = [];
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
     isDataLoaded = false;
+    // await getCitiesData();
   }
 
   Future<void> getPackagesData() async {
@@ -57,6 +61,39 @@ class GetStartedProvider with ChangeNotifier {
     } catch (e) {
       debugPrint("packagesResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
+    }
+  }
+
+  Future<void> getCitiesData() async {
+    try {
+      // _loader.showLoader(context: context);
+      Map<String, dynamic> header = {"Content-Type": "application/json"};
+
+      debugPrint("URL: $getCitiesApiUrl");
+      getCitiesResponse = await MyApi.callGetApi(
+          url: getCitiesApiUrl,
+          myHeaders: header,
+          modelName: Models.citiesModel);
+
+      if (getCitiesResponse.code == 1) {
+        _logger.d("getCitiesResponse: ${getCitiesResponse.toJson()}");
+
+        for (int i = 0; i < getCitiesResponse.data!.cites!.length; i++) {
+          var name = getCitiesResponse.data!.cites![i].name!.en.toString();
+          _logger.d("name: $name");
+          cityList.add(name);
+        }
+
+        // _loader.hideLoader(context!);
+        isDataLoaded = true;
+        notifyListeners();
+      } else {
+        debugPrint("getCitiesResponse: Something wrong");
+        // _loader.hideLoader(context!);
+      }
+    } catch (e) {
+      debugPrint("getCitiesResponseError: ${e.toString()}");
+      // _loader.hideLoader(context!);
     }
   }
 }

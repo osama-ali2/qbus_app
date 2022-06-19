@@ -42,6 +42,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   late TextEditingController dateController;
   late GetStartedProvider getStartedProvider;
 
+  var departureFrom = "Departure from";
+  var arrivalTo = "Arrival to";
+
   @override
   void initState() {
     super.initState();
@@ -56,6 +59,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getStartedProvider.getPackagesData();
+      getStartedProvider.getCitiesData();
     });
   }
 
@@ -172,23 +176,95 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           SizedBox(
             height: sizes!.fontRatio * 20,
           ),
-          CustomTextField(
-            controller: departureFromController,
-            padding: 0,
-            validator: (val) => null,
-            inputType: TextInputType.name,
-            hint: "Departure from",
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: sizes!.heightRatio * 48,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.grey.shade400),
+                borderRadius: BorderRadius.circular(5)),
+            child: Center(
+              child: DropdownButton<String>(
+                hint: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: sizes!.widthRatio * 10),
+                  child: CustomText(
+                      text: departureFrom,
+                      textSize: 12,
+                      fontWeight: FontWeight.normal,
+                      textColor: Colors.black),
+                ),
+                underline: const SizedBox(),
+                isExpanded: true,
+                items: getStartedProvider.cityList.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    departureFrom = value!;
+                    debugPrint("selectedCity: $departureFrom");
+                  });
+                },
+              ),
+            ),
           ),
+
+          // CustomTextField(
+          //   controller: departureFromController,
+          //   padding: 0,
+          //   validator: (val) => null,
+          //   inputType: TextInputType.name,
+          //   hint: "Departure from",
+          // ),
           SizedBox(
             height: sizes!.heightRatio * 10,
           ),
-          CustomTextField(
-            controller: arrivalToController,
-            padding: 0,
-            validator: (val) => null,
-            inputType: TextInputType.name,
-            hint: "Arrival to",
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: sizes!.heightRatio * 48,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.grey.shade400),
+                borderRadius: BorderRadius.circular(5)),
+            child: Center(
+              child: DropdownButton<String>(
+                hint: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: sizes!.widthRatio * 10),
+                  child: CustomText(
+                      text: arrivalTo,
+                      textSize: 12,
+                      fontWeight: FontWeight.normal,
+                      textColor: Colors.black),
+                ),
+                underline: const SizedBox(),
+                isExpanded: true,
+                items: getStartedProvider.cityList.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    arrivalTo = value!;
+                    debugPrint("selectedCity: $arrivalTo");
+                  });
+                },
+              ),
+            ),
           ),
+
+          // CustomTextField(
+          //   controller: arrivalToController,
+          //   padding: 0,
+          //   validator: (val) => null,
+          //   inputType: TextInputType.name,
+          //   hint: "Arrival to",
+          // ),
           SizedBox(
             height: sizes!.heightRatio * 10,
           ),
