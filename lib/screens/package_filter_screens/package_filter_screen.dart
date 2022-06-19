@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:qbus/models/PackageFilterModel.dart';
-import 'package:qbus/my_global/my_global.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/screens/explore_screens/explore_screen.dart';
+import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import '../../res/res.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
@@ -37,12 +38,18 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
   String _endDate = "End Date";
   String _startTime = "Start Time";
 
-
+  late GetStartedProvider getStartedProvider;
 
   @override
   void initState() {
     super.initState();
     couponController = TextEditingController();
+
+    getStartedProvider = GetStartedProvider();
+    getStartedProvider =
+        Provider.of<GetStartedProvider>(context, listen: false);
+    getStartedProvider.init(context: context);
+
     _selectedDate = DateTime.now();
     _selectedTime = TimeOfDay.now();
   }
@@ -85,6 +92,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<GetStartedProvider>(context, listen: true);
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -232,7 +240,8 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                       ),
                       underline: const SizedBox(),
                       isExpanded: true,
-                      items: <String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
+                      items: getStartedProvider
+                          .cityList //<String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
                           .map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -316,11 +325,13 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                         debugPrint("myGlobal: ${filterData.toJson()}");
                         Navigator.pop(context);
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ExploreScreen(
-                                      packageFilterModel: filterData,
-                                    )));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ExploreScreen(
+                              packageFilterModel: filterData,
+                            ),
+                          ),
+                        );
                       },
                       padding: 0)
                   .get20HorizontalPadding(),

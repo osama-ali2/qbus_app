@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
+import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:qbus/screens/search_screens/search_result.dart';
 import '../../res/res.dart';
 import '../../utils/constant.dart';
@@ -39,9 +41,16 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
   String _endDate = "End Date";
   String _startTime = "Start Time";
 
+  late GetStartedProvider getStartedProvider;
+
   @override
   void initState() {
     super.initState();
+
+    getStartedProvider = GetStartedProvider();
+    getStartedProvider =
+        Provider.of<GetStartedProvider>(context, listen: false);
+    getStartedProvider.init(context: context);
     couponController = TextEditingController();
     _selectedStartDate = DateTime.now();
     _selectedEndDate = DateTime.now();
@@ -97,6 +106,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<GetStartedProvider>(context, listen: true);
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -242,7 +252,8 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                       ),
                       underline: const SizedBox(),
                       isExpanded: true,
-                      items: <String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
+                      items: getStartedProvider
+                          .cityList // <String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
                           .map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -283,7 +294,8 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                       ),
                       underline: const SizedBox(),
                       isExpanded: true,
-                      items: <String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
+                      items: getStartedProvider
+                          .cityList //<String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
                           .map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
