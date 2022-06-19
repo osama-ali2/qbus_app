@@ -27,7 +27,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
   late ExploreProvider exploreProvider;
 
   // The controller for the ListView
-  late ScrollController _controller;
+  late ScrollController _scrollController;
+
+  int index = 0;
 
   @override
   void initState() {
@@ -37,17 +39,30 @@ class _ExploreScreenState extends State<ExploreScreen> {
     exploreProvider = Provider.of<ExploreProvider>(context, listen: false);
     exploreProvider.init(context: context);
 
-    _controller = ScrollController();
+    _scrollController = ScrollController();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        debugPrint("Ending...");
+        setState(() {
+          index++;
+          debugPrint("EndingIndex: $index");
+        });
+        exploreProvider.getPackagesData(
+            packageFilterModel: widget.packageFilterModel!, offset: index);
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       exploreProvider.getPackagesData(
-          packageFilterModel: widget.packageFilterModel!);
+          packageFilterModel: widget.packageFilterModel!, offset: index);
     });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -83,7 +98,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 child:
                     exploreProvider.packagesResponse.data!.packages!.isNotEmpty
                         ? ListView.builder(
-                            controller: _controller,
+                            controller: _scrollController,
                             itemCount: exploreProvider
                                 .packagesResponse.data!.packages!.length,
                             itemBuilder: (context, i) {
