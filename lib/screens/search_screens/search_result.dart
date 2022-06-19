@@ -28,6 +28,10 @@ class SearchResult extends StatefulWidget {
 class _SearchResultState extends State<SearchResult> {
   late SearchProvider searchProvider;
 
+  late ScrollController _scrollController;
+
+  int index = 0;
+
   @override
   void initState() {
     super.initState();
@@ -36,8 +40,24 @@ class _SearchResultState extends State<SearchResult> {
     searchProvider = Provider.of<SearchProvider>(context, listen: false);
     searchProvider.init(context: context);
 
+    _scrollController = ScrollController();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        debugPrint("Ending...");
+        setState(() {
+          index++;
+          debugPrint("EndingIndex: $index");
+        });
+        searchProvider.getTripsData(
+            tripFilterModel: widget.tripFilterModel!, offset: index);
+      }
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      searchProvider.getTripsData(tripFilterModel: widget.tripFilterModel!);
+      searchProvider.getTripsData(
+          tripFilterModel: widget.tripFilterModel!, offset: index);
     });
   }
 
@@ -62,6 +82,7 @@ class _SearchResultState extends State<SearchResult> {
                 ? Expanded(
                     child: searchProvider.tripsResponse.data!.trips!.isNotEmpty
                         ? ListView.builder(
+                            controller: _scrollController,
                             itemCount: searchProvider
                                 .tripsResponse.data!.trips!.length,
                             itemBuilder: (context, i) {

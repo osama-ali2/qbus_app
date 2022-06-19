@@ -2,6 +2,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
+import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/auth/forgot_screens/forgot_screen.dart';
@@ -94,9 +95,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     validator: (val) => null,
                     inputType: TextInputType.name,
                     hint: "Password",
-                    isVisible: _isVisible.value, onPress: () {
+                    isVisible: _isVisible.value,
+                    onPress: () {
                       _isVisible.value = !_isVisible.value;
-                  },
+                    },
                   );
                 },
                 valueListenable: _isVisible,
@@ -120,11 +122,33 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: sizes!.heightRatio * 15,
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: GestureDetector(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomText(
+                          text: "Don’t have account ? ",
+                          textSize: sizes!.fontRatio * 14,
+                          fontWeight: FontWeight.w400,
+                          textColor: Colors.black),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUpScreen()));
+                        },
+                        child: CustomText(
+                            text: "Sign Up",
+                            textSize: sizes!.fontRatio * 13,
+                            fontWeight: FontWeight.w500,
+                            textColor: appColor),
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
                     onTap: () {
                       Navigator.push(
                           context,
@@ -137,34 +161,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontWeight: FontWeight.w400,
                         textColor: appColor),
                   ),
-                ),
-              ),
-              SizedBox(
-                height: sizes!.heightRatio * 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomText(
-                      text: "Don’t have account ? ",
-                      textSize: sizes!.fontRatio * 14,
-                      fontWeight: FontWeight.w400,
-                      textColor: Colors.black),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUpScreen()));
-                    },
-                    child: CustomText(
-                        text: "Sign Up",
-                        textSize: sizes!.fontRatio * 13,
-                        fontWeight: FontWeight.w500,
-                        textColor: appColor),
-                  ),
                 ],
-              )
+              ).get20HorizontalPadding(),
             ],
           ),
         ),
