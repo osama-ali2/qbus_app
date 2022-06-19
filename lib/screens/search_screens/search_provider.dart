@@ -26,14 +26,15 @@ class SearchProvider with ChangeNotifier {
       _loader.showLoader(context: context);
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
+
       Map<String, dynamic> body = {
-        "code": "",
-        "date_from": "",
-        "date_to": "",
-        "time_from": "",
-        "from_city_id": "",
-        "to_city_id": "",
-        "additional": [],
+        "code": tripFilterModel.code,
+        "date_from": tripFilterModel.date_from,
+        "date_to": tripFilterModel.date_to,
+        "time_from": tripFilterModel.time_from,
+        "from_city_id": tripFilterModel.from_city_id,
+        "to_city_id": tripFilterModel.to_city_id,
+        "additional": tripFilterModel.additional,
         "offset": offset
       };
 

@@ -26,15 +26,14 @@ class ExploreProvider with ChangeNotifier {
       _loader.showLoader(context: context);
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
-      var code = packageFilterModel.code;
-      var date_from = packageFilterModel.date_from;
+
       Map<String, dynamic> body = {
-        "code": "",
-        "date_from": "",
-        "date_to": "",
-        "time_from": "",
-        "starting_city_id": "",
-        "additional": [],
+        "code": packageFilterModel.code,
+        "date_from": packageFilterModel.date_from,
+        "date_to": packageFilterModel.date_to,
+        "time_from": packageFilterModel.time_from,
+        "starting_city_id": packageFilterModel.starting_city_id,
+        "additional": packageFilterModel.additional,
         "offset": offset
       };
 
