@@ -29,6 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   var selectedCity = "Riyadh";
+  var selectedCityId = "-1";
   var selectedMartialStatus = "Single";
 
   late SignUpProvider signUpProvider;
@@ -141,10 +142,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         );
                       }).toList(),
                       onChanged: (value) {
-                        setState(() {
-                          selectedCity = value!;
-                          debugPrint("selectedCity: $selectedCity");
-                        });
+                        setState(
+                          () {
+                            selectedCity = value!;
+                            debugPrint("selectedCity: $selectedCity");
+
+                            var l = signUpProvider.citiesList.length;
+                            for (int i = 0; i < l; i++) {
+                              String name =
+                                  signUpProvider.citiesList[i]['city'];
+                              String id = signUpProvider.citiesList[i]['id'];
+                              debugPrint("city: $name, id: $id");
+                              if (name.contains(selectedCity)) {
+                                selectedCityId = id;
+                                debugPrint(
+                                    "MatchedCity&Id: $name, $selectedCityId");
+                              }
+                            }
+                          },
+                        );
                       },
                     ),
                   ),
@@ -290,7 +306,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           email: email,
           address: yourAddress,
           password: password,
-          status: selectedMartialStatus);
+          status: selectedMartialStatus,
+          cityId: selectedCityId);
       if (signUpProvider.isDataLoaded) {
         if (!mounted) return;
         NavigationHelper.pushRoute(context, const PhoneActivationScreen());

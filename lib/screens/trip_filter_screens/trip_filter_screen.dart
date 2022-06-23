@@ -26,6 +26,9 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
   var selectedFromCity = "From City";
   var selectedToCity = "To City";
 
+  var selectedFromCityId = "-1";
+  var selectedToCityId = "-1";
+
   var selectedRating = "Rating";
 
   bool hotel5stars = false;
@@ -263,6 +266,19 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                       onChanged: (value) {
                         setState(() {
                           selectedFromCity = value!;
+
+                          var l = getStartedProvider.citiesList.length;
+                          for (int i = 0; i < l; i++) {
+                            String name =
+                                getStartedProvider.citiesList[i]['city'];
+                            String id = getStartedProvider.citiesList[i]['id'];
+                            debugPrint("city: $name, id: $id");
+                            if (name.contains(selectedFromCity)) {
+                              selectedFromCityId = id;
+                              debugPrint(
+                                  "MatchedCity&Id: $name, $selectedFromCityId");
+                            }
+                          }
                         });
                         debugPrint("selectedCity: $selectedFromCity");
                       },
@@ -305,6 +321,19 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                       onChanged: (value) {
                         setState(() {
                           selectedToCity = value!;
+
+                          var l = getStartedProvider.citiesList.length;
+                          for (int i = 0; i < l; i++) {
+                            String name =
+                                getStartedProvider.citiesList[i]['city'];
+                            String id = getStartedProvider.citiesList[i]['id'];
+                            debugPrint("city: $name, id: $id");
+                            if (name.contains(selectedToCity)) {
+                              selectedToCityId = id;
+                              debugPrint(
+                                  "MatchedCity&Id: $name, $selectedToCityId");
+                            }
+                          }
                         });
                         debugPrint("selectedCity: $selectedToCity");
                       },
@@ -421,8 +450,8 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                             date_to: _endDate,
                             date_from: _startDate,
                             time_from: _startTime,
-                            from_city_id: selectedFromCity,
-                            to_city_id: selectedToCity,
+                            from_city_id: selectedFromCityId,
+                            to_city_id: selectedToCityId,
                             additional: [],
                             offset: 0);
 

@@ -18,6 +18,7 @@ class SignUpProvider with ChangeNotifier {
   bool isDataLoaded = false;
 
   List<String> cityList = [];
+  List<Map<String, dynamic>> citiesList = [];
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
@@ -30,6 +31,7 @@ class SignUpProvider with ChangeNotifier {
     required String address,
     required String password,
     required String status,
+    required String cityId,
   }) async {
     try {
       _loader.showLoader(context: context);
@@ -41,7 +43,7 @@ class SignUpProvider with ChangeNotifier {
         "email": email,
         "address": address,
         "date_of_birth": "30-05-2000",
-        "city_id": "2",
+        "city_id": cityId,
         "marital_status": "married",
         "password": password
       };
@@ -86,8 +88,16 @@ class SignUpProvider with ChangeNotifier {
 
         for (int i = 0; i < getCitiesResponse.data!.cites!.length; i++) {
           var name = getCitiesResponse.data!.cites![i].name!.en.toString();
+          var id = getCitiesResponse.data!.cites![i].id.toString();
           _logger.d("name: $name");
           cityList.add(name);
+
+          Map<String, dynamic> map = {
+            "id": id,
+            "city": name,
+          };
+          _logger.d("MapList: $map");
+          citiesList.add(map);
         }
 
         _loader.hideLoader(context!);

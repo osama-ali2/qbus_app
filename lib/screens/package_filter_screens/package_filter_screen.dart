@@ -25,6 +25,8 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
 
   var selectedCity = "Starting City";
 
+  var selectCityId = "-1";
+
   bool internet = false;
   bool meal = false;
   bool hostel5Stars = false;
@@ -251,6 +253,19 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                       onChanged: (value) {
                         setState(() {
                           selectedCity = value!;
+
+                          var l = getStartedProvider.citiesList.length;
+                          for (int i = 0; i < l; i++) {
+                            String name =
+                                getStartedProvider.citiesList[i]['city'];
+                            String id = getStartedProvider.citiesList[i]['id'];
+                            debugPrint("city: $name, id: $id");
+                            if (name.contains(selectedCity)) {
+                              selectCityId = id;
+                              debugPrint(
+                                  "MatchedCity&Id: $name, $selectCityId");
+                            }
+                          }
                         });
                         debugPrint("selectedCity: $selectedCity");
                       },
@@ -315,7 +330,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
 
                         var filterData = PackageFilterModel(
                             code: couponCode,
-                            starting_city_id: "",
+                            starting_city_id: selectCityId,
                             date_from: _startDate,
                             date_to: _endDate,
                             time_from: _startTime,
