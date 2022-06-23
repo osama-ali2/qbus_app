@@ -16,6 +16,7 @@ class GetStartedProvider with ChangeNotifier {
   PackagesResponse packagesResponse = PackagesResponse();
   GetCitiesResponse getCitiesResponse = GetCitiesResponse();
   List<String> cityList = [];
+  List<String> cityIdList = [];
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
@@ -80,8 +81,11 @@ class GetStartedProvider with ChangeNotifier {
 
         for (int i = 0; i < getCitiesResponse.data!.cites!.length; i++) {
           var name = getCitiesResponse.data!.cites![i].name!.en.toString();
+          var id = getCitiesResponse.data!.cites![i].id!.toString();
           _logger.d("name: $name");
+          _logger.d("id: $id");
           cityList.add(name);
+          cityIdList.add(id);
         }
 
         // _loader.hideLoader(context!);

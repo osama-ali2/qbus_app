@@ -240,14 +240,14 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                       ),
                       underline: const SizedBox(),
                       isExpanded: true,
-                      items: getStartedProvider
-                          .cityList //<String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
-                          .map((String value) {
+                      //<String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
+                      items: getStartedProvider.cityList.map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
                         );
                       }).toList(),
+
                       onChanged: (value) {
                         setState(() {
                           selectedCity = value!;
