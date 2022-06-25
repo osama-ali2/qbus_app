@@ -2,6 +2,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
+import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/auth/forgot_screens/forgot_screen.dart';
@@ -9,6 +10,7 @@ import 'package:qbus/screens/auth/login_screens/login_provider.dart';
 import 'package:qbus/screens/auth/sign_up_screens/sign_up_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
+import 'package:qbus/widgets/custom_password_textField.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/custom_textField.dart';
 import 'dart:async';
@@ -27,6 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   late LoginProvider loginProvider;
+
+  final ValueNotifier<bool> _isVisible = ValueNotifier<bool>(true);
 
   @override
   void initState() {
@@ -83,12 +87,21 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: sizes!.heightRatio * 15,
               ),
-              CustomTextField(
-                controller: passwordController,
-                padding: 20,
-                validator: (val) => null,
-                inputType: TextInputType.name,
-                hint: "Password",
+              ValueListenableBuilder(
+                builder: (BuildContext context, value, Widget? child) {
+                  return CustomPasswordTextField(
+                    controller: passwordController,
+                    padding: 20,
+                    validator: (val) => null,
+                    inputType: TextInputType.name,
+                    hint: "Password",
+                    isVisible: _isVisible.value,
+                    onPress: () {
+                      _isVisible.value = !_isVisible.value;
+                    },
+                  );
+                },
+                valueListenable: _isVisible,
               ),
               SizedBox(
                 height: sizes!.heightRatio * 15,
@@ -109,11 +122,33 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: sizes!.heightRatio * 15,
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: GestureDetector(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomText(
+                          text: "Don’t have account ? ",
+                          textSize: sizes!.fontRatio * 14,
+                          fontWeight: FontWeight.w400,
+                          textColor: Colors.black),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUpScreen()));
+                        },
+                        child: CustomText(
+                            text: "Sign Up",
+                            textSize: sizes!.fontRatio * 13,
+                            fontWeight: FontWeight.w500,
+                            textColor: appColor),
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
                     onTap: () {
                       Navigator.push(
                           context,
@@ -126,34 +161,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontWeight: FontWeight.w400,
                         textColor: appColor),
                   ),
-                ),
-              ),
-              SizedBox(
-                height: sizes!.heightRatio * 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomText(
-                      text: "Don’t have account ? ",
-                      textSize: sizes!.fontRatio * 14,
-                      fontWeight: FontWeight.w400,
-                      textColor: Colors.black),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUpScreen()));
-                    },
-                    child: CustomText(
-                        text: "Sign Up",
-                        textSize: sizes!.fontRatio * 13,
-                        fontWeight: FontWeight.w500,
-                        textColor: appColor),
-                  ),
                 ],
-              )
+              ).get20HorizontalPadding(),
             ],
           ),
         ),
@@ -173,6 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
         NavigationHelper.pushReplacement(context, const BottomBarScreen());
       }
     } else if (mobileOrEmail.isEmpty) {
+      Toasts.getErrorToast(text: "Phone Number Field is required");
       Toasts.getErrorToast(text: "Phone Number Field is required");
     } else if (password.isEmpty) {
       Toasts.getErrorToast(text: "Password Field is required");

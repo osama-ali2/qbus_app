@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/screens/search_screens/search_provider.dart';
@@ -16,7 +17,9 @@ import '../../widgets/text_views.dart';
 import '../selectAddition/select_addition_screen.dart';
 
 class SearchResult extends StatefulWidget {
-  const SearchResult({Key? key}) : super(key: key);
+  final TripFilterModel? tripFilterModel;
+
+  const SearchResult({Key? key, this.tripFilterModel}) : super(key: key);
 
   @override
   State<SearchResult> createState() => _SearchResultState();
@@ -24,6 +27,10 @@ class SearchResult extends StatefulWidget {
 
 class _SearchResultState extends State<SearchResult> {
   late SearchProvider searchProvider;
+
+  late ScrollController _scrollController;
+
+  int index = 0;
 
   @override
   void initState() {
@@ -33,8 +40,24 @@ class _SearchResultState extends State<SearchResult> {
     searchProvider = Provider.of<SearchProvider>(context, listen: false);
     searchProvider.init(context: context);
 
+    _scrollController = ScrollController();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        debugPrint("Ending...");
+        setState(() {
+          index++;
+          debugPrint("EndingIndex: $index");
+        });
+        searchProvider.getTripsData(
+            tripFilterModel: widget.tripFilterModel!, offset: index);
+      }
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      searchProvider.getTripsData();
+      searchProvider.getTripsData(
+          tripFilterModel: widget.tripFilterModel!, offset: index);
     });
   }
 
@@ -59,6 +82,7 @@ class _SearchResultState extends State<SearchResult> {
                 ? Expanded(
                     child: searchProvider.tripsResponse.data!.trips!.isNotEmpty
                         ? ListView.builder(
+                            controller: _scrollController,
                             itemCount: searchProvider
                                 .tripsResponse.data!.trips!.length,
                             itemBuilder: (context, i) {
@@ -95,9 +119,11 @@ class _SearchResultState extends State<SearchResult> {
                         fontWeight: FontWeight.normal,
                         borderRadius: 5,
                         onTapped: () {
-                          Navigator.pop(context);
-                          NavigationHelper.pushRoute(
-                              context, const TripFilterScreen());
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const TripFilterScreen()));
                         },
                         padding: 0)
                     .get20HorizontalPadding()

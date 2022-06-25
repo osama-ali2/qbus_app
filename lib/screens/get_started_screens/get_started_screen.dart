@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/models/PackageFilterModel.dart';
+import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/res.dart';
@@ -25,16 +28,22 @@ class GetStartedScreen extends StatefulWidget {
 
 class _GetStartedScreenState extends State<GetStartedScreen> {
   bool oneRoad = false;
-  bool roundTrip = false;
+  bool roundTrip = true;
   bool multiTrip = false;
   int number = 0;
 
   bool tripType = false;
 
+  late DateTime _selectedDate;
+  String _startDate = "Select Date";
+
   late TextEditingController departureFromController;
   late TextEditingController arrivalToController;
   late TextEditingController dateController;
   late GetStartedProvider getStartedProvider;
+
+  var departureFrom = "Departure from";
+  var arrivalTo = "Arrival to";
 
   @override
   void initState() {
@@ -46,8 +55,32 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     departureFromController = TextEditingController();
     arrivalToController = TextEditingController();
     dateController = TextEditingController();
+    _selectedDate = DateTime.now();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getStartedProvider.getPackagesData();
+      getStartedProvider.getCitiesData();
+    });
+  }
+
+  void _presentDate() {
+    showDatePicker(
+      initialEntryMode: DatePickerEntryMode.input,
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2022),
+      lastDate: DateTime(2050),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return 'no date selected';
+      }
+      setState(() {
+        _selectedDate = pickedDate;
+        var month = DateFormat('MM').format(_selectedDate).toString();
+        var year = DateFormat('yyyy').format(_selectedDate).toString();
+        debugPrint("_selectedDate: month $month");
+        debugPrint("_selectedDate: year $year");
+      });
     });
   }
 
@@ -143,32 +176,127 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           SizedBox(
             height: sizes!.fontRatio * 20,
           ),
-          CustomTextField(
-            controller: departureFromController,
-            padding: 0,
-            validator: (val) => null,
-            inputType: TextInputType.name,
-            hint: "Departure from",
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: sizes!.heightRatio * 48,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.grey.shade400),
+                borderRadius: BorderRadius.circular(5)),
+            child: Center(
+              child: DropdownButton<String>(
+                hint: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: sizes!.widthRatio * 10),
+                  child: CustomText(
+                      text: departureFrom,
+                      textSize: 12,
+                      fontWeight: FontWeight.normal,
+                      textColor: Colors.black),
+                ),
+                underline: const SizedBox(),
+                isExpanded: true,
+                items: getStartedProvider.cityList.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    departureFrom = value!;
+                    debugPrint("selectedCity: $departureFrom");
+                  });
+                },
+              ),
+            ),
           ),
+
+          // CustomTextField(
+          //   controller: departureFromController,
+          //   padding: 0,
+          //   validator: (val) => null,
+          //   inputType: TextInputType.name,
+          //   hint: "Departure from",
+          // ),
           SizedBox(
             height: sizes!.heightRatio * 10,
           ),
-          CustomTextField(
-            controller: arrivalToController,
-            padding: 0,
-            validator: (val) => null,
-            inputType: TextInputType.name,
-            hint: "Arrival to",
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: sizes!.heightRatio * 48,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.grey.shade400),
+                borderRadius: BorderRadius.circular(5)),
+            child: Center(
+              child: DropdownButton<String>(
+                hint: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: sizes!.widthRatio * 10),
+                  child: CustomText(
+                      text: arrivalTo,
+                      textSize: 12,
+                      fontWeight: FontWeight.normal,
+                      textColor: Colors.black),
+                ),
+                underline: const SizedBox(),
+                isExpanded: true,
+                items: getStartedProvider.cityList.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    arrivalTo = value!;
+                    debugPrint("selectedCity: $arrivalTo");
+                  });
+                },
+              ),
+            ),
           ),
+
+          // CustomTextField(
+          //   controller: arrivalToController,
+          //   padding: 0,
+          //   validator: (val) => null,
+          //   inputType: TextInputType.name,
+          //   hint: "Arrival to",
+          // ),
           SizedBox(
             height: sizes!.heightRatio * 10,
           ),
-          CustomTextField(
-            controller: dateController,
-            padding: 0,
-            validator: (val) => null,
-            inputType: TextInputType.name,
-            hint: "Select Dates",
+          GestureDetector(
+            onTap: () {
+              _presentDate();
+
+              setState(() {
+                var date =
+                    DateFormat('yyyy-MM-dd').format(_selectedDate).toString();
+                _startDate = date;
+              });
+            },
+            child: Container(
+              height: sizes!.heightRatio * 48,
+              width: sizes!.widthRatio * 380,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: Colors.grey.shade400)),
+              child: Row(
+                children: [
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 6),
+                    child: Text(
+                      _startDate,
+                      style: const TextStyle(color: Colors.black, fontSize: 10),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
           SizedBox(
             height: sizes!.heightRatio * 20,
@@ -206,7 +334,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               fontWeight: FontWeight.normal,
               borderRadius: 5,
               onTapped: () {
-                NavigationHelper.pushRoute(context, const SearchResult());
+                NavigationHelper.pushRoute(
+                    context,
+                    SearchResult(
+                      tripFilterModel: TripFilterModel(),
+                    ));
               },
               padding: 0),
           SizedBox(
@@ -222,7 +354,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   textColor: Colors.black),
               InkWell(
                 onTap: () {
-                  NavigationHelper.pushRoute(context, const ExploreScreen());
+                  NavigationHelper.pushRoute(
+                      context,
+                      ExploreScreen(
+                        packageFilterModel: PackageFilterModel(),
+                      ));
                 },
                 child: Row(
                   children: [

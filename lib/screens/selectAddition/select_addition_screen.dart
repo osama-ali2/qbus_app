@@ -23,6 +23,8 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
   int chicken = 0;
   int water = 0;
 
+  int currentIndex = 0;
+
   late SelectAdditionProvider selectAdditionProvider;
 
   @override
@@ -107,10 +109,11 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
               itemCount: selectAdditionProvider
                   .getAdditionalResponse.data!.additional!.length,
               itemBuilder: (context, index) {
+                currentIndex = index;
                 var name = selectAdditionProvider
                     .getAdditionalResponse.data!.additional![index].name!.en
                     .toString();
-                return itemContainer(name: name);
+                return itemContainer(name: name, index: index);
               })
           : const Center(
               child: Text("No Data Available"),
@@ -118,62 +121,42 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
     );
   }
 
-  Widget itemContainer({required String name}) => Column(
+  Widget itemContainer({required String name, required int index}) => Column(
         children: [
           const SizedBox(
             height: 10,
           ),
-          _items(context, name, () {
-            hotel++;
-            setState(() {});
-          }, () {
-            if (hotel > 0) {
-              hotel--;
-              setState(() {});
-            }
-          }, hotel),
+          currentIndex == index
+              ? _items(
+                  context: context,
+                  name: name,
+                  add: () {
+                    selectAdditionProvider.selectAdditionalList[index]++;
+                    setState(() {});
+                  },
+                  minus: () {
+                    if (selectAdditionProvider.selectAdditionalList[index] >
+                        0) {
+                      selectAdditionProvider.selectAdditionalList[index]--;
+                      setState(() {});
+                    }
+                  },
+                  number: selectAdditionProvider.selectAdditionalList[index])
+              : _items(
+                  context: context,
+                  name: name,
+                  add: () {},
+                  minus: () {},
+                  number: 0),
         ],
       );
 
-  Widget _getUI(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 10,
-        ),
-        _items(context, "Hotel 5 Sar (600)", () {
-          hotel++;
-          setState(() {});
-        }, () {
-          if (hotel > 0) {
-            hotel--;
-            setState(() {});
-          }
-        }, hotel),
-        _items(context, "Chicken legs (30)", () {
-          chicken++;
-          setState(() {});
-        }, () {
-          if (chicken > 0) {
-            chicken--;
-            setState(() {});
-          }
-        }, chicken),
-        _items(context, "Water (1)", () {
-          water++;
-          setState(() {});
-        }, () {
-          if (water > 0) {
-            water--;
-            setState(() {});
-          }
-        }, water),
-      ],
-    );
-  }
-
-  Widget _items(BuildContext context, String name, Function add, Function minus,
-      int number) {
+  Widget _items(
+      {required BuildContext context,
+      required String name,
+      required Function add,
+      required Function minus,
+      required int number}) {
     return Container(
       height: sizes!.heightRatio * 60,
       width: MediaQuery.of(context).size.width,

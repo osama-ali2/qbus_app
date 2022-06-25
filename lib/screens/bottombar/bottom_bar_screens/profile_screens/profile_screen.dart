@@ -38,6 +38,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     profileProvider = ProfileProvider();
     profileProvider = Provider.of<ProfileProvider>(context, listen: false);
     profileProvider.init(context: context);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      profileProvider.getUserProfile();
+    });
   }
 
   @override
@@ -60,64 +64,78 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Column(
         children: [
           CommonPadding.sizeBoxWithHeight(height: 20),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const EditUserProfileScreen()));
-            },
-            child: Container(
-              height: sizes!.heightRatio * 80,
-              width: sizes!.widthRatio * 345,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: AppColors.containerShadowColor,
-                      blurRadius: 10.0,
-                      offset: Offset(0, 2),
+          profileProvider.isProfileLoading == true
+              ? GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const EditUserProfileScreen()));
+                  },
+                  child: Container(
+                    height: sizes!.heightRatio * 80,
+                    width: sizes!.widthRatio * 345,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: AppColors.containerShadowColor,
+                            blurRadius: 10.0,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                        color: Colors.white),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: sizes!.heightRatio * 12,
+                          vertical: sizes!.heightRatio * 12),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SvgPicture.asset(
+                            "assets/svg/user_icon.svg",
+                            height: sizes!.heightRatio * 30,
+                            width: sizes!.widthRatio * 30,
+                          ),
+                          CommonPadding.sizeBoxWithWidth(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextView.getMediumText14(
+                                  profileProvider.userResponse.data!.user!.name
+                                      .toString(),
+                                  Assets.latoBold,
+                                  color: AppColors.black900,
+                                  fontWeight: FontWeight.w400,
+                                  lines: 1),
+                              CommonPadding.sizeBoxWithHeight(height: 4),
+                              TextView.getMediumText14(
+                                  profileProvider
+                                      .userResponse.data!.user!.maritalStatus
+                                      .toString().toUpperCase(),
+                                  Assets.latoBold,
+                                  color: AppColors.black900,
+                                  fontWeight: FontWeight.w400,
+                                  lines: 1),
+                              CommonPadding.sizeBoxWithHeight(height: 4),
+                              TextView.getMediumText14(
+                                  profileProvider.userResponse.data!.user!.phone
+                                      .toString(),
+                                  Assets.latoBold,
+                                  color: AppColors.black900,
+                                  fontWeight: FontWeight.w400,
+                                  lines: 1),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ],
-                  color: Colors.white),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: sizes!.heightRatio * 12,
-                    vertical: sizes!.heightRatio * 12),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SvgPicture.asset(
-                      "assets/svg/user_icon.svg",
-                      height: sizes!.heightRatio * 30,
-                      width: sizes!.widthRatio * 30,
-                    ),
-                    CommonPadding.sizeBoxWithWidth(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextView.getMediumText14(
-                            "Abdelhadi Mohammed", Assets.latoBold,
-                            color: AppColors.black900,
-                            fontWeight: FontWeight.w400,
-                            lines: 1),
-                        CommonPadding.sizeBoxWithHeight(height: 4),
-                        TextView.getMediumText14("Male", Assets.latoBold,
-                            color: AppColors.black900,
-                            fontWeight: FontWeight.w400,
-                            lines: 1),
-                        CommonPadding.sizeBoxWithHeight(height: 4),
-                        TextView.getMediumText14("0507070656", Assets.latoBold,
-                            color: AppColors.black900,
-                            fontWeight: FontWeight.w400,
-                            lines: 1),
-                      ],
-                    )
-                  ],
+                  ).get20HorizontalPadding(),
+                )
+              : const Center(
+                  child: Text("No User Profile Found"),
                 ),
-              ),
-            ).get20HorizontalPadding(),
-          ),
           CommonPadding.sizeBoxWithHeight(height: 15),
           getRow(
               title: 'Wallet',

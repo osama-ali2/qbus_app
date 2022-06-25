@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/models/PackageFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
@@ -14,7 +15,9 @@ import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_text.dart';
 
 class ExploreScreen extends StatefulWidget {
-  const ExploreScreen({Key? key}) : super(key: key);
+  final PackageFilterModel? packageFilterModel;
+
+  const ExploreScreen({Key? key, this.packageFilterModel}) : super(key: key);
 
   @override
   State<ExploreScreen> createState() => _ExploreScreenState();
@@ -22,6 +25,11 @@ class ExploreScreen extends StatefulWidget {
 
 class _ExploreScreenState extends State<ExploreScreen> {
   late ExploreProvider exploreProvider;
+
+  // The controller for the ListView
+  late ScrollController _scrollController;
+
+  int index = 0;
 
   @override
   void initState() {
@@ -31,9 +39,31 @@ class _ExploreScreenState extends State<ExploreScreen> {
     exploreProvider = Provider.of<ExploreProvider>(context, listen: false);
     exploreProvider.init(context: context);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      exploreProvider.getPackagesData();
+    _scrollController = ScrollController();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        debugPrint("Ending...");
+        setState(() {
+          index++;
+          debugPrint("EndingIndex: $index");
+        });
+        exploreProvider.getPackagesData(
+            packageFilterModel: widget.packageFilterModel!, offset: index);
+      }
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      exploreProvider.getPackagesData(
+          packageFilterModel: widget.packageFilterModel!, offset: index);
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -68,6 +98,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 child:
                     exploreProvider.packagesResponse.data!.packages!.isNotEmpty
                         ? ListView.builder(
+                            controller: _scrollController,
                             itemCount: exploreProvider
                                 .packagesResponse.data!.packages!.length,
                             itemBuilder: (context, i) {

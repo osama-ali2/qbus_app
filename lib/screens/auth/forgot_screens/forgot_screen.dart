@@ -1,20 +1,20 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
 import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
+import 'package:qbus/screens/auth/forgot_screens/forgot_provider.dart';
 import 'package:qbus/widgets/text_views.dart';
 
 import '../../../utils/constant.dart';
 import '../../../widgets/custom_button.dart';
-import '../../../widgets/custom_textField.dart';
+import '../../../widgets/custom_password_textField.dart';
 
 class ForgotScreen extends StatefulWidget {
   const ForgotScreen({Key? key}) : super(key: key);
@@ -32,12 +32,21 @@ class _ForgotScreenState extends State<ForgotScreen> {
   final focusNode = FocusNode();
   bool showError = false;
 
+  final ValueNotifier<bool> _isNewPassword = ValueNotifier<bool>(true);
+  final ValueNotifier<bool> _isConfirmPassword = ValueNotifier<bool>(true);
+
+  ForgotProvider forgotProvider = ForgotProvider();
+
   @override
   void initState() {
     super.initState();
     codeController = TextEditingController();
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
+
+    forgotProvider = ForgotProvider();
+    forgotProvider = Provider.of<ForgotProvider>(context, listen: false);
+    forgotProvider.init(context: context);
   }
 
   @override
@@ -51,6 +60,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<ForgotProvider>(context, listen: true);
     const length = 4;
     const borderColor = AppColors.primary;
     const errorColor = AppColors.error400;
@@ -132,20 +142,38 @@ class _ForgotScreenState extends State<ForgotScreen> {
                 ),
               ),
               CommonPadding.sizeBoxWithHeight(height: 50),
-              CustomTextField(
-                controller: passwordController,
-                padding: 20,
-                validator: (val) => null,
-                inputType: TextInputType.name,
-                hint: "New Password",
+              ValueListenableBuilder(
+                builder: (BuildContext context, value, Widget? child) {
+                  return CustomPasswordTextField(
+                    controller: passwordController,
+                    padding: 20,
+                    validator: (val) => null,
+                    inputType: TextInputType.name,
+                    hint: "New Password",
+                    isVisible: _isNewPassword.value,
+                    onPress: () {
+                      _isNewPassword.value = !_isNewPassword.value;
+                    },
+                  );
+                },
+                valueListenable: _isNewPassword,
               ),
               CommonPadding.sizeBoxWithHeight(height: 15),
-              CustomTextField(
-                controller: confirmPasswordController,
-                padding: 20,
-                validator: (val) => null,
-                inputType: TextInputType.name,
-                hint: "Confirm Password",
+              ValueListenableBuilder(
+                builder: (BuildContext context, value, Widget? child) {
+                  return CustomPasswordTextField(
+                    controller: confirmPasswordController,
+                    padding: 20,
+                    validator: (val) => null,
+                    inputType: TextInputType.name,
+                    hint: "Confirm Password",
+                    isVisible: _isConfirmPassword.value,
+                    onPress: () {
+                      _isConfirmPassword.value = !_isConfirmPassword.value;
+                    },
+                  );
+                },
+                valueListenable: _isConfirmPassword,
               ),
               CommonPadding.sizeBoxWithHeight(height: 60),
               CustomButton(
@@ -173,14 +201,24 @@ class _ForgotScreenState extends State<ForgotScreen> {
     var password = passwordController.text.toString().trim();
     var confirmPassword = confirmPasswordController.text.toString().trim();
 
-    if (code.isNotEmpty && password.isNotEmpty && confirmPassword.isNotEmpty) {
-      Navigator.pop(context);
+    if (code.isNotEmpty &&
+        password.isNotEmpty &&
+        confirmPassword.isNotEmpty &&
+        password == confirmPassword) {
+      await forgotProvider.forgetPasswordUser(password: password, code: code);
+
+      if (forgotProvider.isSuccessful) {
+        if (!mounted) return;
+        Navigator.pop(context);
+      }
     } else if (code.isEmpty) {
       Toasts.getErrorToast(text: "Field is required");
     } else if (password.isEmpty) {
       Toasts.getErrorToast(text: "Field is required");
     } else if (confirmPassword.isEmpty) {
       Toasts.getErrorToast(text: "Field is required");
+    } else if (password != confirmPassword) {
+      Toasts.getErrorToast(text: "Password isn't matched");
     }
   }
 }

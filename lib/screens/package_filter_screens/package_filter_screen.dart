@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:qbus/models/PackageFilterModel.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
+import 'package:qbus/screens/explore_screens/explore_screen.dart';
+import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import '../../res/res.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
@@ -19,12 +23,13 @@ class PackageFilterScreen extends StatefulWidget {
 class _PackageFilterScreenState extends State<PackageFilterScreen> {
   late TextEditingController couponController;
 
-  var selectedCity = "";
+  var selectedCity = "Starting City";
+
+  var selectCityId = "-1";
 
   bool internet = false;
   bool meal = false;
   bool hostel5Stars = false;
-  int number = 0;
 
   bool additional = false;
 
@@ -35,10 +40,18 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
   String _endDate = "End Date";
   String _startTime = "Start Time";
 
+  late GetStartedProvider getStartedProvider;
+
   @override
   void initState() {
     super.initState();
     couponController = TextEditingController();
+
+    getStartedProvider = GetStartedProvider();
+    getStartedProvider =
+        Provider.of<GetStartedProvider>(context, listen: false);
+    getStartedProvider.init(context: context);
+
     _selectedDate = DateTime.now();
     _selectedTime = TimeOfDay.now();
   }
@@ -81,6 +94,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<GetStartedProvider>(context, listen: true);
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -140,9 +154,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                   ),
                 ).get20HorizontalPadding(),
               ),
-
               CommonPadding.sizeBoxWithHeight(height: 20),
-
               GestureDetector(
                 onTap: () {
                   _presentDate();
@@ -175,28 +187,14 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                   ),
                 ).get20HorizontalPadding(),
               ),
-
-              // CustomTextField(
-              //   controller: couponController,
-              //   padding: 0,
-              //   validator: (val) => null,
-              //   inputType: TextInputType.name,
-              //   hint: "End Date",
-              // ).get20HorizontalPadding(),
-              //
-
               CommonPadding.sizeBoxWithHeight(height: 20),
-
               GestureDetector(
                 onTap: () {
                   _presentTime();
 
                   setState(() {
-                    // var date = DateFormat('Hm')
-                    //     .format(_selectedTime)
-                    //     .toString();
                     _startTime =
-                        "${_selectedTime.hour.toString()}:${_selectedTime.minute.toString()} ${_selectedTime.period.name.toUpperCase()}";
+                        "${_selectedTime.hour.toString()}:${_selectedTime.minute.toString()}";
                   });
                 },
                 child: Container(
@@ -220,14 +218,6 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                   ),
                 ).get20HorizontalPadding(),
               ),
-
-              // CustomTextField(
-              //   controller: couponController,
-              //   padding: 0,
-              //   validator: (val) => null,
-              //   inputType: TextInputType.name,
-              //   hint: "Start Time",
-              // ).get20HorizontalPadding(),
               CommonPadding.sizeBoxWithHeight(height: 20),
               Padding(
                 padding:
@@ -244,24 +234,38 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                       hint: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: sizes!.widthRatio * 10),
-                        child: const CustomText(
-                            text: "Starting City",
+                        child: CustomText(
+                            text: selectedCity,
                             textSize: 12,
                             fontWeight: FontWeight.normal,
                             textColor: Colors.black),
                       ),
                       underline: const SizedBox(),
                       isExpanded: true,
-                      items: <String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
-                          .map((String value) {
+                      //<String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
+                      items: getStartedProvider.cityList.map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
                         );
                       }).toList(),
+
                       onChanged: (value) {
                         setState(() {
                           selectedCity = value!;
+
+                          var l = getStartedProvider.citiesList.length;
+                          for (int i = 0; i < l; i++) {
+                            String name =
+                                getStartedProvider.citiesList[i]['city'];
+                            String id = getStartedProvider.citiesList[i]['id'];
+                            debugPrint("city: $name, id: $id");
+                            if (name.contains(selectedCity)) {
+                              selectCityId = id;
+                              debugPrint(
+                                  "MatchedCity&Id: $name, $selectCityId");
+                            }
+                          }
                         });
                         debugPrint("selectedCity: $selectedCity");
                       },
@@ -321,7 +325,28 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                       fontWeight: FontWeight.normal,
                       borderRadius: 5,
                       onTapped: () {
+                        var couponCode =
+                            couponController.text.toString().trim();
+
+                        var filterData = PackageFilterModel(
+                            code: couponCode,
+                            starting_city_id: selectCityId,
+                            date_from: _startDate,
+                            date_to: _endDate,
+                            time_from: _startTime,
+                            additional: [],
+                            offset: 0);
+
+                        debugPrint("myGlobal: ${filterData.toJson()}");
                         Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ExploreScreen(
+                              packageFilterModel: filterData,
+                            ),
+                          ),
+                        );
                       },
                       padding: 0)
                   .get20HorizontalPadding(),
@@ -330,11 +355,6 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
         ),
       ),
     ));
-  }
-
-  Future<void> validateFilterData() async {
-    var couponCode = couponController.text.toString().trim();
-    // var startDate = startda
   }
 
   Widget checkBox(
