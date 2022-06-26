@@ -59,12 +59,12 @@ class GetStartedProvider with ChangeNotifier {
         notifyListeners();
       } else {
         debugPrint("packagesResponse: Something wrong");
-
         _loader.hideLoader(context!);
       }
     } catch (e) {
       debugPrint("packagesResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
+      isDataLoaded = false;
     }
   }
 
