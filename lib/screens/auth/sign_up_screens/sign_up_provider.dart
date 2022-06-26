@@ -44,7 +44,7 @@ class SignUpProvider with ChangeNotifier {
         "address": address,
         "date_of_birth": "30-05-2000",
         "city_id": cityId,
-        "marital_status": "married",
+        "marital_status": status,
         "password": password
       };
 

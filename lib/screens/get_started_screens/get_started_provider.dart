@@ -37,7 +37,8 @@ class GetStartedProvider with ChangeNotifier {
         "date_to": "",
         "time_from": "",
         "starting_city_id": "",
-        "additional": []
+        "additional": [],
+        "offset": 0
       };
 
       debugPrint("URL: $packagesApiUrl");
