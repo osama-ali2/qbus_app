@@ -17,7 +17,9 @@ import '../../../widgets/text_views.dart';
 import '../../bottombar/bottom_bar_screen.dart';
 
 class PhoneActivationScreen extends StatefulWidget {
-  const PhoneActivationScreen({Key? key}) : super(key: key);
+  final String? phoneNumber;
+
+  const PhoneActivationScreen({Key? key, this.phoneNumber}) : super(key: key);
 
   @override
   State<PhoneActivationScreen> createState() => _PhoneActivationScreenState();
@@ -106,7 +108,7 @@ class _PhoneActivationScreenState extends State<PhoneActivationScreen> {
               CommonPadding.sizeBoxWithHeight(height: 30),
               Center(
                 child: TextView.getMediumText16(
-                    "Please Enter Verification\nCode Sent to +966595481591",
+                    "Please Enter Verification\nCode Sent to ${widget.phoneNumber}",
                     Assets.latoBold,
                     color: AppColors.black900,
                     fontWeight: FontWeight.w500,
@@ -167,13 +169,13 @@ class _PhoneActivationScreenState extends State<PhoneActivationScreen> {
                   ],
                 ),
               ),
-              CommonPadding.sizeBoxWithHeight(height: 20),
-              Center(
-                child: TextView.getMediumText14("Edit Number", Assets.latoBold,
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w700,
-                    lines: 1),
-              ),
+              // CommonPadding.sizeBoxWithHeight(height: 20),
+              // Center(
+              //   child: TextView.getMediumText14("Edit Number", Assets.latoBold,
+              //       color: AppColors.primary,
+              //       fontWeight: FontWeight.w700,
+              //       lines: 1),
+              // ),
               CommonPadding.sizeBoxWithHeight(height: 50),
               CustomButton(
                   name: "Finish",

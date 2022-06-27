@@ -63,7 +63,7 @@ class SignUpProvider with ChangeNotifier {
       if (signUpResponse.code == 1) {
         _logger.d("signUpResponse: ${signUpResponse.toJson()}");
         _loader.hideLoader(context!);
-        NavigationHelper.pushRoute(context!, const PhoneActivationScreen());
+        NavigationHelper.pushRoute(context!,  PhoneActivationScreen(phoneNumber: phoneNumber,));
         isDataLoaded = true;
       } else {
         debugPrint("signUpResponse: Something wrong");
