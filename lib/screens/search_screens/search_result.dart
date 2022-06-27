@@ -86,6 +86,19 @@ class _SearchResultState extends State<SearchResult> {
                             itemCount: searchProvider
                                 .tripsResponse.data!.trips!.length,
                             itemBuilder: (context, i) {
+                              var data =
+                                  searchProvider.tripsResponse.data!.trips![i];
+                              var stationA = data.startStationName.toString();
+                              var stationB = data.arrivalStationName.toString();
+                              var fees = data.fees.toString();
+                              var rate = data.rate.toString();
+                              var fromCityName = data.fromCityName.toString();
+                              var toCityName = data.toCityName.toString();
+                              var timeFrom = data.timeFrom.toString();
+                              var timeTo = data.timeTo.toString();
+                              var stops = data.stops.toString();
+                              var providerName = data.providerName.toString();
+
                               return InkWell(
                                   onTap: () {
                                     NavigationHelper.pushRoute(
@@ -95,7 +108,18 @@ class _SearchResultState extends State<SearchResult> {
                                     padding: EdgeInsets.symmetric(
                                         horizontal: sizes!.widthRatio * 20,
                                         vertical: sizes!.heightRatio * 5),
-                                    child: _card(context),
+                                    child: _card(
+                                        context: context,
+                                        stationA: stationA,
+                                        stationB: stationB,
+                                        fees: fees,
+                                        rate: rate,
+                                        fromCityName: fromCityName,
+                                        toCityName: toCityName,
+                                        timeFrom: timeFrom,
+                                        timeTo: timeTo,
+                                        stops: stops,
+                                        providerName: providerName),
                                   ));
                             })
                         : Center(
@@ -135,7 +159,19 @@ class _SearchResultState extends State<SearchResult> {
     );
   }
 
-  Widget _card(BuildContext context) {
+  Widget _card({
+    required BuildContext context,
+    required String stationA,
+    required String stationB,
+    required String fees,
+    required String rate,
+    required String fromCityName,
+    required String toCityName,
+    required String timeFrom,
+    required String timeTo,
+    required String stops,
+    required String providerName,
+  }) {
     return Container(
       height: sizes!.heightRatio * 130,
       width: MediaQuery.of(context).size.width,
@@ -163,7 +199,7 @@ class _SearchResultState extends State<SearchResult> {
                 Row(
                   children: [
                     CustomText(
-                        text: "10:30 Makkah",
+                        text: "$timeFrom Alan",
                         textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
                         textColor: const Color(0xff747268)),
@@ -173,7 +209,7 @@ class _SearchResultState extends State<SearchResult> {
                       size: 18,
                     ),
                     CustomText(
-                        text: "10:30 Makkah",
+                        text: "$timeTo Dubai",
                         textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
                         textColor: const Color(0xff747268)),
@@ -186,7 +222,7 @@ class _SearchResultState extends State<SearchResult> {
                       borderRadius: BorderRadius.circular(5), color: appColor),
                   child: Center(
                     child: CustomText(
-                        text: "SAR 90",
+                        text: "SAR $fees",
                         textSize: sizes!.fontRatio * 10,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.white),
@@ -203,7 +239,7 @@ class _SearchResultState extends State<SearchResult> {
                 Row(
                   children: [
                     CustomText(
-                        text: "Station A",
+                        text: "stationA",
                         textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
                         textColor: const Color(0xff747268)),
@@ -213,14 +249,14 @@ class _SearchResultState extends State<SearchResult> {
                       size: 18,
                     ),
                     CustomText(
-                        text: "Station B",
+                        text: "stationB",
                         textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
                         textColor: const Color(0xff747268)),
                   ],
                 ),
                 CustomText(
-                    text: "5 Stops",
+                    text: "$stops Stops",
                     textSize: sizes!.fontRatio * 14,
                     fontWeight: FontWeight.w400,
                     textColor: const Color(0xff747268))
@@ -233,7 +269,7 @@ class _SearchResultState extends State<SearchResult> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomText(
-                    text: "Jeddah Trip",
+                    text: providerName,
                     textSize: sizes!.fontRatio * 16,
                     fontWeight: FontWeight.w500,
                     textColor: const Color(0xff747268)),
@@ -245,7 +281,7 @@ class _SearchResultState extends State<SearchResult> {
                       size: 18,
                     ),
                     CustomText(
-                        text: "(4/5)",
+                        text: rate,
                         textSize: sizes!.fontRatio * 16,
                         fontWeight: FontWeight.normal,
                         textColor: const Color(0xff747268)),
