@@ -45,6 +45,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   var departureFrom = "Departure from";
   var arrivalTo = "Arrival to";
 
+  var arrivalToID = "-1";
+  var departureFromID = "-1";
+
   @override
   void initState() {
     super.initState();
@@ -186,8 +189,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             child: Center(
               child: DropdownButton<String>(
                 hint: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: sizes!.widthRatio * 10),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 10),
                   child: CustomText(
                       text: departureFrom,
                       textSize: 12,
@@ -206,6 +209,17 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   setState(() {
                     departureFrom = value!;
                     debugPrint("selectedCity: $departureFrom");
+
+                    var l = getStartedProvider.citiesList.length;
+                    for (int i = 0; i < l; i++) {
+                      String name = getStartedProvider.citiesList[i]['city'];
+                      String id = getStartedProvider.citiesList[i]['id'];
+                      debugPrint("city: $name, id: $id");
+                      if (name.contains(departureFrom)) {
+                        departureFromID = id;
+                        debugPrint("MatchedCity&Id: $name, $departureFromID");
+                      }
+                    }
                   });
                 },
               ),
@@ -232,8 +246,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             child: Center(
               child: DropdownButton<String>(
                 hint: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: sizes!.widthRatio * 10),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 10),
                   child: CustomText(
                       text: arrivalTo,
                       textSize: 12,
@@ -252,6 +266,17 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   setState(() {
                     arrivalTo = value!;
                     debugPrint("selectedCity: $arrivalTo");
+
+                    var l = getStartedProvider.citiesList.length;
+                    for (int i = 0; i < l; i++) {
+                      String name = getStartedProvider.citiesList[i]['city'];
+                      String id = getStartedProvider.citiesList[i]['id'];
+                      debugPrint("city: $name, id: $id");
+                      if (name.contains(arrivalTo)) {
+                        arrivalToID = id;
+                        debugPrint("MatchedCity&Id: $name, $arrivalToID");
+                      }
+                    }
                   });
                 },
               ),
@@ -337,7 +362,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 NavigationHelper.pushRoute(
                     context,
                     SearchResult(
-                      tripFilterModel: TripFilterModel(),
+                      tripFilterModel: TripFilterModel(
+
+                      ),
                     ));
               },
               padding: 0),

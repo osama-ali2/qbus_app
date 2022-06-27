@@ -72,6 +72,9 @@ class GetStartedProvider with ChangeNotifier {
     try {
       // _loader.showLoader(context: context);
       Map<String, dynamic> header = {"Content-Type": "application/json"};
+      cityList.clear();
+      cityIdList.clear();
+      citiesList.clear();
 
       debugPrint("URL: $getCitiesApiUrl");
       getCitiesResponse = await MyApi.callGetApi(

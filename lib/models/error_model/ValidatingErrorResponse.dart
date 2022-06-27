@@ -1,6 +1,6 @@
-/// message : "Please ReCheck the Fields"
+/// message : "Please ReCheck the "
 /// code : 0
-/// data : {"validate_errors":[{"email":"The email field is required."},{"phone":"The phone field is required."},{"subject":"The subject field is required."},{"message":"The message field is required."}],"message":"validate_errors"}
+/// data : {"validate_errors":[{"name":"The name field is required."},{"email":"The email must be a string."},{"phone":"The phone field is required."},{"city_id":"The city id must be a number."},{"address":"The address field is required."},{"date_of_birth":"The date of birth field is required."},{"marital_status":"The marital status field is required."},{"password":"The password field is required."}]}
 
 class ValidatingErrorResponse {
   ValidatingErrorResponse({
@@ -37,15 +37,12 @@ class ValidatingErrorResponse {
 
 }
 
-/// validate_errors : [{"email":"The email field is required."},{"phone":"The phone field is required."},{"subject":"The subject field is required."},{"message":"The message field is required."}]
-/// message : "validate_errors"
+/// validate_errors : [{"name":"The name field is required."},{"email":"The email must be a string."},{"phone":"The phone field is required."},{"city_id":"The city id must be a number."},{"address":"The address field is required."},{"date_of_birth":"The date of birth field is required."},{"marital_status":"The marital status field is required."},{"password":"The password field is required."}]
 
 class Data {
   Data({
-      List<ValidateErrors>? validateErrors, 
-      String? message,}){
+      List<ValidateErrors>? validateErrors,}){
     _validateErrors = validateErrors;
-    _message = message;
 }
 
   Data.fromJson(dynamic json) {
@@ -55,43 +52,39 @@ class Data {
         _validateErrors?.add(ValidateErrors.fromJson(v));
       });
     }
-    _message = json['message'];
   }
   List<ValidateErrors>? _validateErrors;
-  String? _message;
 
   List<ValidateErrors>? get validateErrors => _validateErrors;
-  String? get message => _message;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     if (_validateErrors != null) {
       map['validate_errors'] = _validateErrors?.map((v) => v.toJson()).toList();
     }
-    map['message'] = _message;
     return map;
   }
 
 }
 
-/// email : "The email field is required."
+/// name : "The name field is required."
 
 class ValidateErrors {
   ValidateErrors({
-      String? email,}){
-    _email = email;
+      String? name,}){
+    _name = name;
 }
 
   ValidateErrors.fromJson(dynamic json) {
-    _email = json['email'];
+    _name = json['name'];
   }
-  String? _email;
+  String? _name;
 
-  String? get email => _email;
+  String? get name => _name;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['email'] = _email;
+    map['name'] = _name;
     return map;
   }
 

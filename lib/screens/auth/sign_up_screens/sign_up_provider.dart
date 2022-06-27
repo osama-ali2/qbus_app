@@ -5,8 +5,10 @@ import 'package:qbus/models/cities/GetCitiesResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
 import 'package:qbus/widgets/loader.dart';
 
+import '../../../navigation/navigation_helper.dart';
 import '../../../network_manager/models.dart';
 import '../../../network_manager/my_api.dart';
+import '../phone_activation_screens/phone_activation_screen.dart';
 
 class SignUpProvider with ChangeNotifier {
   BuildContext? context;
@@ -49,6 +51,7 @@ class SignUpProvider with ChangeNotifier {
       };
 
       debugPrint("URL: $signUpApiUrl");
+      debugPrint("signUpBody: $body");
 
       signUpResponse = await MyApi.callPostApi(
           url: signUpApiUrl,
@@ -60,14 +63,17 @@ class SignUpProvider with ChangeNotifier {
       if (signUpResponse.code == 1) {
         _logger.d("signUpResponse: ${signUpResponse.toJson()}");
         _loader.hideLoader(context!);
+        NavigationHelper.pushRoute(context!, const PhoneActivationScreen());
         isDataLoaded = true;
-        notifyListeners();
       } else {
         debugPrint("signUpResponse: Something wrong");
         _loader.hideLoader(context!);
+        isDataLoaded = false;
       }
+      notifyListeners();
     } catch (e) {
       debugPrint("signUpResponseError: ${e.toString()}");
+      isDataLoaded = false;
       _loader.hideLoader(context!);
     }
   }

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
 import '../models/error_model/ErrorResponse.dart';
 import '../res/strings.dart';
@@ -40,6 +41,22 @@ class MyApi {
             }
             return null;
 
+          case 401:
+            ValidatingErrorResponse validatingErrorResponse =
+            await Models.getModelObject(
+                Models.validateErrorModel, _response.data);
+            debugPrint("ValidatingErrorResponse: ${validatingErrorResponse.toJson()}");
+            validatingErrorResponse.data!.validateErrors!.map((res) {
+              Toasts.getErrorToast(text: res.toString());
+            });
+            if (validatingErrorResponse.code == 0) {
+              return validatingErrorResponse;
+            } else {
+              Toasts.getErrorToast(text: validatingErrorResponse.message);
+            }
+
+            return null;
+
           default:
             Toasts.getErrorToast(text: Strings.badHappenedError);
             return null;
@@ -67,6 +84,7 @@ class MyApi {
             ValidatingErrorResponse validatingErrorResponse =
                 await Models.getModelObject(
                     Models.validateErrorModel, ex.response?.data);
+            debugPrint("ValidatingErrorResponse: ${validatingErrorResponse.toJson()}");
             validatingErrorResponse.data!.validateErrors!.map((res) {
               Toasts.getErrorToast(text: res.toString());
             });
