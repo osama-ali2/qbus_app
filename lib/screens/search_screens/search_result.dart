@@ -131,7 +131,7 @@ class _SearchResultState extends State<SearchResult> {
                           ),
                   )
                 : Container(),
-            CommonPadding.sizeBoxWithHeight(height: 20),
+            CommonPadding.sizeBoxWithHeight(height: 10),
             searchProvider.isTripDataLoaded
                 ? CustomButton(
                         name: "Filter Result",
@@ -152,7 +152,7 @@ class _SearchResultState extends State<SearchResult> {
                         padding: 0)
                     .get20HorizontalPadding()
                 : Container(),
-            CommonPadding.sizeBoxWithHeight(height: 20),
+            CommonPadding.sizeBoxWithHeight(height: 10),
           ],
         ),
       ),
