@@ -24,6 +24,7 @@ class SearchProvider with ChangeNotifier {
       {required TripFilterModel tripFilterModel, required int offset}) async {
     try {
       _loader.showLoader(context: context);
+      // tripsResponse.data!.trips!.clear();
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
 

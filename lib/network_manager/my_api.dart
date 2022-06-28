@@ -40,12 +40,25 @@ class MyApi {
               Toasts.getErrorToast(text: modelobj.message);
             }
             return null;
+          case 400:
+            ErrorResponse errorResponse =
+                await Models.getModelObject(Models.errorModel, _response.data);
+            Toasts.getErrorToast(text: errorResponse.data?.message);
+            if (errorResponse.code == 0) {
+              Toasts.getErrorToast(text: errorResponse.message);
+              debugPrint("errorResponse: ${errorResponse.toJson()}");
+              return errorResponse;
+            } else {
+              Toasts.getErrorToast(text: errorResponse.message);
+            }
+            return null;
 
           case 401:
             ValidatingErrorResponse validatingErrorResponse =
-            await Models.getModelObject(
-                Models.validateErrorModel, _response.data);
-            debugPrint("ValidatingErrorResponse: ${validatingErrorResponse.toJson()}");
+                await Models.getModelObject(
+                    Models.validateErrorModel, _response.data);
+            debugPrint(
+                "ValidatingErrorResponse: ${validatingErrorResponse.toJson()}");
             validatingErrorResponse.data!.validateErrors!.map((res) {
               Toasts.getErrorToast(text: res.toString());
             });
@@ -84,7 +97,8 @@ class MyApi {
             ValidatingErrorResponse validatingErrorResponse =
                 await Models.getModelObject(
                     Models.validateErrorModel, ex.response?.data);
-            debugPrint("ValidatingErrorResponse: ${validatingErrorResponse.toJson()}");
+            debugPrint(
+                "ValidatingErrorResponse: ${validatingErrorResponse.toJson()}");
             validatingErrorResponse.data!.validateErrors!.map((res) {
               Toasts.getErrorToast(text: res.toString());
             });
