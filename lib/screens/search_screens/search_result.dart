@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
+import 'package:qbus/models/additional/GetAdditionalResponse.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/screens/search_screens/search_provider.dart';
@@ -9,6 +10,7 @@ import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';
 import '../../../../navigation/navigation_helper.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
+import '../../models/trips/TripsResponse.dart';
 import '../../res/assets.dart';
 import '../../res/colors.dart';
 import '../../res/res.dart';
@@ -88,16 +90,21 @@ class _SearchResultState extends State<SearchResult> {
                             itemBuilder: (context, i) {
                               var data =
                                   searchProvider.tripsResponse.data!.trips![i];
-                              var stationA = data.startStationName.toString();
-                              var stationB = data.arrivalStationName.toString();
+                              var stationA =
+                                  data.startStationName!.en.toString();
+                              var stationB =
+                                  data.arrivalStationName!.en.toString();
                               var fees = data.fees.toString();
                               var rate = data.rate.toString();
-                              var fromCityName = data.fromCityName.toString();
-                              var toCityName = data.toCityName.toString();
+                              var fromCityName =
+                                  data.fromCityName!.en.toString();
+                              var toCityName = data.toCityName!.en.toString();
                               var timeFrom = data.timeFrom.toString();
                               var timeTo = data.timeTo.toString();
                               var stops = data.stops.toString();
                               var providerName = data.providerName.toString();
+                              var additionals =
+                                  data.additionals!.map((e) => {e});
 
                               return InkWell(
                                   onTap: () {
@@ -119,7 +126,8 @@ class _SearchResultState extends State<SearchResult> {
                                         timeFrom: timeFrom,
                                         timeTo: timeTo,
                                         stops: stops,
-                                        providerName: providerName),
+                                        providerName: providerName,
+                                        additionals: data.additionals!),
                                   ));
                             })
                         : Center(
@@ -159,19 +167,19 @@ class _SearchResultState extends State<SearchResult> {
     );
   }
 
-  Widget _card({
-    required BuildContext context,
-    required String stationA,
-    required String stationB,
-    required String fees,
-    required String rate,
-    required String fromCityName,
-    required String toCityName,
-    required String timeFrom,
-    required String timeTo,
-    required String stops,
-    required String providerName,
-  }) {
+  Widget _card(
+      {required BuildContext context,
+      required String stationA,
+      required String stationB,
+      required String fees,
+      required String rate,
+      required String fromCityName,
+      required String toCityName,
+      required String timeFrom,
+      required String timeTo,
+      required String stops,
+      required String providerName,
+      required List<Additionals> additionals}) {
     return Container(
       height: sizes!.heightRatio * 130,
       width: MediaQuery.of(context).size.width,
@@ -199,7 +207,7 @@ class _SearchResultState extends State<SearchResult> {
                 Row(
                   children: [
                     CustomText(
-                        text: "$timeFrom Alan",
+                        text: "$timeFrom $fromCityName",
                         textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
                         textColor: const Color(0xff747268)),
@@ -209,7 +217,7 @@ class _SearchResultState extends State<SearchResult> {
                       size: 18,
                     ),
                     CustomText(
-                        text: "$timeTo Dubai",
+                        text: "$timeTo $toCityName",
                         textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
                         textColor: const Color(0xff747268)),
@@ -239,7 +247,7 @@ class _SearchResultState extends State<SearchResult> {
                 Row(
                   children: [
                     CustomText(
-                        text: "stationA",
+                        text: stationA,
                         textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
                         textColor: const Color(0xff747268)),
@@ -249,7 +257,7 @@ class _SearchResultState extends State<SearchResult> {
                       size: 18,
                     ),
                     CustomText(
-                        text: "stationB",
+                        text: stationB,
                         textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
                         textColor: const Color(0xff747268)),
@@ -292,11 +300,19 @@ class _SearchResultState extends State<SearchResult> {
             SizedBox(
               height: sizes!.heightRatio * 10,
             ),
-            CustomText(
-                text: "Ac / Hotel 3 star / meal",
-                textSize: sizes!.fontRatio * 14,
-                fontWeight: FontWeight.w500,
-                textColor: Colors.grey),
+            SizedBox(
+                height: sizes!.heightRatio * 20,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: additionals.length,
+                    itemBuilder: (context, index) {
+                      var data = additionals[index].en;
+                      return CustomText(
+                          text: "$data /",
+                          textSize: sizes!.fontRatio * 14,
+                          fontWeight: FontWeight.w500,
+                          textColor: Colors.grey);
+                    }))
           ],
         ),
       ),
