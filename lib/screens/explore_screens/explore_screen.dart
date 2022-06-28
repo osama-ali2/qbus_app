@@ -82,7 +82,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: sizes!.fontRatio * 20.0),
-        child: _getUI(context),
+        child:
+            exploreProvider.isListHasData > 0 ? _getUI(context) : Center(child: const Text("No Data Found"),),
       ),
     );
   }
