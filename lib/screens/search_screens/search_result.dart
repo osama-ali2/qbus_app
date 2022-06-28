@@ -20,8 +20,12 @@ import '../selectAddition/select_addition_screen.dart';
 
 class SearchResult extends StatefulWidget {
   final TripFilterModel? tripFilterModel;
+  final String? fromCity;
+  final String? toCity;
 
-  const SearchResult({Key? key, this.tripFilterModel}) : super(key: key);
+  const SearchResult(
+      {Key? key, this.tripFilterModel, this.fromCity, this.toCity})
+      : super(key: key);
 
   @override
   State<SearchResult> createState() => _SearchResultState();
@@ -72,8 +76,8 @@ class _SearchResultState extends State<SearchResult> {
           backgroundColor: appColor,
           elevation: 0,
           centerTitle: false,
-          title: const CustomText(
-              text: "Makkah - Al Madina",
+          title: CustomText(
+              text: "${widget.fromCity ?? ""} - ${widget.toCity ?? ""}",
               textSize: 18,
               fontWeight: FontWeight.w400,
               textColor: Colors.white),

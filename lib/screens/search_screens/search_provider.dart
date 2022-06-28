@@ -41,6 +41,7 @@ class SearchProvider with ChangeNotifier {
       // var body = tripFilterModel.toJson();
 
       debugPrint("URL: $tripsApiUrl");
+      debugPrint("tripsBody: $body");
 
       tripsResponse = await MyApi.callPostApi(
           url: tripsApiUrl,

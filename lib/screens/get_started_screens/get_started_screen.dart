@@ -6,12 +6,12 @@ import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/res.dart';
+import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import '../../../../widgets/custom_button.dart';
-import '../../../../widgets/custom_textField.dart';
 import '../../res/assets.dart';
 import '../../res/colors.dart';
 import '../../widgets/text_views.dart';
@@ -34,8 +34,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
 
   bool tripType = false;
 
-  late DateTime _selectedDate;
-  String _startDate = "Select Date";
+  late DateTime _selectedStartDate;
+  late DateTime _selectedEndDate;
+  String _startDate = "Departure Date";
+  String _endDate = "Arrival Date";
 
   late TextEditingController departureFromController;
   late TextEditingController arrivalToController;
@@ -58,7 +60,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     departureFromController = TextEditingController();
     arrivalToController = TextEditingController();
     dateController = TextEditingController();
-    _selectedDate = DateTime.now();
+    _selectedStartDate = DateTime.now();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getStartedProvider.getPackagesData();
@@ -66,7 +68,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     });
   }
 
-  void _presentDate() {
+  void _presentStartDate() {
     showDatePicker(
       initialEntryMode: DatePickerEntryMode.input,
       context: context,
@@ -78,9 +80,30 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
         return 'no date selected';
       }
       setState(() {
-        _selectedDate = pickedDate;
-        var month = DateFormat('MM').format(_selectedDate).toString();
-        var year = DateFormat('yyyy').format(_selectedDate).toString();
+        _selectedStartDate = pickedDate;
+        var month = DateFormat('MM').format(_selectedStartDate).toString();
+        var year = DateFormat('yyyy').format(_selectedStartDate).toString();
+        debugPrint("_selectedDate: month $month");
+        debugPrint("_selectedDate: year $year");
+      });
+    });
+  }
+
+  void _presentEndDate() {
+    showDatePicker(
+      initialEntryMode: DatePickerEntryMode.input,
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2022),
+      lastDate: DateTime(2050),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return 'no date selected';
+      }
+      setState(() {
+        _selectedEndDate = pickedDate;
+        var month = DateFormat('MM').format(_selectedEndDate).toString();
+        var year = DateFormat('yyyy').format(_selectedEndDate).toString();
         debugPrint("_selectedDate: month $month");
         debugPrint("_selectedDate: year $year");
       });
@@ -209,7 +232,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   setState(() {
                     departureFrom = value!;
                     debugPrint("selectedCity: $departureFrom");
-
                     var l = getStartedProvider.citiesList.length;
                     for (int i = 0; i < l; i++) {
                       String name = getStartedProvider.citiesList[i]['city'];
@@ -295,11 +317,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           ),
           GestureDetector(
             onTap: () {
-              _presentDate();
+              _presentStartDate();
 
               setState(() {
-                var date =
-                    DateFormat('yyyy-MM-dd').format(_selectedDate).toString();
+                var date = DateFormat('yyyy-MM-dd')
+                    .format(_selectedStartDate)
+                    .toString();
                 _startDate = date;
               });
             },
@@ -323,6 +346,44 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               ),
             ),
           ),
+          roundTrip == true
+              ? SizedBox(
+                  height: sizes!.heightRatio * 10,
+                )
+              : Container(),
+          roundTrip == true
+              ? GestureDetector(
+                  onTap: () {
+                    _presentEndDate();
+                    setState(() {
+                      var date = DateFormat('yyyy-MM-dd')
+                          .format(_selectedStartDate)
+                          .toString();
+                      _endDate = date;
+                    });
+                  },
+                  child: Container(
+                    height: sizes!.heightRatio * 48,
+                    width: sizes!.widthRatio * 380,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.grey.shade400)),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: sizes!.widthRatio * 6),
+                          child: Text(
+                            _endDate,
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 10),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              : Container(),
           SizedBox(
             height: sizes!.heightRatio * 20,
           ),
@@ -359,13 +420,24 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               fontWeight: FontWeight.normal,
               borderRadius: 5,
               onTapped: () {
-                NavigationHelper.pushRoute(
-                    context,
-                    SearchResult(
-                      tripFilterModel: TripFilterModel(
-
-                      ),
-                    ));
+                if (departureFromID != "-1" &&
+                    arrivalToID != "-1" &&
+                    _startDate != "" &&
+                    departureFrom != "" &&
+                    arrivalTo != "") {
+                  NavigationHelper.pushRoute(
+                      context,
+                      SearchResult(
+                        fromCity: departureFrom,
+                        toCity: arrivalTo,
+                        tripFilterModel: TripFilterModel(
+                            from_city_id: departureFromID,
+                            to_city_id: arrivalToID,
+                            date_from: _startDate),
+                      ));
+                } else {
+                  Toasts.getErrorToast(text: "Fields are required");
+                }
               },
               padding: 0),
           SizedBox(
