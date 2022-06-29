@@ -478,58 +478,50 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           SizedBox(
             height: sizes!.heightRatio * 15,
           ),
-          getStartedProvider.isDataLoaded
+          getStartedProvider.isDataLoaded == true
               ? SizedBox(
                   height: sizes!.heightRatio * 250,
                   width: MediaQuery.of(context).size.width,
-                  child: getStartedProvider
-                          .packagesResponse.data!.packages!.isNotEmpty
-                      ? ListView.builder(
-                          itemCount: getStartedProvider
-                              .packagesResponse.data!.packages!.length,
-                          itemBuilder: (context, i) {
-                            var data = getStartedProvider
-                                .packagesResponse.data!.packages![i];
-                            var packageName = data.name!.en.toString();
-                            var rating = data.rate.toString();
-                            var fee = data.fees.toString();
-                            var image = data.image.toString();
-                            var baseUrl = getStartedProvider
-                                .packagesResponse.data!.imageBase
-                                .toString();
-                            var thumbnailImage = "$baseUrl/$image";
-                            var dateFrom = data.dateFrom.toString();
-                            var detail = data.description!.en.toString();
-                            // debugPrint("thumbnailImage: $thumbnailImage");
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                  bottom: sizes!.heightRatio * 8.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  NavigationHelper.pushRoute(
-                                      context,
-                                      PackageDetailScreen(
-                                        packageTitle: packageName,
-                                      ));
-                                },
-                                child: packageCardContainer(
-                                    title: packageName,
-                                    rating: rating,
-                                    fee: fee,
-                                    dateFrom: dateFrom,
-                                    detail: detail,
-                                    image: thumbnailImage),
-                              ),
-                            );
-                          })
-                      : Center(
-                          child: TextView.getSubHeadingTextWith15(
-                              "No Data Available", Assets.latoBold,
-                              color: AppColors.blueHomeColor,
-                              lines: 1,
-                              fontWeight: FontWeight.normal),
-                        ),
-                )
+                  child: ListView.builder(
+                      itemCount: getStartedProvider
+                          .packagesResponse.data!.packages!.length,
+                      itemBuilder: (context, i) {
+                        var data = getStartedProvider
+                            .packagesResponse.data!.packages![i];
+                        var packageId = data.id.toString();
+                        var packageName = data.name!.en.toString();
+                        var rating = data.rate.toString();
+                        var fee = data.fees.toString();
+                        var image = data.image.toString();
+                        var baseUrl = getStartedProvider
+                            .packagesResponse.data!.imageBase
+                            .toString();
+                        var thumbnailImage = "$baseUrl/$image";
+                        var dateFrom = data.dateFrom.toString();
+                        var detail = data.description!.en.toString();
+                        // debugPrint("thumbnailImage: $thumbnailImage");
+                        return Padding(
+                          padding:
+                              EdgeInsets.only(bottom: sizes!.heightRatio * 8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              NavigationHelper.pushRoute(
+                                  context,
+                                  PackageDetailScreen(
+                                    packageTitle: packageName,
+                                    packageId: packageId,
+                                  ));
+                            },
+                            child: packageCardContainer(
+                                title: packageName,
+                                rating: rating,
+                                fee: fee,
+                                dateFrom: dateFrom,
+                                detail: detail,
+                                image: thumbnailImage),
+                          ),
+                        );
+                      }))
               : Container(),
           CommonPadding.sizeBoxWithHeight(height: 20),
         ],
