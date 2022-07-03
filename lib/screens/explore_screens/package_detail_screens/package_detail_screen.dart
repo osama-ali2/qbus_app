@@ -94,7 +94,8 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                           SvgPicture.asset("assets/svg/star_icon.svg"),
                           TextView.getMediumText14(
                               packageDetailProvider
-                                  .packageDetailResponse.data!.packages!.rate.toString(),
+                                  .packageDetailResponse.data!.packages!.rate
+                                  .toString(),
                               Assets.latoBold,
                               color: AppColors.gray300,
                               fontWeight: FontWeight.w400,
