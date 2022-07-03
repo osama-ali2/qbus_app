@@ -40,6 +40,16 @@ class ExploreProvider with ChangeNotifier {
         "offset": offset
       };
 
+    //   {
+    //     "code":"",
+    // "date_from": "",
+    // "date_to": "",
+    // "time_from": "",
+    // "starting_city_id":"",
+    // "additional": [],
+    // "offset":0
+    // };
+
       // var body = packageFilterModel.toJson();
 
       debugPrint("URL: $packagesApiUrl");

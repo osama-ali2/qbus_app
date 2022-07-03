@@ -26,15 +26,16 @@ class MyApi {
       };
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult != ConnectivityResult.none) {
-        Response _response = await dio.post(url!,
+        Response response = await dio.post(url!,
             options: Options(headers: myHeaders),
             data: body,
             queryParameters: parameters);
-        switch (_response.statusCode) {
+        switch (response.statusCode) {
           case 200:
             dynamic modelobj =
-                await Models.getModelObject(modelName, _response.data);
+                await Models.getModelObject(modelName, response.data);
             if (modelobj.code == 1) {
+              debugPrint("modelobj: $modelobj");
               return modelobj;
             } else {
               Toasts.getErrorToast(text: modelobj.message);
@@ -42,7 +43,7 @@ class MyApi {
             return null;
           case 400:
             ErrorResponse errorResponse =
-                await Models.getModelObject(Models.errorModel, _response.data);
+                await Models.getModelObject(Models.errorModel, response.data);
             Toasts.getErrorToast(text: errorResponse.data?.message);
             if (errorResponse.code == 0) {
               Toasts.getErrorToast(text: errorResponse.message);
@@ -56,7 +57,7 @@ class MyApi {
           case 401:
             ValidatingErrorResponse validatingErrorResponse =
                 await Models.getModelObject(
-                    Models.validateErrorModel, _response.data);
+                    Models.validateErrorModel, response.data);
             debugPrint(
                 "ValidatingErrorResponse: ${validatingErrorResponse.toJson()}");
             validatingErrorResponse.data!.validateErrors!.map((res) {
