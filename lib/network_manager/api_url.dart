@@ -3,7 +3,9 @@ const String baseUrl = "https://qbus.rabaaladawia.com/api/v1";
 
 // Auth
 const String tripsApiUrl = "$baseUrl/trips";
-const String packagesApiUrl = "$baseUrl/packages/"; //packages
+const String packagesApiUrl = "$baseUrl/packages"; //packages
+const String packagesDetailsApiUrl = "$baseUrl/packageDetail/"; //packages
+
 const String getAdditionalApiUrl = "$baseUrl/additionals";
 const String getAboutUsApiUrl = "$baseUrl/about_us";
 const String getCitiesApiUrl = "$baseUrl/cites";

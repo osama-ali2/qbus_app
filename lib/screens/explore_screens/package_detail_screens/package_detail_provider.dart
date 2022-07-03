@@ -24,7 +24,7 @@ class PackageDetailProvider with ChangeNotifier {
       _loader.showLoader(context: context);
       Map<String, dynamic> header = {"Content-Type": "application/json"};
 
-      var url = "$packagesApiUrl$id";
+      var url = "$packagesDetailsApiUrl$id";
       debugPrint("URL: $url");
 
       packageDetailResponse = await MyApi.callGetApi(
