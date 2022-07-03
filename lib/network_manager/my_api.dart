@@ -142,12 +142,12 @@ class MyApi {
       };
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult != ConnectivityResult.none) {
-        Response _response = await dio.get(url!,
+        Response response = await dio.get(url!,
             options: Options(headers: myHeaders), queryParameters: parameters);
-        switch (_response.statusCode) {
+        switch (response.statusCode) {
           case 200:
             dynamic getModelObj =
-                await Models.getModelObject(modelName, _response.data);
+                await Models.getModelObject(modelName, response.data);
             if (getModelObj.code == 1) {
               return getModelObj;
             } else {
@@ -207,14 +207,14 @@ class MyApi {
       };
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult != ConnectivityResult.none) {
-        Response _response = await dio.put(url!,
+        Response response = await dio.put(url!,
             options: Options(headers: myHeaders),
             data: body,
             queryParameters: parameters);
-        switch (_response.statusCode) {
+        switch (response.statusCode) {
           case 200:
             dynamic modelobj =
-                await Models.getModelObject(modelName, _response.data);
+                await Models.getModelObject(modelName, response.data);
             if (modelobj.code == 1) {
               return modelobj;
             } else {
@@ -275,14 +275,14 @@ class MyApi {
       };
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult != ConnectivityResult.none) {
-        Response _response = await dio.delete(url!,
+        Response response = await dio.delete(url!,
             options: Options(headers: myHeaders),
             data: body,
             queryParameters: parameters);
-        switch (_response.statusCode) {
+        switch (response.statusCode) {
           case 200:
             dynamic modelobj =
-                await Models.getModelObject(modelName, _response.data);
+                await Models.getModelObject(modelName, response.data);
             if (modelobj.code == 1) {
               return modelobj;
             } else {
