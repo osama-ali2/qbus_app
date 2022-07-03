@@ -60,41 +60,38 @@ class GetStartedProvider with ChangeNotifier {
       debugPrint("URL: $packagesApiUrl");
 
 
-      Response response = await dio.post(packagesApiUrl,
-          data: body,
-          options: Options(
-            headers: header,
-          ));
-
-      switch (response.statusCode) {
-        case 200:
-          debugPrint("ResponseData: ${response.data}");
-          break;
-        case 301:
-          debugPrint("ResponseData: ${response.data}");
-          break;
-        default:
-      }
-
-      // var dynami = await MyApi.callPostApi(
-      //     url: packagesApiUrl,
-      //     body: body,
-      //     myHeaders: header,
-      //     modelName: Models.packagesModel);
-      // debugPrint("dynami: $dynami");
-      // debugPrint("packageBody: $body");
+      // Response response = await dio.post(packagesApiUrl,
+      //     data: body,
+      //     options: Options(
+      //       headers: header,
+      //     ));
       //
-      // if (packagesResponse.code == 1) {
-      //   _logger.d("packagesResponse: ${packagesResponse.toJson()}");
-      //   _loader.hideLoader(context!);
-      //   isDataLoaded = true;
-      //   notifyListeners();
-      // } else {
-      //   debugPrint("packagesResponse: Something wrong");
-      //   _loader.hideLoader(context!);
+      // switch (response.statusCode) {
+      //   case 200:
+      //     debugPrint("ResponseData: ${response.data}");
+      //     break;
+      //   case 301:
+      //     debugPrint("ResponseData: ${response.data}");
+      //     break;
+      //   default:
       // }
 
-      notifyListeners();
+      packagesResponse = await MyApi.callPostApi(
+          url: packagesApiUrl,
+          body: body,
+          myHeaders: header,
+          modelName: Models.packagesModel);
+      debugPrint("packageBody: $body");
+
+      if (packagesResponse.code == 1) {
+        _logger.d("packagesResponse: ${packagesResponse.toJson()}");
+        _loader.hideLoader(context!);
+        isDataLoaded = true;
+        notifyListeners();
+      } else {
+        debugPrint("packagesResponse: Something wrong");
+        _loader.hideLoader(context!);
+      }
     } catch (e) {
       debugPrint("packagesResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
