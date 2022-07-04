@@ -6,6 +6,7 @@ class Strings {
   static const String noInternetError = "No Internet Connection";
 
   // Preference Keys
+  static const String language = "en";
   static const String signUpUserId = "signUpUserId";
   static const String signUpName = "signUpName";
   static const String signUpEmail = "signUpEmail";

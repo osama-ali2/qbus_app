@@ -7,7 +7,8 @@ import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:qbus/language.dart';
-
+import '../../../../local_cache/utils.dart';
+import '../../../../res/strings.dart';
 import '../../../../res/assets.dart';
 import '../../../../res/res.dart';
 import '../../../../widgets/text_views.dart';
@@ -22,8 +23,9 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
 
   void _changeLanguage(lang) {
-    const Locale("ar", 'Ar');
-    debugPrint(lang.name);
+    PreferenceUtils.setString(Strings.language,lang.languageCode);
+//    String selectedLanguage = PreferenceUtils.getString(Strings.language) ?? "en";
+//    debugPrint(selectedLanguage);
   }
 
   @override
