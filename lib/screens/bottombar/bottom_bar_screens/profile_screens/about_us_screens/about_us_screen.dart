@@ -6,6 +6,7 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/widgets/text_views.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../utils/constant.dart';
 import '../../../../../widgets/custom_text.dart';
@@ -41,8 +42,8 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
-        title: const CustomText(
-            text: "Who We Are",
+        title:  CustomText(
+            text: AppLocalizations.of(context)!.about_us,
             textSize: 18,
             fontWeight: FontWeight.w700,
             textColor: Colors.white),

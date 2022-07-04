@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               CustomText(
                   //text: "Login Into You Account or Sign UP",
-                  text: AppLocalizations.of(context)!.language,
+                  text: AppLocalizations.of(context)!.login_title,
                   textSize: sizes!.fontRatio * 14,
                   fontWeight: FontWeight.normal,
                   textColor: Colors.black),
@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: 20,
                 validator: (val) => null,
                 inputType: TextInputType.number,
-                hint: "Phone Number",
+                hint: AppLocalizations.of(context)!.mobile_number,
               ),
               SizedBox(
                 height: sizes!.heightRatio * 15,
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: 20,
                     validator: (val) => null,
                     inputType: TextInputType.name,
-                    hint: "Password",
+                    hint: AppLocalizations.of(context)!.password,
                     isVisible: _isVisible.value,
                     onPress: () {
                       _isVisible.value = !_isVisible.value;
@@ -107,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: sizes!.heightRatio * 15,
               ),
               CustomButton(
-                  name: "Login",
+                  name: AppLocalizations.of(context)!.login,
                   buttonColor: appColor,
                   height: sizes!.heightRatio * 45,
                   width: double.infinity,
@@ -129,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomText(
-                          text: "Don’t have account ? ",
+                          text: AppLocalizations.of(context)!.dont_have_account,
                           textSize: sizes!.fontRatio * 14,
                           fontWeight: FontWeight.w400,
                           textColor: Colors.black),
@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   builder: (context) => const SignUpScreen()));
                         },
                         child: CustomText(
-                            text: "Sign Up",
+                            text: AppLocalizations.of(context)!.sign_up,
                             textSize: sizes!.fontRatio * 13,
                             fontWeight: FontWeight.w500,
                             textColor: appColor),
@@ -156,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               builder: (context) => const ForgotScreen()));
                     },
                     child: CustomText(
-                        text: "Forget password",
+                        text: AppLocalizations.of(context)!.forget_password,
                         textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
                         textColor: appColor),
@@ -182,10 +182,9 @@ class _LoginScreenState extends State<LoginScreen> {
         NavigationHelper.pushReplacement(context, const BottomBarScreen());
       }
     } else if (mobileOrEmail.isEmpty) {
-      Toasts.getErrorToast(text: "Phone Number Field is required");
-      Toasts.getErrorToast(text: "Phone Number Field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.mobile_required);
     } else if (password.isEmpty) {
-      Toasts.getErrorToast(text: "Password Field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.password_required);
     }
   }
 }

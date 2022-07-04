@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/privacy_policy_screens/privacy_policy_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../res/assets.dart';
 import '../../../../../res/colors.dart';
@@ -38,8 +39,8 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
-        title: const CustomText(
-            text: "Return Policy",
+        title:  CustomText(
+            text: AppLocalizations.of(context)!.return_policy,
             textSize: 18,
             fontWeight: FontWeight.w700,
             textColor: Colors.white),

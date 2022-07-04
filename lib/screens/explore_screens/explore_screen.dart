@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:qbus/models/PackageFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/res/assets.dart';
@@ -74,7 +75,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         backgroundColor: appColor,
         elevation: 0,
         title: CustomText(
-            text: "Explore Package",
+            text: AppLocalizations.of(context)!.explore_packages,
             textSize: sizes!.fontRatio * 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
@@ -85,7 +86,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         child: exploreProvider.isListHasData > 0
             ? _getUI(context)
             : Center(
-                child: const Text("No Data Found"),
+                child: const Text("no Data"),
               ),
       ),
     );
@@ -143,7 +144,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             })
                         : Center(
                             child: TextView.getSubHeadingTextWith15(
-                                "No Data Available", Assets.latoBold,
+                                AppLocalizations.of(context)!.no_data, Assets.latoBold,
                                 color: AppColors.blueHomeColor,
                                 lines: 1,
                                 fontWeight: FontWeight.normal),
@@ -153,7 +154,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         CommonPadding.sizeBoxWithHeight(height: 15),
         exploreProvider.isDataLoaded
             ? CustomButton(
-                name: "Filter",
+                name: AppLocalizations.of(context)!.filter,
                 buttonColor: appColor,
                 height: sizes!.heightRatio * 45,
                 width: double.infinity,
@@ -291,7 +292,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           borderRadius: BorderRadius.circular(5)),
                       child: Center(
                         child: CustomText(
-                            text: "SKR $fee",
+                            text: "SAR $fee",
                             textSize: sizes!.fontRatio * 10,
                             fontWeight: FontWeight.normal,
                             textColor: Colors.white),

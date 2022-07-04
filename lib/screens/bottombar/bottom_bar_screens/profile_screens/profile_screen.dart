@@ -9,6 +9,7 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/about_us_screens/about_us_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/edit_user_profile_screens/edit_user_profile_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/privacy_policy_screens/privacy_policy_screen.dart';
@@ -53,9 +54,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: appColor,
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const Center(
+        title:  Center(
           child: CustomText(
-              text: "Profile",
+              text: AppLocalizations.of(context)!.profile,
               textSize: 18,
               fontWeight: FontWeight.w700,
               textColor: Colors.white),
@@ -138,38 +139,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
           CommonPadding.sizeBoxWithHeight(height: 15),
           getRow(
-              title: 'Wallet',
+              title: AppLocalizations.of(context)!.wallet,
               onPress: () {
                 NavigationHelper.pushRoute(context, const WalletScreen());
               }),
           CommonPadding.sizeBoxWithHeight(height: 15),
           getRow(
-              title: 'About us',
+              title: AppLocalizations.of(context)!.about_us,
               onPress: () {
                 NavigationHelper.pushRoute(context, const AboutUsScreen());
               }),
           CommonPadding.sizeBoxWithHeight(height: 15),
           getRow(
-              title: 'Privacy Policy',
+              title: AppLocalizations.of(context)!.privacy_policy,
               onPress: () {
                 NavigationHelper.pushRoute(
                     context, const PrivacyPolicyScreen());
               }),
           CommonPadding.sizeBoxWithHeight(height: 15),
           getRow(
-              title: 'Return Policy',
+              title: AppLocalizations.of(context)!.return_policy,
               onPress: () {
                 NavigationHelper.pushRoute(context, const ReturnPolicyScreen());
               }),
           CommonPadding.sizeBoxWithHeight(height: 15),
           getRow(
-              title: "Contact us",
+              title: AppLocalizations.of(context)!.contact_us,
               onPress: () {
                 NavigationHelper.pushRoute(context, const ContactUsScreen());
               }),
           CommonPadding.sizeBoxWithHeight(height: 15),
           getRow(
-              title: "Logout",
+              title: AppLocalizations.of(context)!.logout,
               onPress: () {
                 _lagOut();
               }),

@@ -4,6 +4,7 @@ import 'package:qbus/res/extensions.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/change_password_screens/change_password_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/edit_user_profile_screens/edit_user_profile_provider.dart';
 import 'package:qbus/widgets/custom_outline_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../res/colors.dart';
 import '../../../../../res/common_padding.dart';
@@ -66,7 +67,7 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
                 padding: 0,
                 validator: (val) => null,
                 inputType: TextInputType.name,
-                hint: "User Name",
+                hint: AppLocalizations.of(context)!.full_name,
               ).get20HorizontalPadding(),
               CommonPadding.sizeBoxWithHeight(height: 15),
               CustomTextField(
@@ -74,7 +75,7 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
                 padding: 0,
                 validator: (val) => null,
                 inputType: TextInputType.name,
-                hint: "Email",
+                hint: AppLocalizations.of(context)!.email,
               ).get20HorizontalPadding(),
               CommonPadding.sizeBoxWithHeight(height: 15),
               Padding(
@@ -92,8 +93,8 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
                       hint: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: sizes!.widthRatio * 10),
-                        child: const CustomText(
-                            text: "Starting City",
+                        child:  CustomText(
+                            text: AppLocalizations.of(context)!.city,
                             textSize: 12,
                             fontWeight: FontWeight.normal,
                             textColor: Colors.black),
@@ -133,8 +134,8 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
                       hint: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: sizes!.widthRatio * 10),
-                        child: const CustomText(
-                            text: "Single",
+                        child:  CustomText(
+                            text: AppLocalizations.of(context)!.marital_status,
                             textSize: 12,
                             fontWeight: FontWeight.normal,
                             textColor: Colors.black),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/PackageFilterModel.dart';
@@ -11,6 +12,7 @@ import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
+
 import '../../../../widgets/custom_button.dart';
 import '../../res/colors.dart';
 import '../explore_screens/explore_screen.dart';
@@ -135,7 +137,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           ),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             CustomText(
-              text: "Book Bus\nLet's Do Now!",
+              text: AppLocalizations.of(context)!.home_title,
               textSize: sizes!.fontRatio * 18,
               fontWeight: FontWeight.w500,
               textColor: Colors.black,
@@ -170,7 +172,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              checkBox(context, oneRoad, "One Way", () {
+              checkBox(context, oneRoad, AppLocalizations.of(context)!.one_way, () {
                 multiTrip = false;
                 roundTrip = false;
                 oneRoad = true;
@@ -178,7 +180,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   tripType = oneRoad;
                 });
               }),
-              checkBox(context, roundTrip, "Round Trip", () {
+              checkBox(context, roundTrip, AppLocalizations.of(context)!.round_trip, () {
                 multiTrip = false;
                 roundTrip = true;
                 oneRoad = false;
@@ -186,7 +188,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   tripType = roundTrip;
                 });
               }),
-              checkBox(context, multiTrip, "Multi Destination", () {
+              checkBox(context, multiTrip, AppLocalizations.of(context)!.multi_destination, () {
                 multiTrip = true;
                 roundTrip = false;
                 oneRoad = false;
@@ -386,7 +388,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: sizes!.heightRatio * 20,
           ),
           CustomText(
-              text: "Passengers count",
+              text: AppLocalizations.of(context)!.passengers_count,
               textSize: sizes!.fontRatio * 14,
               fontWeight: FontWeight.normal,
               textColor: Colors.black),
@@ -409,7 +411,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: sizes!.heightRatio * 15,
           ),
           CustomButton(
-              name: "Search",
+              name: AppLocalizations.of(context)!.search,
               buttonColor: appColor,
               height: sizes!.heightRatio * 45,
               width: double.infinity,
@@ -434,7 +436,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             date_from: _startDate),
                       ));
                 } else {
-                  Toasts.getErrorToast(text: "Fields are required");
+                  Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
                 }
               },
               padding: 0),
@@ -445,7 +447,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomText(
-                  text: "Packages",
+                  text: AppLocalizations.of(context)!.packages,
                   textSize: sizes!.fontRatio * 18,
                   fontWeight: FontWeight.normal,
                   textColor: Colors.black),
@@ -460,7 +462,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 child: Row(
                   children: [
                     CustomText(
-                        text: "Explore",
+                        text: AppLocalizations.of(context)!.explore,
                         textSize: sizes!.fontRatio * 16,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.black),

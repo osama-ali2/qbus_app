@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         ),
         home: const SplashScreen(),
         //home: HomeScreen(),
-        //locale: Locale('ar','Ar'),
+        locale: Locale('ar','Ar'),
         debugShowCheckedModeBanner: false,
       ),
     );
