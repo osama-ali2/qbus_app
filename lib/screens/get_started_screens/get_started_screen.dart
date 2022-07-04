@@ -66,6 +66,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       getStartedProvider.getPackagesData();
       getStartedProvider.getCitiesData();
     });
+
   }
 
   void _presentStartDate() {

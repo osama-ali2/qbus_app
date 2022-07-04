@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: const SplashScreen(),
-        //home: HomeScreen(),
+        //home: SignUpScreen(),
         locale: Locale('ar','Ar'),
         debugShowCheckedModeBanner: false,
       ),

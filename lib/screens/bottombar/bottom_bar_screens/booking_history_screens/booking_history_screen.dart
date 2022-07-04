@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../res/assets.dart';
 import '../../../../../res/colors.dart';
@@ -98,8 +99,8 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
         backgroundColor: appColor,
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const CustomText(
-            text: "Booking History",
+        title: CustomText(
+            text: AppLocalizations.of(context)!.booking_history,
             textSize: 18,
             fontWeight: FontWeight.w700,
             textColor: Colors.white),

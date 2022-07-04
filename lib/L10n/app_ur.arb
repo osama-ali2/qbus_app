@@ -27,7 +27,9 @@
     "password": "پاسورڈ",
     "login": "لاگ ان",
     "dont_have_account": "اکاؤنٹ نہیں ہے؟",
+    "already_have_account": "Already have an account ?",
     "sign_up": "سائن اپ کریں",
+    "sign_in": "Sign In",
     "forget_password": "پاس ورڈ بھول جائیں",
     "sign_up_title": "چلو شروع کرتے ہیں",
     "full_name": "پورا نام",
@@ -52,6 +54,7 @@
     "filter": "Filter",
     "no_data": "No Data Available",
     "mobile_required": "Phone Number Field is required",
-    "password_required": "Password Number Field is required"
+    "password_required": "Password Number Field is required",
+    "booking_history": "Booking History"
 
 }

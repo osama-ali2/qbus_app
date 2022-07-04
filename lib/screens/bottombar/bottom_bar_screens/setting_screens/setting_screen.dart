@@ -5,6 +5,9 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:qbus/language.dart';
+
 import '../../../../res/assets.dart';
 import '../../../../res/res.dart';
 import '../../../../widgets/text_views.dart';
@@ -17,6 +20,12 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+
+  void _changeLanguage(lang) {
+    const Locale("ar", 'Ar');
+    debugPrint(lang.name);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +36,7 @@ class _SettingScreenState extends State<SettingScreen> {
         automaticallyImplyLeading: false,
         title: Center(
           child: CustomText(
-              text: "Settings",
+              text: AppLocalizations.of(context)!.settings,
               textSize: sizes!.fontRatio * 18,
               fontWeight: FontWeight.w700,
               textColor: Colors.white),
@@ -37,10 +46,32 @@ class _SettingScreenState extends State<SettingScreen> {
         children: [
           CommonPadding.sizeBoxWithHeight(height: 20),
           getRow(
-            title: "Language",
-            language: "English",
+            title: AppLocalizations.of(context)!.the_language,
+            language: AppLocalizations.of(context)!.language,
             onPress: () {},
-          )
+          ),
+      DropdownButton(
+           onChanged: (language) {
+             _changeLanguage(language);
+           },
+           underline: const SizedBox(),
+           icon: const Icon(
+             Icons.language,
+             size: 28,
+           ),
+           items: Language.languageList()
+               .map<DropdownMenuItem<Language>>(
+                   (language) => DropdownMenuItem(
+                         value: language,
+                         child: Row(
+                           children: <Widget>[
+                             Text(language.flag),
+                             Text(language.name),
+                           ],
+                         ),
+                       ))
+               .toList(),
+         ),
         ],
       ),
     );

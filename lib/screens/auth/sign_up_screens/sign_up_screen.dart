@@ -6,13 +6,14 @@ import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/screens/auth/sign_up_screens/sign_up_provider.dart';
-import '../../../navigation/navigation_helper.dart';
+//import '../../../navigation/navigation_helper.dart';
 import '../../../utils/constant.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_password_textField.dart';
 import '../../../widgets/custom_text.dart';
 import '../../../widgets/custom_textField.dart';
-import '../phone_activation_screens/phone_activation_screen.dart';
+//import '../phone_activation_screens/phone_activation_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -75,8 +76,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: sizes!.heightRatio * 10,
               ),
-              const CustomText(
-                  text: "Lets Get Started!",
+               CustomText(
+                  text: AppLocalizations.of(context)!.sign_up_title,
                   textSize: 14,
                   fontWeight: FontWeight.normal,
                   textColor: Colors.black),
@@ -88,7 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 padding: 20,
                 validator: (val) => null,
                 inputType: TextInputType.name,
-                hint: "Full name",
+                hint: AppLocalizations.of(context)!.full_name,
               ),
               SizedBox(
                 height: sizes!.heightRatio * 15,
@@ -98,7 +99,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 padding: 20,
                 validator: (val) => null,
                 inputType: TextInputType.number,
-                hint: "Mobile number",
+                hint: AppLocalizations.of(context)!.mobile_number,
               ),
               SizedBox(
                 height: sizes!.heightRatio * 15,
@@ -108,7 +109,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 padding: 20,
                 validator: (val) => null,
                 inputType: TextInputType.emailAddress,
-                hint: "Email address",
+                hint: AppLocalizations.of(context)!.email,
               ),
               SizedBox(
                 height: sizes!.heightRatio * 15,
@@ -174,7 +175,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 padding: 20,
                 validator: (val) => null,
                 inputType: TextInputType.text,
-                hint: "Your address",
+                hint: AppLocalizations.of(context)!.address,
               ),
               SizedBox(
                 height: sizes!.heightRatio * 10,
@@ -228,7 +229,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     padding: 20,
                     validator: (val) => null,
                     inputType: TextInputType.name,
-                    hint: "Password",
+                    hint: AppLocalizations.of(context)!.password,
                     isVisible: _isVisible.value,
                     onPress: () {
                       _isVisible.value = !_isVisible.value;
@@ -241,7 +242,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: sizes!.heightRatio * 10,
               ),
               CustomButton(
-                  name: "Sign up",
+                  name: AppLocalizations.of(context)!.sign_up,
                   buttonColor: appColor,
                   height: sizes!.heightRatio * 45,
                   width: double.infinity,
@@ -260,7 +261,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomText(
-                      text: "Already have an account? ",
+                      text: AppLocalizations.of(context)!.already_have_account,
                       textSize: sizes!.fontRatio * 13,
                       fontWeight: FontWeight.normal,
                       textColor: Colors.black),
@@ -272,7 +273,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               builder: (context) => const LoginScreen()));
                     },
                     child: CustomText(
-                        text: "Sign In",
+                        text: AppLocalizations.of(context)!.sign_in,
                         textSize: sizes!.fontRatio * 13,
                         fontWeight: FontWeight.normal,
                         textColor: appColor),
@@ -313,19 +314,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
        Toasts.getSuccessToast(text: "Sign Up");
       }
     } else if (fullName.isEmpty) {
-      Toasts.getErrorToast(text: "Field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
     } else if (mobilePhone.isEmpty) {
-      Toasts.getErrorToast(text: "Field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
     } else if (email.isEmpty) {
-      Toasts.getErrorToast(text: "Field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
     } else if (yourAddress.isEmpty) {
-      Toasts.getErrorToast(text: "Field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
     } else if (password.isEmpty) {
-      Toasts.getErrorToast(text: "Field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
     } else if (selectedMartialStatus == "") {
-      Toasts.getErrorToast(text: "Field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
     } else if (selectedCity == "") {
-      Toasts.getErrorToast(text: "Field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
     }
   }
 }

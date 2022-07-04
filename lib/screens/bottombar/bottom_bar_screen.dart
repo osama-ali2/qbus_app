@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/booking_history_screens/booking_history_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../utils/constant.dart';
 import '../get_started_screens/get_started_screen.dart';
@@ -41,34 +42,34 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     return Material(
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
-          items: const [
+          items:  [
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.home_outlined,
                 size: 28,
               ),
-              label: 'Home',
+              label: AppLocalizations.of(context)!.home,
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.list,
                 size: 28,
               ),
-              label: 'History',
+              label: AppLocalizations.of(context)!.history,
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.person_outline,
                 size: 28,
               ),
-              label: 'Profile',
+              label: AppLocalizations.of(context)!.profile,
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.settings,
                 size: 28,
               ),
-              label: 'Settings',
+              label: AppLocalizations.of(context)!.settings,
             ),
           ],
           type: BottomNavigationBarType.fixed,
