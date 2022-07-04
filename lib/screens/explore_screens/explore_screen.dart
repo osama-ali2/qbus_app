@@ -82,7 +82,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: sizes!.fontRatio * 20.0),
-        child: _getUI(context),
+        child: exploreProvider.isListHasData > 0
+            ? _getUI(context)
+            : Center(
+                child: const Text("No Data Found"),
+              ),
       ),
     );
   }
@@ -104,6 +108,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             itemBuilder: (context, i) {
                               var data = exploreProvider
                                   .packagesResponse.data!.packages![i];
+                              var packageId = data.id.toString();
                               var packageName = data.name!.en.toString();
                               var rating = data.rate.toString();
                               var fee = data.fees.toString();
@@ -123,6 +128,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                         context,
                                         PackageDetailScreen(
                                           packageTitle: packageName,
+                                          packageId: packageId,
                                         ));
                                   },
                                   child: packageCardContainer(

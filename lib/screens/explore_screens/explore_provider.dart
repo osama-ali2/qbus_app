@@ -15,8 +15,11 @@ class ExploreProvider with ChangeNotifier {
   bool isDataLoaded = false;
   PackagesResponse packagesResponse = PackagesResponse();
 
+  var isListHasData = 0;
+
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
+    isDataLoaded = false;
   }
 
   Future<void> getPackagesData(
@@ -37,6 +40,16 @@ class ExploreProvider with ChangeNotifier {
         "offset": offset
       };
 
+    //   {
+    //     "code":"",
+    // "date_from": "",
+    // "date_to": "",
+    // "time_from": "",
+    // "starting_city_id":"",
+    // "additional": [],
+    // "offset":0
+    // };
+
       // var body = packageFilterModel.toJson();
 
       debugPrint("URL: $packagesApiUrl");
@@ -50,14 +63,12 @@ class ExploreProvider with ChangeNotifier {
 
       if (packagesResponse.code == 1) {
         _logger.d("packagesResponse: ${packagesResponse.toJson()}");
+        isListHasData = packagesResponse.data!.packages!.length;
         _loader.hideLoader(context!);
-
         isDataLoaded = true;
-
         notifyListeners();
       } else {
         debugPrint("packagesResponse: Something wrong");
-
         _loader.hideLoader(context!);
       }
     } catch (e) {

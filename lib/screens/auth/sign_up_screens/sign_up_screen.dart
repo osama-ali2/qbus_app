@@ -308,9 +308,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
           password: password,
           status: selectedMartialStatus,
           cityId: selectedCityId);
-      if (signUpProvider.isDataLoaded) {
+      if (signUpProvider.isDataLoaded == true) {
         if (!mounted) return;
-        NavigationHelper.pushRoute(context, const PhoneActivationScreen());
+       Toasts.getSuccessToast(text: "Sign Up");
       }
     } else if (fullName.isEmpty) {
       Toasts.getErrorToast(text: "Field is required");

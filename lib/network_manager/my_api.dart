@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
 import '../models/error_model/ErrorResponse.dart';
 import '../res/strings.dart';
@@ -25,19 +26,49 @@ class MyApi {
       };
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult != ConnectivityResult.none) {
-        Response _response = await dio.post(url!,
+        Response response = await dio.post(url!,
             options: Options(headers: myHeaders),
             data: body,
             queryParameters: parameters);
-        switch (_response.statusCode) {
+        switch (response.statusCode) {
           case 200:
             dynamic modelobj =
-                await Models.getModelObject(modelName, _response.data);
+                await Models.getModelObject(modelName, response.data);
             if (modelobj.code == 1) {
+              debugPrint("modelobj: $modelobj");
               return modelobj;
             } else {
               Toasts.getErrorToast(text: modelobj.message);
             }
+            return null;
+          case 400:
+            ErrorResponse errorResponse =
+                await Models.getModelObject(Models.errorModel, response.data);
+            Toasts.getErrorToast(text: errorResponse.data?.message);
+            if (errorResponse.code == 0) {
+              Toasts.getErrorToast(text: errorResponse.message);
+              debugPrint("errorResponse: ${errorResponse.toJson()}");
+              return errorResponse;
+            } else {
+              Toasts.getErrorToast(text: errorResponse.message);
+            }
+            return null;
+
+          case 401:
+            ValidatingErrorResponse validatingErrorResponse =
+                await Models.getModelObject(
+                    Models.validateErrorModel, response.data);
+            debugPrint(
+                "ValidatingErrorResponse: ${validatingErrorResponse.toJson()}");
+            validatingErrorResponse.data!.validateErrors!.map((res) {
+              Toasts.getErrorToast(text: res.toString());
+            });
+            if (validatingErrorResponse.code == 0) {
+              return validatingErrorResponse;
+            } else {
+              Toasts.getErrorToast(text: validatingErrorResponse.message);
+            }
+
             return null;
 
           default:
@@ -67,6 +98,8 @@ class MyApi {
             ValidatingErrorResponse validatingErrorResponse =
                 await Models.getModelObject(
                     Models.validateErrorModel, ex.response?.data);
+            debugPrint(
+                "ValidatingErrorResponse: ${validatingErrorResponse.toJson()}");
             validatingErrorResponse.data!.validateErrors!.map((res) {
               Toasts.getErrorToast(text: res.toString());
             });
@@ -109,12 +142,12 @@ class MyApi {
       };
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult != ConnectivityResult.none) {
-        Response _response = await dio.get(url!,
+        Response response = await dio.get(url!,
             options: Options(headers: myHeaders), queryParameters: parameters);
-        switch (_response.statusCode) {
+        switch (response.statusCode) {
           case 200:
             dynamic getModelObj =
-                await Models.getModelObject(modelName, _response.data);
+                await Models.getModelObject(modelName, response.data);
             if (getModelObj.code == 1) {
               return getModelObj;
             } else {
@@ -174,14 +207,14 @@ class MyApi {
       };
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult != ConnectivityResult.none) {
-        Response _response = await dio.put(url!,
+        Response response = await dio.put(url!,
             options: Options(headers: myHeaders),
             data: body,
             queryParameters: parameters);
-        switch (_response.statusCode) {
+        switch (response.statusCode) {
           case 200:
             dynamic modelobj =
-                await Models.getModelObject(modelName, _response.data);
+                await Models.getModelObject(modelName, response.data);
             if (modelobj.code == 1) {
               return modelobj;
             } else {
@@ -242,14 +275,14 @@ class MyApi {
       };
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult != ConnectivityResult.none) {
-        Response _response = await dio.delete(url!,
+        Response response = await dio.delete(url!,
             options: Options(headers: myHeaders),
             data: body,
             queryParameters: parameters);
-        switch (_response.statusCode) {
+        switch (response.statusCode) {
           case 200:
             dynamic modelobj =
-                await Models.getModelObject(modelName, _response.data);
+                await Models.getModelObject(modelName, response.data);
             if (modelobj.code == 1) {
               return modelobj;
             } else {

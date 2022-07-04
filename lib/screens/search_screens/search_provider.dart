@@ -24,6 +24,7 @@ class SearchProvider with ChangeNotifier {
       {required TripFilterModel tripFilterModel, required int offset}) async {
     try {
       _loader.showLoader(context: context);
+      // tripsResponse.data!.trips!.clear();
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
 
@@ -41,6 +42,7 @@ class SearchProvider with ChangeNotifier {
       // var body = tripFilterModel.toJson();
 
       debugPrint("URL: $tripsApiUrl");
+      debugPrint("tripsBody: $body");
 
       tripsResponse = await MyApi.callPostApi(
           url: tripsApiUrl,

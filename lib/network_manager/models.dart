@@ -8,6 +8,7 @@ import 'package:qbus/models/auth/SignUpResponse.dart';
 import 'package:qbus/models/auth/UserResponse.dart';
 import 'package:qbus/models/contact_us/GetContactUsResponse.dart';
 import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
+import 'package:qbus/models/packages/PackageDetailResponse.dart';
 import 'package:qbus/models/privacy_policy/PrivacyPolicyResponse.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
 import '../models/cities/GetCitiesResponse.dart';
@@ -20,6 +21,7 @@ class Models {
   static const String validateErrorModel = "validateErrorModel";
 
   static const String packagesModel = "packagesModel";
+  static const String packagesDetailModel = "packagesDetailModel";
   static const String tripsModel = "tripsModel";
   static const String additionalModel = "additionalModel";
   static const String aboutUsModel = "aboutUsModel";
@@ -37,6 +39,8 @@ class Models {
   static Future<dynamic> getModelObject(
       String modelName, Map<String, dynamic> json) async {
     switch (modelName) {
+      case packagesDetailModel:
+        return PackageDetailResponse.fromJson(json);
       case privacyPolicyModel:
         return PrivacyPolicyResponse.fromJson(json);
       case forgotPasswordModel:

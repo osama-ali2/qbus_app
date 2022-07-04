@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
+import 'package:qbus/models/additional/GetAdditionalResponse.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/screens/search_screens/search_provider.dart';
@@ -9,6 +10,7 @@ import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';
 import '../../../../navigation/navigation_helper.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
+import '../../models/trips/TripsResponse.dart';
 import '../../res/assets.dart';
 import '../../res/colors.dart';
 import '../../res/res.dart';
@@ -18,8 +20,12 @@ import '../selectAddition/select_addition_screen.dart';
 
 class SearchResult extends StatefulWidget {
   final TripFilterModel? tripFilterModel;
+  final String? fromCity;
+  final String? toCity;
 
-  const SearchResult({Key? key, this.tripFilterModel}) : super(key: key);
+  const SearchResult(
+      {Key? key, this.tripFilterModel, this.fromCity, this.toCity})
+      : super(key: key);
 
   @override
   State<SearchResult> createState() => _SearchResultState();
@@ -70,8 +76,8 @@ class _SearchResultState extends State<SearchResult> {
           backgroundColor: appColor,
           elevation: 0,
           centerTitle: false,
-          title: const CustomText(
-              text: "Makkah - Al Madina",
+          title: CustomText(
+              text: "${widget.fromCity ?? ""} - ${widget.toCity ?? ""}",
               textSize: 18,
               fontWeight: FontWeight.w400,
               textColor: Colors.white),
@@ -86,6 +92,24 @@ class _SearchResultState extends State<SearchResult> {
                             itemCount: searchProvider
                                 .tripsResponse.data!.trips!.length,
                             itemBuilder: (context, i) {
+                              var data =
+                                  searchProvider.tripsResponse.data!.trips![i];
+                              var stationA =
+                                  data.startStationName!.en.toString();
+                              var stationB =
+                                  data.arrivalStationName!.en.toString();
+                              var fees = data.fees.toString();
+                              var rate = data.rate.toString();
+                              var fromCityName =
+                                  data.fromCityName!.en.toString();
+                              var toCityName = data.toCityName!.en.toString();
+                              var timeFrom = data.timeFrom.toString();
+                              var timeTo = data.timeTo.toString();
+                              var stops = data.stops.toString();
+                              var providerName = data.providerName.toString();
+                              var additionals =
+                                  data.additionals!.map((e) => {e});
+
                               return InkWell(
                                   onTap: () {
                                     NavigationHelper.pushRoute(
@@ -95,7 +119,19 @@ class _SearchResultState extends State<SearchResult> {
                                     padding: EdgeInsets.symmetric(
                                         horizontal: sizes!.widthRatio * 20,
                                         vertical: sizes!.heightRatio * 5),
-                                    child: _card(context),
+                                    child: _card(
+                                        context: context,
+                                        stationA: stationA,
+                                        stationB: stationB,
+                                        fees: fees,
+                                        rate: rate,
+                                        fromCityName: fromCityName,
+                                        toCityName: toCityName,
+                                        timeFrom: timeFrom,
+                                        timeTo: timeTo,
+                                        stops: stops,
+                                        providerName: providerName,
+                                        additionals: data.additionals!),
                                   ));
                             })
                         : Center(
@@ -107,7 +143,7 @@ class _SearchResultState extends State<SearchResult> {
                           ),
                   )
                 : Container(),
-            CommonPadding.sizeBoxWithHeight(height: 20),
+            CommonPadding.sizeBoxWithHeight(height: 10),
             searchProvider.isTripDataLoaded
                 ? CustomButton(
                         name: "Filter Result",
@@ -128,14 +164,26 @@ class _SearchResultState extends State<SearchResult> {
                         padding: 0)
                     .get20HorizontalPadding()
                 : Container(),
-            CommonPadding.sizeBoxWithHeight(height: 20),
+            CommonPadding.sizeBoxWithHeight(height: 10),
           ],
         ),
       ),
     );
   }
 
-  Widget _card(BuildContext context) {
+  Widget _card(
+      {required BuildContext context,
+      required String stationA,
+      required String stationB,
+      required String fees,
+      required String rate,
+      required String fromCityName,
+      required String toCityName,
+      required String timeFrom,
+      required String timeTo,
+      required String stops,
+      required String providerName,
+      required List<Additionals> additionals}) {
     return Container(
       height: sizes!.heightRatio * 130,
       width: MediaQuery.of(context).size.width,
@@ -163,7 +211,7 @@ class _SearchResultState extends State<SearchResult> {
                 Row(
                   children: [
                     CustomText(
-                        text: "10:30 Makkah",
+                        text: "$timeFrom $fromCityName",
                         textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
                         textColor: const Color(0xff747268)),
@@ -173,7 +221,7 @@ class _SearchResultState extends State<SearchResult> {
                       size: 18,
                     ),
                     CustomText(
-                        text: "10:30 Makkah",
+                        text: "$timeTo $toCityName",
                         textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
                         textColor: const Color(0xff747268)),
@@ -186,7 +234,7 @@ class _SearchResultState extends State<SearchResult> {
                       borderRadius: BorderRadius.circular(5), color: appColor),
                   child: Center(
                     child: CustomText(
-                        text: "SAR 90",
+                        text: "SAR $fees",
                         textSize: sizes!.fontRatio * 10,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.white),
@@ -203,7 +251,7 @@ class _SearchResultState extends State<SearchResult> {
                 Row(
                   children: [
                     CustomText(
-                        text: "Station A",
+                        text: stationA,
                         textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
                         textColor: const Color(0xff747268)),
@@ -213,14 +261,14 @@ class _SearchResultState extends State<SearchResult> {
                       size: 18,
                     ),
                     CustomText(
-                        text: "Station B",
+                        text: stationB,
                         textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w400,
                         textColor: const Color(0xff747268)),
                   ],
                 ),
                 CustomText(
-                    text: "5 Stops",
+                    text: "$stops Stops",
                     textSize: sizes!.fontRatio * 14,
                     fontWeight: FontWeight.w400,
                     textColor: const Color(0xff747268))
@@ -233,7 +281,7 @@ class _SearchResultState extends State<SearchResult> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomText(
-                    text: "Jeddah Trip",
+                    text: providerName,
                     textSize: sizes!.fontRatio * 16,
                     fontWeight: FontWeight.w500,
                     textColor: const Color(0xff747268)),
@@ -245,7 +293,7 @@ class _SearchResultState extends State<SearchResult> {
                       size: 18,
                     ),
                     CustomText(
-                        text: "(4/5)",
+                        text: rate,
                         textSize: sizes!.fontRatio * 16,
                         fontWeight: FontWeight.normal,
                         textColor: const Color(0xff747268)),
@@ -256,11 +304,19 @@ class _SearchResultState extends State<SearchResult> {
             SizedBox(
               height: sizes!.heightRatio * 10,
             ),
-            CustomText(
-                text: "Ac / Hotel 3 star / meal",
-                textSize: sizes!.fontRatio * 14,
-                fontWeight: FontWeight.w500,
-                textColor: Colors.grey),
+            SizedBox(
+                height: sizes!.heightRatio * 20,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: additionals.length,
+                    itemBuilder: (context, index) {
+                      var data = additionals[index].en;
+                      return CustomText(
+                          text: "$data /",
+                          textSize: sizes!.fontRatio * 14,
+                          fontWeight: FontWeight.w500,
+                          textColor: Colors.grey);
+                    }))
           ],
         ),
       ),

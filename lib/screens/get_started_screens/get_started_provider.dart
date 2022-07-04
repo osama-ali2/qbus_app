@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/widgets/loader.dart';
@@ -12,6 +13,7 @@ class GetStartedProvider with ChangeNotifier {
   final Logger _logger = Logger();
   final Loader _loader = Loader();
 
+  bool isCityDataLoaded = false;
   bool isDataLoaded = false;
   PackagesResponse packagesResponse = PackagesResponse();
   GetCitiesResponse getCitiesResponse = GetCitiesResponse();
@@ -20,8 +22,11 @@ class GetStartedProvider with ChangeNotifier {
 
   List<Map<String, dynamic>> citiesList = [];
 
+  var dio = Dio();
+
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
+    isCityDataLoaded = false;
     isDataLoaded = false;
     // await getCitiesData();
   }
@@ -37,10 +42,39 @@ class GetStartedProvider with ChangeNotifier {
         "date_to": "",
         "time_from": "",
         "starting_city_id": "",
-        "additional": []
+        "additional": [],
+        "offset": 0
       };
 
+      // {
+      //   "code": "",
+      //   "date_from": "",
+      //   "date_to": "",
+      //   "time_from": "",
+      //   "from_city_id": "",
+      //   "to_city_id": "",
+      //   "additional": [],
+      //   "offset": 0
+      // };
+
       debugPrint("URL: $packagesApiUrl");
+
+
+      // Response response = await dio.post(packagesApiUrl,
+      //     data: body,
+      //     options: Options(
+      //       headers: header,
+      //     ));
+      //
+      // switch (response.statusCode) {
+      //   case 200:
+      //     debugPrint("ResponseData: ${response.data}");
+      //     break;
+      //   case 301:
+      //     debugPrint("ResponseData: ${response.data}");
+      //     break;
+      //   default:
+      // }
 
       packagesResponse = await MyApi.callPostApi(
           url: packagesApiUrl,
@@ -52,13 +86,10 @@ class GetStartedProvider with ChangeNotifier {
       if (packagesResponse.code == 1) {
         _logger.d("packagesResponse: ${packagesResponse.toJson()}");
         _loader.hideLoader(context!);
-
         isDataLoaded = true;
-
         notifyListeners();
       } else {
         debugPrint("packagesResponse: Something wrong");
-
         _loader.hideLoader(context!);
       }
     } catch (e) {
@@ -71,6 +102,9 @@ class GetStartedProvider with ChangeNotifier {
     try {
       // _loader.showLoader(context: context);
       Map<String, dynamic> header = {"Content-Type": "application/json"};
+      cityList.clear();
+      cityIdList.clear();
+      citiesList.clear();
 
       debugPrint("URL: $getCitiesApiUrl");
       getCitiesResponse = await MyApi.callGetApi(
@@ -89,16 +123,16 @@ class GetStartedProvider with ChangeNotifier {
             "id": id,
             "city": name,
           };
-          _logger.d("name: $name");
-          _logger.d("id: $id");
-          _logger.d("MapList: $map");
+          // _logger.d("name: $name");
+          // _logger.d("id: $id");
+          // _logger.d("MapList: $map");
           cityList.add(name);
           cityIdList.add(id);
           citiesList.add(map);
         }
 
         // _loader.hideLoader(context!);
-        isDataLoaded = true;
+        isCityDataLoaded = true;
         notifyListeners();
       } else {
         debugPrint("getCitiesResponse: Something wrong");
