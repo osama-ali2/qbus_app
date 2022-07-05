@@ -141,7 +141,7 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                           .get20HorizontalPadding(),
                       CommonPadding.sizeBoxWithHeight(height: 12),
                       SizedBox(
-                        height: sizes!.heightRatio * 50,
+                        height: sizes!.heightRatio * 80,
                         child: GridView.builder(
                             gridDelegate:
                                const  SliverGridDelegateWithMaxCrossAxisExtent(
