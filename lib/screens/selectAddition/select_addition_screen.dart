@@ -9,6 +9,8 @@ import 'package:qbus/widgets/custom_button.dart';
 
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
+import '../../local_cache/utils.dart';
+import '../../res/strings.dart';
 import '../auth/login_screens/login_screen.dart';
 
 class SelectAdditionScreen extends StatefulWidget {
@@ -65,31 +67,35 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
             const SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen()));
-                },
-                child: Container(
-                  height: sizes!.heightRatio * 45,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: appColor)),
-                  child: Center(
-                    child: CustomText(
-                        text: "Continue",
-                        textSize: sizes!.fontRatio * 15,
-                        fontWeight: FontWeight.w500,
-                        textColor: appColor),
-                  ),
-                ),
-              ),
-            )
+            (PreferenceUtils.getString(Strings.loginEmail)!.isNotEmpty &&
+                    PreferenceUtils.getString(Strings.loginUserToken)!
+                        .isNotEmpty)
+                ? Container()
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginScreen()));
+                      },
+                      child: Container(
+                        height: sizes!.heightRatio * 45,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: appColor)),
+                        child: Center(
+                          child: CustomText(
+                              text: "Continue",
+                              textSize: sizes!.fontRatio * 15,
+                              fontWeight: FontWeight.w500,
+                              textColor: appColor),
+                        ),
+                      ),
+                    ),
+                  )
           ],
         ),
       ),

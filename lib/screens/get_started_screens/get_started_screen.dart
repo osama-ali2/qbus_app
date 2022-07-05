@@ -418,6 +418,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               fontWeight: FontWeight.normal,
               borderRadius: 5,
               onTapped: () {
+                debugPrint(
+                    "departureFromID: $departureFromID, arrivalToID: $arrivalToID,"
+                    " _startDate: $_startDate, departureFrom: $departureFrom, arrivalTo:$arrivalTo");
+
                 if (departureFromID != "-1" &&
                     arrivalToID != "-1" &&
                     _startDate != "" &&
