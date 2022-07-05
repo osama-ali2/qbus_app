@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/explore_screens/package_detail_screens/package_detail_provider.dart';
+import 'package:qbus/screens/selectAddition/select_addition_screen.dart';
 
 import '../../../res/assets.dart';
 import '../../../res/colors.dart';
@@ -195,7 +196,11 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                               fontWeight: FontWeight.normal,
                               borderRadius: 5,
                               onTapped: () {
-                                Toasts.getErrorToast(text: "Try it later");
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SelectAdditionScreen()));
                               },
                               padding: 0)
                           .get20HorizontalPadding(),

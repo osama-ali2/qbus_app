@@ -227,7 +227,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
               ),
             ),
             SizedBox(
-              height: sizes!.heightRatio * 5,
+              width: sizes!.widthRatio * 10,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
