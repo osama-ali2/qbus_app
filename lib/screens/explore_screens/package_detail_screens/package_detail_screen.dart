@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -74,12 +75,30 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                         decoration: const BoxDecoration(
                           color: AppColors.gray100,
                         ),
-                        child: Image.asset(
-                          "assets/png/thumbnail.png",
-                          fit: BoxFit.fill,
+                        child: CachedNetworkImage(
                           height: sizes!.heightRatio * 185,
                           width: sizes!.widthRatio * 375,
+                          fit: BoxFit.cover,
+                          imageUrl:
+                              "${packageDetailProvider.packageDetailResponse.data!.imageBase}/${packageDetailProvider.packageDetailResponse.data!.packages!.image.toString()}",
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) => Center(
+                            child: SizedBox(
+                              height: sizes!.heightRatio * 20,
+                              width: sizes!.widthRatio * 20,
+                              child: CircularProgressIndicator(
+                                  value: downloadProgress.progress),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
+                        // Image.asset(
+                        //   "assets/png/thumbnail.png",
+                        //   fit: BoxFit.fill,
+                        //   height: sizes!.heightRatio * 185,
+                        //   width: sizes!.widthRatio * 375,
+                        // ),
                       ),
                       CommonPadding.sizeBoxWithHeight(height: 16),
                       Row(
@@ -114,66 +133,109 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                         fontWeight: FontWeight.w400,
                         lines: 10,
                       ).get20HorizontalPadding(),
-                      CommonPadding.sizeBoxWithHeight(height: 16),
+                      CommonPadding.sizeBoxWithHeight(height: 12),
                       TextView.getMediumText16("Additions", Assets.latoBold,
                               color: AppColors.black900,
                               fontWeight: FontWeight.w500,
                               lines: 1)
                           .get20HorizontalPadding(),
-                      CommonPadding.sizeBoxWithHeight(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            height: sizes!.heightRatio * 34,
-                            width: sizes!.widthRatio * 80,
-                            decoration: BoxDecoration(
-                              color: AppColors.primary,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Center(
-                              child: TextView.getMediumText14(
-                                  "Meals", Assets.latoBold,
-                                  color: AppColors.white,
-                                  fontWeight: FontWeight.w400,
-                                  lines: 1),
-                            ),
-                          ),
-                          Container(
-                            height: sizes!.heightRatio * 34,
-                            width: sizes!.widthRatio * 80,
-                            decoration: BoxDecoration(
-                              color: AppColors.primary,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Center(
-                              child: TextView.getMediumText14(
-                                  "Hotel", Assets.latoBold,
-                                  color: AppColors.white,
-                                  fontWeight: FontWeight.w400,
-                                  lines: 1),
-                            ),
-                          ),
-                          Container(
-                            height: sizes!.heightRatio * 34,
-                            width: sizes!.widthRatio * 80,
-                            decoration: BoxDecoration(
-                              color: AppColors.primary,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Center(
-                              child: TextView.getMediumText14(
-                                  "Drinks", Assets.latoBold,
-                                  color: AppColors.white,
-                                  fontWeight: FontWeight.w400,
-                                  lines: 1),
-                            ),
-                          )
-                        ],
+                      CommonPadding.sizeBoxWithHeight(height: 12),
+                      SizedBox(
+                        height: sizes!.heightRatio * 50,
+                        child: GridView.builder(
+                            gridDelegate:
+                               const  SliverGridDelegateWithMaxCrossAxisExtent(
+                                   maxCrossAxisExtent: 100,
+                                   childAspectRatio: 9 / 6,
+                                   crossAxisSpacing: 8,
+                                   mainAxisSpacing: 8,
+                                 ),
+                            itemCount: packageDetailProvider
+                                .packageDetailResponse
+                                .data!
+                                .packages!
+                                .additionals!
+                                .length,
+                            itemBuilder: (context, index) {
+                              var name = packageDetailProvider
+                                  .packageDetailResponse
+                                  .data!
+                                  .packages!
+                                  .additionals![index]
+                                  .name!
+                                  .en
+                                  .toString();
+                              return Container(
+                                // height: sizes!.heightRatio * 20,
+                                // width: sizes!.widthRatio * 20,
+                                decoration: BoxDecoration(
+                                  color: AppColors.primary,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Center(
+                                  child: TextView.getMediumText14(
+                                      name, Assets.latoBold,
+                                      color: AppColors.white,
+                                      fontWeight: FontWeight.w400,
+                                      lines: 1),
+                                ),
+                              );
+                            }),
                       ).get20HorizontalPadding(),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      //   children: [
+                      //     Container(
+                      //       height: sizes!.heightRatio * 34,
+                      //       width: sizes!.widthRatio * 80,
+                      //       decoration: BoxDecoration(
+                      //         color: AppColors.primary,
+                      //         borderRadius: BorderRadius.circular(5),
+                      //       ),
+                      //       child: Center(
+                      //         child: TextView.getMediumText14(
+                      //             "Meals", Assets.latoBold,
+                      //             color: AppColors.white,
+                      //             fontWeight: FontWeight.w400,
+                      //             lines: 1),
+                      //       ),
+                      //     ),
+                      //     Container(
+                      //       height: sizes!.heightRatio * 34,
+                      //       width: sizes!.widthRatio * 80,
+                      //       decoration: BoxDecoration(
+                      //         color: AppColors.primary,
+                      //         borderRadius: BorderRadius.circular(5),
+                      //       ),
+                      //       child: Center(
+                      //         child: TextView.getMediumText14(
+                      //             "Hotel", Assets.latoBold,
+                      //             color: AppColors.white,
+                      //             fontWeight: FontWeight.w400,
+                      //             lines: 1),
+                      //       ),
+                      //     ),
+                      //     Container(
+                      //       height: sizes!.heightRatio * 34,
+                      //       width: sizes!.widthRatio * 80,
+                      //       decoration: BoxDecoration(
+                      //         color: AppColors.primary,
+                      //         borderRadius: BorderRadius.circular(5),
+                      //       ),
+                      //       child: Center(
+                      //         child: TextView.getMediumText14(
+                      //             "Drinks", Assets.latoBold,
+                      //             color: AppColors.white,
+                      //             fontWeight: FontWeight.w400,
+                      //             lines: 1),
+                      //       ),
+                      //     )
+                      //   ],
+                      // ).get20HorizontalPadding(),
                       CommonPadding.sizeBoxWithHeight(height: 16),
                       TextView.getMediumText16(
-                              "Departure Date  : 10 Dec 2022", Assets.latoBold,
+                              "Departure Date: ${packageDetailProvider.packageDetailResponse.data!.packages!.dateFrom.toString()}",
+                              Assets.latoBold,
                               color: AppColors.black900,
                               fontWeight: FontWeight.w500,
                               lines: 1)
