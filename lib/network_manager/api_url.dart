@@ -7,6 +7,9 @@ const String packagesApiUrl = "$baseUrl/packages"; //packages
 const String packagesDetailsApiUrl = "$baseUrl/packageDetail/"; //packages
 
 const String getAdditionalApiUrl = "$baseUrl/additionals";
+const String packageAdditionalApiUrl = "$baseUrl/packageAdditionals/";
+const String tripAdditionalApiUrl = "$baseUrl/tripAdditionals/";
+
 const String getAboutUsApiUrl = "$baseUrl/about_us";
 const String getCitiesApiUrl = "$baseUrl/cites";
 

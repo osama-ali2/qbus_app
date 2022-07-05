@@ -7,11 +7,13 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/screens/explore_screens/explore_screen.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
-import '../../res/res.dart';
-import '../../utils/constant.dart';
-import '../../widgets/custom_button.dart';
-import '../../widgets/custom_text.dart';
-import '../../widgets/custom_textField.dart';
+
+import '../../../res/res.dart';
+import '../../../utils/constant.dart';
+import '../../../widgets/custom_button.dart';
+import '../../../widgets/custom_text.dart';
+import '../../../widgets/custom_textField.dart';
+
 
 class PackageFilterScreen extends StatefulWidget {
   const PackageFilterScreen({Key? key}) : super(key: key);

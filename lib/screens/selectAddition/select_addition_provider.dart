@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:qbus/models/additional/GetAdditionalResponse.dart';
+import 'package:qbus/models/additionals/TripAdditionalsResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
 import 'package:qbus/widgets/loader.dart';
 
+import '../../models/additionals/GetAdditionalResponse.dart';
 import '../../network_manager/models.dart';
 import '../../network_manager/my_api.dart';
 
@@ -12,9 +13,10 @@ class SelectAdditionProvider with ChangeNotifier {
   final Logger _logger = Logger();
   final Loader _loader = Loader();
 
-  bool isDataLoaded = false;
+  bool isTripLoaded = false;
 
-  GetAdditionalResponse getAdditionalResponse = GetAdditionalResponse();
+  // GetAdditionalResponse getAdditionalResponse = GetAdditionalResponse();
+  TripAdditionalsResponse tripAdditionalsResponse = TripAdditionalsResponse();
 
   List<int> selectAdditionalList = [];
 
@@ -22,46 +24,38 @@ class SelectAdditionProvider with ChangeNotifier {
     this.context = context;
   }
 
-  Future<void> getAdditionalData() async {
+  Future<void> getAdditionalData({required String id}) async {
     try {
       _loader.showLoader(context: context);
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
-      // Map<String, dynamic> body = {
-      //   "code": "",
-      //   "date_from": "",
-      //   "date_to": "",
-      //   "time_from": "",
-      //   "starting_city_id": "",
-      //   "additional": []
-      // };
 
-      debugPrint("URL: $getAdditionalApiUrl");
-      getAdditionalResponse = await MyApi.callGetApi(
-          url: getAdditionalApiUrl,
-          myHeaders: header,
-          modelName: Models.additionalModel);
+      var url = "$tripAdditionalApiUrl$id";
+
+      debugPrint("URL: $url");
+      tripAdditionalsResponse = await MyApi.callGetApi(
+          url: url, myHeaders: header, modelName: Models.tripAdditionalsModel);
       // debugPrint("aBody: $body");
 
-      if (getAdditionalResponse.code == 1) {
-        _logger.d("getAdditionalResponse: ${getAdditionalResponse.toJson()}");
+      if (tripAdditionalsResponse.code == 1) {
+        _logger
+            .d("tripAdditionalsResponse: ${tripAdditionalsResponse.toJson()}");
 
-        for (int i = 0;
-            i < getAdditionalResponse.data!.additional!.length;
-            i++) {
+        var length = tripAdditionalsResponse.data!.additional!.length;
+        for (int i = 0; i < length; i++) {
           selectAdditionalList.add(0);
           debugPrint("selectAdditionalList: ${selectAdditionalList.length}");
         }
 
         _loader.hideLoader(context!);
-        isDataLoaded = true;
+        isTripLoaded = true;
         notifyListeners();
       } else {
-        debugPrint("getAdditionalResponse: Something wrong");
+        debugPrint("tripAdditionalsResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      debugPrint("getAdditionalResponseError: ${e.toString()}");
+      debugPrint("tripAdditionalsResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

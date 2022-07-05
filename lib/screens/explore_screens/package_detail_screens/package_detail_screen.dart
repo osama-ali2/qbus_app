@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/explore_screens/package_detail_screens/package_detail_provider.dart';
+import 'package:qbus/screens/explore_screens/package_select_addition_screens/package_select_addition_screen.dart';
 import 'package:qbus/screens/selectAddition/select_addition_screen.dart';
 
 import '../../../res/assets.dart';
@@ -196,11 +197,16 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                               fontWeight: FontWeight.normal,
                               borderRadius: 5,
                               onTapped: () {
+                                var packageId = packageDetailProvider
+                                    .packageDetailResponse.data!.packages!.id
+                                    .toString();
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const SelectAdditionScreen()));
+                                            PackageSelectAdditionScreen(
+                                              packageId: packageId,
+                                            )));
                               },
                               padding: 0)
                           .get20HorizontalPadding(),

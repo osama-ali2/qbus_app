@@ -8,11 +8,11 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/explore_screens/explore_provider.dart';
 import 'package:qbus/screens/explore_screens/package_detail_screens/package_detail_screen.dart';
-import 'package:qbus/screens/package_filter_screens/package_filter_screen.dart';
 import 'package:qbus/widgets/text_views.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_text.dart';
+import 'package_filter_screens/package_filter_screen.dart';
 
 class ExploreScreen extends StatefulWidget {
   final PackageFilterModel? packageFilterModel;

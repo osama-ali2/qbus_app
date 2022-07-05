@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
-import 'package:qbus/models/additional/GetAdditionalResponse.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/screens/search_screens/search_provider.dart';
@@ -107,13 +106,17 @@ class _SearchResultState extends State<SearchResult> {
                               var timeTo = data.timeTo.toString();
                               var stops = data.stops.toString();
                               var providerName = data.providerName.toString();
-                              var additionals =
-                                  data.additionals!.map((e) => {e});
+
+                              var tripId = data.id.toString();
 
                               return InkWell(
                                   onTap: () {
                                     NavigationHelper.pushRoute(
-                                        context, const SelectAdditionScreen());
+                                      context,
+                                      SelectAdditionScreen(
+                                        tripId: tripId,
+                                      ),
+                                    );
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(

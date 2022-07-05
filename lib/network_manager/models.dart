@@ -1,5 +1,6 @@
 import 'package:qbus/models/about_us/GetAboutUsResponse.dart';
-import 'package:qbus/models/additional/GetAdditionalResponse.dart';
+import 'package:qbus/models/additionals/PackageAdditionalsResponse.dart';
+import 'package:qbus/models/additionals/TripAdditionalsResponse.dart';
 import 'package:qbus/models/auth/ForgotPasswordResponse.dart';
 import 'package:qbus/models/auth/GetVerifyPhoneResponse.dart';
 import 'package:qbus/models/auth/LoginResponse.dart';
@@ -11,6 +12,7 @@ import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
 import 'package:qbus/models/packages/PackageDetailResponse.dart';
 import 'package:qbus/models/privacy_policy/PrivacyPolicyResponse.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
+import '../models/additionals/GetAdditionalResponse.dart';
 import '../models/cities/GetCitiesResponse.dart';
 import '../models/error_model/ErrorResponse.dart';
 import '../models/packages/PackagesResponse.dart';
@@ -24,6 +26,8 @@ class Models {
   static const String packagesDetailModel = "packagesDetailModel";
   static const String tripsModel = "tripsModel";
   static const String additionalModel = "additionalModel";
+  static const String tripAdditionalsModel = "tripAdditionalsModel";
+  static const String packageAdditionalsModel = "packageAdditionalsModel";
   static const String aboutUsModel = "aboutUsModel";
   static const String citiesModel = "citiesModel";
   static const String contactUsModel = "contactUsModel";
@@ -39,6 +43,10 @@ class Models {
   static Future<dynamic> getModelObject(
       String modelName, Map<String, dynamic> json) async {
     switch (modelName) {
+      case packageAdditionalsModel:
+        return PackageAdditionalsResponse.fromJson(json);
+      case tripAdditionalsModel:
+        return TripAdditionalsResponse.fromJson(json);
       case packagesDetailModel:
         return PackageDetailResponse.fromJson(json);
       case privacyPolicyModel:
