@@ -421,6 +421,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               fontWeight: FontWeight.normal,
               borderRadius: 5,
               onTapped: () {
+                debugPrint(
+                    "departureFromID: $departureFromID, arrivalToID: $arrivalToID,"
+                    " _startDate: $_startDate, departureFrom: $departureFrom, arrivalTo:$arrivalTo");
+
                 if (departureFromID != "-1" &&
                     arrivalToID != "-1" &&
                     _startDate != "" &&
@@ -581,7 +585,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               ),
             ),
             SizedBox(
-              height: sizes!.heightRatio * 5,
+              width: sizes!.widthRatio * 10,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

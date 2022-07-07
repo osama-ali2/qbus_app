@@ -5,6 +5,7 @@ import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/about_
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/privacy_policy_screens/privacy_policy_provider.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/wallet_screens/wallet_provider.dart';
 import 'package:qbus/screens/explore_screens/package_detail_screens/package_detail_provider.dart';
+import 'package:qbus/screens/explore_screens/package_select_addition_screens/package_select_addition_provider.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_provider.dart';
 import '../screens/auth/login_screens/login_provider.dart';
@@ -19,7 +20,7 @@ import '../screens/bottombar/bottom_bar_screens/setting_screens/setting_provider
 import '../screens/bottombar/bottom_bar_screens/setting_select_lang_screens/setting_select_lang_provider.dart';
 
 import '../screens/explore_screens/explore_provider.dart';
-import '../screens/package_filter_screens/package_filter_provider.dart';
+import '../screens/explore_screens/package_filter_screens/package_filter_provider.dart';
 import '../screens/search_screens/search_provider.dart';
 import '../screens/selectAddition/select_addition_provider.dart';
 import '../screens/splash_screens/splash_provider.dart';
@@ -115,6 +116,14 @@ final multiProviders = [
   ),
   ChangeNotifierProvider<PackageDetailProvider>(
     create: (_) => PackageDetailProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PackageSelectAdditionProvider>(
+    create: (_) => PackageSelectAdditionProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PackageSelectAdditionProvider>(
+    create: (_) => PackageSelectAdditionProvider(),
     lazy: true,
   ),
 ];

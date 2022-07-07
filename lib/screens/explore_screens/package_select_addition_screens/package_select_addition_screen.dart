@@ -3,50 +3,58 @@ import 'package:provider/provider.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
-import 'package:qbus/screens/selectAddition/select_addition_provider.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
 
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
-import '../../local_cache/utils.dart';
-import '../../res/strings.dart';
-import '../auth/login_screens/login_screen.dart';
+import '../../../local_cache/utils.dart';
+import '../../../res/strings.dart';
+import '../../auth/login_screens/login_screen.dart';
+import 'package_select_addition_provider.dart';
 
-class SelectAdditionScreen extends StatefulWidget {
-  final String? tripId;
+class PackageSelectAdditionScreen extends StatefulWidget {
+  final String? packageId;
 
-  const SelectAdditionScreen({Key? key, this.tripId}) : super(key: key);
+  const PackageSelectAdditionScreen({Key? key, this.packageId})
+      : super(key: key);
 
   @override
-  State<SelectAdditionScreen> createState() => _SelectAdditionScreenState();
+  State<PackageSelectAdditionScreen> createState() =>
+      _PackageSelectAdditionScreenState();
 }
 
-class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
+class _PackageSelectAdditionScreenState
+    extends State<PackageSelectAdditionScreen> {
   int hotel = 0;
   int chicken = 0;
   int water = 0;
 
   int currentIndex = 0;
 
-  late SelectAdditionProvider selectAdditionProvider;
+  late PackageSelectAdditionProvider packageSelectAdditionProvider;
 
   @override
   void initState() {
     super.initState();
-    selectAdditionProvider = SelectAdditionProvider();
-    selectAdditionProvider =
-        Provider.of<SelectAdditionProvider>(context, listen: false);
-    selectAdditionProvider.init(context: context);
+    packageSelectAdditionProvider = PackageSelectAdditionProvider();
+    packageSelectAdditionProvider =
+        Provider.of<PackageSelectAdditionProvider>(context, listen: false);
+    packageSelectAdditionProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      selectAdditionProvider.getAdditionalData(id: widget.tripId!);
+      packageSelectAdditionProvider.getAdditionalData(id: widget.packageId!);
     });
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Provider.of<SelectAdditionProvider>(context, listen: true);
+    Provider.of<PackageSelectAdditionProvider>(context, listen: true);
     return Scaffold(
       bottomNavigationBar: SizedBox(
         height: sizes!.heightRatio * 130,
@@ -106,20 +114,24 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "Trip Select Additions",
+            text: "Package Select Additions",
             textSize: sizes!.fontRatio * 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
       ),
       backgroundColor: Colors.white,
-      body: selectAdditionProvider.isTripLoaded == true
+      body: packageSelectAdditionProvider.isPackageLoaded == true
           ? ListView.builder(
-              itemCount: selectAdditionProvider
-                  .tripAdditionalsResponse.data!.additional!.length,
+              itemCount: packageSelectAdditionProvider
+                  .packageAdditionalsResponse.data!.additional!.length,
               itemBuilder: (context, index) {
                 currentIndex = index;
-                var name = selectAdditionProvider
-                    .tripAdditionalsResponse.data!.additional![index].name!.en
+                var name = packageSelectAdditionProvider
+                    .packageAdditionalsResponse
+                    .data!
+                    .additional![index]
+                    .name!
+                    .en
                     .toString();
                 return itemContainer(name: name, index: index);
               })
@@ -139,17 +151,21 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                   context: context,
                   name: name,
                   add: () {
-                    selectAdditionProvider.selectAdditionalList[index]++;
+                    packageSelectAdditionProvider
+                        .packageSelectAdditionalList[index]++;
                     setState(() {});
                   },
                   minus: () {
-                    if (selectAdditionProvider.selectAdditionalList[index] >
+                    if (packageSelectAdditionProvider
+                            .packageSelectAdditionalList[index] >
                         0) {
-                      selectAdditionProvider.selectAdditionalList[index]--;
+                      packageSelectAdditionProvider
+                          .packageSelectAdditionalList[index]--;
                       setState(() {});
                     }
                   },
-                  number: selectAdditionProvider.selectAdditionalList[index])
+                  number: packageSelectAdditionProvider
+                      .packageSelectAdditionalList[index])
               : _items(
                   context: context,
                   name: name,
