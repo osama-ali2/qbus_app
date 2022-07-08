@@ -14,9 +14,9 @@ import 'firebase_options.dart';
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
   debugPrint('Handling a background message ${message.messageId}');
 }
 
@@ -33,9 +33,9 @@ void main() async {
         alert: true, // Required to display a heads up notification
         badge: true,
         sound: true,
-      )
-      .then((value) =>
-          {debugPrint("setForegroundNotificationPresentationOption")});
+      );
+      // .then((value) =>
+      //     {debugPrint("setForegroundNotificationPresentationOption")});
 
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     debugPrint('Got a message whilst in the foreground!');

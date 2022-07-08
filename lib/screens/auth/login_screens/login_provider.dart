@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/models/auth/LoginResponse.dart';
+import 'package:qbus/push_notification_service/FirebasePushNotificationService.dart';
 import 'package:qbus/widgets/loader.dart';
 
 import '../../../local_cache/utils.dart';
@@ -44,6 +45,8 @@ class LoginProvider with ChangeNotifier {
       if (loginResponse.code == 1) {
         PreferenceUtils.clearPreferences();
         _logger.d("loginResponse: ${loginResponse.toJson()}");
+
+        await FirebasePushNotificationService.initializeNotification(userTopic: password);
 
         await PreferenceUtils.setLoginResponse(loginResponse).then((_) async {
           String name = PreferenceUtils.getString(Strings.loginName) ?? "";
