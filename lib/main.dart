@@ -7,8 +7,15 @@ import 'package:qbus/providers/multi_provider.dart';
 import 'package:qbus/screens/splash_screens/splash_screen.dart';
 import 'package:qbus/res/strings.dart';
 import 'package:qbus/local_cache/utils.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  //Initializing the firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

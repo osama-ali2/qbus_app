@@ -45,7 +45,7 @@ dependencies:
   #  Dio Network Library
   dio: ^4.0.6
   #  Connectivity Check
-  connectivity_plus: ^2.3.2
+  connectivity_plus: ^2.3.5
   #  Shared Preferences
   shared_preferences: ^2.0.15
   #  Toast
@@ -58,6 +58,9 @@ dependencies:
   pinput: ^2.2.10
   google_fonts: any
   custom_timer: any
+  firebase_core: ^1.19.1
+  firebase_messaging: ^11.4.4
+
 
 dev_dependencies:
   flutter_test:
