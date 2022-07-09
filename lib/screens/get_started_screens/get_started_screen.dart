@@ -1,4 +1,3 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -14,7 +13,6 @@ import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
-import 'package:timezone/timezone.dart';
 
 import '../../../../widgets/custom_button.dart';
 import '../../res/colors.dart';
@@ -148,10 +146,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     );
   }
 
-  void _changeLanguage(lang) {
-    const Locale("ar", 'Ar');
-    debugPrint(lang.name);
-  }
+  // void _changeLanguage(lang) {
+  //   const Locale("ar", 'Ar');
+  //   debugPrint(lang.name);
+  // }
 
   Widget _getUI(BuildContext context) {
     return Padding(
@@ -452,9 +450,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               fontWeight: FontWeight.normal,
               borderRadius: 5,
               onTapped: () async {
-                // await localNotificationService.showNotification(id: 0, title: "title", body: "body");
-                await localNotificationService.showScheduleNotification(
-                    id: 1, title: "title", body: "Schedule Notify", seconds: 5);
+                await localNotificationService.showNotification(
+                    id: 0, title: "title", body: "Notify Show");
+                // await localNotificationService.showScheduleNotification(
+                //     id: 1, title: "title", body: "Schedule Notify", seconds: 5);
               },
               padding: 0),
           CustomButton(
@@ -466,7 +465,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               textColor: Colors.white,
               fontWeight: FontWeight.normal,
               borderRadius: 5,
-              onTapped: () async {
+              onTapped: () {
                 debugPrint(
                     "departureFromID: $departureFromID, arrivalToID: $arrivalToID,"
                     " _startDate: $_startDate, departureFrom: $departureFrom, arrivalTo:$arrivalTo");
@@ -476,8 +475,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                     _startDate != "" &&
                     departureFrom != "" &&
                     arrivalTo != "") {
-                  await localNotificationService.showNotification(
-                      id: 0, title: "title", body: "body");
                   NavigationHelper.pushRoute(
                       context,
                       SearchResult(
