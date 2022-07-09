@@ -1,7 +1,9 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/local_notification_service/local_notification_service.dart';
 import 'package:qbus/models/PackageFilterModel.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
@@ -12,6 +14,7 @@ import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
+import 'package:timezone/timezone.dart';
 
 import '../../../../widgets/custom_button.dart';
 import '../../res/colors.dart';
@@ -50,6 +53,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   var arrivalToID = "-1";
   var departureFromID = "-1";
 
+  late final LocalNotificationService localNotificationService;
+
   @override
   void initState() {
     super.initState();
@@ -62,11 +67,32 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     dateController = TextEditingController();
     _selectedStartDate = DateTime.now();
 
+    localNotificationService = LocalNotificationService();
+    localNotificationService.initialize();
+
+    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    //   debugPrint('Got a message [GetStartedScreen] whilst in the foreground!');
+    //   debugPrint('Message data: ${message.data}');
+    //
+    //   if (message.notification != null) {
+    //     debugPrint(
+    //         'Message also contained a notification: ${message.notification!.title}');
+    //
+    //     localNotificationService.showNotification(
+    //         id: 1,
+    //         title: message.notification!.title!,
+    //         body: message.notification!.body!);
+    //
+    //     if (message.data['type'] == 'chat') {
+    //       debugPrint("Type is Chat Opened");
+    //     }
+    //   }
+    // });
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getStartedProvider.getPackagesData();
       getStartedProvider.getCitiesData();
     });
-
   }
 
   void _presentStartDate() {
@@ -173,7 +199,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              checkBox(context, oneRoad, AppLocalizations.of(context)!.one_way, () {
+              checkBox(context, oneRoad, AppLocalizations.of(context)!.one_way,
+                  () {
                 multiTrip = false;
                 roundTrip = false;
                 oneRoad = true;
@@ -181,7 +208,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   tripType = oneRoad;
                 });
               }),
-              checkBox(context, roundTrip, AppLocalizations.of(context)!.round_trip, () {
+              checkBox(
+                  context, roundTrip, AppLocalizations.of(context)!.round_trip,
+                  () {
                 multiTrip = false;
                 roundTrip = true;
                 oneRoad = false;
@@ -189,7 +218,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   tripType = roundTrip;
                 });
               }),
-              checkBox(context, multiTrip, AppLocalizations.of(context)!.multi_destination, () {
+              checkBox(context, multiTrip,
+                  AppLocalizations.of(context)!.multi_destination, () {
                 multiTrip = true;
                 roundTrip = false;
                 oneRoad = false;
@@ -411,6 +441,22 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           SizedBox(
             height: sizes!.heightRatio * 15,
           ),
+
+          CustomButton(
+              name: "Click",
+              buttonColor: appColor,
+              height: sizes!.heightRatio * 45,
+              width: double.infinity,
+              textSize: sizes!.fontRatio * 16,
+              textColor: Colors.white,
+              fontWeight: FontWeight.normal,
+              borderRadius: 5,
+              onTapped: () async {
+                // await localNotificationService.showNotification(id: 0, title: "title", body: "body");
+                await localNotificationService.showScheduleNotification(
+                    id: 1, title: "title", body: "Schedule Notify", seconds: 5);
+              },
+              padding: 0),
           CustomButton(
               name: AppLocalizations.of(context)!.search,
               buttonColor: appColor,
@@ -420,7 +466,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               textColor: Colors.white,
               fontWeight: FontWeight.normal,
               borderRadius: 5,
-              onTapped: () {
+              onTapped: () async {
                 debugPrint(
                     "departureFromID: $departureFromID, arrivalToID: $arrivalToID,"
                     " _startDate: $_startDate, departureFrom: $departureFrom, arrivalTo:$arrivalTo");
@@ -430,6 +476,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                     _startDate != "" &&
                     departureFrom != "" &&
                     arrivalTo != "") {
+                  await localNotificationService.showNotification(
+                      id: 0, title: "title", body: "body");
                   NavigationHelper.pushRoute(
                       context,
                       SearchResult(
@@ -441,7 +489,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             date_from: _startDate),
                       ));
                 } else {
-                  Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
+                  Toasts.getErrorToast(
+                      text: AppLocalizations.of(context)!.required_fields);
                 }
               },
               padding: 0),

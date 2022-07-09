@@ -61,6 +61,7 @@ dependencies:
   firebase_core: ^1.19.1
   firebase_messaging: ^11.4.4
   flutter_local_notifications: ^9.6.1
+  timezone: any
 
 
 dev_dependencies:
