@@ -65,8 +65,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     dateController = TextEditingController();
     _selectedStartDate = DateTime.now();
 
-    localNotificationService = LocalNotificationService();
-    localNotificationService.initialize();
+    // localNotificationService = LocalNotificationService();
+    // localNotificationService.initialize();
+
+    LocalNotificationService.instance.initialize();
 
     // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     //   debugPrint('Got a message [GetStartedScreen] whilst in the foreground!');
@@ -450,7 +452,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               fontWeight: FontWeight.normal,
               borderRadius: 5,
               onTapped: () async {
-                await localNotificationService.showNotification(
+                await LocalNotificationService.instance.showNotification(
                     id: 0, title: "title", body: "Notify Show");
                 // await localNotificationService.showScheduleNotification(
                 //     id: 1, title: "title", body: "Schedule Notify", seconds: 5);
