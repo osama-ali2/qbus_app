@@ -17,7 +17,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
-  debugPrint('Handling a background message ${message.messageId}');
+  debugPrint('Handling a background message ${message.data}');
 }
 
 void main() async {
@@ -28,15 +28,15 @@ void main() async {
   );
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  await FirebaseMessaging.instance
-      .setForegroundNotificationPresentationOptions(
-        alert: true, // Required to display a heads up notification
-        badge: true,
-        sound: true,
-      );
-      // .then((value) =>
-      //     {debugPrint("setForegroundNotificationPresentationOption")});
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true, // Required to display a heads up notification
+    badge: true,
+    sound: true,
+  );
+  // .then((value) =>
+  //     {debugPrint("setForegroundNotificationPresentationOption")});
 
+  // Foreground Notification While the app running state
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     debugPrint('Got a message whilst in the foreground!');
     debugPrint('Message data: ${message.data}');
@@ -50,6 +50,7 @@ void main() async {
     }
   });
 
+  // When User click the notification and the app will response
   FirebaseMessaging.onMessageOpenedApp.listen((event) {
     debugPrint("onMessageOpenedApp: ${event.data}");
     if (event.data['type'] == 'chat') {

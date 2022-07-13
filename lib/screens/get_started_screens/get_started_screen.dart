@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -51,7 +52,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   var arrivalToID = "-1";
   var departureFromID = "-1";
 
-  late final LocalNotificationService localNotificationService;
+  // late final LocalNotificationService localNotificationService;
 
   @override
   void initState() {
@@ -70,24 +71,24 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
 
     LocalNotificationService.instance.initialize();
 
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    //   debugPrint('Got a message [GetStartedScreen] whilst in the foreground!');
-    //   debugPrint('Message data: ${message.data}');
-    //
-    //   if (message.notification != null) {
-    //     debugPrint(
-    //         'Message also contained a notification: ${message.notification!.title}');
-    //
-    //     localNotificationService.showNotification(
-    //         id: 1,
-    //         title: message.notification!.title!,
-    //         body: message.notification!.body!);
-    //
-    //     if (message.data['type'] == 'chat') {
-    //       debugPrint("Type is Chat Opened");
-    //     }
-    //   }
-    // });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      debugPrint('Got a message [GetStartedScreen] whilst in the foreground!');
+      debugPrint('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        debugPrint(
+            'Message also contained a notification: ${message.notification!.title}');
+
+        LocalNotificationService.instance.showNotification(
+            id: 1,
+            title: message.notification!.title!,
+            body: message.notification!.body!);
+
+        if (message.data['type'] == 'chat') {
+          debugPrint("Type is Chat Opened");
+        }
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getStartedProvider.getPackagesData();

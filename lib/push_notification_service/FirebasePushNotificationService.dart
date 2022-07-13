@@ -16,7 +16,6 @@ class FirebasePushNotificationService {
     description: 'This channel is used for important notifications.',
     // description,
     importance: Importance.max,
-
   );
 
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
