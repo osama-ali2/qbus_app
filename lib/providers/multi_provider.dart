@@ -1,5 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:qbus/screens/auth/forgot_screens/forgot_provider.dart';
+import 'package:qbus/screens/auth/forgot_screens/phone_number_screens/phone_number_provider.dart';
 import 'package:qbus/screens/auth/phone_activation_screens/phone_activation_provider.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/about_us_screens/about_us_provider.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/privacy_policy_screens/privacy_policy_provider.dart';
@@ -124,6 +125,10 @@ final multiProviders = [
   ),
   ChangeNotifierProvider<PackageSelectAdditionProvider>(
     create: (_) => PackageSelectAdditionProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PhoneNumberProvider>(
+    create: (_) => PhoneNumberProvider(),
     lazy: true,
   ),
 ];

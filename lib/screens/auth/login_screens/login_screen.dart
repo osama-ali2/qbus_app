@@ -6,6 +6,7 @@ import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/auth/forgot_screens/forgot_screen.dart';
+import 'package:qbus/screens/auth/forgot_screens/phone_number_screens/phone_number_screen.dart';
 import 'package:qbus/screens/auth/login_screens/login_provider.dart';
 import 'package:qbus/screens/auth/sign_up_screens/sign_up_screen.dart';
 import 'package:qbus/utils/constant.dart';
@@ -153,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ForgotScreen()));
+                              builder: (context) => const PhoneNumberScreen()));
                     },
                     child: CustomText(
                         text: AppLocalizations.of(context)!.forget_password,
