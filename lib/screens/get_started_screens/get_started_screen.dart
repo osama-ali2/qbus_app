@@ -443,22 +443,22 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: sizes!.heightRatio * 15,
           ),
 
-          CustomButton(
-              name: "Click",
-              buttonColor: appColor,
-              height: sizes!.heightRatio * 45,
-              width: double.infinity,
-              textSize: sizes!.fontRatio * 16,
-              textColor: Colors.white,
-              fontWeight: FontWeight.normal,
-              borderRadius: 5,
-              onTapped: () async {
-                await LocalNotificationService.instance.showNotification(
-                    id: 0, title: "title", body: "Notify Show");
-                // await localNotificationService.showScheduleNotification(
-                //     id: 1, title: "title", body: "Schedule Notify", seconds: 5);
-              },
-              padding: 0),
+          // CustomButton(
+          //     name: "Click",
+          //     buttonColor: appColor,
+          //     height: sizes!.heightRatio * 45,
+          //     width: double.infinity,
+          //     textSize: sizes!.fontRatio * 16,
+          //     textColor: Colors.white,
+          //     fontWeight: FontWeight.normal,
+          //     borderRadius: 5,
+          //     onTapped: () async {
+          //       await LocalNotificationService.instance.showNotification(
+          //           id: 0, title: "title", body: "Notify Show");
+          //       // await localNotificationService.showScheduleNotification(
+          //       //     id: 1, title: "title", body: "Schedule Notify", seconds: 5);
+          //     },
+          //     padding: 0),
           CustomButton(
               name: AppLocalizations.of(context)!.search,
               buttonColor: appColor,
