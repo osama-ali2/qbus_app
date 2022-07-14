@@ -32,10 +32,10 @@ class PhoneNumberProvider with ChangeNotifier {
         "phone": phoneNumber,
       };
 
-      debugPrint("URL: $resetPasswordApiUrl");
+      debugPrint("URL: $forgetPasswordApiUrl");
 
       forgotPasswordResponse = await MyApi.callPostApi(
-          url: resetPasswordApiUrl,
+          url: forgetPasswordApiUrl,
           body: body,
           myHeaders: header,
           modelName: Models.forgotPasswordModel);

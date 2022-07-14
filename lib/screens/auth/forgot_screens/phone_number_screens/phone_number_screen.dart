@@ -8,6 +8,7 @@ import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/auth/forgot_screens/forgot_provider.dart';
+import 'package:qbus/screens/auth/forgot_screens/forgot_screen.dart';
 import 'package:qbus/screens/auth/forgot_screens/phone_number_screens/phone_number_provider.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
@@ -110,7 +111,8 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
 
       if (phoneNumberProvider.isSuccessful) {
         if (!mounted) return;
-        Navigator.pop(context);
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const ForgotScreen()));
       }
     } else {
       Toasts.getErrorToast(text: "Mobile Number is required");

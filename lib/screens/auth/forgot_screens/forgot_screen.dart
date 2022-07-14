@@ -10,6 +10,7 @@ import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/auth/forgot_screens/forgot_provider.dart';
+import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/widgets/text_views.dart';
 
 import '../../../utils/constant.dart';
@@ -209,7 +210,8 @@ class _ForgotScreenState extends State<ForgotScreen> {
 
       if (forgotProvider.isSuccessful) {
         if (!mounted) return;
-        Navigator.pop(context);
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
       }
     } else if (code.isEmpty) {
       Toasts.getErrorToast(text: "Field is required");
