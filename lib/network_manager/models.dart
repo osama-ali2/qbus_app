@@ -11,6 +11,7 @@ import 'package:qbus/models/contact_us/GetContactUsResponse.dart';
 import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
 import 'package:qbus/models/packages/PackageDetailResponse.dart';
 import 'package:qbus/models/privacy_policy/PrivacyPolicyResponse.dart';
+import 'package:qbus/models/profile/UpdateUserProfileResponse.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
 import '../models/additionals/GetAdditionalResponse.dart';
 import '../models/cities/GetCitiesResponse.dart';
@@ -34,6 +35,7 @@ class Models {
   static const String verifyPhoneModel = "verifyPhoneModel";
   static const String userProfileModel = "userProfileModel";
   static const String privacyPolicyModel = "privacyPolicyModel";
+  static const String updateUserProfileModel = "updateUserProfileModel";
 
   static const String loginModel = "loginModel";
   static const String signupModel = "signupModel";
@@ -43,6 +45,8 @@ class Models {
   static Future<dynamic> getModelObject(
       String modelName, Map<String, dynamic> json) async {
     switch (modelName) {
+      case updateUserProfileModel:
+        return UpdateUserProfileResponse.fromJson(json);
       case packageAdditionalsModel:
         return PackageAdditionalsResponse.fromJson(json);
       case tripAdditionalsModel:

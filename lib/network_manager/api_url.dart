@@ -24,5 +24,8 @@ const String contactUsApiUrl = "$baseUrl/contact_us";
 const String getUserInfoApiUrl = "$baseUrl/user_info";
 const String getPrivacyPolicyApiUrl = "$baseUrl/privacy_policy";
 
+const String updateUserProfileApiUrl = "$baseUrl/update_profile";
+
+
 //Ignore
 const String kGoogleApiKey = "AIzaSyB20XGkT-LGQV7DexxbA5_q_HQrss1moSQ";

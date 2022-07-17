@@ -21,6 +21,7 @@ class ProfileProvider with ChangeNotifier {
   bool isUserLogout = false;
   bool isProfileLoading = false;
 
+
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
     isUserLogout = false;

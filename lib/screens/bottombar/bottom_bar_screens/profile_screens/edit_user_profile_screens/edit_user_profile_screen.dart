@@ -26,7 +26,10 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
   late TextEditingController userNameController;
   late TextEditingController emailController;
 
-  var selectedCity = "City";
+  var selectMaritalStatus = "Select Marital Status";
+
+  var updateCity = "City";
+  var updateCityID = "-1";
 
   @override
   void initState() {
@@ -54,145 +57,191 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
               fontWeight: FontWeight.w700,
               textColor: Colors.white),
         ),
-        body: Container(
-          color: AppColors.white,
-          height: sizes!.height,
-          width: sizes!.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CommonPadding.sizeBoxWithHeight(height: 20),
-              CustomTextField(
-                controller: userNameController,
-                padding: 0,
-                validator: (val) => null,
-                inputType: TextInputType.name,
-                hint: AppLocalizations.of(context)!.full_name,
-              ).get20HorizontalPadding(),
-              CommonPadding.sizeBoxWithHeight(height: 15),
-              CustomTextField(
-                controller: emailController,
-                padding: 0,
-                validator: (val) => null,
-                inputType: TextInputType.name,
-                hint: AppLocalizations.of(context)!.email,
-              ).get20HorizontalPadding(),
-              CommonPadding.sizeBoxWithHeight(height: 15),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 20.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 58,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey.shade400),
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Center(
-                    child: DropdownButton<String>(
-                      hint: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: sizes!.widthRatio * 10),
-                        child:  CustomText(
-                            text: AppLocalizations.of(context)!.city,
-                            textSize: 12,
-                            fontWeight: FontWeight.normal,
-                            textColor: Colors.black),
+        body: SingleChildScrollView(
+          child: Container(
+            color: AppColors.white,
+            height: sizes!.height,
+            width: sizes!.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CommonPadding.sizeBoxWithHeight(height: 20),
+                CustomTextField(
+                  controller: userNameController,
+                  padding: 0,
+                  validator: (val) => null,
+                  inputType: TextInputType.name,
+                  hint: AppLocalizations.of(context)!.full_name,
+                ).get20HorizontalPadding(),
+                CommonPadding.sizeBoxWithHeight(height: 15),
+                CustomTextField(
+                  controller: emailController,
+                  padding: 0,
+                  validator: (val) => null,
+                  inputType: TextInputType.emailAddress,
+                  hint: AppLocalizations.of(context)!.email,
+                ).get20HorizontalPadding(),
+                CommonPadding.sizeBoxWithHeight(height: 15),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: sizes!.widthRatio * 20.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: sizes!.heightRatio * 48,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Center(
+                      child: DropdownButton<String>(
+                        hint: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: sizes!.widthRatio * 10),
+                          child: CustomText(
+                              text: updateCity,
+                              textSize: 12,
+                              fontWeight: FontWeight.normal,
+                              textColor: Colors.black),
+                        ),
+                        underline: const SizedBox(),
+                        isExpanded: true,
+                        items: editUserProfileProvider.cityList
+                            .map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            updateCity = value!;
+                            debugPrint("selectedCity: $updateCity");
+
+                            var l = editUserProfileProvider.citiesList.length;
+                            for (int i = 0; i < l; i++) {
+                              String name =
+                                  editUserProfileProvider.citiesList[i]['city'];
+                              String id =
+                                  editUserProfileProvider.citiesList[i]['id'];
+                              debugPrint("city: $name, id: $id");
+                              if (name.contains(updateCity)) {
+                                updateCityID = id;
+                                debugPrint(
+                                    "MatchedCity&Id: $name, $updateCityID");
+                              }
+                            }
+                          });
+                        },
                       ),
-                      underline: const SizedBox(),
-                      isExpanded: true,
-                      items: <String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
-                          .map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          selectedCity = value!;
-                        });
-                        debugPrint("selectedCity: $selectedCity");
-                      },
                     ),
                   ),
                 ),
-              ),
-              CommonPadding.sizeBoxWithHeight(height: 15),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 20.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 58,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey.shade400),
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Center(
-                    child: DropdownButton<String>(
-                      hint: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: sizes!.widthRatio * 10),
-                        child:  CustomText(
-                            text: AppLocalizations.of(context)!.marital_status,
-                            textSize: 12,
-                            fontWeight: FontWeight.normal,
-                            textColor: Colors.black),
+                CommonPadding.sizeBoxWithHeight(height: 15),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: sizes!.widthRatio * 20.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 58,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Center(
+                      child: DropdownButton<String>(
+                        hint: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: sizes!.widthRatio * 10),
+                          child: CustomText(
+                              text: selectMaritalStatus,
+                              //AppLocalizations.of(context)!.marital_status,
+                              textSize: 12,
+                              fontWeight: FontWeight.normal,
+                              textColor: Colors.black),
+                        ),
+                        underline: const SizedBox(),
+                        isExpanded: true,
+                        items:
+                            <String>['Single', 'Married'].map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            selectMaritalStatus = value!;
+                          });
+                          debugPrint("selectedCity: $selectMaritalStatus");
+                        },
                       ),
-                      underline: const SizedBox(),
-                      isExpanded: true,
-                      items: <String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
-                          .map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          selectedCity = value!;
-                        });
-                        debugPrint("selectedCity: $selectedCity");
-                      },
                     ),
                   ),
                 ),
-              ),
-              CommonPadding.sizeBoxWithHeight(height: 20),
-              CustomButton(
-                      name: "Update",
-                      buttonColor: appColor,
-                      height: sizes!.heightRatio * 45,
-                      width: double.infinity,
-                      textSize: sizes!.fontRatio * 16,
-                      textColor: Colors.white,
-                      fontWeight: FontWeight.normal,
-                      borderRadius: 5,
-                      onTapped: () {
-                        Navigator.pop(context);
-                      },
-                      padding: 0)
-                  .get20HorizontalPadding(),
-              CommonPadding.sizeBoxWithHeight(height: 10),
-              CustomOutlineButton(
-                      name: "Change Password",
-                      buttonColor: appColor,
-                      height: sizes!.heightRatio * 45,
-                      width: double.infinity,
-                      textSize: sizes!.fontRatio * 16,
-                      textColor: AppColors.primary,
-                      fontWeight: FontWeight.normal,
-                      borderRadius: 5,
-                      onTapped: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const ChangePasswordScreen()));
-                      },
-                      padding: 0)
-                  .get20HorizontalPadding(),
-            ],
+                CommonPadding.sizeBoxWithHeight(height: 20),
+                CustomButton(
+                        name: "Update",
+                        buttonColor: appColor,
+                        height: sizes!.heightRatio * 45,
+                        width: double.infinity,
+                        textSize: sizes!.fontRatio * 16,
+                        textColor: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        borderRadius: 5,
+                        onTapped: () {
+                          updateUserProfile();
+                        },
+                        padding: 0)
+                    .get20HorizontalPadding(),
+                CommonPadding.sizeBoxWithHeight(height: 10),
+                CustomOutlineButton(
+                        name: "Change Password",
+                        buttonColor: appColor,
+                        height: sizes!.heightRatio * 45,
+                        width: double.infinity,
+                        textSize: sizes!.fontRatio * 16,
+                        textColor: AppColors.primary,
+                        fontWeight: FontWeight.normal,
+                        borderRadius: 5,
+                        onTapped: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const ChangePasswordScreen(),
+                            ),
+                          );
+                        },
+                        padding: 0)
+                    .get20HorizontalPadding(),
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  void updateUserProfile() async {
+    var name = userNameController.text.toString().trim();
+    var userEmail = emailController.text.toString().trim();
+
+    if (name.isNotEmpty &&
+        userEmail.isNotEmpty &&
+        selectMaritalStatus != "" &&
+        updateCity != "" &&
+        updateCityID != "") {
+      await editUserProfileProvider.updateUserProfile(
+          userEmail: userEmail,
+          name: name,
+          cityId: updateCityID,
+          maritalStatus: selectMaritalStatus,
+          address: "address");
+      if (editUserProfileProvider.isProfileUpdated == true) {
+        if (!mounted) return;
+        Navigator.pop(context);
+      }
+    } else if (name.isEmpty) {
+    } else if (userEmail.isEmpty) {}
   }
 }
