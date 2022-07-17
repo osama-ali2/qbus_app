@@ -74,7 +74,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                     textAlign: TextAlign.center,
                     lines: 4),
               ).get20HorizontalPadding(),
-              CommonPadding.sizeBoxWithHeight(height: 50),
+              CommonPadding.sizeBoxWithHeight(height: 30),
               CustomTextField(
                 controller: phoneNumberController,
                 padding: 20,
