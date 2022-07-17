@@ -82,7 +82,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                 inputType: TextInputType.number,
                 hint: "Mobile Number",
               ),
-              CommonPadding.sizeBoxWithHeight(height: 60),
+              CommonPadding.sizeBoxWithHeight(height: 80),
               CustomButton(
                   name: "Send Code",
                   buttonColor: appColor,
@@ -106,16 +106,24 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
   Future<void> validateData() async {
     var phoneNumber = phoneNumberController.text.toString().trim();
 
-    if (phoneNumber.isNotEmpty) {
+    if (phoneNumber.isNotEmpty && phoneNumber.length >= 8) {
       await phoneNumberProvider.forgetPasswordUser(phoneNumber: phoneNumber);
 
-      if (phoneNumberProvider.isSuccessful) {
+      if (phoneNumberProvider.isSuccessful == true) {
         if (!mounted) return;
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const ForgotScreen()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ForgotScreen(
+              phoneNumber: phoneNumber,
+            ),
+          ),
+        );
       }
-    } else {
+    } else if (phoneNumber.isEmpty) {
       Toasts.getErrorToast(text: "Mobile Number is required");
+    } else if (phoneNumber.length < 8) {
+      Toasts.getErrorToast(text: "The Phone must be at least 8");
     }
   }
 }

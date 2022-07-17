@@ -18,7 +18,9 @@ import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_password_textField.dart';
 
 class ForgotScreen extends StatefulWidget {
-  const ForgotScreen({Key? key}) : super(key: key);
+  final String? phoneNumber;
+
+  const ForgotScreen({Key? key, this.phoneNumber}) : super(key: key);
 
   @override
   State<ForgotScreen> createState() => _ForgotScreenState();
@@ -106,7 +108,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
               CommonPadding.sizeBoxWithHeight(height: 30),
               Center(
                 child: TextView.getMediumText16(
-                    "Reset Password Token has been sent to +966521***.",
+                    "Reset Password Token has been sent to ${widget.phoneNumber}",
                     Assets.latoBold,
                     color: AppColors.black900,
                     fontWeight: FontWeight.w500,
