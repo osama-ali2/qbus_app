@@ -46,7 +46,8 @@ class LoginProvider with ChangeNotifier {
         PreferenceUtils.clearPreferences();
         _logger.d("loginResponse: ${loginResponse.toJson()}");
 
-        await FirebasePushNotificationService.initializeNotification(userTopic: password);
+        await FirebasePushNotificationService.initializeNotification(
+            userTopic: password);
 
         await PreferenceUtils.setLoginResponse(loginResponse).then((_) async {
           String name = PreferenceUtils.getString(Strings.loginName) ?? "";

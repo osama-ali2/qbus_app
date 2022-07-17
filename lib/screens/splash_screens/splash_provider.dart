@@ -26,12 +26,12 @@ class SplashProvider with ChangeNotifier {
       _logger.d(
           "loginUserToken: ${PreferenceUtils.getString(Strings.loginUserToken)}");
 
-      await Navigator.pushAndRemoveUntil(
+      Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const BottomBarScreen()),
           (route) => false);
     } else {
-      await Navigator.pushAndRemoveUntil(
+      Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const GetStartedScreen()),
           (route) => false);

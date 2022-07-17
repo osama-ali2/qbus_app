@@ -44,28 +44,28 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         bottomNavigationBar: BottomNavigationBar(
           items:  [
             BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.home_outlined,
                 size: 28,
               ),
               label: AppLocalizations.of(context)!.home,
             ),
             BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.list,
                 size: 28,
               ),
               label: AppLocalizations.of(context)!.history,
             ),
             BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.person_outline,
                 size: 28,
               ),
               label: AppLocalizations.of(context)!.profile,
             ),
             BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.settings,
                 size: 28,
               ),

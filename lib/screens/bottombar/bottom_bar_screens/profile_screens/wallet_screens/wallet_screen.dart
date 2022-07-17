@@ -18,15 +18,18 @@ class WalletScreen extends StatefulWidget {
 }
 
 class _WalletScreenState extends State<WalletScreen> {
-  late WalletProvider changePasswordProvider;
+  late WalletProvider walletProvider;
 
   @override
   void initState() {
     super.initState();
-    changePasswordProvider = WalletProvider();
-    changePasswordProvider =
-        Provider.of<WalletProvider>(context, listen: false); //Read
-    changePasswordProvider.init(context: context);
+    walletProvider = WalletProvider();
+    walletProvider = Provider.of<WalletProvider>(context, listen: false); //Read
+    walletProvider.init(context: context);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      walletProvider.getUserProfile();
+    });
   }
 
   @override
@@ -68,22 +71,31 @@ class _WalletScreenState extends State<WalletScreen> {
                   padding: EdgeInsets.symmetric(
                       horizontal: sizes!.widthRatio * 10,
                       vertical: sizes!.widthRatio * 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const CustomText(
-                          text: "My Balance",
-                          textSize: 14,
-                          fontWeight: FontWeight.w400,
-                          textColor: Colors.black),
-                      CommonPadding.sizeBoxWithHeight(height: 10),
-                      const CustomText(
-                          text: "SAR 25.00 ",
-                          textSize: 40,
-                          fontWeight: FontWeight.w700,
-                          textColor: Colors.black),
-                    ],
-                  ),
+                  child: walletProvider.isProfileLoading == true
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const CustomText(
+                                text: "My Balance",
+                                textSize: 14,
+                                fontWeight: FontWeight.w400,
+                                textColor: Colors.black),
+                            CommonPadding.sizeBoxWithHeight(height: 10),
+                            CustomText(
+                                text:
+                                    "SAR ${walletProvider.userResponse.data!.user!.wallet.toString()}",
+                                textSize: 40,
+                                fontWeight: FontWeight.w700,
+                                textColor: Colors.black),
+                          ],
+                        )
+                      : const Center(
+                          child: CustomText(
+                              text: "No Credit Available",
+                              textSize: 14,
+                              fontWeight: FontWeight.w400,
+                              textColor: Colors.black),
+                        ),
                 ),
               ).get20HorizontalPadding(),
             ],

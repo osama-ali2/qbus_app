@@ -7,6 +7,7 @@ import '../../models/packages/PackagesResponse.dart';
 import '../../network_manager/api_url.dart';
 import '../../network_manager/models.dart';
 import '../../network_manager/my_api.dart';
+import '../../push_notification_service/FirebasePushNotificationService.dart';
 
 class GetStartedProvider with ChangeNotifier {
   BuildContext? context;
@@ -29,6 +30,8 @@ class GetStartedProvider with ChangeNotifier {
     isCityDataLoaded = false;
     isDataLoaded = false;
     // await getCitiesData();
+    await FirebasePushNotificationService.initializeNotification(
+        userTopic: "qbus");
   }
 
   Future<void> getPackagesData() async {
@@ -58,7 +61,6 @@ class GetStartedProvider with ChangeNotifier {
       // };
 
       debugPrint("URL: $packagesApiUrl");
-
 
       // Response response = await dio.post(packagesApiUrl,
       //     data: body,
