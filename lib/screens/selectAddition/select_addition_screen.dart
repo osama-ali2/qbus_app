@@ -61,8 +61,8 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                 textColor: Colors.white,
                 fontWeight: FontWeight.w500,
                 borderRadius: 5,
-                onTapped: () {
-                  callOrderTrip();
+                onTapped: () async {
+                  await callOrderTrip();
                 },
                 padding: 20),
             const SizedBox(
@@ -128,9 +128,9 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
     );
   }
 
-
-  Future<void> callOrderTrip()async{
+  Future<void> callOrderTrip() async {
     await selectAdditionProvider.roundOrderTrip();
+    await selectAdditionProvider.multiOrderTrip();
   }
 
   Widget itemContainer({required String name, required int index}) => Column(

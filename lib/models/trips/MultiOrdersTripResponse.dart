@@ -2,8 +2,8 @@
 /// message : "TripOrder saved successfully."
 /// data : {"message":"TripOrder saved successfully."}
 
-class RoundOrdersTripResponse {
-  RoundOrdersTripResponse({
+class MultiOrdersTripResponse {
+  MultiOrdersTripResponse({
       int? code, 
       String? message, 
       Data? data,}){
@@ -12,7 +12,7 @@ class RoundOrdersTripResponse {
     _data = data;
 }
 
-  RoundOrdersTripResponse.fromJson(dynamic json) {
+  MultiOrdersTripResponse.fromJson(dynamic json) {
     _code = json['code'];
     _message = json['message'];
     _data = json['data'] != null ? Data.fromJson(json['data']) : null;

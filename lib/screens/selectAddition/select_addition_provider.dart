@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/models/additionals/TripAdditionalsResponse.dart';
+import 'package:qbus/models/trips/MultiOrdersTripResponse.dart';
 import 'package:qbus/models/trips/RoundOrdersTripResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
 import 'package:qbus/widgets/loader.dart';
@@ -16,14 +17,20 @@ class SelectAdditionProvider with ChangeNotifier {
 
   bool isOneWayOrderTripSaved = false;
   bool isRoundOrderTripSaved = false;
+  bool isMultiOrderTripSaved = false;
+
   TripAdditionalsResponse tripAdditionalsResponse = TripAdditionalsResponse();
+
   RoundOrdersTripResponse roundOrderTripResponse = RoundOrdersTripResponse();
+  MultiOrdersTripResponse multiOrdersTripResponse = MultiOrdersTripResponse();
+
   List<int> selectAdditionalList = [];
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
     isOneWayOrderTripSaved = false;
     isRoundOrderTripSaved = false;
+    isMultiOrderTripSaved = false;
   }
 
   Future<void> getAdditionalData({required String id}) async {
@@ -96,10 +103,11 @@ class SelectAdditionProvider with ChangeNotifier {
           myHeaders: header,
           body: body,
           modelName: Models.roundOrderTripModel);
-      // debugPrint("aBody: $body");
+      debugPrint("Body: $body");
 
       if (roundOrderTripResponse.code == 1) {
-        _logger.d("roundOrderTripResponse: ${roundOrderTripResponse.toJson()}");
+        _logger.d(
+            "roundOrderTripResponse: ${roundOrderTripResponse.toJson()}, ${roundOrderTripResponse.data!.message.toString()}");
         _loader.hideLoader(context!);
         isRoundOrderTripSaved = true;
         notifyListeners();
@@ -109,6 +117,63 @@ class SelectAdditionProvider with ChangeNotifier {
       }
     } catch (e) {
       _logger.d("roundOrderTripResponseError: ${e.toString()}");
+      _loader.hideLoader(context!);
+    }
+  }
+
+  Future<void> multiOrderTrip() async {
+    try {
+      _loader.showLoader(context: context);
+
+      Map<String, dynamic> header = {"Content-Type": "application/json"};
+
+      final body = {
+        "trips": [
+          {
+            "trip_id": "34",
+            "count": "3",
+            "code": "SALE20",
+            "additional": ["2", "3"],
+            "additional_count": [
+              {"2": "4"},
+              {"3": "2"}
+            ],
+            "user_notes": ""
+          },
+          {
+            "trip_id": "34",
+            "count": "3",
+            "code": "SALE20",
+            "additional": ["2", "3"],
+            "additional_count": {"2": "4", "3": "2"},
+            "user_notes": ""
+          }
+        ]
+      };
+
+      var url = multiOrderTripApiUrl;
+
+      debugPrint("URL: $url");
+      multiOrdersTripResponse = await MyApi.callPostApi(
+          url: url,
+          myHeaders: header,
+          body: body,
+          modelName: Models.multiOrderTripModel);
+      debugPrint("Body: $body");
+
+      if (multiOrdersTripResponse.code == 1) {
+        _logger.d(
+            "multiOrdersTripResponse: ${multiOrdersTripResponse.toJson()}, ${multiOrdersTripResponse.data!.message.toString()}");
+        _loader.hideLoader(context!);
+        isMultiOrderTripSaved = true;
+        notifyListeners();
+      } else {
+        debugPrint("multiOrdersTripResponse: Something wrong");
+        _loader.hideLoader(context!);
+      }
+    } catch (e) {
+      _logger.d("multiOrdersTripResponseError: ${e.toString()}");
+      _loader.hideLoader(context!);
     }
   }
 }
