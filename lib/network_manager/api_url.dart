@@ -24,8 +24,12 @@ const String contactUsApiUrl = "$baseUrl/contact_us";
 const String getUserInfoApiUrl = "$baseUrl/user_info";
 const String getPrivacyPolicyApiUrl = "$baseUrl/privacy_policy";
 const String getReturnPolicyApiUrl = "$baseUrl/return_policy";
-
 const String updateUserProfileApiUrl = "$baseUrl/update_profile";
+
+//Trips:
+const String oneWayOrderTripApiUrl = "$baseUrl/oneway_orders";
+const String roundOrderTripApiUrl = "$baseUrl/round_orders";
+const String multiOrderTripApiUrl = "$baseUrl/multi_orders";
 
 //Ignore
 const String kGoogleApiKey = "AIzaSyB20XGkT-LGQV7DexxbA5_q_HQrss1moSQ";

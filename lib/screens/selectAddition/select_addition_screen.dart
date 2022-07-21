@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
-import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/selectAddition/select_addition_provider.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
@@ -54,7 +53,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
         child: Column(
           children: [
             CustomButton(
-                name: "PROCEED TO PAYMENT",
+                name: "Save Trip",
                 buttonColor: appColor,
                 height: sizes!.heightRatio * 45,
                 width: double.infinity,
@@ -63,7 +62,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                 fontWeight: FontWeight.w500,
                 borderRadius: 5,
                 onTapped: () {
-                  Toasts.getErrorToast(text: "Try it Later");
+                  callOrderTrip();
                 },
                 padding: 20),
             const SizedBox(
@@ -127,6 +126,11 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
               child: Text("No Data Available"),
             ),
     );
+  }
+
+
+  Future<void> callOrderTrip()async{
+    await selectAdditionProvider.roundOrderTrip();
   }
 
   Widget itemContainer({required String name, required int index}) => Column(

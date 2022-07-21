@@ -13,6 +13,7 @@ import 'package:qbus/models/packages/PackageDetailResponse.dart';
 import 'package:qbus/models/privacy_policy/PrivacyPolicyResponse.dart';
 import 'package:qbus/models/privacy_policy/ReturnPolicyResponse.dart';
 import 'package:qbus/models/profile/UpdateUserProfileResponse.dart';
+import 'package:qbus/models/trips/RoundOrdersTripResponse.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
 import '../models/additionals/GetAdditionalResponse.dart';
 import '../models/cities/GetCitiesResponse.dart';
@@ -44,9 +45,14 @@ class Models {
   static const String logoutModel = "logoutModel";
   static const String forgotPasswordModel = "forgotPasswordModel";
 
+  //Trips:
+  static const String roundOrderTripModel = "roundOrderTripModel";
+
   static Future<dynamic> getModelObject(
       String modelName, Map<String, dynamic> json) async {
     switch (modelName) {
+      case roundOrderTripModel:
+        return RoundOrdersTripResponse.fromJson(json);
       case returnPolicyModel:
         return ReturnPolicyResponse.fromJson(json);
       case updateUserProfileModel:
