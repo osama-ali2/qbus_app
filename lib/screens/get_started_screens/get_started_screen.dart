@@ -19,7 +19,7 @@ import '../../../../widgets/custom_button.dart';
 import '../../res/colors.dart';
 import '../explore_screens/explore_screen.dart';
 import '../explore_screens/package_detail_screens/package_detail_screen.dart';
-import '../search_screens/search_result.dart';
+import '../trips_search_screens/search_result.dart';
 
 class GetStartedScreen extends StatefulWidget {
   const GetStartedScreen({Key? key}) : super(key: key);
@@ -52,8 +52,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   var arrivalToID = "-1";
   var departureFromID = "-1";
 
-  // late final LocalNotificationService localNotificationService;
-
   @override
   void initState() {
     super.initState();
@@ -65,10 +63,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     arrivalToController = TextEditingController();
     dateController = TextEditingController();
     _selectedStartDate = DateTime.now();
-
-    // localNotificationService = LocalNotificationService();
-    // localNotificationService.initialize();
-
     LocalNotificationService.instance.initialize();
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {

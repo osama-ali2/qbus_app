@@ -6,12 +6,12 @@ import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
-import 'package:qbus/screens/search_screens/search_result.dart';
 import '../../res/res.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text.dart';
 import '../../widgets/custom_textField.dart';
+import '../trips_search_screens/search_result.dart';
 
 class TripFilterScreen extends StatefulWidget {
   const TripFilterScreen({Key? key}) : super(key: key);

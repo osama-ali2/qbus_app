@@ -3,9 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
-import 'package:qbus/screens/search_screens/search_provider.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';
-
 import '../../../../navigation/navigation_helper.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
@@ -16,6 +14,7 @@ import '../../res/res.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/text_views.dart';
 import '../selectAddition/select_addition_screen.dart';
+import 'search_provider.dart';
 
 class SearchResult extends StatefulWidget {
   final TripFilterModel? tripFilterModel;
@@ -159,10 +158,11 @@ class _SearchResultState extends State<SearchResult> {
                         borderRadius: 5,
                         onTapped: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const TripFilterScreen()));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TripFilterScreen(),
+                            ),
+                          );
                         },
                         padding: 0)
                     .get20HorizontalPadding()

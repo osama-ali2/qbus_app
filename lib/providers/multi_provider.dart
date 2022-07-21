@@ -9,6 +9,7 @@ import 'package:qbus/screens/explore_screens/package_detail_screens/package_deta
 import 'package:qbus/screens/explore_screens/package_select_addition_screens/package_select_addition_provider.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_provider.dart';
+import 'package:qbus/screens/trips_search_screens/search_provider.dart';
 import '../screens/auth/login_screens/login_provider.dart';
 import '../screens/auth/sign_up_screens/sign_up_provider.dart';
 import '../screens/bottombar/bottom_bar_screens/booking_history_screens/booking_history_provider.dart';
@@ -22,7 +23,6 @@ import '../screens/bottombar/bottom_bar_screens/setting_select_lang_screens/sett
 
 import '../screens/explore_screens/explore_provider.dart';
 import '../screens/explore_screens/package_filter_screens/package_filter_provider.dart';
-import '../screens/search_screens/search_provider.dart';
 import '../screens/selectAddition/select_addition_provider.dart';
 import '../screens/splash_screens/splash_provider.dart';
 
