@@ -129,6 +129,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
   }
 
   Future<void> callOrderTrip() async {
+    await selectAdditionProvider.oneWayOrderTrip();
     await selectAdditionProvider.roundOrderTrip();
     await selectAdditionProvider.multiOrderTrip();
   }

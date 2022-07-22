@@ -14,6 +14,7 @@ import 'package:qbus/models/privacy_policy/PrivacyPolicyResponse.dart';
 import 'package:qbus/models/privacy_policy/ReturnPolicyResponse.dart';
 import 'package:qbus/models/profile/UpdateUserProfileResponse.dart';
 import 'package:qbus/models/trips/MultiOrdersTripResponse.dart';
+import 'package:qbus/models/trips/OneWayOrdersTripResponse.dart';
 import 'package:qbus/models/trips/RoundOrdersTripResponse.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
 import '../models/additionals/GetAdditionalResponse.dart';
@@ -47,12 +48,15 @@ class Models {
   static const String forgotPasswordModel = "forgotPasswordModel";
 
   //Trips:
+  static const String oneWayOrderTripModel = "oneWayOrderTripModel";
   static const String roundOrderTripModel = "roundOrderTripModel";
   static const String multiOrderTripModel = "multiOrderTripModel";
 
   static Future<dynamic> getModelObject(
       String modelName, Map<String, dynamic> json) async {
     switch (modelName) {
+      case oneWayOrderTripModel:
+        return OneWayOrdersTripResponse.fromJson(json);
       case multiOrderTripModel:
         return MultiOrdersTripResponse.fromJson(json);
       case roundOrderTripModel:
