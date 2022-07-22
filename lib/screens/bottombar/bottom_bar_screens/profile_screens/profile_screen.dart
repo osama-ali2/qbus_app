@@ -17,10 +17,8 @@ import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/profil
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/return_policy_screens/return_policy_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/wallet_screens/wallet_screen.dart';
 import 'package:qbus/widgets/text_views.dart';
-
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
-import '../../../../widgets/setting_card.dart';
 import '../contact_us_screens/contact_us_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
