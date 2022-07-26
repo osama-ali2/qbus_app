@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/models/additionals/TripAdditionalsResponse.dart';
+import 'package:qbus/models/error_model/ErrorResponse.dart';
 import 'package:qbus/models/trips/MultiOrdersTripResponse.dart';
 import 'package:qbus/models/trips/OneWayOrdersTripResponse.dart';
 import 'package:qbus/models/trips/RoundOrdersTripResponse.dart';
@@ -29,6 +30,8 @@ class SelectAdditionProvider with ChangeNotifier {
   MultiOrdersTripResponse multiOrdersTripResponse = MultiOrdersTripResponse();
   OneWayOrdersTripResponse oneWayOrdersTripResponse =
       OneWayOrdersTripResponse();
+
+  ErrorResponse errorResponse = ErrorResponse();
 
   List<int> selectAdditionalList = [];
 
@@ -91,44 +94,43 @@ class SelectAdditionProvider with ChangeNotifier {
       };
 
       var url = oneWayOrderTripApiUrl;
-
       debugPrint("URL: $url");
 
-      Dio dio = Dio();
-
-      Response response = await dio.post(
-        url,
-        options: Options(
-          headers: header,
-        ),
-        data: body,
-      );
-
-      if (response.statusCode == 200) {
-
-        dynamic decode = JsonDecoder(response.data);
-        _logger.d("Response: ${response.data}");
-      } else {
-        _logger.d("ResponseStatus: ${response.statusCode}, ${response.data}");
-      }
-
-      // oneWayOrdersTripResponse = await MyApi.callPostApi(
-      //     url: url,
-      //     myHeaders: header,
-      //     body: body,
-      //     modelName: Models.oneWayOrderTripModel);
-      // debugPrint("Body: $body");
+      // Dio dio = Dio();
       //
-      // if (oneWayOrdersTripResponse.code == 1) {
-      //   _logger.d(
-      //       "oneWayOrdersTripResponse: ${oneWayOrdersTripResponse.toJson()}, ${oneWayOrdersTripResponse.data!.message.toString()}");
-      //   _loader.hideLoader(context!);
-      //   isOneWayOrderTripSaved = true;
-      notifyListeners();
+      // Response response = await dio.post(
+      //   url,
+      //   options: Options(
+      //     headers: header,
+      //   ),
+      //   data: body,
+      // );
+      //
+      // if (response.statusCode == 200) {
+      //
+      //   dynamic decode = JsonDecoder(response.data);
+      //   _logger.d("Response: ${response.data}");
       // } else {
-      //   debugPrint("oneWayOrdersTripResponse: Something wrong");
-      //   _loader.hideLoader(context!);
+      //   _logger.d("ResponseStatus: ${response.statusCode}, ${response.data}");
       // }
+
+      oneWayOrdersTripResponse = await MyApi.callPostApi(
+          url: url,
+          myHeaders: header,
+          body: body,
+          modelName: Models.oneWayOrderTripModel);
+      debugPrint("Body: $body");
+
+      if (errorResponse.code == 1) {
+        _logger.d(
+            "oneWayOrdersTripResponse: ${oneWayOrdersTripResponse.toJson()}, ${oneWayOrdersTripResponse.data!.message.toString()}");
+        _loader.hideLoader(context!);
+        isOneWayOrderTripSaved = true;
+        notifyListeners();
+      } else {
+        debugPrint("oneWayOrdersTripResponse: Something wrong");
+        _loader.hideLoader(context!);
+      }
     } catch (e) {
       _logger.d("oneWayOrdersTripResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
