@@ -95,6 +95,7 @@ class SelectAdditionProvider with ChangeNotifier {
 
       var url = oneWayOrderTripApiUrl;
       debugPrint("URL: $url");
+      debugPrint("Body: $body");
 
       // Dio dio = Dio();
       //
@@ -114,11 +115,11 @@ class SelectAdditionProvider with ChangeNotifier {
       //   _logger.d("ResponseStatus: ${response.statusCode}, ${response.data}");
       // }
 
-      oneWayOrdersTripResponse = await MyApi.callPostApi(
+      errorResponse = await MyApi.callPostApi(
           url: url,
           myHeaders: header,
           body: body,
-          modelName: Models.oneWayOrderTripModel);
+          modelName: Models.errorModel);
       debugPrint("Body: $body");
 
       if (errorResponse.code == 1) {
