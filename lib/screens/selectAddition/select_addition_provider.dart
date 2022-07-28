@@ -36,6 +36,7 @@ class SelectAdditionProvider with ChangeNotifier {
   ErrorResponse errorResponse = ErrorResponse();
 
   List<int> selectAdditionalList = [];
+  List<Map<String, dynamic>> additionalList = [];
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
@@ -46,6 +47,8 @@ class SelectAdditionProvider with ChangeNotifier {
 
   Future<void> getAdditionalData({required String id}) async {
     try {
+      // selectAdditionalList.clear();
+
       _loader.showLoader(context: context);
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
@@ -63,6 +66,11 @@ class SelectAdditionProvider with ChangeNotifier {
 
         var length = tripAdditionalsResponse.data!.additional!.length;
         for (int i = 0; i < length; i++) {
+          Map<String, dynamic> demoData = {
+            "id": 0,
+            "counter": 0,
+          };
+          additionalList.add(demoData);
           selectAdditionalList.add(0);
           debugPrint("selectAdditionalList: ${selectAdditionalList.length}");
         }
@@ -91,23 +99,15 @@ class SelectAdditionProvider with ChangeNotifier {
 
       debugPrint("trips.id: ${trips.id}");
 
+      debugPrint("additionalList: ${additionalList.map((e) => e)}");
+
       Map<String, dynamic> body = {
         "trip_id": trips.id,
         "count": passengersCount,
         "code": "SALE10",
-        "additional": selectAdditionalList, //["2", "3"],
-        "additional_count": {"2": "4", "3": "2"},
+        "additional": additionalList,
         "user_notes": ""
       };
-      //
-      // Map<String, dynamic> body = {
-      //   "trip_id": "34",
-      //   "count": "3",
-      //   "code": "SALE10",
-      //   "additional": ["2", "3"],
-      //   "additional_count": {"2": "4", "3": "2"},
-      //   "user_notes": ""
-      // };
 
       var url = oneWayOrderTripApiUrl;
       debugPrint("URL: $url");
@@ -126,6 +126,7 @@ class SelectAdditionProvider with ChangeNotifier {
             "oneWayOrdersTripResponse: ${oneWayOrdersTripResponse.toJson()}, ${oneWayOrdersTripResponse.data!.message.toString()}");
         _loader.hideLoader(context!);
         isOneWayOrderTripSaved = true;
+        additionalList.clear();
         notifyListeners();
       } else {
         debugPrint("oneWayOrdersTripResponse: Something wrong");
@@ -137,7 +138,8 @@ class SelectAdditionProvider with ChangeNotifier {
     }
   }
 
-  Future<void> roundOrderTrip() async {
+  Future<void> roundOrderTrip(
+      {required Trips trips, required String passengersCount}) async {
     try {
       _loader.showLoader(context: context);
 
@@ -146,25 +148,16 @@ class SelectAdditionProvider with ChangeNotifier {
         "Authorization": "Bearer $userToken"
       };
 
+      Map<String, dynamic> tripBody = {
+        "trip_id": trips.id,
+        "count": passengersCount,
+        "code": "SALE10",
+        "additional": additionalList,
+        "user_notes": ""
+      };
+
       Map<String, dynamic> body = {
-        "trips": [
-          {
-            "trip_id": "34",
-            "count": "3",
-            "code": "SALE20",
-            "additional": ["2", "3"],
-            "additional_count": {"2": "4", "3": "2"},
-            "user_notes": ""
-          },
-          {
-            "trip_id": "34",
-            "count": "3",
-            "code": "SALE20",
-            "additional": ["2", "3"],
-            "additional_count": {"2": "4", "3": "2"},
-            "user_notes": ""
-          }
-        ]
+        "trips": [tripBody]
       };
 
       var url = roundOrderTripApiUrl;
@@ -185,6 +178,7 @@ class SelectAdditionProvider with ChangeNotifier {
             "roundOrderTripResponse: ${roundOrderTripResponse.toJson()}, ${roundOrderTripResponse.data!.message.toString()}");
         _loader.hideLoader(context!);
         isRoundOrderTripSaved = true;
+        additionalList.clear();
         notifyListeners();
       } else {
         debugPrint("roundOrderTripResponse: Something wrong");
@@ -196,7 +190,8 @@ class SelectAdditionProvider with ChangeNotifier {
     }
   }
 
-  Future<void> multiOrderTrip() async {
+  Future<void> multiOrderTrip(
+      {required Trips trips, required String passengersCount}) async {
     try {
       _loader.showLoader(context: context);
 
@@ -204,28 +199,17 @@ class SelectAdditionProvider with ChangeNotifier {
         "Content-Type": "application/json",
         "Authorization": "Bearer $userToken"
       };
+
+      Map<String, dynamic> tripBody = {
+        "trip_id": trips.id,
+        "count": passengersCount,
+        "code": "SALE10",
+        "additional": additionalList,
+        "user_notes": ""
+      };
+
       Map<String, dynamic> body = {
-        "trips": [
-          {
-            "trip_id": "34",
-            "count": "3",
-            "code": "SALE20",
-            "additional": ["2", "3"],
-            "additional_count": [
-              {"2": "4"},
-              {"3": "2"}
-            ],
-            "user_notes": ""
-          },
-          {
-            "trip_id": "34",
-            "count": "3",
-            "code": "SALE20",
-            "additional": ["2", "3"],
-            "additional_count": {"2": "4", "3": "2"},
-            "user_notes": ""
-          }
-        ]
+        "trips": [tripBody]
       };
 
       var url = multiOrderTripApiUrl;

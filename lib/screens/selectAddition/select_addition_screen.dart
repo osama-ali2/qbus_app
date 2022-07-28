@@ -138,7 +138,11 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                 var name = selectAdditionProvider
                     .tripAdditionalsResponse.data!.additional![index].name!.en
                     .toString();
-                return itemContainer(name: name, index: index);
+                var additionId = selectAdditionProvider
+                    .tripAdditionalsResponse.data!.additional![index].id
+                    .toString();
+                return itemContainer(
+                    name: name, index: index, additionId: additionId);
               })
           : const Center(
               child: Text("No Data Available"),
@@ -149,16 +153,30 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
   Future<void> callOrderTrip() async {
     if (widget.isOneWayTripChecked == true) {
       await selectAdditionProvider.oneWayOrderTrip(
-          trips: widget.tripsModel!,
-          passengersCount: "${widget.passengersCount!}");
+          trips: widget.tripsModel!, passengersCount: widget.passengersCount!);
+      if (selectAdditionProvider.isOneWayOrderTripSaved == true) {
+        await selectAdditionProvider.getAdditionalData(id: widget.tripId!);
+      }
     } else if (widget.isRoundTripChecked == true) {
-      await selectAdditionProvider.roundOrderTrip();
+      await selectAdditionProvider.roundOrderTrip(
+          trips: widget.tripsModel!, passengersCount: widget.passengersCount!);
+      if (selectAdditionProvider.isRoundOrderTripSaved == true) {
+        await selectAdditionProvider.getAdditionalData(id: widget.tripId!);
+      }
     } else if (widget.isMultiDestinationChecked == true) {
-      await selectAdditionProvider.multiOrderTrip();
+      await selectAdditionProvider.multiOrderTrip(
+          trips: widget.tripsModel!, passengersCount: widget.passengersCount!);
+      if (selectAdditionProvider.isMultiOrderTripSaved == true) {
+        await selectAdditionProvider.getAdditionalData(id: widget.tripId!);
+      }
     }
   }
 
-  Widget itemContainer({required String name, required int index}) => Column(
+  Widget itemContainer(
+          {required String name,
+          required int index,
+          required String additionId}) =>
+      Column(
         children: [
           const SizedBox(
             height: 10,
@@ -168,14 +186,37 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                   context: context,
                   name: name,
                   add: () {
-                    selectAdditionProvider.selectAdditionalList[index]++;
-                    setState(() {});
+                    // selectAdditionProvider.selectAdditionalList[index]++;
+                    setState(() {
+                      var counter =
+                          selectAdditionProvider.selectAdditionalList[index]++;
+
+                      Map<String, dynamic> selected = {
+                        "id": additionId,
+                        "counter": counter + 1
+                      };
+
+                      selectAdditionProvider.additionalList[index]
+                          .addAll(selected);
+                    });
                   },
                   minus: () {
                     if (selectAdditionProvider.selectAdditionalList[index] >
                         0) {
-                      selectAdditionProvider.selectAdditionalList[index]--;
-                      setState(() {});
+                      // selectAdditionProvider.selectAdditionalList[index]--;
+
+                      setState(() {
+                        var counter = selectAdditionProvider
+                            .selectAdditionalList[index]--;
+
+                        Map<String, dynamic> selected = {
+                          "id": additionId,
+                          "counter": counter - 1
+                        };
+
+                        selectAdditionProvider.additionalList[index]
+                            .addAll(selected);
+                      });
                     }
                   },
                   number: selectAdditionProvider.selectAdditionalList[index])
