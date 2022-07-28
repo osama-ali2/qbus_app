@@ -20,9 +20,20 @@ class SearchResult extends StatefulWidget {
   final TripFilterModel? tripFilterModel;
   final String? fromCity;
   final String? toCity;
+  final bool? isOneWayTripChecked;
+  final bool? isRoundTripChecked;
+  final bool? isMultiDestinationChecked;
+  final String? passengersCount;
 
   const SearchResult(
-      {Key? key, this.tripFilterModel, this.fromCity, this.toCity})
+      {Key? key,
+      this.tripFilterModel,
+      this.fromCity,
+      this.toCity,
+      this.isOneWayTripChecked,
+      this.isRoundTripChecked,
+      this.isMultiDestinationChecked,
+      this.passengersCount})
       : super(key: key);
 
   @override
@@ -31,9 +42,7 @@ class SearchResult extends StatefulWidget {
 
 class _SearchResultState extends State<SearchResult> {
   late SearchProvider searchProvider;
-
   late ScrollController _scrollController;
-
   int index = 0;
 
   @override
@@ -63,6 +72,11 @@ class _SearchResultState extends State<SearchResult> {
       searchProvider.getTripsData(
           tripFilterModel: widget.tripFilterModel!, offset: index);
     });
+
+    debugPrint("isOneWayTripChecked: ${widget.isOneWayTripChecked}");
+    debugPrint("isRoundTripChecked: ${widget.isRoundTripChecked}");
+    debugPrint(
+        "isMultiDestinationChecked: ${widget.isMultiDestinationChecked}");
   }
 
   @override
@@ -114,6 +128,14 @@ class _SearchResultState extends State<SearchResult> {
                                       context,
                                       SelectAdditionScreen(
                                         tripId: tripId,
+                                        tripsModel: data,
+                                        isRoundTripChecked:
+                                            widget.isRoundTripChecked,
+                                        isOneWayTripChecked:
+                                            widget.isOneWayTripChecked,
+                                        isMultiDestinationChecked:
+                                            widget.isMultiDestinationChecked,
+                                        passengersCount: widget.passengersCount,
                                       ),
                                     );
                                   },

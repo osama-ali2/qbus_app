@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/models/trips/TripsResponse.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/selectAddition/select_addition_provider.dart';
@@ -14,8 +15,21 @@ import '../auth/login_screens/login_screen.dart';
 
 class SelectAdditionScreen extends StatefulWidget {
   final String? tripId;
+  final Trips? tripsModel;
+  final bool? isOneWayTripChecked;
+  final bool? isRoundTripChecked;
+  final bool? isMultiDestinationChecked;
+  final String? passengersCount;
 
-  const SelectAdditionScreen({Key? key, this.tripId}) : super(key: key);
+  const SelectAdditionScreen({
+    Key? key,
+    this.tripId,
+    this.tripsModel,
+    this.isOneWayTripChecked,
+    this.isRoundTripChecked,
+    this.isMultiDestinationChecked,
+    this.passengersCount,
+  }) : super(key: key);
 
   @override
   State<SelectAdditionScreen> createState() => _SelectAdditionScreenState();
@@ -25,7 +39,6 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
   int hotel = 0;
   int chicken = 0;
   int water = 0;
-
   int currentIndex = 0;
 
   late SelectAdditionProvider selectAdditionProvider;
@@ -41,6 +54,11 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       selectAdditionProvider.getAdditionalData(id: widget.tripId!);
     });
+
+    debugPrint("isOneWayTripChecked: ${widget.isOneWayTripChecked}");
+    debugPrint("isRoundTripChecked: ${widget.isRoundTripChecked}");
+    debugPrint(
+        "isMultiDestinationChecked: ${widget.isMultiDestinationChecked}");
   }
 
   @override
@@ -129,9 +147,15 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
   }
 
   Future<void> callOrderTrip() async {
-    await selectAdditionProvider.oneWayOrderTrip();
-    await selectAdditionProvider.roundOrderTrip();
-    await selectAdditionProvider.multiOrderTrip();
+    if (widget.isOneWayTripChecked == true) {
+      await selectAdditionProvider.oneWayOrderTrip(
+          trips: widget.tripsModel!,
+          passengersCount: "${widget.passengersCount!}");
+    } else if (widget.isRoundTripChecked == true) {
+      await selectAdditionProvider.roundOrderTrip();
+    } else if (widget.isMultiDestinationChecked == true) {
+      await selectAdditionProvider.multiOrderTrip();
+    }
   }
 
   Widget itemContainer({required String name, required int index}) => Column(

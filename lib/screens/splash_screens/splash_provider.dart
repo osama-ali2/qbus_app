@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
 import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
 
@@ -31,9 +32,10 @@ class SplashProvider with ChangeNotifier {
           MaterialPageRoute(builder: (context) => const BottomBarScreen()),
           (route) => false);
     } else {
+      //Changed: Get Start Screen To Login Screen
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const GetStartedScreen()),
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
           (route) => false);
     }
     notifyListeners();

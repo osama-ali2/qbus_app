@@ -71,6 +71,19 @@ class MyApi {
 
             return null;
 
+          case 404:
+            ErrorResponse errorResponse =
+                await Models.getModelObject(Models.errorModel, response.data);
+            Toasts.getErrorToast(text: errorResponse.data?.message);
+            if (errorResponse.code == 0) {
+              Toasts.getErrorToast(text: errorResponse.message);
+              debugPrint("errorResponse: ${errorResponse.toJson()}");
+              return errorResponse;
+            } else {
+              Toasts.getErrorToast(text: errorResponse.message);
+            }
+            return null;
+
           default:
             Toasts.getErrorToast(text: Strings.badHappenedError);
             return null;
@@ -109,6 +122,18 @@ class MyApi {
               Toasts.getErrorToast(text: validatingErrorResponse.message);
             }
 
+            return null;
+          case 404:
+            ErrorResponse errorResponse =
+                await Models.getModelObject(Models.errorModel, ex.response?.data);
+            Toasts.getErrorToast(text: errorResponse.data?.message);
+            if (errorResponse.code == 0) {
+              Toasts.getErrorToast(text: errorResponse.message);
+              debugPrint("errorResponse: ${errorResponse.toJson()}");
+              return errorResponse;
+            } else {
+              Toasts.getErrorToast(text: errorResponse.message);
+            }
             return null;
           case 500:
             Toasts.getErrorToast(text: "Internal Server Error");

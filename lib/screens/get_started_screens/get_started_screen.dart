@@ -29,10 +29,10 @@ class GetStartedScreen extends StatefulWidget {
 }
 
 class _GetStartedScreenState extends State<GetStartedScreen> {
-  bool oneRoad = false;
+  bool oneWayTrip = false;
   bool roundTrip = true;
   bool multiTrip = false;
-  int number = 0;
+  int passengersNumber = 1;
 
   bool tripType = false;
 
@@ -194,13 +194,14 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              checkBox(context, oneRoad, AppLocalizations.of(context)!.one_way,
+              checkBox(
+                  context, oneWayTrip, AppLocalizations.of(context)!.one_way,
                   () {
                 multiTrip = false;
                 roundTrip = false;
-                oneRoad = true;
+                oneWayTrip = true;
                 setState(() {
-                  tripType = oneRoad;
+                  tripType = oneWayTrip;
                 });
               }),
               checkBox(
@@ -208,7 +209,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   () {
                 multiTrip = false;
                 roundTrip = true;
-                oneRoad = false;
+                oneWayTrip = false;
                 setState(() {
                   tripType = roundTrip;
                 });
@@ -217,7 +218,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   AppLocalizations.of(context)!.multi_destination, () {
                 multiTrip = true;
                 roundTrip = false;
-                oneRoad = false;
+                oneWayTrip = false;
 
                 setState(() {
                   tripType = multiTrip;
@@ -422,14 +423,14 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: sizes!.heightRatio * 10,
           ),
           Counter(
-              number: number,
+              number: passengersNumber,
               onAdd: () {
-                number++;
+                passengersNumber++;
                 setState(() {});
               },
               onMinus: () {
-                if (number > 0) {
-                  number--;
+                if (passengersNumber > 1) {
+                  passengersNumber--;
                   setState(() {});
                 }
               }),
@@ -477,6 +478,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                       SearchResult(
                         fromCity: departureFrom,
                         toCity: arrivalTo,
+                        isMultiDestinationChecked: multiTrip,
+                        isOneWayTripChecked: oneWayTrip,
+                        isRoundTripChecked: roundTrip,
+                        passengersCount: "$passengersNumber",
                         tripFilterModel: TripFilterModel(
                             from_city_id: departureFromID,
                             to_city_id: arrivalToID,

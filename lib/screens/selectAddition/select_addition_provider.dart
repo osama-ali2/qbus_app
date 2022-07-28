@@ -1,17 +1,17 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/additionals/TripAdditionalsResponse.dart';
 import 'package:qbus/models/error_model/ErrorResponse.dart';
 import 'package:qbus/models/trips/MultiOrdersTripResponse.dart';
 import 'package:qbus/models/trips/OneWayOrdersTripResponse.dart';
 import 'package:qbus/models/trips/RoundOrdersTripResponse.dart';
+import 'package:qbus/models/trips/TripsResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
 import 'package:qbus/widgets/loader.dart';
 import '../../network_manager/models.dart';
 import '../../network_manager/my_api.dart';
+import '../../res/strings.dart';
 
 class SelectAdditionProvider with ChangeNotifier {
   BuildContext? context;
@@ -19,6 +19,8 @@ class SelectAdditionProvider with ChangeNotifier {
   final _loader = Loader();
 
   bool isTripLoaded = false;
+
+  var userToken = PreferenceUtils.getString(Strings.loginUserToken);
 
   bool isOneWayOrderTripSaved = false;
   bool isRoundOrderTripSaved = false;
@@ -54,7 +56,6 @@ class SelectAdditionProvider with ChangeNotifier {
 
       tripAdditionalsResponse = await MyApi.callGetApi(
           url: url, myHeaders: header, modelName: Models.tripAdditionalsModel);
-      // debugPrint("aBody: $body");
 
       if (tripAdditionalsResponse.code == 1) {
         _logger
@@ -78,51 +79,48 @@ class SelectAdditionProvider with ChangeNotifier {
     }
   }
 
-  Future<void> oneWayOrderTrip() async {
+  Future<void> oneWayOrderTrip(
+      {required Trips trips, required String passengersCount}) async {
     try {
       _loader.showLoader(context: context);
 
-      Map<String, dynamic> header = {"Content-Type": "application/json"};
+      Map<String, dynamic> header = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $userToken"
+      };
 
-      final body = {
-        "trip_id": "34",
-        "count": "3",
+      debugPrint("trips.id: ${trips.id}");
+      Map<String, dynamic> body = {
+        "trip_id": trips.id,
+        "count": "1",
         "code": "SALE10",
-        "additional": ["2", "3"],
+        "additional": selectAdditionalList, //["2", "3"],
         "additional_count": {"2": "4", "3": "2"},
         "user_notes": ""
       };
+      //
+      // Map<String, dynamic> body = {
+      //   "trip_id": "34",
+      //   "count": "3",
+      //   "code": "SALE10",
+      //   "additional": ["2", "3"],
+      //   "additional_count": {"2": "4", "3": "2"},
+      //   "user_notes": ""
+      // };
 
       var url = oneWayOrderTripApiUrl;
       debugPrint("URL: $url");
+      // debugPrint("Header: $header");
       debugPrint("Body: $body");
 
-      // Dio dio = Dio();
-      //
-      // Response response = await dio.post(
-      //   url,
-      //   options: Options(
-      //     headers: header,
-      //   ),
-      //   data: body,
-      // );
-      //
-      // if (response.statusCode == 200) {
-      //
-      //   dynamic decode = JsonDecoder(response.data);
-      //   _logger.d("Response: ${response.data}");
-      // } else {
-      //   _logger.d("ResponseStatus: ${response.statusCode}, ${response.data}");
-      // }
-
-      errorResponse = await MyApi.callPostApi(
+      oneWayOrdersTripResponse = await MyApi.callPostApi(
           url: url,
           myHeaders: header,
           body: body,
-          modelName: Models.errorModel);
+          modelName: Models.oneWayOrderTripModel);
       debugPrint("Body: $body");
 
-      if (errorResponse.code == 1) {
+      if (oneWayOrdersTripResponse.code == 1) {
         _logger.d(
             "oneWayOrdersTripResponse: ${oneWayOrdersTripResponse.toJson()}, ${oneWayOrdersTripResponse.data!.message.toString()}");
         _loader.hideLoader(context!);
@@ -142,9 +140,12 @@ class SelectAdditionProvider with ChangeNotifier {
     try {
       _loader.showLoader(context: context);
 
-      Map<String, dynamic> header = {"Content-Type": "application/json"};
+      Map<String, dynamic> header = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $userToken"
+      };
 
-      final body = {
+      Map<String, dynamic> body = {
         "trips": [
           {
             "trip_id": "34",
@@ -168,6 +169,9 @@ class SelectAdditionProvider with ChangeNotifier {
       var url = roundOrderTripApiUrl;
 
       debugPrint("URL: $url");
+      debugPrint("Header: $header");
+      debugPrint("Body: $body");
+
       roundOrderTripResponse = await MyApi.callPostApi(
           url: url,
           myHeaders: header,
@@ -195,9 +199,11 @@ class SelectAdditionProvider with ChangeNotifier {
     try {
       _loader.showLoader(context: context);
 
-      Map<String, dynamic> header = {"Content-Type": "application/json"};
-
-      final body = {
+      Map<String, dynamic> header = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $userToken"
+      };
+      Map<String, dynamic> body = {
         "trips": [
           {
             "trip_id": "34",
@@ -224,6 +230,9 @@ class SelectAdditionProvider with ChangeNotifier {
       var url = multiOrderTripApiUrl;
 
       debugPrint("URL: $url");
+      // debugPrint("Header: $header");
+      debugPrint("Body: $body");
+
       multiOrdersTripResponse = await MyApi.callPostApi(
           url: url,
           myHeaders: header,
