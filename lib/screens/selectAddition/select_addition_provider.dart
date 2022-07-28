@@ -90,9 +90,10 @@ class SelectAdditionProvider with ChangeNotifier {
       };
 
       debugPrint("trips.id: ${trips.id}");
+
       Map<String, dynamic> body = {
         "trip_id": trips.id,
-        "count": "1",
+        "count": passengersCount,
         "code": "SALE10",
         "additional": selectAdditionalList, //["2", "3"],
         "additional_count": {"2": "4", "3": "2"},
