@@ -52,28 +52,6 @@ class _SettingScreenState extends State<SettingScreen> {
             language: AppLocalizations.of(context)!.language,
             onPress: () {},
           ),
-      DropdownButton(
-           onChanged: (language) {
-             _changeLanguage(language);
-           },
-           underline: const SizedBox(),
-           icon: const Icon(
-             Icons.language,
-             size: 28,
-           ),
-           items: Language.languageList()
-               .map<DropdownMenuItem<Language>>(
-                   (language) => DropdownMenuItem(
-                         value: language,
-                         child: Row(
-                           children: <Widget>[
-                             Text(language.flag),
-                             Text(language.name),
-                           ],
-                         ),
-                       ))
-               .toList(),
-         ),
         ],
       ),
     );
@@ -111,6 +89,28 @@ class _SettingScreenState extends State<SettingScreen> {
                   fontWeight: FontWeight.w400,
                   lines: 1),
               CommonPadding.sizeBoxWithWidth(width: 10),
+              DropdownButton(
+                onChanged: (language) {
+                  _changeLanguage(language);
+                },
+                underline: const SizedBox(),
+                icon: const Icon(
+                  Icons.language,
+                  size: 28,
+                ),
+                items: Language.languageList()
+                    .map<DropdownMenuItem<Language>>(
+                        (language) => DropdownMenuItem(
+                      value: language,
+                      child: Row(
+                        children: <Widget>[
+                          Text(language.flag),
+                          Text(language.name),
+                        ],
+                      ),
+                    ))
+                    .toList(),
+              ),
               GestureDetector(
                 onTap: () {
                   if (onPress != null) {

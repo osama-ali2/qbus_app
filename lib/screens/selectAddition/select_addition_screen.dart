@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
 import 'package:qbus/screens/selectAddition/select_addition_provider.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
-
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
 import '../../local_cache/utils.dart';
@@ -155,19 +155,32 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
       await selectAdditionProvider.oneWayOrderTrip(
           trips: widget.tripsModel!, passengersCount: widget.passengersCount!);
       if (selectAdditionProvider.isOneWayOrderTripSaved == true) {
-        await selectAdditionProvider.getAdditionalData(id: widget.tripId!);
+        // await selectAdditionProvider.getAdditionalData(id: widget.tripId!);
+        if (!mounted) return;
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const BottomBarScreen()),
+            (route) => false);
       }
     } else if (widget.isRoundTripChecked == true) {
       await selectAdditionProvider.roundOrderTrip(
           trips: widget.tripsModel!, passengersCount: widget.passengersCount!);
       if (selectAdditionProvider.isRoundOrderTripSaved == true) {
-        await selectAdditionProvider.getAdditionalData(id: widget.tripId!);
+        if (!mounted) return;
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const BottomBarScreen()),
+            (route) => false);
       }
     } else if (widget.isMultiDestinationChecked == true) {
       await selectAdditionProvider.multiOrderTrip(
           trips: widget.tripsModel!, passengersCount: widget.passengersCount!);
       if (selectAdditionProvider.isMultiOrderTripSaved == true) {
-        await selectAdditionProvider.getAdditionalData(id: widget.tripId!);
+        if (!mounted) return;
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const BottomBarScreen()),
+            (route) => false);
       }
     }
   }
