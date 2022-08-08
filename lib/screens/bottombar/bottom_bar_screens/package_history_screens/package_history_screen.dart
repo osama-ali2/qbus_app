@@ -89,6 +89,10 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
     packageHistoryProvider =
         Provider.of<PackageHistoryProvider>(context, listen: false);
     packageHistoryProvider.init(context: context);
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      packageHistoryProvider.getPackageBookingHistoryData(offSet: 1);
+    });
   }
 
   @override
@@ -115,32 +119,46 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // CommonPadding.sizeBoxWithHeight(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: dataMap.length,
-                itemBuilder: (context, index) {
-                  var from = dataMap[index]['from'].toString();
-                  var to = dataMap[index]['to'].toString();
-                  var fee = dataMap[index]['fee'].toString();
-                  var trip = dataMap[index]['trip'].toString();
-                  var rating = dataMap[index]['rating'].toString();
-                  var type = dataMap[index]['type'].toString();
+            packageHistoryProvider.isPackageHistoryLoaded == true
+                ? Expanded(
+                    child: ListView.builder(
+                      itemCount: packageHistoryProvider
+                          .packageHistoryResponse.data!.length,
+                      itemBuilder: (context, index) {
+                        // var from = dataMap[index]['from'].toString();
+                        // var to = dataMap[index]['to'].toString();
+                        // var fee = dataMap[index]['fee'].toString();
+                        // var trip = dataMap[index]['trip'].toString();
+                        // var rating = dataMap[index]['rating'].toString();
+                        // var type = dataMap[index]['type'].toString();
 
-                  return Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: sizes!.widthRatio * 20,
-                        vertical: sizes!.heightRatio * 5),
-                    child: _bookingContainer(
-                        from: from,
-                        to: to,
-                        fee: fee,
-                        trip: trip,
-                        rating: rating,
-                        type: type),
-                  );
-                },
-              ),
-            ),
+                        var data = packageHistoryProvider
+                            .packageHistoryResponse.data![index];
+                        var from = data.startingCityName!.en!.toString();
+                        var to = data.name!.en!.toString();
+                        var fee = data.fees.toString();
+                        var rating = data.review.toString();
+                        var type = data.status.toString();
+                        var trip = data.providerName.toString();
+
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: sizes!.widthRatio * 20,
+                              vertical: sizes!.heightRatio * 5),
+                          child: _bookingContainer(
+                              from: from,
+                              to: to,
+                              fee: fee,
+                              trip: trip,
+                              rating: rating,
+                              type: type),
+                        );
+                      },
+                    ),
+                  )
+                : const Center(
+                    child: Text("No Data Available"),
+                  ),
             CommonPadding.sizeBoxWithHeight(height: 10),
             CustomButton(
                 name: "Trip History",

@@ -130,7 +130,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                             .tripHistoryResponse.data![index];
                         var from = data.startStationName!.en!.toString();
                         var to = data.arrivalStationName!.en!.toString();
-                        var fee = data.total.toString();
+                        var fee = data.fees.toString();
                         var rating = data.review.toString();
                         var type = data.status.toString();
                         var trip = data.providerName.toString();
@@ -155,7 +155,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                           padding: EdgeInsets.symmetric(
                               horizontal: sizes!.widthRatio * 20,
                               vertical: sizes!.heightRatio * 5),
-                          child: bookingContainer(
+                          child: _bookingContainer(
                               from: from,
                               to: to,
                               fee: fee,
@@ -193,7 +193,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
     ));
   }
 
-  Widget bookingContainer({
+  Widget _bookingContainer({
     required String from,
     required String to,
     required String fee,
@@ -274,31 +274,42 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                 ),
               ),
               CommonPadding.sizeBoxWithHeight(height: 10),
-              type == "Booked"
-                  ? Container(
-                      height: sizes!.heightRatio * 20,
-                      width: sizes!.widthRatio * 54,
-                      decoration: BoxDecoration(
-                          // color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(5),
-                          border:
-                              Border.all(color: AppColors.primary, width: 1)),
-                      child: Center(
-                        child: TextView.getText10("Booked", Assets.latoRegular,
-                            color: AppColors.primary, lines: 1),
-                      ))
-                  : Container(
-                      height: sizes!.heightRatio * 20,
-                      width: sizes!.widthRatio * 54,
-                      decoration: BoxDecoration(
-                          // color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(5),
-                          border:
-                              Border.all(color: AppColors.redColor, width: 1)),
-                      child: Center(
-                        child: TextView.getText10("Booked", Assets.latoRegular,
-                            color: AppColors.redColor, lines: 1),
-                      )),
+              Container(
+                  height: sizes!.heightRatio * 20,
+                  width: sizes!.widthRatio * 54,
+                  decoration: BoxDecoration(
+                      // color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: AppColors.primary, width: 1)),
+                  child: Center(
+                    child: TextView.getText10(type, Assets.latoRegular,
+                        color: AppColors.primary, lines: 1),
+                  ))
+              // type == "Booked"
+              //     ? Container(
+              //         height: sizes!.heightRatio * 20,
+              //         width: sizes!.widthRatio * 54,
+              //         decoration: BoxDecoration(
+              //             // color: AppColors.primary,
+              //             borderRadius: BorderRadius.circular(5),
+              //             border:
+              //                 Border.all(color: AppColors.primary, width: 1)),
+              //         child: Center(
+              //           child: TextView.getText10(type, Assets.latoRegular,
+              //               color: AppColors.primary, lines: 1),
+              //         ))
+              //     : Container(
+              //         height: sizes!.heightRatio * 20,
+              //         width: sizes!.widthRatio * 54,
+              //         decoration: BoxDecoration(
+              //             // color: AppColors.primary,
+              //             borderRadius: BorderRadius.circular(5),
+              //             border:
+              //                 Border.all(color: AppColors.redColor, width: 1)),
+              //         child: Center(
+              //           child: TextView.getText10("Booked", Assets.latoRegular,
+              //               color: AppColors.redColor, lines: 1),
+              //         )),
             ],
           ),
         ),

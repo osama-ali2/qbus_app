@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:qbus/models/trip_history_model/TripHistoryResponse.dart';
+import 'package:qbus/models/booking_history_model/TripHistoryResponse.dart';
 import 'package:qbus/widgets/loader.dart';
 
 import '../../../../local_cache/utils.dart';
