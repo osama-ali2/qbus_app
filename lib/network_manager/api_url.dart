@@ -31,5 +31,12 @@ const String oneWayOrderTripApiUrl = "$baseUrl/oneway_orders";
 const String roundOrderTripApiUrl = "$baseUrl/round_orders";
 const String multiOrderTripApiUrl = "$baseUrl/multi_orders";
 
+// Histories:
+const String tripBookingHistoryApiUrl = "$baseUrl/trips_booking_history";
+const String packageBookingHistoryApiUrl = "$baseUrl/packages_booking_history";
+
+// qbus.rabaaladawia.com/api/v1/packages_booking_history
+// http://qbus.rabaaladawia.com/api/v1/trips_booking_history
+
 //Ignore
 const String kGoogleApiKey = "AIzaSyB20XGkT-LGQV7DexxbA5_q_HQrss1moSQ";

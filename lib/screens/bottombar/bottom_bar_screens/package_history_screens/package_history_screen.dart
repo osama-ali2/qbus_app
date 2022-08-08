@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screens/package_history_screens/package_history_screen.dart';
+import 'package:qbus/res/common_padding.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screens/package_history_screens/package_history_provider.dart';
 
-import '../../../../../res/assets.dart';
-import '../../../../../res/colors.dart';
-import '../../../../../res/common_padding.dart';
-import '../../../../../res/res.dart';
-import '../../../../../utils/constant.dart';
-import '../../../../../widgets/custom_text.dart';
-import '../../../../../widgets/text_views.dart';
+import '../../../../res/assets.dart';
+import '../../../../res/colors.dart';
+import '../../../../res/res.dart';
+import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_button.dart';
-import 'booking_history_provider.dart';
+import '../../../../widgets/custom_text.dart';
+import '../../../../widgets/text_views.dart';
 
-class BookingHistoryScreen extends StatefulWidget {
-  const BookingHistoryScreen({Key? key}) : super(key: key);
+class PackageHistoryScreen extends StatefulWidget {
+  const PackageHistoryScreen({Key? key}) : super(key: key);
 
   @override
-  State<BookingHistoryScreen> createState() => _BookingHistoryScreenState();
+  State<PackageHistoryScreen> createState() => _PackageHistoryScreenState();
 }
 
-class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
-  late BookingHistoryProvider bookingHistoryProvider;
+class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
+  late PackageHistoryProvider packageHistoryProvider;
 
   final dataMap = [
     {
@@ -86,27 +84,24 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
   @override
   void initState() {
     super.initState();
-    bookingHistoryProvider = BookingHistoryProvider();
-    bookingHistoryProvider =
-        Provider.of<BookingHistoryProvider>(context, listen: false);
-    bookingHistoryProvider.init(context: context);
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      bookingHistoryProvider.getTripBookingHistoryData(offSet: 1);
-    });
+    packageHistoryProvider = PackageHistoryProvider();
+    packageHistoryProvider =
+        Provider.of<PackageHistoryProvider>(context, listen: false);
+    packageHistoryProvider.init(context: context);
   }
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<BookingHistoryProvider>(context, listen: true);
+    Provider.of<PackageHistoryProvider>(context, listen: true);
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         title: const CustomText(
-            text: "Trip History",
+            text: "Package History",
             //AppLocalizations.of(context)!.booking_history,
             textSize: 18,
             fontWeight: FontWeight.w700,
@@ -120,58 +115,35 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // CommonPadding.sizeBoxWithHeight(height: 20),
-            bookingHistoryProvider.isTripHistoryLoaded == true
-                ? Expanded(
-                    child: ListView.builder(
-                      itemCount: bookingHistoryProvider
-                          .tripHistoryResponse.data!.length,
-                      itemBuilder: (context, index) {
-                        var data = bookingHistoryProvider
-                            .tripHistoryResponse.data![index];
-                        var from = data.startStationName!.en!.toString();
-                        var to = data.arrivalStationName!.en!.toString();
-                        var fee = data.total.toString();
-                        var rating = data.review.toString();
-                        var type = data.status.toString();
-                        var trip = data.providerName.toString();
+            Expanded(
+              child: ListView.builder(
+                itemCount: dataMap.length,
+                itemBuilder: (context, index) {
+                  var from = dataMap[index]['from'].toString();
+                  var to = dataMap[index]['to'].toString();
+                  var fee = dataMap[index]['fee'].toString();
+                  var trip = dataMap[index]['trip'].toString();
+                  var rating = dataMap[index]['rating'].toString();
+                  var type = dataMap[index]['type'].toString();
 
-                        // var from = dataMap[index]['from'].toString();
-                        // var to = dataMap[index]['to'].toString();
-                        // var fee = dataMap[index]['fee'].toString();
-                        // var trip = dataMap[index]['trip'].toString();
-                        // var rating = dataMap[index]['rating'].toString();
-                        // var type = dataMap[index]['type'].toString();
-
-                        //     {
-                        //   "from": "10:Makkah",
-                        // "to": "12:30 Al Madina",
-                        // "fee": "90",
-                        // "trip": "Medina Trip",
-                        // "rating": "(5/5)",
-                        // "type": "Booked",
-                        // },
-
-                        return Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: sizes!.widthRatio * 20,
-                              vertical: sizes!.heightRatio * 5),
-                          child: bookingContainer(
-                              from: from,
-                              to: to,
-                              fee: fee,
-                              trip: trip,
-                              rating: rating,
-                              type: type),
-                        );
-                      },
-                    ),
-                  )
-                : const Center(
-                    child: Text("No Data Available"),
-                  ),
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: sizes!.widthRatio * 20,
+                        vertical: sizes!.heightRatio * 5),
+                    child: _bookingContainer(
+                        from: from,
+                        to: to,
+                        fee: fee,
+                        trip: trip,
+                        rating: rating,
+                        type: type),
+                  );
+                },
+              ),
+            ),
             CommonPadding.sizeBoxWithHeight(height: 10),
             CustomButton(
-                name: "Package History",
+                name: "Trip History",
                 buttonColor: appColor,
                 height: sizes!.heightRatio * 45,
                 width: double.infinity,
@@ -180,10 +152,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                 fontWeight: FontWeight.bold,
                 borderRadius: 5,
                 onTapped: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PackageHistoryScreen()));
+                  Navigator.pop(context);
                 },
                 padding: 20),
             CommonPadding.sizeBoxWithHeight(height: 10),
@@ -193,7 +162,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
     ));
   }
 
-  Widget bookingContainer({
+  Widget _bookingContainer({
     required String from,
     required String to,
     required String fee,

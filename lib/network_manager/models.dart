@@ -13,6 +13,7 @@ import 'package:qbus/models/packages/PackageDetailResponse.dart';
 import 'package:qbus/models/privacy_policy/PrivacyPolicyResponse.dart';
 import 'package:qbus/models/privacy_policy/ReturnPolicyResponse.dart';
 import 'package:qbus/models/profile/UpdateUserProfileResponse.dart';
+import 'package:qbus/models/trip_history_model/TripHistoryResponse.dart';
 import 'package:qbus/models/trips/MultiOrdersTripResponse.dart';
 import 'package:qbus/models/trips/OneWayOrdersTripResponse.dart';
 import 'package:qbus/models/trips/RoundOrdersTripResponse.dart';
@@ -52,9 +53,15 @@ class Models {
   static const String roundOrderTripModel = "roundOrderTripModel";
   static const String multiOrderTripModel = "multiOrderTripModel";
 
+  //Histories:
+  static const String tripBookingHistoryModel = "tripBookingHistoryModel";
+  static const String packageBookingHistoryModel = "packageBookingHistoryModel";
+
   static Future<dynamic> getModelObject(
       String modelName, Map<String, dynamic> json) async {
     switch (modelName) {
+      case tripBookingHistoryModel:
+        return TripHistoryResponse.fromJson(json);
       case oneWayOrderTripModel:
         return OneWayOrdersTripResponse.fromJson(json);
       case multiOrderTripModel:
