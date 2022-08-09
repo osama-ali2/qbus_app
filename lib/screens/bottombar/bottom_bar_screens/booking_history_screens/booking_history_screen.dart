@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/package_history_screens/package_history_screen.dart';
-
 import '../../../../../res/assets.dart';
 import '../../../../../res/colors.dart';
 import '../../../../../res/common_padding.dart';
@@ -24,64 +25,7 @@ class BookingHistoryScreen extends StatefulWidget {
 class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
   late BookingHistoryProvider bookingHistoryProvider;
 
-  final dataMap = [
-    {
-      "from": "10:Makkah",
-      "to": "12:30 Al Madina",
-      "fee": "90",
-      "trip": "Jeddah Trip",
-      "rating": "(3/5)",
-      "type": "Canceled",
-    },
-    {
-      "from": "10:Makkah",
-      "to": "12:30 Al Madina",
-      "fee": "90",
-      "trip": "Jeddah Trip",
-      "rating": "(3/5)",
-      "type": "Canceled",
-    },
-    {
-      "from": "10:Makkah",
-      "to": "12:30 Al Madina",
-      "fee": "90",
-      "trip": "Jeddah Trip",
-      "rating": "(3/5)",
-      "type": "Canceled",
-    },
-    {
-      "from": "10:Makkah",
-      "to": "12:30 Al Madina",
-      "fee": "90",
-      "trip": "Jeddah Trip",
-      "rating": "(3/5)",
-      "type": "Canceled",
-    },
-    {
-      "from": "10:Makkah",
-      "to": "12:30 Al Madina",
-      "fee": "90",
-      "trip": "Medina Trip",
-      "rating": "(3/5)",
-      "type": "Booked",
-    },
-    {
-      "from": "10:Makkah",
-      "to": "12:30 Al Madina",
-      "fee": "90",
-      "trip": "Medina Trip",
-      "rating": "(4/5)",
-      "type": "Booked",
-    },
-    {
-      "from": "10:Makkah",
-      "to": "12:30 Al Madina",
-      "fee": "90",
-      "trip": "Medina Trip",
-      "rating": "(5/5)",
-      "type": "Booked",
-    },
-  ];
+  int userRating = 0;
 
   @override
   void initState() {
@@ -128,40 +72,33 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                       itemBuilder: (context, index) {
                         var data = bookingHistoryProvider
                             .tripHistoryResponse.data![index];
-                        var from = data.startStationName!.en!.toString();
-                        var to = data.arrivalStationName!.en!.toString();
+                        var fromCity = data.startStationName!.en!.toString();
+                        var toCity = data.arrivalStationName!.en!.toString();
+                        var timeFromCity = data.timeFrom.toString();
+                        var timeToCity = data.timeTo.toString();
                         var fee = data.fees.toString();
                         var rating = data.review.toString();
                         var type = data.status.toString();
                         var trip = data.providerName.toString();
 
-                        // var from = dataMap[index]['from'].toString();
-                        // var to = dataMap[index]['to'].toString();
-                        // var fee = dataMap[index]['fee'].toString();
-                        // var trip = dataMap[index]['trip'].toString();
-                        // var rating = dataMap[index]['rating'].toString();
-                        // var type = dataMap[index]['type'].toString();
-
-                        //     {
-                        //   "from": "10:Makkah",
-                        // "to": "12:30 Al Madina",
-                        // "fee": "90",
-                        // "trip": "Medina Trip",
-                        // "rating": "(5/5)",
-                        // "type": "Booked",
-                        // },
-
+                        var tripId = data.id;
                         return Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: sizes!.widthRatio * 20,
                               vertical: sizes!.heightRatio * 5),
                           child: _bookingContainer(
-                              from: from,
-                              to: to,
+                              fromCity: fromCity,
+                              toCity: toCity,
                               fee: fee,
                               trip: trip,
                               rating: rating,
-                              type: type),
+                              type: type,
+                              timeFromCity: timeFromCity,
+                              timeToCity: timeToCity,
+                              onReviewIt: () {
+                                showAlertDialog(
+                                    context: context, tripId: tripId!);
+                              }),
                         );
                       },
                     ),
@@ -181,9 +118,10 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                 borderRadius: 5,
                 onTapped: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PackageHistoryScreen()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PackageHistoryScreen()),
+                  );
                 },
                 padding: 20),
             CommonPadding.sizeBoxWithHeight(height: 10),
@@ -194,12 +132,15 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
   }
 
   Widget _bookingContainer({
-    required String from,
-    required String to,
+    required String timeFromCity,
+    required String fromCity,
+    required String timeToCity,
+    required String toCity,
     required String fee,
     required String trip,
     required String rating,
     required String type,
+    required Function? onReviewIt,
   }) =>
       Container(
         height: sizes!.heightRatio * 110,
@@ -225,7 +166,8 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextView.getMediumText14(from, Assets.latoRegular,
+                    TextView.getMediumText14(
+                        "$timeFromCity $fromCity", Assets.latoRegular,
                         color: AppColors.gray100,
                         fontWeight: FontWeight.w300,
                         lines: 1),
@@ -234,7 +176,8 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                       height: sizes!.heightRatio * 24,
                       width: sizes!.widthRatio * 24,
                     ),
-                    TextView.getMediumText14(to, Assets.latoRegular,
+                    TextView.getMediumText14(
+                        "$timeToCity $toCity", Assets.latoRegular,
                         color: AppColors.gray100,
                         fontWeight: FontWeight.w300,
                         lines: 1),
@@ -274,44 +217,128 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                 ),
               ),
               CommonPadding.sizeBoxWithHeight(height: 10),
-              Container(
-                  height: sizes!.heightRatio * 20,
-                  width: sizes!.widthRatio * 54,
-                  decoration: BoxDecoration(
-                      // color: AppColors.primary,
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: AppColors.primary, width: 1)),
-                  child: Center(
-                    child: TextView.getText10(type, Assets.latoRegular,
-                        color: AppColors.primary, lines: 1),
-                  ))
-              // type == "Booked"
-              //     ? Container(
-              //         height: sizes!.heightRatio * 20,
-              //         width: sizes!.widthRatio * 54,
-              //         decoration: BoxDecoration(
-              //             // color: AppColors.primary,
-              //             borderRadius: BorderRadius.circular(5),
-              //             border:
-              //                 Border.all(color: AppColors.primary, width: 1)),
-              //         child: Center(
-              //           child: TextView.getText10(type, Assets.latoRegular,
-              //               color: AppColors.primary, lines: 1),
-              //         ))
-              //     : Container(
-              //         height: sizes!.heightRatio * 20,
-              //         width: sizes!.widthRatio * 54,
-              //         decoration: BoxDecoration(
-              //             // color: AppColors.primary,
-              //             borderRadius: BorderRadius.circular(5),
-              //             border:
-              //                 Border.all(color: AppColors.redColor, width: 1)),
-              //         child: Center(
-              //           child: TextView.getText10("Booked", Assets.latoRegular,
-              //               color: AppColors.redColor, lines: 1),
-              //         )),
+              Row(
+                children: [
+                  Container(
+                    height: sizes!.heightRatio * 20,
+                    width: sizes!.widthRatio * 54,
+                    decoration: BoxDecoration(
+                        // color: AppColors.primary,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: AppColors.primary, width: 1)),
+                    child: Center(
+                      child: TextView.getText10(type, Assets.latoRegular,
+                          color: AppColors.primary, lines: 1),
+                    ),
+                  ),
+                  CommonPadding.sizeBoxWithWidth(width: 10),
+                  GestureDetector(
+                    onTap: () {
+                      if (onReviewIt != null) {
+                        onReviewIt.call();
+                      }
+                    },
+                    child: Container(
+                      height: sizes!.heightRatio * 20,
+                      width: sizes!.widthRatio * 54,
+                      decoration: BoxDecoration(
+                          // color: AppColors.primary,
+                          borderRadius: BorderRadius.circular(5),
+                          border:
+                              Border.all(color: AppColors.primary, width: 1)),
+                      child: Center(
+                        child: TextView.getText10(
+                            "review it", Assets.latoRegular,
+                            color: AppColors.primary, lines: 1),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
       );
+
+  Future<void> showAlertDialog(
+      {required BuildContext context, required int tripId}) async {
+    // set up the buttons
+
+    Widget continueButton = Container(
+      padding: EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 10),
+      width: sizes!.widthRatio * 240,
+      height: sizes!.heightRatio * 50,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: AppColors.primary,
+      ),
+      child: TextButton(
+        child: TextView.getRegularS17W400Text("Rate it", Assets.latoRegular,
+            color: AppColors.white, lines: 1),
+        onPressed: () async {
+          //validateForumPost();
+
+          await bookingHistoryProvider.markTripRating(
+              tripId: tripId, rating: userRating);
+
+          if (bookingHistoryProvider.isRatingMarked == true) {
+            if (!mounted) return;
+            Navigator.pop(context);
+          }
+        },
+      ),
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      title: TextView.getRegularS17W400Text(
+          "Rate your experience", Assets.latoBold,
+          color: AppColors.black900, lines: 1),
+      content: SizedBox(
+          height: sizes!.heightRatio * 60,
+          child: StatefulBuilder(
+            builder: (context, setState) {
+              return Column(
+                children: [
+                  RatingBar.builder(
+                    initialRating: 3.0,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemSize: 50,
+                    itemPadding:
+                        EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 0),
+                    itemBuilder: (context, _) => const Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                    ignoreGestures: false,
+                    onRatingUpdate: (rating) {
+                      // onPress!.call(rating);
+                      setState(() {
+                        userRating = rating.toInt();
+                        debugPrint("Rating: $rating");
+                      });
+                    },
+                  ),
+                  CommonPadding.sizeBoxWithHeight(height: 10),
+                ],
+              );
+            },
+          )),
+      actions: [
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }

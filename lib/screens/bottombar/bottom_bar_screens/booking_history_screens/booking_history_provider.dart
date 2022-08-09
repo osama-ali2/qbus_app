@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/models/booking_history_model/TripHistoryResponse.dart';
+import 'package:qbus/models/rating_models/TripRatingResponse.dart';
+import 'package:qbus/res/toasts.dart';
 import 'package:qbus/widgets/loader.dart';
 
 import '../../../../local_cache/utils.dart';
@@ -15,8 +17,10 @@ class BookingHistoryProvider with ChangeNotifier {
   final _loader = Loader();
 
   bool isTripHistoryLoaded = false;
+  bool isRatingMarked = false;
 
   TripHistoryResponse tripHistoryResponse = TripHistoryResponse();
+  TripRatingResponse tripRatingResponse = TripRatingResponse();
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
@@ -56,6 +60,50 @@ class BookingHistoryProvider with ChangeNotifier {
       }
     } catch (e) {
       debugPrint("tripHistoryResponseError: ${e.toString()}");
+      _loader.hideLoader(context!);
+    }
+  }
+
+  Future<void> markTripRating(
+      {required int tripId, required int rating}) async {
+    try {
+      _loader.showLoader(context: context);
+
+      var userToken = PreferenceUtils.getString(Strings.loginUserToken);
+      _logger.d("userToken: $userToken");
+
+      Map<String, dynamic> header = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $userToken"
+      };
+
+      Map<String, dynamic> body = {
+        "trip_id": tripId,
+        "rate": rating,
+        "review": "review message"
+      };
+
+      debugPrint("URL: $tripRatingReviewApiUrl");
+      debugPrint("BODY: $body");
+      tripRatingResponse = await MyApi.callPostApi(
+        url: tripRatingReviewApiUrl,
+        myHeaders: header,
+        body: body,
+        modelName: Models.tripRatingModel,
+      );
+
+      if (tripRatingResponse.code == 1) {
+        _logger.d("tripRatingResponse: ${tripRatingResponse.toJson()}");
+        _loader.hideLoader(context!);
+        isRatingMarked = true;
+        Toasts.getSuccessToast(text: "${tripRatingResponse.data!.message}");
+        notifyListeners();
+      } else {
+        debugPrint("tripRatingResponse: Something wrong");
+        _loader.hideLoader(context!);
+      }
+    } catch (e) {
+      debugPrint("tripRatingResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }
