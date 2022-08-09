@@ -1,13 +1,12 @@
 /// code : 1
 /// message : "TripOrders retrieved successfully."
-/// data : [{"id":1,"name":{"ur":"Tourist program to Saudi Arabia for 5 days","ar":"برنامج سياحي إلى السعودية لمدة 5 أيام","en":"Tourist program to Saudi Arabia for 5 days"},"provider_name":"Provider1","status":"approved","fees":3000,"review":"666666666667","is_user_allow_review":true,"starting_city_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"starting_date":"2022-07-20","starting_time":"10:00"},{"id":2,"name":{"ur":"A tourist trip in Abha Al-Bahiya","ar":"رحلة سياحية في أبها البهية","en":"A tourist trip in Abha Al-Bahiya"},"provider_name":"Provider1","status":"approved","fees":10000,"review":"","is_user_allow_review":true,"starting_city_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"starting_date":"2022-07-30","starting_time":"08:00"},{"id":3,"name":{"ur":"Summer tour in Tabuk - for 3 days","ar":"جولة سياحية صيفية في تبوك - لمدة 3 أيام","en":"Summer tour in Tabuk - for 3 days"},"provider_name":"Provider1","status":"pending","fees":750,"review":"","is_user_allow_review":true,"starting_city_name":{"ur":"Riyadh","ar":"الرياض","en":"Riyadh"},"starting_date":"2022-07-30","starting_time":"08:00"},{"id":4,"name":{"ur":"Dream Island - for 3 days","ar":"جزيرة الأحلام - لمدة 3 أيام","en":"Dream Island - for 3 days"},"provider_name":"Provider1","status":"approved","fees":14000,"review":"","is_user_allow_review":true,"starting_city_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"starting_date":"2022-07-31","starting_time":"10:00"}]
+/// data : [{"id":1,"package_id":1,"name":{"ur":"Tourist program to Saudi Arabia for 5 days","ar":"برنامج سياحي إلى السعودية لمدة 5 أيام","en":"Tourist program to Saudi Arabia for 5 days"},"provider_name":"Provider1","status":"approved","fees":3000,"review":"3","is_user_allow_review":false,"starting_city_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"starting_date":"2022-07-20","starting_time":"10:00"},{"id":2,"package_id":2,"name":{"ur":"A tourist trip in Abha Al-Bahiya","ar":"رحلة سياحية في أبها البهية","en":"A tourist trip in Abha Al-Bahiya"},"provider_name":"Provider1","status":"approved","fees":10000,"review":"0","is_user_allow_review":true,"starting_city_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"starting_date":"2022-07-30","starting_time":"08:00"},{"id":3,"package_id":3,"name":{"ur":"Summer tour in Tabuk - for 3 days","ar":"جولة سياحية صيفية في تبوك - لمدة 3 أيام","en":"Summer tour in Tabuk - for 3 days"},"provider_name":"Provider1","status":"pending","fees":750,"review":"0","is_user_allow_review":true,"starting_city_name":{"ur":"Riyadh","ar":"الرياض","en":"Riyadh"},"starting_date":"2022-07-30","starting_time":"08:00"},{"id":4,"package_id":4,"name":{"ur":"Dream Island - for 3 days","ar":"جزيرة الأحلام - لمدة 3 أيام","en":"Dream Island - for 3 days"},"provider_name":"Provider1","status":"approved","fees":14000,"review":"0","is_user_allow_review":true,"starting_city_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"starting_date":"2022-07-31","starting_time":"10:00"}]
 
 class PackageHistoryResponse {
   PackageHistoryResponse({
     int? code,
     String? message,
-    List<Data>? data,
-  }) {
+    List<Data>? data,}){
     _code = code;
     _message = message;
     _data = data;
@@ -23,15 +22,12 @@ class PackageHistoryResponse {
       });
     }
   }
-
   int? _code;
   String? _message;
   List<Data>? _data;
 
   int? get code => _code;
-
   String? get message => _message;
-
   List<Data>? get data => _data;
 
   Map<String, dynamic> toJson() {
@@ -43,15 +39,17 @@ class PackageHistoryResponse {
     }
     return map;
   }
+
 }
 
 /// id : 1
+/// package_id : 1
 /// name : {"ur":"Tourist program to Saudi Arabia for 5 days","ar":"برنامج سياحي إلى السعودية لمدة 5 أيام","en":"Tourist program to Saudi Arabia for 5 days"}
 /// provider_name : "Provider1"
 /// status : "approved"
 /// fees : 3000
-/// review : "666666666667"
-/// is_user_allow_review : true
+/// review : "3"
+/// is_user_allow_review : false
 /// starting_city_name : {"ur":"Abha","ar":"ابها","en":"Abha"}
 /// starting_date : "2022-07-20"
 /// starting_time : "10:00"
@@ -59,6 +57,7 @@ class PackageHistoryResponse {
 class Data {
   Data({
     int? id,
+    int? packageId,
     Name? name,
     String? providerName,
     String? status,
@@ -67,9 +66,9 @@ class Data {
     bool? isUserAllowReview,
     StartingCityName? startingCityName,
     String? startingDate,
-    String? startingTime,
-  }) {
+    String? startingTime,}){
     _id = id;
+    _packageId = packageId;
     _name = name;
     _providerName = providerName;
     _status = status;
@@ -83,20 +82,19 @@ class Data {
 
   Data.fromJson(dynamic json) {
     _id = json['id'];
+    _packageId = json['package_id'];
     _name = json['name'] != null ? Name.fromJson(json['name']) : null;
     _providerName = json['provider_name'];
     _status = json['status'];
     _fees = json['fees'];
     _review = json['review'];
     _isUserAllowReview = json['is_user_allow_review'];
-    _startingCityName = json['starting_city_name'] != null
-        ? StartingCityName.fromJson(json['starting_city_name'])
-        : null;
+    _startingCityName = json['starting_city_name'] != null ? StartingCityName.fromJson(json['starting_city_name']) : null;
     _startingDate = json['starting_date'];
     _startingTime = json['starting_time'];
   }
-
   int? _id;
+  int? _packageId;
   Name? _name;
   String? _providerName;
   String? _status;
@@ -108,28 +106,21 @@ class Data {
   String? _startingTime;
 
   int? get id => _id;
-
+  int? get packageId => _packageId;
   Name? get name => _name;
-
   String? get providerName => _providerName;
-
   String? get status => _status;
-
   int? get fees => _fees;
-
   String? get review => _review;
-
   bool? get isUserAllowReview => _isUserAllowReview;
-
   StartingCityName? get startingCityName => _startingCityName;
-
   String? get startingDate => _startingDate;
-
   String? get startingTime => _startingTime;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
+    map['package_id'] = _packageId;
     if (_name != null) {
       map['name'] = _name?.toJson();
     }
@@ -145,6 +136,7 @@ class Data {
     map['starting_time'] = _startingTime;
     return map;
   }
+
 }
 
 /// ur : "Abha"
@@ -155,8 +147,7 @@ class StartingCityName {
   StartingCityName({
     String? ur,
     String? ar,
-    String? en,
-  }) {
+    String? en,}){
     _ur = ur;
     _ar = ar;
     _en = en;
@@ -167,15 +158,12 @@ class StartingCityName {
     _ar = json['ar'];
     _en = json['en'];
   }
-
   String? _ur;
   String? _ar;
   String? _en;
 
   String? get ur => _ur;
-
   String? get ar => _ar;
-
   String? get en => _en;
 
   Map<String, dynamic> toJson() {
@@ -185,6 +173,7 @@ class StartingCityName {
     map['en'] = _en;
     return map;
   }
+
 }
 
 /// ur : "Tourist program to Saudi Arabia for 5 days"
@@ -195,8 +184,7 @@ class Name {
   Name({
     String? ur,
     String? ar,
-    String? en,
-  }) {
+    String? en,}){
     _ur = ur;
     _ar = ar;
     _en = en;
@@ -207,15 +195,12 @@ class Name {
     _ar = json['ar'];
     _en = json['en'];
   }
-
   String? _ur;
   String? _ar;
   String? _en;
 
   String? get ur => _ur;
-
   String? get ar => _ar;
-
   String? get en => _en;
 
   Map<String, dynamic> toJson() {
@@ -225,4 +210,5 @@ class Name {
     map['en'] = _en;
     return map;
   }
+
 }

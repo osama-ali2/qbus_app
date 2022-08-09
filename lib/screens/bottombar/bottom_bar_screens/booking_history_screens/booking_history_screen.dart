@@ -81,7 +81,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                         var type = data.status.toString();
                         var trip = data.providerName.toString();
 
-                        var tripId = data.id;
+                        var tripId = data.tripId;
                         return Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: sizes!.widthRatio * 20,

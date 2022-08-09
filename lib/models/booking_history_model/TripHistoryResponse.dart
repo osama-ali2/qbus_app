@@ -1,16 +1,16 @@
 /// code : 1
 /// message : "TripOrders retrieved successfully."
-/// data : [{"id":1,"provider_name":"Provider1","status":"approved","fees":50,"review":"5","is_user_allow_review":false,"time_from":"10:00","time_to":"17:00","start_station_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"arrival_station_name":{"ur":"Jeddah","ar":"جدة","en":"Jeddah"}},{"id":2,"provider_name":"Provider1","status":"approved","fees":50,"review":"5","is_user_allow_review":false,"time_from":"10:00","time_to":"17:00","start_station_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"arrival_station_name":{"ur":"Jeddah","ar":"جدة","en":"Jeddah"}},{"id":3,"provider_name":"Provider1","status":"approved","fees":29,"review":"0","is_user_allow_review":true,"time_from":"07:00","time_to":"09:00","start_station_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"arrival_station_name":{"ur":"Jeddah","ar":"جدة","en":"Jeddah"}},{"id":4,"provider_name":"Provider1","status":"approved","fees":29,"review":"0","is_user_allow_review":true,"time_from":"07:00","time_to":"09:00","start_station_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"arrival_station_name":{"ur":"Jeddah","ar":"جدة","en":"Jeddah"}},{"id":5,"provider_name":"Provider1","status":"approved","fees":50,"review":"5","is_user_allow_review":false,"time_from":"10:00","time_to":"17:00","start_station_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"arrival_station_name":{"ur":"Jeddah","ar":"جدة","en":"Jeddah"}},{"id":6,"provider_name":"Provider1","status":"approved","fees":29,"review":"0","is_user_allow_review":true,"time_from":"07:00","time_to":"09:00","start_station_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"arrival_station_name":{"ur":"Jeddah","ar":"جدة","en":"Jeddah"}}]
+/// data : [{"id":1,"trip_id":34,"provider_name":"Provider1","status":"approved","fees":50,"review":"5","is_user_allow_review":false,"time_from":"10:00","time_to":"17:00","start_station_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"arrival_station_name":{"ur":"Jeddah","ar":"جدة","en":"Jeddah"}},{"id":2,"trip_id":34,"provider_name":"Provider1","status":"approved","fees":50,"review":"5","is_user_allow_review":false,"time_from":"10:00","time_to":"17:00","start_station_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"arrival_station_name":{"ur":"Jeddah","ar":"جدة","en":"Jeddah"}},{"id":3,"trip_id":38,"provider_name":"Provider1","status":"approved","fees":29,"review":"0","is_user_allow_review":true,"time_from":"07:00","time_to":"09:00","start_station_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"arrival_station_name":{"ur":"Jeddah","ar":"جدة","en":"Jeddah"}},{"id":4,"trip_id":38,"provider_name":"Provider1","status":"approved","fees":29,"review":"0","is_user_allow_review":true,"time_from":"07:00","time_to":"09:00","start_station_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"arrival_station_name":{"ur":"Jeddah","ar":"جدة","en":"Jeddah"}},{"id":5,"trip_id":34,"provider_name":"Provider1","status":"approved","fees":50,"review":"5","is_user_allow_review":false,"time_from":"10:00","time_to":"17:00","start_station_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"arrival_station_name":{"ur":"Jeddah","ar":"جدة","en":"Jeddah"}},{"id":6,"trip_id":38,"provider_name":"Provider1","status":"approved","fees":29,"review":"0","is_user_allow_review":true,"time_from":"07:00","time_to":"09:00","start_station_name":{"ur":"Abha","ar":"ابها","en":"Abha"},"arrival_station_name":{"ur":"Jeddah","ar":"جدة","en":"Jeddah"}}]
 
 class TripHistoryResponse {
   TripHistoryResponse({
-      int? code, 
-      String? message, 
-      List<Data>? data,}){
+    int? code,
+    String? message,
+    List<Data>? data,}){
     _code = code;
     _message = message;
     _data = data;
-}
+  }
 
   TripHistoryResponse.fromJson(dynamic json) {
     _code = json['code'];
@@ -43,6 +43,7 @@ class TripHistoryResponse {
 }
 
 /// id : 1
+/// trip_id : 34
 /// provider_name : "Provider1"
 /// status : "approved"
 /// fees : 50
@@ -55,17 +56,19 @@ class TripHistoryResponse {
 
 class Data {
   Data({
-      int? id, 
-      String? providerName, 
-      String? status, 
-      int? fees, 
-      String? review, 
-      bool? isUserAllowReview, 
-      String? timeFrom, 
-      String? timeTo, 
-      StartStationName? startStationName, 
-      ArrivalStationName? arrivalStationName,}){
+    int? id,
+    int? tripId,
+    String? providerName,
+    String? status,
+    int? fees,
+    String? review,
+    bool? isUserAllowReview,
+    String? timeFrom,
+    String? timeTo,
+    StartStationName? startStationName,
+    ArrivalStationName? arrivalStationName,}){
     _id = id;
+    _tripId = tripId;
     _providerName = providerName;
     _status = status;
     _fees = fees;
@@ -75,10 +78,11 @@ class Data {
     _timeTo = timeTo;
     _startStationName = startStationName;
     _arrivalStationName = arrivalStationName;
-}
+  }
 
   Data.fromJson(dynamic json) {
     _id = json['id'];
+    _tripId = json['trip_id'];
     _providerName = json['provider_name'];
     _status = json['status'];
     _fees = json['fees'];
@@ -90,6 +94,7 @@ class Data {
     _arrivalStationName = json['arrival_station_name'] != null ? ArrivalStationName.fromJson(json['arrival_station_name']) : null;
   }
   int? _id;
+  int? _tripId;
   String? _providerName;
   String? _status;
   int? _fees;
@@ -101,6 +106,7 @@ class Data {
   ArrivalStationName? _arrivalStationName;
 
   int? get id => _id;
+  int? get tripId => _tripId;
   String? get providerName => _providerName;
   String? get status => _status;
   int? get fees => _fees;
@@ -114,6 +120,7 @@ class Data {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
+    map['trip_id'] = _tripId;
     map['provider_name'] = _providerName;
     map['status'] = _status;
     map['fees'] = _fees;
@@ -138,13 +145,13 @@ class Data {
 
 class ArrivalStationName {
   ArrivalStationName({
-      String? ur, 
-      String? ar, 
-      String? en,}){
+    String? ur,
+    String? ar,
+    String? en,}){
     _ur = ur;
     _ar = ar;
     _en = en;
-}
+  }
 
   ArrivalStationName.fromJson(dynamic json) {
     _ur = json['ur'];
@@ -175,13 +182,13 @@ class ArrivalStationName {
 
 class StartStationName {
   StartStationName({
-      String? ur, 
-      String? ar, 
-      String? en,}){
+    String? ur,
+    String? ar,
+    String? en,}){
     _ur = ur;
     _ar = ar;
     _en = en;
-}
+  }
 
   StartStationName.fromJson(dynamic json) {
     _ur = json['ur'];

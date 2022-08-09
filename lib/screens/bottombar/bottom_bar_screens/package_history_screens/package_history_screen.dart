@@ -76,8 +76,8 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
                         var rating = data.review.toString();
                         var type = data.status.toString();
                         var trip = data.providerName.toString();
+                        var packageId = data.packageId;
 
-                        var packageId = data.id;
                         return Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: sizes!.widthRatio * 20,
