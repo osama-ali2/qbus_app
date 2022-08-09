@@ -81,6 +81,8 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                         var type = data.status.toString();
                         var trip = data.providerName.toString();
 
+                        var isUserAllowReview = data.isUserAllowReview;
+
                         var tripId = data.tripId;
                         return Padding(
                           padding: EdgeInsets.symmetric(
@@ -98,7 +100,8 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                               onReviewIt: () {
                                 showAlertDialog(
                                     context: context, tripId: tripId!);
-                              }),
+                              },
+                              isUserAllowReview: isUserAllowReview!),
                         );
                       },
                     ),
@@ -131,17 +134,17 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
     ));
   }
 
-  Widget _bookingContainer({
-    required String timeFromCity,
-    required String fromCity,
-    required String timeToCity,
-    required String toCity,
-    required String fee,
-    required String trip,
-    required String rating,
-    required String type,
-    required Function? onReviewIt,
-  }) =>
+  Widget _bookingContainer(
+          {required String timeFromCity,
+          required String fromCity,
+          required String timeToCity,
+          required String toCity,
+          required String fee,
+          required String trip,
+          required String rating,
+          required String type,
+          required Function? onReviewIt,
+          required bool isUserAllowReview}) =>
       Container(
         height: sizes!.heightRatio * 110,
         width: sizes!.widthRatio * 375,
@@ -209,7 +212,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                     const Spacer(),
                     SvgPicture.asset("assets/svg/star_icon.svg"),
                     CommonPadding.sizeBoxWithWidth(width: 4),
-                    TextView.getMediumText14(rating, Assets.latoRegular,
+                    TextView.getMediumText14("($rating/5)", Assets.latoRegular,
                         color: AppColors.gray100,
                         fontWeight: FontWeight.w400,
                         lines: 1),
@@ -232,27 +235,29 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                     ),
                   ),
                   CommonPadding.sizeBoxWithWidth(width: 10),
-                  GestureDetector(
-                    onTap: () {
-                      if (onReviewIt != null) {
-                        onReviewIt.call();
-                      }
-                    },
-                    child: Container(
-                      height: sizes!.heightRatio * 20,
-                      width: sizes!.widthRatio * 54,
-                      decoration: BoxDecoration(
-                          // color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(5),
-                          border:
-                              Border.all(color: AppColors.primary, width: 1)),
-                      child: Center(
-                        child: TextView.getText10(
-                            "review it", Assets.latoRegular,
-                            color: AppColors.primary, lines: 1),
-                      ),
-                    ),
-                  ),
+                  isUserAllowReview == true
+                      ? GestureDetector(
+                          onTap: () {
+                            if (onReviewIt != null) {
+                              onReviewIt.call();
+                            }
+                          },
+                          child: Container(
+                            height: sizes!.heightRatio * 20,
+                            width: sizes!.widthRatio * 54,
+                            decoration: BoxDecoration(
+                                // color: AppColors.primary,
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                    color: AppColors.primary, width: 1)),
+                            child: Center(
+                              child: TextView.getText10(
+                                  "review it", Assets.latoRegular,
+                                  color: AppColors.primary, lines: 1),
+                            ),
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
             ],

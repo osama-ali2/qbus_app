@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/explore_screens/package_detail_screens/package_detail_provider.dart';
 import 'package:qbus/screens/explore_screens/package_select_addition_screens/package_select_addition_screen.dart';
-import 'package:qbus/screens/selectAddition/select_addition_screen.dart';
-
 import '../../../res/assets.dart';
 import '../../../res/colors.dart';
 import '../../../res/common_padding.dart';

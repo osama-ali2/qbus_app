@@ -78,21 +78,33 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
                         var trip = data.providerName.toString();
                         var packageId = data.packageId;
 
+                        var startingTime = data.startingTime.toString();
+                        var startCityName =
+                            data.startingCityName!.en.toString();
+                        var startingDate = data.startingDate.toString();
+
+                        var isUserAllowReview = data.isUserAllowReview!;
+
                         return Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: sizes!.widthRatio * 20,
                               vertical: sizes!.heightRatio * 5),
                           child: _bookingContainer(
-                              from: from,
-                              to: to,
-                              fee: fee,
-                              trip: trip,
-                              rating: rating,
-                              type: type,
-                              onReviewIt: () {
-                                showAlertDialog(
-                                    context: context, packageId: packageId!);
-                              }),
+                            startingTime: startingTime,
+                            startCityName: startCityName,
+                            startingDate: startingDate,
+                            from: from,
+                            to: to,
+                            fee: fee,
+                            trip: trip,
+                            rating: rating,
+                            type: type,
+                            isUserAllowReview: isUserAllowReview,
+                            onReviewIt: () {
+                              showAlertDialog(
+                                  context: context, packageId: packageId!);
+                            },
+                          ),
                         );
                       },
                     ),
@@ -128,9 +140,13 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
           required String trip,
           required String rating,
           required String type,
-          required Function? onReviewIt}) =>
+          required Function? onReviewIt,
+          required bool isUserAllowReview,
+          required String startingDate,
+          required String startingTime,
+          required String startCityName}) =>
       Container(
-        height: sizes!.heightRatio * 110,
+        height: sizes!.heightRatio * 115,
         width: sizes!.widthRatio * 375,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -153,19 +169,21 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextView.getMediumText14(from, Assets.latoRegular,
+                    TextView.getMediumText14(
+                        "$startingDate $startingTime $startCityName",
+                        Assets.latoRegular,
                         color: AppColors.gray100,
                         fontWeight: FontWeight.w300,
                         lines: 1),
-                    SvgPicture.asset(
-                      "assets/svg/skip_icon.svg",
-                      height: sizes!.heightRatio * 24,
-                      width: sizes!.widthRatio * 24,
-                    ),
-                    TextView.getMediumText14(to, Assets.latoRegular,
-                        color: AppColors.gray100,
-                        fontWeight: FontWeight.w300,
-                        lines: 1),
+                    // SvgPicture.asset(
+                    //   "assets/svg/skip_icon.svg",
+                    //   height: sizes!.heightRatio * 24,
+                    //   width: sizes!.widthRatio * 24,
+                    // ),
+                    // TextView.getMediumText14(to, Assets.latoRegular,
+                    //     color: AppColors.gray100,
+                    //     fontWeight: FontWeight.w300,
+                    //     lines: 1),
                     const Spacer(),
                     Container(
                       height: sizes!.heightRatio * 20,
@@ -194,13 +212,18 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
                     const Spacer(),
                     SvgPicture.asset("assets/svg/star_icon.svg"),
                     CommonPadding.sizeBoxWithWidth(width: 4),
-                    TextView.getMediumText14(rating, Assets.latoRegular,
+                    TextView.getMediumText14("($rating/5)", Assets.latoRegular,
                         color: AppColors.gray100,
                         fontWeight: FontWeight.w400,
                         lines: 1),
                   ],
                 ),
               ),
+              // CommonPadding.sizeBoxWithHeight(height: 10),
+              TextView.getMediumText14(to, Assets.latoRegular,
+                  color: AppColors.gray100,
+                  fontWeight: FontWeight.w300,
+                  lines: 1),
               CommonPadding.sizeBoxWithHeight(height: 10),
               Row(
                 children: [
@@ -217,27 +240,29 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
                     ),
                   ),
                   CommonPadding.sizeBoxWithWidth(width: 10),
-                  GestureDetector(
-                    onTap: () {
-                      if (onReviewIt != null) {
-                        onReviewIt.call();
-                      }
-                    },
-                    child: Container(
-                      height: sizes!.heightRatio * 20,
-                      width: sizes!.widthRatio * 54,
-                      decoration: BoxDecoration(
-                          // color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(5),
-                          border:
-                              Border.all(color: AppColors.primary, width: 1)),
-                      child: Center(
-                        child: TextView.getText10(
-                            "review it", Assets.latoRegular,
-                            color: AppColors.primary, lines: 1),
-                      ),
-                    ),
-                  ),
+                  isUserAllowReview == true
+                      ? GestureDetector(
+                          onTap: () {
+                            if (onReviewIt != null) {
+                              onReviewIt.call();
+                            }
+                          },
+                          child: Container(
+                            height: sizes!.heightRatio * 20,
+                            width: sizes!.widthRatio * 54,
+                            decoration: BoxDecoration(
+                                // color: AppColors.primary,
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                    color: AppColors.primary, width: 1)),
+                            child: Center(
+                              child: TextView.getText10(
+                                  "review it", Assets.latoRegular,
+                                  color: AppColors.primary, lines: 1),
+                            ),
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
             ],
