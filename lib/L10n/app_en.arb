@@ -54,7 +54,6 @@
     "filter": "Filter",
     "no_data": "No Data Available",
     "mobile_required": "Phone Number Field is required",
-    "password_required": "Password Number Field is required",
-    "booking_history": "Booking History"
+    "password_required": "Password Number Field is required"
 
 }
