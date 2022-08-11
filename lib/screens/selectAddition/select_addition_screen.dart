@@ -5,6 +5,7 @@ import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
 import 'package:qbus/screens/selectAddition/select_addition_provider.dart';
+import 'package:qbus/screens/trips_search_screens/search_result.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import '../../../../utils/constant.dart';
@@ -40,6 +41,8 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
   int chicken = 0;
   int water = 0;
   int currentIndex = 0;
+
+  int isRoundTripCounter = 0;
 
   late SelectAdditionProvider selectAdditionProvider;
 
@@ -163,6 +166,52 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
             (route) => false);
       }
     } else if (widget.isRoundTripChecked == true) {
+      setState(() {
+        isRoundTripCounter++;
+        debugPrint("isRoundTripCounter:$isRoundTripCounter");
+      });
+
+      // switch (isRoundTripCounter) {
+      //   case 0:
+      //     await selectAdditionProvider.roundOrderTrip(
+      //         trips: widget.tripsModel!,
+      //         passengersCount: widget.passengersCount!);
+      //     if (selectAdditionProvider.isRoundOrderTripSaved == true) {
+      //       if (!mounted) return;
+      //       Navigator.pushAndRemoveUntil(
+      //           context,
+      //           MaterialPageRoute(builder: (context) => const SearchResult()),
+      //           (route) => false);
+      //     }
+      //     break;
+      //   case 1:
+      //     await selectAdditionProvider.roundOrderTrip(
+      //         trips: widget.tripsModel!,
+      //         passengersCount: widget.passengersCount!);
+      //     if (selectAdditionProvider.isRoundOrderTripSaved == true) {
+      //       if (!mounted) return;
+      //       Navigator.pushAndRemoveUntil(
+      //           context,
+      //           MaterialPageRoute(builder: (context) => const SearchResult()),
+      //           (route) => false);
+      //     }
+      //     break;
+      //
+      //   default:
+      //     await selectAdditionProvider.roundOrderTrip(
+      //         trips: widget.tripsModel!,
+      //         passengersCount: widget.passengersCount!);
+      //     if (selectAdditionProvider.isRoundOrderTripSaved == true) {
+      //       if (!mounted) return;
+      //       Navigator.pushAndRemoveUntil(
+      //           context,
+      //           MaterialPageRoute(
+      //               builder: (context) => const BottomBarScreen()),
+      //           (route) => false);
+      //     }
+      //     break;
+      // }
+
       await selectAdditionProvider.roundOrderTrip(
           trips: widget.tripsModel!, passengersCount: widget.passengersCount!);
       if (selectAdditionProvider.isRoundOrderTripSaved == true) {
