@@ -136,6 +136,10 @@ class _SearchResultState extends State<SearchResult> {
                                         isMultiDestinationChecked:
                                             widget.isMultiDestinationChecked,
                                         passengersCount: widget.passengersCount,
+                                        toCityId:
+                                            widget.tripFilterModel!.to_city_id,
+                                        fromCityId: widget
+                                            .tripFilterModel!.from_city_id,
                                       ),
                                     );
                                   },

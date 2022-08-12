@@ -8,7 +8,6 @@ import 'package:qbus/models/PackageFilterModel.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';

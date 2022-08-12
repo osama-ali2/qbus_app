@@ -5,7 +5,6 @@ import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
 import 'package:qbus/screens/selectAddition/select_addition_provider.dart';
-import 'package:qbus/screens/trips_search_screens/search_result.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import '../../../../utils/constant.dart';
@@ -21,6 +20,8 @@ class SelectAdditionScreen extends StatefulWidget {
   final bool? isRoundTripChecked;
   final bool? isMultiDestinationChecked;
   final String? passengersCount;
+  final String? toCityId;
+  final String? fromCityId;
 
   const SelectAdditionScreen({
     Key? key,
@@ -30,6 +31,8 @@ class SelectAdditionScreen extends StatefulWidget {
     this.isRoundTripChecked,
     this.isMultiDestinationChecked,
     this.passengersCount,
+    this.toCityId,
+    this.fromCityId,
   }) : super(key: key);
 
   @override
@@ -41,9 +44,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
   int chicken = 0;
   int water = 0;
   int currentIndex = 0;
-
   int isRoundTripCounter = 0;
-
   late SelectAdditionProvider selectAdditionProvider;
 
   @override
@@ -98,9 +99,11 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                     child: GestureDetector(
                       onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoginScreen()));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
                       },
                       child: Container(
                         height: sizes!.heightRatio * 45,
@@ -170,48 +173,6 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
         isRoundTripCounter++;
         debugPrint("isRoundTripCounter:$isRoundTripCounter");
       });
-
-      // switch (isRoundTripCounter) {
-      //   case 0:
-      //     await selectAdditionProvider.roundOrderTrip(
-      //         trips: widget.tripsModel!,
-      //         passengersCount: widget.passengersCount!);
-      //     if (selectAdditionProvider.isRoundOrderTripSaved == true) {
-      //       if (!mounted) return;
-      //       Navigator.pushAndRemoveUntil(
-      //           context,
-      //           MaterialPageRoute(builder: (context) => const SearchResult()),
-      //           (route) => false);
-      //     }
-      //     break;
-      //   case 1:
-      //     await selectAdditionProvider.roundOrderTrip(
-      //         trips: widget.tripsModel!,
-      //         passengersCount: widget.passengersCount!);
-      //     if (selectAdditionProvider.isRoundOrderTripSaved == true) {
-      //       if (!mounted) return;
-      //       Navigator.pushAndRemoveUntil(
-      //           context,
-      //           MaterialPageRoute(builder: (context) => const SearchResult()),
-      //           (route) => false);
-      //     }
-      //     break;
-      //
-      //   default:
-      //     await selectAdditionProvider.roundOrderTrip(
-      //         trips: widget.tripsModel!,
-      //         passengersCount: widget.passengersCount!);
-      //     if (selectAdditionProvider.isRoundOrderTripSaved == true) {
-      //       if (!mounted) return;
-      //       Navigator.pushAndRemoveUntil(
-      //           context,
-      //           MaterialPageRoute(
-      //               builder: (context) => const BottomBarScreen()),
-      //           (route) => false);
-      //     }
-      //     break;
-      // }
-
       await selectAdditionProvider.roundOrderTrip(
           trips: widget.tripsModel!, passengersCount: widget.passengersCount!);
       if (selectAdditionProvider.isRoundOrderTripSaved == true) {
@@ -252,12 +213,10 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                     setState(() {
                       var counter =
                           selectAdditionProvider.selectAdditionalList[index]++;
-
                       Map<String, dynamic> selected = {
                         "id": additionId,
                         "counter": counter + 1
                       };
-
                       selectAdditionProvider.additionalList[index]
                           .addAll(selected);
                     });
@@ -266,16 +225,13 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                     if (selectAdditionProvider.selectAdditionalList[index] >
                         0) {
                       // selectAdditionProvider.selectAdditionalList[index]--;
-
                       setState(() {
                         var counter = selectAdditionProvider
                             .selectAdditionalList[index]--;
-
                         Map<String, dynamic> selected = {
                           "id": additionId,
                           "counter": counter - 1
                         };
-
                         selectAdditionProvider.additionalList[index]
                             .addAll(selected);
                       });
