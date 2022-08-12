@@ -18,21 +18,17 @@ class SelectAdditionProvider with ChangeNotifier {
   final _logger = Logger();
   final _loader = Loader();
 
-  bool isTripLoaded = false;
-
   var userToken = PreferenceUtils.getString(Strings.loginUserToken);
-
+  bool isTripLoaded = false;
   bool isOneWayOrderTripSaved = false;
   bool isRoundOrderTripSaved = false;
   bool isMultiOrderTripSaved = false;
 
   TripAdditionalsResponse tripAdditionalsResponse = TripAdditionalsResponse();
-
   RoundOrdersTripResponse roundOrderTripResponse = RoundOrdersTripResponse();
   MultiOrdersTripResponse multiOrdersTripResponse = MultiOrdersTripResponse();
   OneWayOrdersTripResponse oneWayOrdersTripResponse =
       OneWayOrdersTripResponse();
-
   ErrorResponse errorResponse = ErrorResponse();
 
   List<int> selectAdditionalList = [];
@@ -104,7 +100,7 @@ class SelectAdditionProvider with ChangeNotifier {
       Map<String, dynamic> body = {
         "trip_id": trips.id,
         "count": passengersCount,
-        "code": "SALE10",
+        "code": "",
         "additional": additionalList,
         "user_notes": ""
       };
@@ -151,7 +147,7 @@ class SelectAdditionProvider with ChangeNotifier {
       Map<String, dynamic> tripBody = {
         "trip_id": trips.id,
         "count": passengersCount,
-        "code": "SALE10",
+        "code": "",
         "additional": additionalList,
         "user_notes": ""
       };
@@ -203,7 +199,7 @@ class SelectAdditionProvider with ChangeNotifier {
       Map<String, dynamic> tripBody = {
         "trip_id": trips.id,
         "count": passengersCount,
-        "code": "SALE10",
+        "code": "",
         "additional": additionalList,
         "user_notes": ""
       };

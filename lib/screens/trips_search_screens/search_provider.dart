@@ -27,7 +27,6 @@ class SearchProvider with ChangeNotifier {
       // tripsResponse.data!.trips!.clear();
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
-
       Map<String, dynamic> body = {
         "code": tripFilterModel.code,
         "date_from": tripFilterModel.date_from,
@@ -54,13 +53,10 @@ class SearchProvider with ChangeNotifier {
       if (tripsResponse.code == 1) {
         _logger.d("tripsResponse: ${tripsResponse.toJson()}");
         _loader.hideLoader(context!);
-
         isTripDataLoaded = true;
-
         notifyListeners();
       } else {
         debugPrint("tripsResponse: Something wrong");
-
         _loader.hideLoader(context!);
       }
     } catch (e) {
@@ -98,13 +94,10 @@ class SearchProvider with ChangeNotifier {
       if (tripsResponse.code == 1) {
         _logger.d("tripsResponseByFilter: ${tripsResponse.toJson()}");
         _loader.hideLoader(context!);
-
         isTripDataLoaded = true;
-
         notifyListeners();
       } else {
         debugPrint("tripsResponse: Something wrong");
-
         _loader.hideLoader(context!);
       }
     } catch (e) {

@@ -8,13 +8,13 @@ import 'package:qbus/models/PackageFilterModel.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/res/common_padding.dart';
+import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
-
 import '../../../../widgets/custom_button.dart';
 import '../../res/colors.dart';
 import '../explore_screens/explore_screen.dart';
@@ -384,7 +384,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                     _presentEndDate();
                     setState(() {
                       var date = DateFormat('yyyy-MM-dd')
-                          .format(_selectedStartDate)
+                          .format(_selectedEndDate)
                           .toString();
                       _endDate = date;
                     });
@@ -464,9 +464,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               fontWeight: FontWeight.normal,
               borderRadius: 5,
               onTapped: () {
-                debugPrint(
-                    "departureFromID: $departureFromID, arrivalToID: $arrivalToID,"
-                    " _startDate: $_startDate, departureFrom: $departureFrom, arrivalTo:$arrivalTo");
+                debugPrint("departureFromID: $departureFromID, "
+                    "arrivalToID: $arrivalToID,"
+                    "_startDate: $_startDate, "
+                    "_endDate: $_endDate,"
+                    "departureFrom: $departureFrom, arrivalTo:$arrivalTo");
 
                 if (departureFromID != "-1" &&
                     arrivalToID != "-1" &&
@@ -483,9 +485,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                         isRoundTripChecked: roundTrip,
                         passengersCount: "$passengersNumber",
                         tripFilterModel: TripFilterModel(
-                            from_city_id: departureFromID,
-                            to_city_id: arrivalToID,
-                            date_from: _startDate),
+                          from_city_id: departureFromID,
+                          to_city_id: arrivalToID,
+                          date_from: _startDate,
+                          //date_to: _endDate,
+                        ),
                       ));
                 } else {
                   Toasts.getErrorToast(
@@ -652,6 +656,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: CustomText(
                     text: "$detail...",
+                    //.getShortString(30),
                     textSize: sizes!.fontRatio * 10,
                     fontWeight: FontWeight.normal,
                     textColor: Colors.black,

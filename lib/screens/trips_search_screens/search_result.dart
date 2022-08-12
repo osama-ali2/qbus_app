@@ -143,7 +143,7 @@ class _SearchResultState extends State<SearchResult> {
                                     padding: EdgeInsets.symmetric(
                                         horizontal: sizes!.widthRatio * 20,
                                         vertical: sizes!.heightRatio * 5),
-                                    child: _card(
+                                    child: _cardContainer(
                                         context: context,
                                         stationA: stationA,
                                         stationB: stationB,
@@ -196,7 +196,7 @@ class _SearchResultState extends State<SearchResult> {
     );
   }
 
-  Widget _card(
+  Widget _cardContainer(
       {required BuildContext context,
       required String stationA,
       required String stationB,
@@ -330,18 +330,20 @@ class _SearchResultState extends State<SearchResult> {
               height: sizes!.heightRatio * 10,
             ),
             SizedBox(
-                height: sizes!.heightRatio * 20,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: additionals.length,
-                    itemBuilder: (context, index) {
-                      var data = additionals[index].en;
-                      return CustomText(
-                          text: "$data /",
-                          textSize: sizes!.fontRatio * 14,
-                          fontWeight: FontWeight.w500,
-                          textColor: Colors.grey);
-                    }))
+              height: sizes!.heightRatio * 20,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: additionals.length,
+                itemBuilder: (context, index) {
+                  var data = additionals[index].en;
+                  return CustomText(
+                      text: "$data /",
+                      textSize: sizes!.fontRatio * 14,
+                      fontWeight: FontWeight.w500,
+                      textColor: Colors.grey);
+                },
+              ),
+            )
           ],
         ),
       ),
