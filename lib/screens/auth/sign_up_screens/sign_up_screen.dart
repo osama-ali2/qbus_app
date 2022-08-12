@@ -6,13 +6,11 @@ import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/screens/auth/sign_up_screens/sign_up_provider.dart';
-//import '../../../navigation/navigation_helper.dart';
 import '../../../utils/constant.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_password_textField.dart';
 import '../../../widgets/custom_text.dart';
 import '../../../widgets/custom_textField.dart';
-//import '../phone_activation_screens/phone_activation_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignUpScreen extends StatefulWidget {
