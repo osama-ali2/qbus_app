@@ -9,6 +9,10 @@ import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/wallet
 import 'package:qbus/screens/explore_screens/package_detail_screens/package_detail_provider.dart';
 import 'package:qbus/screens/explore_screens/package_select_addition_screens/package_select_addition_provider.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
+import 'package:qbus/screens/round_trip_flow/step_one/round_trip_step_one_provider.dart';
+import 'package:qbus/screens/round_trip_flow/step_one/step_one_select_addition/step_one_select_addition_provider.dart';
+import 'package:qbus/screens/round_trip_flow/step_two/round_trip_step_two_provider.dart';
+import 'package:qbus/screens/round_trip_flow/step_two/step_two_select_addition/step_two_select_addition_provider.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_provider.dart';
 import 'package:qbus/screens/trips_search_screens/search_provider.dart';
 import '../screens/auth/login_screens/login_provider.dart';
@@ -134,6 +138,22 @@ final multiProviders = [
   ),
   ChangeNotifierProvider<PackageHistoryProvider>(
     create: (_) => PackageHistoryProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<StepTwoSelectAdditionProvider>(
+    create: (_) => StepTwoSelectAdditionProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<StepOneSelectAdditionProvider>(
+    create: (_) => StepOneSelectAdditionProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<RoundTripStepOneProvider>(
+    create: (_) => RoundTripStepOneProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<RoundTripStepTwoProvider>(
+    create: (_) => RoundTripStepTwoProvider(),
     lazy: true,
   ),
 ];

@@ -11,6 +11,7 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
+import 'package:qbus/screens/round_trip_flow/step_one/round_trip_step_one_result.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
@@ -474,22 +475,40 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                     _startDate != "" &&
                     departureFrom != "" &&
                     arrivalTo != "") {
-                  NavigationHelper.pushRoute(
-                      context,
-                      SearchResult(
-                        fromCity: departureFrom,
-                        toCity: arrivalTo,
-                        isMultiDestinationChecked: multiTrip,
-                        isOneWayTripChecked: oneWayTrip,
-                        isRoundTripChecked: roundTrip,
-                        passengersCount: "$passengersNumber",
-                        tripFilterModel: TripFilterModel(
-                          from_city_id: departureFromID,
-                          to_city_id: arrivalToID,
-                          date_from: _startDate,
-                          //date_to: _endDate,
-                        ),
-                      ));
+                  if (roundTrip == true) {
+                    debugPrint("roundTrip == $roundTrip");
+                    NavigationHelper.pushRoute(
+                        context,
+                        RoundTripStepOneResult(
+                          fromCity: departureFrom,
+                          toCity: arrivalTo,
+                          isRoundTripChecked: roundTrip,
+                          passengersCount: "$passengersNumber",
+                          tripFilterModel: TripFilterModel(
+                            from_city_id: departureFromID,
+                            to_city_id: arrivalToID,
+                            date_from: _startDate,
+                            //date_to: _endDate,
+                          ),
+                        ));
+                  } else {
+                    NavigationHelper.pushRoute(
+                        context,
+                        SearchResult(
+                          fromCity: departureFrom,
+                          toCity: arrivalTo,
+                          isMultiDestinationChecked: multiTrip,
+                          isOneWayTripChecked: oneWayTrip,
+                          isRoundTripChecked: roundTrip,
+                          passengersCount: "$passengersNumber",
+                          tripFilterModel: TripFilterModel(
+                            from_city_id: departureFromID,
+                            to_city_id: arrivalToID,
+                            date_from: _startDate,
+                            //date_to: _endDate,
+                          ),
+                        ));
+                  }
                 } else {
                   Toasts.getErrorToast(
                       text: AppLocalizations.of(context)!.required_fields);
