@@ -488,7 +488,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             from_city_id: departureFromID,
                             to_city_id: arrivalToID,
                             date_from: _startDate,
-                            //date_to: _endDate,
+                            date_to: _endDate,
                           ),
                         ));
                   } else {
