@@ -20,9 +20,7 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
 
   var userToken = PreferenceUtils.getString(Strings.loginUserToken);
   bool isTripLoaded = false;
-  bool isOneWayOrderTripSaved = false;
   bool isRoundOrderTripSaved = false;
-  bool isMultiOrderTripSaved = false;
 
   TripAdditionalsResponse tripAdditionalsResponse = TripAdditionalsResponse();
   RoundOrdersTripResponse roundOrderTripResponse = RoundOrdersTripResponse();
@@ -36,9 +34,7 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
-    isOneWayOrderTripSaved = false;
     isRoundOrderTripSaved = false;
-    isMultiOrderTripSaved = false;
   }
 
   Future<void> getAdditionalData({required String id}) async {
