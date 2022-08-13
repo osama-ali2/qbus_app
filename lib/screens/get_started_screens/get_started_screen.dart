@@ -192,7 +192,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: sizes!.fontRatio * 20,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               checkBox(
                   context, oneWayTrip, AppLocalizations.of(context)!.one_way,
@@ -214,16 +214,16 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   tripType = roundTrip;
                 });
               }),
-              checkBox(context, multiTrip,
-                  AppLocalizations.of(context)!.multi_destination, () {
-                multiTrip = true;
-                roundTrip = false;
-                oneWayTrip = false;
-
-                setState(() {
-                  tripType = multiTrip;
-                });
-              }),
+              // checkBox(context, multiTrip,
+              //     AppLocalizations.of(context)!.multi_destination, () {
+              //   multiTrip = true;
+              //   roundTrip = false;
+              //   oneWayTrip = false;
+              //
+              //   setState(() {
+              //     tripType = multiTrip;
+              //   });
+              // }),
             ],
           ),
           SizedBox(
@@ -393,8 +393,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                     height: sizes!.heightRatio * 48,
                     width: sizes!.widthRatio * 380,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: Colors.grey.shade400)),
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.grey.shade400),
+                    ),
                     child: Row(
                       children: [
                         Padding(
@@ -505,7 +506,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             from_city_id: departureFromID,
                             to_city_id: arrivalToID,
                             date_from: _startDate,
-                            //date_to: _endDate,
+                            date_to: _endDate,
                           ),
                         ));
                   }
