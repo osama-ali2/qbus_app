@@ -3,8 +3,6 @@ import 'package:logger/logger.dart';
 import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/additionals/TripAdditionalsResponse.dart';
 import 'package:qbus/models/error_model/ErrorResponse.dart';
-import 'package:qbus/models/trips/MultiOrdersTripResponse.dart';
-import 'package:qbus/models/trips/OneWayOrdersTripResponse.dart';
 import 'package:qbus/models/trips/RoundOrdersTripResponse.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
@@ -20,15 +18,10 @@ class StepOneSelectAdditionProvider with ChangeNotifier {
 
   var userToken = PreferenceUtils.getString(Strings.loginUserToken);
   bool isTripLoaded = false;
-  bool isOneWayOrderTripSaved = false;
   bool isRoundOrderTripSaved = false;
-  bool isMultiOrderTripSaved = false;
 
   TripAdditionalsResponse tripAdditionalsResponse = TripAdditionalsResponse();
   RoundOrdersTripResponse roundOrderTripResponse = RoundOrdersTripResponse();
-  MultiOrdersTripResponse multiOrdersTripResponse = MultiOrdersTripResponse();
-  OneWayOrdersTripResponse oneWayOrdersTripResponse =
-      OneWayOrdersTripResponse();
   ErrorResponse errorResponse = ErrorResponse();
 
   List<int> selectAdditionalList = [];
@@ -36,9 +29,7 @@ class StepOneSelectAdditionProvider with ChangeNotifier {
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
-    isOneWayOrderTripSaved = false;
     isRoundOrderTripSaved = false;
-    isMultiOrderTripSaved = false;
   }
 
   Future<void> getAdditionalData({required String id}) async {
@@ -46,20 +37,15 @@ class StepOneSelectAdditionProvider with ChangeNotifier {
       // selectAdditionalList.clear();
 
       _loader.showLoader(context: context);
-
       Map<String, dynamic> header = {"Content-Type": "application/json"};
-
       var url = "$tripAdditionalApiUrl$id";
-
       debugPrint("URL: $url");
-
       tripAdditionalsResponse = await MyApi.callGetApi(
           url: url, myHeaders: header, modelName: Models.tripAdditionalsModel);
 
       if (tripAdditionalsResponse.code == 1) {
         _logger
             .d("tripAdditionalsResponse: ${tripAdditionalsResponse.toJson()}");
-
         var length = tripAdditionalsResponse.data!.additional!.length;
         for (int i = 0; i < length; i++) {
           Map<String, dynamic> demoData = {
@@ -87,12 +73,10 @@ class StepOneSelectAdditionProvider with ChangeNotifier {
       {required Trips trips, required String passengersCount}) async {
     try {
       _loader.showLoader(context: context);
-
       Map<String, dynamic> header = {
         "Content-Type": "application/json",
         "Authorization": "Bearer $userToken"
       };
-
       Map<String, dynamic> tripBody = {
         "trip_id": trips.id,
         "count": passengersCount,
@@ -100,17 +84,14 @@ class StepOneSelectAdditionProvider with ChangeNotifier {
         "additional": additionalList,
         "user_notes": ""
       };
-
       Map<String, dynamic> body = {
         "trips": [tripBody]
       };
 
       var url = roundOrderTripApiUrl;
-
       debugPrint("URL: $url");
       debugPrint("Header: $header");
       debugPrint("Body: $body");
-
       roundOrderTripResponse = await MyApi.callPostApi(
           url: url,
           myHeaders: header,

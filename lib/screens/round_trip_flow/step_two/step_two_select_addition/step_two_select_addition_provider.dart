@@ -46,16 +46,12 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
       // selectAdditionalList.clear();
 
       _loader.showLoader(context: context);
-
       Map<String, dynamic> header = {"Content-Type": "application/json"};
 
       var url = "$tripAdditionalApiUrl$id";
-
       debugPrint("URL: $url");
-
       tripAdditionalsResponse = await MyApi.callGetApi(
           url: url, myHeaders: header, modelName: Models.tripAdditionalsModel);
-
       if (tripAdditionalsResponse.code == 1) {
         _logger
             .d("tripAdditionalsResponse: ${tripAdditionalsResponse.toJson()}");
@@ -90,7 +86,6 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
       required String passengersCount}) async {
     try {
       _loader.showLoader(context: context);
-
       Map<String, dynamic> header = {
         "Content-Type": "application/json",
         "Authorization": "Bearer $userToken"
@@ -119,11 +114,9 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
       };
 
       var url = roundOrderTripApiUrl;
-
       debugPrint("URL: $url");
       debugPrint("Header: $header");
       _logger.d("Body: $body");
-
       roundOrderTripResponse = await MyApi.callPostApi(
           url: url,
           myHeaders: header,
