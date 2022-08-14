@@ -143,11 +143,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     );
   }
 
-  // void _changeLanguage(lang) {
-  //   const Locale("ar", 'Ar');
-  //   debugPrint(lang.name);
-  // }
-
   Widget _getUI(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 20.0),
@@ -165,28 +160,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               textColor: Colors.black,
               textAlign: TextAlign.start,
             ),
-            // DropdownButton(
-            //   onChanged: (language) {
-            //     _changeLanguage(language);
-            //   },
-            //   underline: const SizedBox(),
-            //   icon: const Icon(
-            //     Icons.language,
-            //     size: 28,
-            //   ),
-            //   items: Language.languageList()
-            //       .map<DropdownMenuItem<Language>>(
-            //           (language) => DropdownMenuItem(
-            //                 value: language,
-            //                 child: Row(
-            //                   children: <Widget>[
-            //                     Text(language.flag),
-            //                     Text(language.name),
-            //                   ],
-            //                 ),
-            //               ))
-            //       .toList(),
-            // ),
           ]),
           SizedBox(
             height: sizes!.fontRatio * 20,
@@ -214,16 +187,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   tripType = roundTrip;
                 });
               }),
-              // checkBox(context, multiTrip,
-              //     AppLocalizations.of(context)!.multi_destination, () {
-              //   multiTrip = true;
-              //   roundTrip = false;
-              //   oneWayTrip = false;
-              //
-              //   setState(() {
-              //     tripType = multiTrip;
-              //   });
-              // }),
             ],
           ),
           SizedBox(
@@ -274,14 +237,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               ),
             ),
           ),
-
-          // CustomTextField(
-          //   controller: departureFromController,
-          //   padding: 0,
-          //   validator: (val) => null,
-          //   inputType: TextInputType.name,
-          //   hint: "Departure from",
-          // ),
           SizedBox(
             height: sizes!.heightRatio * 10,
           ),
@@ -331,21 +286,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               ),
             ),
           ),
-
-          // CustomTextField(
-          //   controller: arrivalToController,
-          //   padding: 0,
-          //   validator: (val) => null,
-          //   inputType: TextInputType.name,
-          //   hint: "Arrival to",
-          // ),
           SizedBox(
             height: sizes!.heightRatio * 10,
           ),
           GestureDetector(
             onTap: () {
               _presentStartDate();
-
               setState(() {
                 var date = DateFormat('yyyy-MM-dd')
                     .format(_selectedStartDate)
@@ -438,23 +384,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           SizedBox(
             height: sizes!.heightRatio * 15,
           ),
-
-          // CustomButton(
-          //     name: "Click",
-          //     buttonColor: appColor,
-          //     height: sizes!.heightRatio * 45,
-          //     width: double.infinity,
-          //     textSize: sizes!.fontRatio * 16,
-          //     textColor: Colors.white,
-          //     fontWeight: FontWeight.normal,
-          //     borderRadius: 5,
-          //     onTapped: () async {
-          //       await LocalNotificationService.instance.showNotification(
-          //           id: 0, title: "title", body: "Notify Show");
-          //       // await localNotificationService.showScheduleNotification(
-          //       //     id: 1, title: "title", body: "Schedule Notify", seconds: 5);
-          //     },
-          //     padding: 0),
           CustomButton(
               name: AppLocalizations.of(context)!.search,
               buttonColor: appColor,

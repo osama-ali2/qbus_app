@@ -88,10 +88,10 @@ class _RoundTripStepOneResultState extends State<RoundTripStepOneResult> {
               fontWeight: FontWeight.w400,
               textColor: Colors.white),
         ),
-        body: Column(
-          children: [
-            searchProvider.isTripDataLoaded
-                ? Expanded(
+        body: searchProvider.isTripDataLoaded
+            ? Column(
+                children: [
+                  Expanded(
                     child: searchProvider.tripsResponse.data!.trips!.isNotEmpty
                         ? ListView.builder(
                             controller: _scrollController,
@@ -162,33 +162,40 @@ class _RoundTripStepOneResultState extends State<RoundTripStepOneResult> {
                                 lines: 1,
                                 fontWeight: FontWeight.normal),
                           ),
-                  )
-                : Container(),
-            CommonPadding.sizeBoxWithHeight(height: 10),
-            searchProvider.isTripDataLoaded
-                ? CustomButton(
-                        name: "Filter Result",
-                        buttonColor: appColor,
-                        height: sizes!.heightRatio * 45,
-                        width: double.infinity,
-                        textSize: sizes!.fontRatio * 16,
-                        textColor: Colors.white,
-                        fontWeight: FontWeight.normal,
-                        borderRadius: 5,
-                        onTapped: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const TripFilterScreen(),
-                            ),
-                          );
-                        },
-                        padding: 0)
-                    .get20HorizontalPadding()
-                : Container(),
-            CommonPadding.sizeBoxWithHeight(height: 10),
-          ],
-        ),
+                  ),
+                  CommonPadding.sizeBoxWithHeight(height: 10),
+                  searchProvider.isTripDataLoaded
+                      ? CustomButton(
+                              name: "Filter Result",
+                              buttonColor: appColor,
+                              height: sizes!.heightRatio * 45,
+                              width: double.infinity,
+                              textSize: sizes!.fontRatio * 16,
+                              textColor: Colors.white,
+                              fontWeight: FontWeight.normal,
+                              borderRadius: 5,
+                              onTapped: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const TripFilterScreen(),
+                                  ),
+                                );
+                              },
+                              padding: 0)
+                          .get20HorizontalPadding()
+                      : Container(),
+                  CommonPadding.sizeBoxWithHeight(height: 10),
+                ],
+              )
+            : Center(
+                child: TextView.getSubHeadingTextWith15(
+                    "No Trip Available", Assets.latoBold,
+                    color: AppColors.blueHomeColor,
+                    lines: 1,
+                    fontWeight: FontWeight.normal),
+              ),
       ),
     );
   }
