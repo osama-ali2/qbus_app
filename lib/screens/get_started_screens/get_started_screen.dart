@@ -63,6 +63,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     arrivalToController = TextEditingController();
     dateController = TextEditingController();
     _selectedStartDate = DateTime.now();
+    _selectedEndDate = DateTime.now();
+
     LocalNotificationService.instance.initialize();
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -124,10 +126,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       }
       setState(() {
         _selectedEndDate = pickedDate;
-        var month = DateFormat('MM').format(_selectedEndDate).toString();
-        var year = DateFormat('yyyy').format(_selectedEndDate).toString();
-        debugPrint("_selectedDate: month $month");
-        debugPrint("_selectedDate: year $year");
+        debugPrint("_selectedEndDate: $_selectedEndDate");
+        // var month = DateFormat('MM').format(_selectedEndDate).toString();
+        // var year = DateFormat('yyyy').format(_selectedEndDate).toString();
+        // debugPrint("_selectedDate: month $month");
+        // debugPrint("_selectedDate: year $year");
       });
     });
   }
@@ -165,7 +168,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: sizes!.fontRatio * 20,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               checkBox(
                   context, oneWayTrip, AppLocalizations.of(context)!.one_way,
@@ -177,6 +180,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   tripType = oneWayTrip;
                 });
               }),
+              CommonPadding.sizeBoxWithWidth(width: 20),
               checkBox(
                   context, roundTrip, AppLocalizations.of(context)!.round_trip,
                   () {

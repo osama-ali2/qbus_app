@@ -45,7 +45,7 @@ class StepOneSelectAdditionProvider with ChangeNotifier {
 
       if (tripAdditionalsResponse.code == 1) {
         _logger
-            .d("tripAdditionalsResponse: ${tripAdditionalsResponse.toJson()}");
+            .d("tripAdditionalsResponse: ${tripAdditionalsResponse.data!.toJson()}");
         var length = tripAdditionalsResponse.data!.additional!.length;
         for (int i = 0; i < length; i++) {
           Map<String, dynamic> demoData = {

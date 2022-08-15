@@ -68,7 +68,7 @@ class _StepOneSelectAdditionScreenState
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<SelectAdditionProvider>(context, listen: true);
+    Provider.of<StepOneSelectAdditionProvider>(context, listen: true);
     return Scaffold(
       bottomNavigationBar: SizedBox(
         height: sizes!.heightRatio * 130,
@@ -153,19 +153,17 @@ class _StepOneSelectAdditionScreenState
             textColor: Colors.white),
       ),
       backgroundColor: Colors.white,
-      body: stepOneSelectAdditionProvider.isTripLoaded == true
+      body: (stepOneSelectAdditionProvider.isTripLoaded == true)
           ? ListView.builder(
               itemCount: stepOneSelectAdditionProvider
                   .tripAdditionalsResponse.data!.additional!.length,
               itemBuilder: (context, index) {
                 currentIndex = index;
-                var name = stepOneSelectAdditionProvider
-                    .tripAdditionalsResponse.data!.additional![index].name!.en
-                    .toString();
-                var additionId = stepOneSelectAdditionProvider
-                    .tripAdditionalsResponse.data!.additional![index].id
-                    .toString();
-                return itemContainer(
+                var data = stepOneSelectAdditionProvider
+                    .tripAdditionalsResponse.data!.additional![index];
+                var name = data.name!.en.toString();
+                var additionId = data.id.toString();
+                return _itemContainer(
                     name: name, index: index, additionId: additionId);
               })
           : const Center(
@@ -174,7 +172,7 @@ class _StepOneSelectAdditionScreenState
     );
   }
 
-  Widget itemContainer(
+  Widget _itemContainer(
           {required String name,
           required int index,
           required String additionId}) =>

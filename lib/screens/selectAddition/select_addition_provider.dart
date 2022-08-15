@@ -39,6 +39,7 @@ class SelectAdditionProvider with ChangeNotifier {
     isOneWayOrderTripSaved = false;
     isRoundOrderTripSaved = false;
     isMultiOrderTripSaved = false;
+    isTripLoaded = false;
   }
 
   Future<void> getAdditionalData({required String id}) async {
@@ -46,16 +47,12 @@ class SelectAdditionProvider with ChangeNotifier {
       // selectAdditionalList.clear();
 
       _loader.showLoader(context: context);
-
       Map<String, dynamic> header = {"Content-Type": "application/json"};
-
       var url = "$tripAdditionalApiUrl$id";
-
       debugPrint("URL: $url");
 
       tripAdditionalsResponse = await MyApi.callGetApi(
           url: url, myHeaders: header, modelName: Models.tripAdditionalsModel);
-
       if (tripAdditionalsResponse.code == 1) {
         _logger
             .d("tripAdditionalsResponse: ${tripAdditionalsResponse.toJson()}");
@@ -70,8 +67,8 @@ class SelectAdditionProvider with ChangeNotifier {
           selectAdditionalList.add(0);
           debugPrint("selectAdditionalList: ${selectAdditionalList.length}");
         }
-        _loader.hideLoader(context!);
         isTripLoaded = true;
+        _loader.hideLoader(context!);
         notifyListeners();
       } else {
         debugPrint("tripAdditionalsResponse: Something wrong");

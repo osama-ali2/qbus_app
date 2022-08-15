@@ -53,14 +53,11 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
   @override
   void initState() {
     super.initState();
-
     searchProvider = RoundTripStepTwoProvider();
     searchProvider =
         Provider.of<RoundTripStepTwoProvider>(context, listen: false);
     searchProvider.init(context: context);
-
     _scrollController = ScrollController();
-
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
@@ -73,7 +70,6 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
             tripFilterModel: widget.tripFilterModel!, offset: index);
       }
     });
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       searchProvider.getTripsData(
           tripFilterModel: widget.tripFilterModel!, offset: index);

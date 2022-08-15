@@ -44,7 +44,6 @@ class _RoundTripStepOneResultState extends State<RoundTripStepOneResult> {
   @override
   void initState() {
     super.initState();
-
     searchProvider = RoundTripStepOneProvider();
     searchProvider =
         Provider.of<RoundTripStepOneProvider>(context, listen: false);

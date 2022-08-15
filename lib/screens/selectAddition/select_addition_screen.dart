@@ -182,17 +182,18 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
             MaterialPageRoute(builder: (context) => const BottomBarScreen()),
             (route) => false);
       }
-    } else if (widget.isMultiDestinationChecked == true) {
-      await selectAdditionProvider.multiOrderTrip(
-          trips: widget.tripsModel!, passengersCount: widget.passengersCount!);
-      if (selectAdditionProvider.isMultiOrderTripSaved == true) {
-        if (!mounted) return;
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => const BottomBarScreen()),
-            (route) => false);
-      }
     }
+    // else if (widget.isMultiDestinationChecked == true) {
+    //   await selectAdditionProvider.multiOrderTrip(
+    //       trips: widget.tripsModel!, passengersCount: widget.passengersCount!);
+    //   if (selectAdditionProvider.isMultiOrderTripSaved == true) {
+    //     if (!mounted) return;
+    //     Navigator.pushAndRemoveUntil(
+    //         context,
+    //         MaterialPageRoute(builder: (context) => const BottomBarScreen()),
+    //         (route) => false);
+    //   }
+    // }
   }
 
   Widget itemContainer(

@@ -68,7 +68,7 @@ class _StepTwoSelectAdditionScreenState
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<SelectAdditionProvider>(context, listen: true);
+    Provider.of<StepTwoSelectAdditionProvider>(context, listen: true);
     return Scaffold(
       bottomNavigationBar: SizedBox(
         height: sizes!.heightRatio * 130,
