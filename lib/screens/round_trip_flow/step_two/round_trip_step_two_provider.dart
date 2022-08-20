@@ -29,8 +29,8 @@ class RoundTripStepTwoProvider with ChangeNotifier {
       Map<String, dynamic> header = {"Content-Type": "application/json"};
       Map<String, dynamic> body = {
         "code": tripFilterModel.code,
-        "date_from": tripFilterModel.date_from,
-        "date_to": tripFilterModel.date_to,
+        "date_from": tripFilterModel.date_to, //tripFilterModel.date_from,
+        "date_to": "", //tripFilterModel.date_to,
         "time_from": tripFilterModel.time_from,
         "from_city_id": tripFilterModel.from_city_id,
         "to_city_id": tripFilterModel.to_city_id,
