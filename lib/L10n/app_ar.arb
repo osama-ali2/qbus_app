@@ -55,5 +55,13 @@
     "no_data": "لا توجد بيانات متوفرة",
     "mobile_required": "رقم الجوال مطلوب",
     "password_required": "كلمة المرور مطلوبة",
-    "booking_history": "حجوزاتي"
+    "booking_history": "حجوزاتي",
+    "trip_history": "حجوزات الرحلات",
+    "package_history": "حجوزات البرامج",
+    "review_trip": "قيم الرحلة",
+    "review_package": "قيم البرنامج",
+    "additions": "الاضافات",
+    "return_date": "تاريخ العودة",
+    "no_trip_available": "لاتوجد رحلات متوفرة",
+    "no_package_available": "لاتوجد رحلات متوفرة"
 }

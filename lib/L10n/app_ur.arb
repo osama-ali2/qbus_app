@@ -49,12 +49,19 @@
     "return_policy": "واپسی پالیسی",
     "contact_us": "ہم سے رابطہ کریں",
     "logout": "لاگ آؤٹ کریں",
-    "required_fields": "fields are required",
-    "explore_packages": "Explore Packages",
-    "filter": "Filter",
-    "no_data": "No Data Available",
-    "mobile_required": "Phone Number Field is required",
-    "password_required": "Password Number Field is required",
-    "booking_history": "Booking History"
-
+    "required_fields": "کھیتوں کی ضرورت ہوتی ہے",
+    "explore_packages": "پیکیج دریافت کریں",
+    "filter": "فلٹر",
+    "no_data": "کوئی کوائف دستیاب نہیں",
+    "mobile_required": "فون نمبر قطعہ درکار ہے",
+    "password_required": "پاس ورڈ نمبر قطعہ درکار ہے",
+    "booking_history": "تاریخ کی بکنگ",
+    "trip_history": "تاریخ کے دورے",
+    "package_history": "پیکیجز کی تاریخ",
+    "review_trip": "سفر کا جائزہ لیں",
+    "review_package": "پیکیج کا جائزہ لیں",
+    "additions": "اضافہ",
+    "return_date": "واپسی کی تاریخ",
+    "no_trip_available": "کوئی پروازیں دستیاب نہیں",
+    "no_package_available": "کو
 }
