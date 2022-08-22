@@ -55,7 +55,7 @@
     "no_data": "No Data Available",
     "mobile_required": "Phone Number Field is required",
     "password_required": "Password Number Field is required",
-    "booking_history": "Booking History"
+    "booking_history": "Booking History",
     "trip_history": "trips history",
     "package_history": "Packages history",
     "review_trip": "Review trip",
