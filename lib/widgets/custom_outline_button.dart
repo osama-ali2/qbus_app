@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:qbus/res/colors.dart';
-
 import 'custom_text.dart';
 
 class CustomOutlineButton extends StatelessWidget {
