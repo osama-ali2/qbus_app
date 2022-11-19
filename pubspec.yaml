@@ -58,8 +58,8 @@ dependencies:
   pinput: ^2.2.10
   google_fonts: any
   custom_timer: any
-  firebase_core: ^2.2.0
-  firebase_messaging: ^14.1.0
+  firebase_core: ^2.3.0
+  firebase_messaging: ^14.1.1
   flutter_local_notifications: ^9.7.0
   timezone: any
   #  Star Rating Bar
