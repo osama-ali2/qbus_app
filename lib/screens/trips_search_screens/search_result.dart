@@ -4,6 +4,7 @@ import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';
+
 import '../../../../navigation/navigation_helper.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
@@ -95,106 +96,110 @@ class _SearchResultState extends State<SearchResult> {
               textColor: Colors.white),
         ),
         body: searchProvider.isTripDataLoaded
-            ? Column(
-                children: [
-                  Expanded(
-                    child: searchProvider.tripsResponse.data!.trips!.isNotEmpty
-                        ? ListView.builder(
-                            controller: _scrollController,
-                            itemCount: searchProvider
-                                .tripsResponse.data!.trips!.length,
-                            itemBuilder: (context, i) {
-                              var data =
-                                  searchProvider.tripsResponse.data!.trips![i];
-                              var stationA =
-                                  data.startStationName!.en.toString();
-                              var stationB =
-                                  data.arrivalStationName!.en.toString();
-                              var fees = data.fees.toString();
-                              var rate = data.rate.toString();
-                              var fromCityName =
-                                  data.fromCityName!.en.toString();
-                              var toCityName = data.toCityName!.en.toString();
-                              var timeFrom = data.timeFrom.toString();
-                              var timeTo = data.timeTo.toString();
-                              var stops = data.stops.toString();
-                              var providerName = data.providerName.toString();
+            ? SafeArea(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: searchProvider
+                              .tripsResponse.data!.trips!.isNotEmpty
+                          ? ListView.builder(
+                              controller: _scrollController,
+                              itemCount: searchProvider
+                                  .tripsResponse.data!.trips!.length,
+                              itemBuilder: (context, i) {
+                                var data = searchProvider
+                                    .tripsResponse.data!.trips![i];
+                                var stationA =
+                                    data.startStationName!.en.toString();
+                                var stationB =
+                                    data.arrivalStationName!.en.toString();
+                                var fees = data.fees.toString();
+                                var rate = data.rate.toString();
+                                var fromCityName =
+                                    data.fromCityName!.en.toString();
+                                var toCityName = data.toCityName!.en.toString();
+                                var timeFrom = data.timeFrom.toString();
+                                var timeTo = data.timeTo.toString();
+                                var stops = data.stops.toString();
+                                var providerName = data.providerName.toString();
 
-                              var tripId = data.id.toString();
+                                var tripId = data.id.toString();
 
-                              return InkWell(
-                                  onTap: () {
-                                    NavigationHelper.pushRoute(
-                                      context,
-                                      SelectAdditionScreen(
-                                        tripId: tripId,
-                                        tripsModel: data,
-                                        isRoundTripChecked:
-                                            widget.isRoundTripChecked,
-                                        isOneWayTripChecked:
-                                            widget.isOneWayTripChecked,
-                                        isMultiDestinationChecked:
-                                            widget.isMultiDestinationChecked,
-                                        passengersCount: widget.passengersCount,
-                                        toCityId:
-                                            widget.tripFilterModel!.to_city_id,
-                                        fromCityId: widget
-                                            .tripFilterModel!.from_city_id,
-                                      ),
-                                    );
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: sizes!.widthRatio * 20,
-                                        vertical: sizes!.heightRatio * 5),
-                                    child: _cardContainer(
-                                        context: context,
-                                        stationA: stationA,
-                                        stationB: stationB,
-                                        fees: fees,
-                                        rate: rate,
-                                        fromCityName: fromCityName,
-                                        toCityName: toCityName,
-                                        timeFrom: timeFrom,
-                                        timeTo: timeTo,
-                                        stops: stops,
-                                        providerName: providerName,
-                                        additionals: data.additionals!),
-                                  ));
-                            })
-                        : Center(
-                            child: TextView.getSubHeadingTextWith15(
-                                "No Data Available", Assets.latoBold,
-                                color: AppColors.blueHomeColor,
-                                lines: 1,
-                                fontWeight: FontWeight.normal),
-                          ),
-                  ),
-                  CommonPadding.sizeBoxWithHeight(height: 10),
-                  searchProvider.isTripDataLoaded
-                      ? CustomButton(
-                              name: "Filter Result",
-                              buttonColor: appColor,
-                              height: sizes!.heightRatio * 45,
-                              width: double.infinity,
-                              textSize: sizes!.fontRatio * 16,
-                              textColor: Colors.white,
-                              fontWeight: FontWeight.normal,
-                              borderRadius: 5,
-                              onTapped: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const TripFilterScreen(),
-                                  ),
-                                );
-                              },
-                              padding: 0)
-                          .get20HorizontalPadding()
-                      : Container(),
-                  CommonPadding.sizeBoxWithHeight(height: 10),
-                ],
+                                return InkWell(
+                                    onTap: () {
+                                      NavigationHelper.pushRoute(
+                                        context,
+                                        SelectAdditionScreen(
+                                          tripId: tripId,
+                                          tripsModel: data,
+                                          isRoundTripChecked:
+                                              widget.isRoundTripChecked,
+                                          isOneWayTripChecked:
+                                              widget.isOneWayTripChecked,
+                                          isMultiDestinationChecked:
+                                              widget.isMultiDestinationChecked,
+                                          passengersCount:
+                                              widget.passengersCount,
+                                          toCityId: widget
+                                              .tripFilterModel!.to_city_id,
+                                          fromCityId: widget
+                                              .tripFilterModel!.from_city_id,
+                                        ),
+                                      );
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: sizes!.widthRatio * 20,
+                                          vertical: sizes!.heightRatio * 5),
+                                      child: _cardContainer(
+                                          context: context,
+                                          stationA: stationA,
+                                          stationB: stationB,
+                                          fees: fees,
+                                          rate: rate,
+                                          fromCityName: fromCityName,
+                                          toCityName: toCityName,
+                                          timeFrom: timeFrom,
+                                          timeTo: timeTo,
+                                          stops: stops,
+                                          providerName: providerName,
+                                          additionals: data.additionals!),
+                                    ));
+                              })
+                          : Center(
+                              child: TextView.getSubHeadingTextWith15(
+                                  "No Data Available", Assets.latoBold,
+                                  color: AppColors.blueHomeColor,
+                                  lines: 1,
+                                  fontWeight: FontWeight.normal),
+                            ),
+                    ),
+                    CommonPadding.sizeBoxWithHeight(height: 10),
+                    searchProvider.isTripDataLoaded
+                        ? CustomButton(
+                                name: "Filter Result",
+                                buttonColor: appColor,
+                                height: sizes!.heightRatio * 45,
+                                width: double.infinity,
+                                textSize: sizes!.fontRatio * 16,
+                                textColor: Colors.white,
+                                fontWeight: FontWeight.normal,
+                                borderRadius: 5,
+                                onTapped: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const TripFilterScreen(),
+                                    ),
+                                  );
+                                },
+                                padding: 0)
+                            .get20HorizontalPadding()
+                        : Container(),
+                    CommonPadding.sizeBoxWithHeight(height: 10),
+                  ],
+                ),
               )
             : Center(
                 child: TextView.getSubHeadingTextWith15(

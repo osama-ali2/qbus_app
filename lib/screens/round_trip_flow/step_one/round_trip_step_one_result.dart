@@ -11,6 +11,7 @@ import 'package:qbus/screens/round_trip_flow/step_one/step_one_select_addition/s
 import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/text_views.dart';
+
 import '../../../../navigation/navigation_helper.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
@@ -75,20 +76,20 @@ class _RoundTripStepOneResultState extends State<RoundTripStepOneResult> {
   @override
   Widget build(BuildContext context) {
     Provider.of<RoundTripStepOneProvider>(context, listen: true);
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: appColor,
-          elevation: 0,
-          centerTitle: false,
-          title: CustomText(
-              text: "${widget.fromCity ?? ""} - ${widget.toCity ?? ""}",
-              textSize: 18,
-              fontWeight: FontWeight.w400,
-              textColor: Colors.white),
-        ),
-        body: searchProvider.isTripDataLoaded
-            ? Column(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: appColor,
+        elevation: 0,
+        centerTitle: false,
+        title: CustomText(
+            text: "${widget.fromCity ?? ""} - ${widget.toCity ?? ""}",
+            textSize: 18,
+            fontWeight: FontWeight.w400,
+            textColor: Colors.white),
+      ),
+      body: searchProvider.isTripDataLoaded
+          ? SafeArea(
+              child: Column(
                 children: [
                   Expanded(
                     child: searchProvider.tripsResponse.data!.trips!.isNotEmpty
@@ -187,15 +188,15 @@ class _RoundTripStepOneResultState extends State<RoundTripStepOneResult> {
                       : Container(),
                   CommonPadding.sizeBoxWithHeight(height: 10),
                 ],
-              )
-            : Center(
-                child: TextView.getSubHeadingTextWith15(
-                    "No Trip Available", Assets.latoBold,
-                    color: AppColors.blueHomeColor,
-                    lines: 1,
-                    fontWeight: FontWeight.normal),
               ),
-      ),
+            )
+          : Center(
+              child: TextView.getSubHeadingTextWith15(
+                  "No Trip Available", Assets.latoBold,
+                  color: AppColors.blueHomeColor,
+                  lines: 1,
+                  fontWeight: FontWeight.normal),
+            ),
     );
   }
 

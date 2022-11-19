@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/res/extensions.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/privacy_policy_screens/privacy_policy_provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/return_policy_screens/return_policy_provider.dart';
 
 import '../../../../../res/assets.dart';
@@ -39,8 +38,7 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
   @override
   Widget build(BuildContext context) {
     Provider.of<ReturnPolicyProvider>(context, listen: true);
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
@@ -50,31 +48,33 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
             fontWeight: FontWeight.w700,
             textColor: Colors.white),
       ),
-      body: Container(
-        color: AppColors.white,
-        height: sizes!.height,
-        width: sizes!.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CommonPadding.sizeBoxWithHeight(height: 20),
-            TextView.getMediumText18("Cancellation Policy", Assets.latoBold,
-                    color: AppColors.black900, lines: 1)
-                .get20HorizontalPadding(),
-            CommonPadding.sizeBoxWithHeight(height: 10),
-            TextView.getMediumText14(
-                    returnPolicyProvider
-                            .returnPolicyResponse.data?.returnPolicy?.en ??
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Accumsan lorem urna, augue vel est viverra sed placerat quis. Proin laoreet magna ultrices faucibus volutpat urna habitant. Sed lorem nibh tristique egestas facilisis condimentum id tellus. Mattis donec vitae egestas nibh sollicitudin adipiscing consequat aliquam. Blandit dis leo cursus augue nulla mollis erat. Urna, volutpat non sodales lacinia morbi non ut cursus. Elementum fusce netus lacus, a, accumsan"
-                            "At id ut cras odio arcu vulputate. Pellentesque cursus odio bibendum sagittis. Nullam quis nunc consectetur dictum. Sed nibh urna, ullamcorper tortor enim pellentesque vel. Consectetur amet.",
-                    Assets.latoRegular,
-                    color: AppColors.gray,
-                    fontWeight: FontWeight.w400,
-                    lines: 20)
-                .get20HorizontalPadding(),
-          ],
+      body: SafeArea(
+        child: Container(
+          color: AppColors.white,
+          height: sizes!.height,
+          width: sizes!.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CommonPadding.sizeBoxWithHeight(height: 20),
+              TextView.getMediumText18("Cancellation Policy", Assets.latoBold,
+                      color: AppColors.black900, lines: 1)
+                  .get20HorizontalPadding(),
+              CommonPadding.sizeBoxWithHeight(height: 10),
+              TextView.getMediumText14(
+                      returnPolicyProvider
+                              .returnPolicyResponse.data?.returnPolicy?.en ??
+                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Accumsan lorem urna, augue vel est viverra sed placerat quis. Proin laoreet magna ultrices faucibus volutpat urna habitant. Sed lorem nibh tristique egestas facilisis condimentum id tellus. Mattis donec vitae egestas nibh sollicitudin adipiscing consequat aliquam. Blandit dis leo cursus augue nulla mollis erat. Urna, volutpat non sodales lacinia morbi non ut cursus. Elementum fusce netus lacus, a, accumsan"
+                              "At id ut cras odio arcu vulputate. Pellentesque cursus odio bibendum sagittis. Nullam quis nunc consectetur dictum. Sed nibh urna, ullamcorper tortor enim pellentesque vel. Consectetur amet.",
+                      Assets.latoRegular,
+                      color: AppColors.gray,
+                      fontWeight: FontWeight.w400,
+                      lines: 20)
+                  .get20HorizontalPadding(),
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }

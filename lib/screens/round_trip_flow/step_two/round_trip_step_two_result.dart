@@ -8,10 +8,10 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/round_trip_flow/step_two/step_two_select_addition/step_two_select_addition_screen.dart';
-import 'package:qbus/screens/selectAddition/select_addition_screen.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/text_views.dart';
+
 import '../../../../navigation/navigation_helper.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
@@ -81,19 +81,19 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
   @override
   Widget build(BuildContext context) {
     Provider.of<RoundTripStepTwoProvider>(context, listen: true);
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: appColor,
-          elevation: 0,
-          centerTitle: false,
-          title: CustomText(
-              text: "${widget.fromCity ?? ""} - ${widget.toCity ?? ""}",
-              textSize: 18,
-              fontWeight: FontWeight.w400,
-              textColor: Colors.white),
-        ),
-        body: Column(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: appColor,
+        elevation: 0,
+        centerTitle: false,
+        title: CustomText(
+            text: "${widget.fromCity ?? ""} - ${widget.toCity ?? ""}",
+            textSize: 18,
+            fontWeight: FontWeight.w400,
+            textColor: Colors.white),
+      ),
+      body: SafeArea(
+        child: Column(
           children: [
             searchProvider.isTripDataLoaded
                 ? Expanded(

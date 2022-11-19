@@ -54,7 +54,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             textColor: Colors.white),
       ),
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(child: _getUI(context)),
+      body: SafeArea(child: SingleChildScrollView(child: _getUI(context))),
     );
   }
 
@@ -143,7 +143,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
 
     if (name.isNotEmpty &&
         email.isNotEmpty &&
-        subject.isNotEmpty && subject.length > 8 &&
+        subject.isNotEmpty &&
+        subject.length > 8 &&
         message.isNotEmpty &&
         phoneNumber.isNotEmpty) {
       await contactUsProvider.contactUsSubmit(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/res/extensions.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../res/colors.dart';
 import '../../../../../res/common_padding.dart';
@@ -35,18 +35,18 @@ class _WalletScreenState extends State<WalletScreen> {
   @override
   Widget build(BuildContext context) {
     Provider.of<WalletProvider>(context, listen: true); //Watch
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: appColor,
-          elevation: 0,
-          title: CustomText(
-              text: AppLocalizations.of(context)!.wallet,
-              textSize: 18,
-              fontWeight: FontWeight.w700,
-              textColor: Colors.white),
-        ),
-        body: Container(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: appColor,
+        elevation: 0,
+        title: CustomText(
+            text: AppLocalizations.of(context)!.wallet,
+            textSize: 18,
+            fontWeight: FontWeight.w700,
+            textColor: Colors.white),
+      ),
+      body: SafeArea(
+        child: Container(
           color: AppColors.white,
           height: sizes!.height,
           width: sizes!.width,

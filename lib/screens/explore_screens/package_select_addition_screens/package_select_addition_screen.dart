@@ -121,20 +121,22 @@ class _PackageSelectAdditionScreenState
       ),
       backgroundColor: Colors.white,
       body: packageSelectAdditionProvider.isPackageLoaded == true
-          ? ListView.builder(
-              itemCount: packageSelectAdditionProvider
-                  .packageAdditionalsResponse.data!.additional!.length,
-              itemBuilder: (context, index) {
-                currentIndex = index;
-                var name = packageSelectAdditionProvider
-                    .packageAdditionalsResponse
-                    .data!
-                    .additional![index]
-                    .name!
-                    .en
-                    .toString();
-                return itemContainer(name: name, index: index);
-              })
+          ? SafeArea(
+              child: ListView.builder(
+                  itemCount: packageSelectAdditionProvider
+                      .packageAdditionalsResponse.data!.additional!.length,
+                  itemBuilder: (context, index) {
+                    currentIndex = index;
+                    var name = packageSelectAdditionProvider
+                        .packageAdditionalsResponse
+                        .data!
+                        .additional![index]
+                        .name!
+                        .en
+                        .toString();
+                    return itemContainer(name: name, index: index);
+                  }),
+            )
           : const Center(
               child: Text("No Data Available"),
             ),

@@ -8,9 +8,9 @@ import 'package:qbus/res/strings.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
 import 'package:qbus/screens/round_trip_flow/step_two/step_two_select_addition/step_two_select_addition_provider.dart';
-import 'package:qbus/screens/selectAddition/select_addition_provider.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
+
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
 
@@ -137,20 +137,26 @@ class _StepTwoSelectAdditionScreenState
       ),
       backgroundColor: Colors.white,
       body: stepTwoSelectAdditionProvider.isTripLoaded == true
-          ? ListView.builder(
-              itemCount: stepTwoSelectAdditionProvider
-                  .tripAdditionalsResponse.data!.additional!.length,
-              itemBuilder: (context, index) {
-                currentIndex = index;
-                var name = stepTwoSelectAdditionProvider
-                    .tripAdditionalsResponse.data!.additional![index].name!.en
-                    .toString();
-                var additionId = stepTwoSelectAdditionProvider
-                    .tripAdditionalsResponse.data!.additional![index].id
-                    .toString();
-                return itemContainer(
-                    name: name, index: index, additionId: additionId);
-              })
+          ? SafeArea(
+              child: ListView.builder(
+                  itemCount: stepTwoSelectAdditionProvider
+                      .tripAdditionalsResponse.data!.additional!.length,
+                  itemBuilder: (context, index) {
+                    currentIndex = index;
+                    var name = stepTwoSelectAdditionProvider
+                        .tripAdditionalsResponse
+                        .data!
+                        .additional![index]
+                        .name!
+                        .en
+                        .toString();
+                    var additionId = stepTwoSelectAdditionProvider
+                        .tripAdditionalsResponse.data!.additional![index].id
+                        .toString();
+                    return itemContainer(
+                        name: name, index: index, additionId: additionId);
+                  }),
+            )
           : const Center(
               child: Text("No Data Available"),
             ),

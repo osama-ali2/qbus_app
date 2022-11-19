@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/package_history_screens/package_history_provider.dart';
+
 import '../../../../res/assets.dart';
 import '../../../../res/colors.dart';
 import '../../../../res/res.dart';
@@ -41,96 +42,95 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     Provider.of<PackageHistoryProvider>(context, listen: true);
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
         automaticallyImplyLeading: true,
         title: const CustomText(
-            text: "Package History",
-            //AppLocalizations.of(context)!.booking_history,
-            textSize: 18,
-            fontWeight: FontWeight.w700,
-            textColor: Colors.white),
-      ),
-      body: Container(
-        color: AppColors.white,
-        // height: sizes!.height,
-        width: sizes!.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // CommonPadding.sizeBoxWithHeight(height: 20),
-            packageHistoryProvider.isPackageHistoryLoaded == true
-                ? Expanded(
-                    child: ListView.builder(
-                      itemCount: packageHistoryProvider
-                          .packageHistoryResponse.data!.length,
-                      itemBuilder: (context, index) {
-                        var data = packageHistoryProvider
-                            .packageHistoryResponse.data![index];
-                        var from = data.startingCityName!.en!.toString();
-                        var to = data.name!.en!.toString();
-                        var fee = data.fees.toString();
-                        var rating = data.review.toString();
-                        var type = data.status.toString();
-                        var trip = data.providerName.toString();
-                        var packageId = data.packageId;
-
-                        var startingTime = data.startingTime.toString();
-                        var startCityName =
-                            data.startingCityName!.en.toString();
-                        var startingDate = data.startingDate.toString();
-
-                        var isUserAllowReview = data.isUserAllowReview!;
-
-                        return Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: sizes!.widthRatio * 20,
-                              vertical: sizes!.heightRatio * 5),
-                          child: _bookingContainer(
-                            startingTime: startingTime,
-                            startCityName: startCityName,
-                            startingDate: startingDate,
-                            from: from,
-                            to: to,
-                            fee: fee,
-                            trip: trip,
-                            rating: rating,
-                            type: type,
-                            isUserAllowReview: isUserAllowReview,
-                            onReviewIt: () {
-                              showAlertDialog(
-                                  context: context, packageId: packageId!);
-                            },
-                          ),
-                        );
-                      },
-                    ),
-                  )
-                : const Center(
-                    child: Text("No Data Available"),
-                  ),
-            CommonPadding.sizeBoxWithHeight(height: 10),
-            CustomButton(
-                name: "Trip History",
-                buttonColor: appColor,
-                height: sizes!.heightRatio * 45,
-                width: double.infinity,
-                textSize: sizes!.fontRatio * 14,
-                textColor: Colors.white,
-                fontWeight: FontWeight.bold,
-                borderRadius: 5,
-                onTapped: () {
-                  Navigator.pop(context);
-                },
-                padding: 20),
-            CommonPadding.sizeBoxWithHeight(height: 10),
-          ],
+          text: "Package History",
+          textSize: 18,
+          fontWeight: FontWeight.w700,
+          textColor: Colors.white,
         ),
       ),
-    ));
+      body: SafeArea(
+        child: Container(
+          color: AppColors.white,
+          width: sizes!.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              packageHistoryProvider.isPackageHistoryLoaded == true
+                  ? Expanded(
+                      child: ListView.builder(
+                        itemCount: packageHistoryProvider
+                            .packageHistoryResponse.data!.length,
+                        itemBuilder: (context, index) {
+                          var data = packageHistoryProvider
+                              .packageHistoryResponse.data![index];
+                          var from = data.startingCityName!.en!.toString();
+                          var to = data.name!.en!.toString();
+                          var fee = data.fees.toString();
+                          var rating = data.review.toString();
+                          var type = data.status.toString();
+                          var trip = data.providerName.toString();
+                          var packageId = data.packageId;
+
+                          var startingTime = data.startingTime.toString();
+                          var startCityName =
+                              data.startingCityName!.en.toString();
+                          var startingDate = data.startingDate.toString();
+
+                          var isUserAllowReview = data.isUserAllowReview!;
+
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: sizes!.widthRatio * 20,
+                                vertical: sizes!.heightRatio * 5),
+                            child: _bookingContainer(
+                              startingTime: startingTime,
+                              startCityName: startCityName,
+                              startingDate: startingDate,
+                              from: from,
+                              to: to,
+                              fee: fee,
+                              trip: trip,
+                              rating: rating,
+                              type: type,
+                              isUserAllowReview: isUserAllowReview,
+                              onReviewIt: () {
+                                showAlertDialog(
+                                    context: context, packageId: packageId!);
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  : const Center(
+                      child: Text("No Data Available"),
+                    ),
+              CommonPadding.sizeBoxWithHeight(height: 10),
+              CustomButton(
+                  name: "Trip History",
+                  buttonColor: appColor,
+                  height: sizes!.heightRatio * 45,
+                  width: double.infinity,
+                  textSize: sizes!.fontRatio * 14,
+                  textColor: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  borderRadius: 5,
+                  onTapped: () {
+                    Navigator.pop(context);
+                  },
+                  padding: 20),
+              CommonPadding.sizeBoxWithHeight(height: 10),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _bookingContainer(

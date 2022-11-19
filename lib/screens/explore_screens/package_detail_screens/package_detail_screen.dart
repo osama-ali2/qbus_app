@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/screens/explore_screens/package_detail_screens/package_detail_provider.dart';
 import 'package:qbus/screens/explore_screens/package_select_addition_screens/package_select_addition_screen.dart';
+
 import '../../../res/assets.dart';
 import '../../../res/colors.dart';
 import '../../../res/common_padding.dart';
@@ -46,18 +47,18 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
   @override
   Widget build(BuildContext context) {
     Provider.of<PackageDetailProvider>(context, listen: true);
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: appColor,
-          elevation: 0,
-          title: CustomText(
-              text: widget.packageTitle ?? "Package Detail",
-              textSize: sizes!.fontRatio * 18,
-              fontWeight: FontWeight.w700,
-              textColor: Colors.white),
-        ),
-        body: SingleChildScrollView(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: appColor,
+        elevation: 0,
+        title: CustomText(
+            text: widget.packageTitle ?? "Package Detail",
+            textSize: sizes!.fontRatio * 18,
+            fontWeight: FontWeight.w700,
+            textColor: Colors.white),
+      ),
+      body: SingleChildScrollView(
+        child: SafeArea(
           child: Container(
             color: AppColors.white,
             height: sizes!.height,
@@ -141,12 +142,12 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                         height: sizes!.heightRatio * 80,
                         child: GridView.builder(
                             gridDelegate:
-                               const  SliverGridDelegateWithMaxCrossAxisExtent(
-                                   maxCrossAxisExtent: 100,
-                                   childAspectRatio: 9 / 6,
-                                   crossAxisSpacing: 8,
-                                   mainAxisSpacing: 8,
-                                 ),
+                                const SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 100,
+                              childAspectRatio: 9 / 6,
+                              crossAxisSpacing: 8,
+                              mainAxisSpacing: 8,
+                            ),
                             itemCount: packageDetailProvider
                                 .packageDetailResponse
                                 .data!

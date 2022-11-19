@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:qbus/models/PackageFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/res/assets.dart';
@@ -10,6 +10,7 @@ import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/explore_screens/explore_provider.dart';
 import 'package:qbus/screens/explore_screens/package_detail_screens/package_detail_screen.dart';
 import 'package:qbus/widgets/text_views.dart';
+
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_text.dart';
@@ -81,13 +82,15 @@ class _ExploreScreenState extends State<ExploreScreen> {
             textColor: Colors.white),
       ),
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: sizes!.fontRatio * 20.0),
-        child: exploreProvider.isListHasData > 0
-            ? _getUI(context)
-            : Center(
-                child: const Text("no Data"),
-              ),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: sizes!.fontRatio * 20.0),
+          child: exploreProvider.isListHasData > 0
+              ? _getUI(context)
+              : const Center(
+                  child: Text("no Data"),
+                ),
+        ),
       ),
     );
   }
@@ -144,7 +147,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             })
                         : Center(
                             child: TextView.getSubHeadingTextWith15(
-                                AppLocalizations.of(context)!.no_data, Assets.latoBold,
+                                AppLocalizations.of(context)!.no_data,
+                                Assets.latoBold,
                                 color: AppColors.blueHomeColor,
                                 lines: 1,
                                 fontWeight: FontWeight.normal),

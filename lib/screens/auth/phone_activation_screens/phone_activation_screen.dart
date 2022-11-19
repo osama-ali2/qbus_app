@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/screens/auth/phone_activation_screens/phone_activation_provider.dart';
+
 import '../../../navigation/navigation_helper.dart';
 import '../../../res/assets.dart';
 import '../../../res/common_padding.dart';
@@ -93,108 +94,108 @@ class _PhoneActivationScreenState extends State<PhoneActivationScreen> {
       ),
     );
 
-    return SafeArea(
-        child: Scaffold(
-      body: Container(
-        color: AppColors.white,
-        // height: sizes!.height,
-        width: sizes!.width,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CommonPadding.sizeBoxWithHeight(height: 90),
-              Center(child: Image.asset("assets/png/main_logo.png")),
-              CommonPadding.sizeBoxWithHeight(height: 30),
-              Center(
-                child: TextView.getMediumText16(
-                    "Please Enter Verification\nCode Sent to ${widget.phoneNumber}",
-                    Assets.latoBold,
-                    color: AppColors.black900,
-                    fontWeight: FontWeight.w500,
-                    textAlign: TextAlign.center,
-                    lines: 4),
-              ).get20HorizontalPadding(),
-              CommonPadding.sizeBoxWithHeight(height: 20),
-              Pinput(
-                length: length,
-                controller: codeController,
-                pinAnimationType: PinAnimationType.scale,
-                focusNode: focusNode,
-                followingPinTheme: followingPinTheme,
-                defaultPinTheme: defaultPinTheme,
-                onCompleted: (pin) {
-                  setState(() => showError = pin != '5555');
-                },
-                onSubmitted: (pin) {
-                  debugPrint("Successful :$pin");
-                  Toasts.getSuccessToast(text: "Successful :$pin");
-                },
-                focusedPinTheme: defaultPinTheme.copyWith(
-                  height: sizes!.fontRatio * 58,
-                  width: sizes!.fontRatio * 58,
-                  decoration: defaultPinTheme.decoration!.copyWith(
-                    border: Border.all(color: borderColor),
-                  ),
-                ),
-                errorPinTheme: defaultPinTheme.copyWith(
-                  decoration: BoxDecoration(
-                    color: errorColor,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-              CommonPadding.sizeBoxWithHeight(height: 20),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 110),
-                child: Row(
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          isTimerEnded = false;
-                          _timerController.reset();
-                          _timerController.start();
-                        });
-                      },
-                      child: TextView.getMediumText14(
-                          "Resend Code", Assets.latoBold,
-                          color: AppColors.black900,
-                          fontWeight: FontWeight.w400,
-                          lines: 1),
-                    ),
-                    CommonPadding.sizeBoxWithWidth(width: 2),
-                    _getTimerText(),
-                  ],
-                ),
-              ),
-              // CommonPadding.sizeBoxWithHeight(height: 20),
-              // Center(
-              //   child: TextView.getMediumText14("Edit Number", Assets.latoBold,
-              //       color: AppColors.primary,
-              //       fontWeight: FontWeight.w700,
-              //       lines: 1),
-              // ),
-              CommonPadding.sizeBoxWithHeight(height: 50),
-              CustomButton(
-                  name: "Finish",
-                  buttonColor: appColor,
-                  height: sizes!.heightRatio * 45,
-                  width: double.infinity,
-                  textSize: sizes!.fontRatio * 14,
-                  textColor: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  borderRadius: 5,
-                  onTapped: () {
-                    validateData();
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          color: AppColors.white,
+          width: sizes!.width,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CommonPadding.sizeBoxWithHeight(height: 90),
+                Center(child: Image.asset("assets/png/main_logo.png")),
+                CommonPadding.sizeBoxWithHeight(height: 30),
+                Center(
+                  child: TextView.getMediumText16(
+                      "Please Enter Verification\nCode Sent to ${widget.phoneNumber}",
+                      Assets.latoBold,
+                      color: AppColors.black900,
+                      fontWeight: FontWeight.w500,
+                      textAlign: TextAlign.center,
+                      lines: 4),
+                ).get20HorizontalPadding(),
+                CommonPadding.sizeBoxWithHeight(height: 20),
+                Pinput(
+                  length: length,
+                  controller: codeController,
+                  pinAnimationType: PinAnimationType.scale,
+                  focusNode: focusNode,
+                  followingPinTheme: followingPinTheme,
+                  defaultPinTheme: defaultPinTheme,
+                  onCompleted: (pin) {
+                    setState(() => showError = pin != '5555');
                   },
-                  padding: 20),
-            ],
+                  onSubmitted: (pin) {
+                    debugPrint("Successful :$pin");
+                    Toasts.getSuccessToast(text: "Successful :$pin");
+                  },
+                  focusedPinTheme: defaultPinTheme.copyWith(
+                    height: sizes!.fontRatio * 58,
+                    width: sizes!.fontRatio * 58,
+                    decoration: defaultPinTheme.decoration!.copyWith(
+                      border: Border.all(color: borderColor),
+                    ),
+                  ),
+                  errorPinTheme: defaultPinTheme.copyWith(
+                    decoration: BoxDecoration(
+                      color: errorColor,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+                CommonPadding.sizeBoxWithHeight(height: 20),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 110),
+                  child: Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            isTimerEnded = false;
+                            _timerController.reset();
+                            _timerController.start();
+                          });
+                        },
+                        child: TextView.getMediumText14(
+                            "Resend Code", Assets.latoBold,
+                            color: AppColors.black900,
+                            fontWeight: FontWeight.w400,
+                            lines: 1),
+                      ),
+                      CommonPadding.sizeBoxWithWidth(width: 2),
+                      _getTimerText(),
+                    ],
+                  ),
+                ),
+                // CommonPadding.sizeBoxWithHeight(height: 20),
+                // Center(
+                //   child: TextView.getMediumText14("Edit Number", Assets.latoBold,
+                //       color: AppColors.primary,
+                //       fontWeight: FontWeight.w700,
+                //       lines: 1),
+                // ),
+                CommonPadding.sizeBoxWithHeight(height: 50),
+                CustomButton(
+                    name: "Finish",
+                    buttonColor: appColor,
+                    height: sizes!.heightRatio * 45,
+                    width: double.infinity,
+                    textSize: sizes!.fontRatio * 14,
+                    textColor: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    borderRadius: 5,
+                    onTapped: () {
+                      validateData();
+                    },
+                    padding: 20),
+              ],
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 
   Widget _getTimerText() {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
-import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
 
 import '../../local_cache/utils.dart';
 import '../../res/strings.dart';

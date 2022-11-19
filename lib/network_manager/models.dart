@@ -20,6 +20,7 @@ import 'package:qbus/models/trips/MultiOrdersTripResponse.dart';
 import 'package:qbus/models/trips/OneWayOrdersTripResponse.dart';
 import 'package:qbus/models/trips/RoundOrdersTripResponse.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
+
 import '../models/additionals/GetAdditionalResponse.dart';
 import '../models/booking_history_model/PackageHistoryResponse.dart';
 import '../models/cities/GetCitiesResponse.dart';

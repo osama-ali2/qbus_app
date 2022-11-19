@@ -7,6 +7,7 @@ import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
 import 'package:qbus/screens/selectAddition/select_addition_provider.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
+
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
 import '../../local_cache/utils.dart';
@@ -136,20 +137,22 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
       ),
       backgroundColor: Colors.white,
       body: selectAdditionProvider.isTripLoaded == true
-          ? ListView.builder(
-              itemCount: selectAdditionProvider
-                  .tripAdditionalsResponse.data!.additional!.length,
-              itemBuilder: (context, index) {
-                currentIndex = index;
-                var name = selectAdditionProvider
-                    .tripAdditionalsResponse.data!.additional![index].name!.en
-                    .toString();
-                var additionId = selectAdditionProvider
-                    .tripAdditionalsResponse.data!.additional![index].id
-                    .toString();
-                return itemContainer(
-                    name: name, index: index, additionId: additionId);
-              })
+          ? SafeArea(
+              child: ListView.builder(
+                  itemCount: selectAdditionProvider
+                      .tripAdditionalsResponse.data!.additional!.length,
+                  itemBuilder: (context, index) {
+                    currentIndex = index;
+                    var name = selectAdditionProvider.tripAdditionalsResponse
+                        .data!.additional![index].name!.en
+                        .toString();
+                    var additionId = selectAdditionProvider
+                        .tripAdditionalsResponse.data!.additional![index].id
+                        .toString();
+                    return itemContainer(
+                        name: name, index: index, additionId: additionId);
+                  }),
+            )
           : const Center(
               child: Text("No Data Available"),
             ),

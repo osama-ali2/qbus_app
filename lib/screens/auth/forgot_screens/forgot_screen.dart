@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
@@ -94,109 +95,109 @@ class _ForgotScreenState extends State<ForgotScreen> {
       ),
     );
 
-    return SafeArea(
-        child: Scaffold(
-      body: Container(
-        color: AppColors.white,
-        // height: sizes!.height,
-        width: sizes!.width,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              CommonPadding.sizeBoxWithHeight(height: 90),
-              Center(child: Image.asset("assets/png/main_logo.png")),
-              CommonPadding.sizeBoxWithHeight(height: 30),
-              Center(
-                child: TextView.getMediumText16(
-                    "Reset Password Token has been sent to ${widget.phoneNumber}",
-                    Assets.latoBold,
-                    color: AppColors.black900,
-                    fontWeight: FontWeight.w500,
-                    textAlign: TextAlign.center,
-                    lines: 4),
-              ).get20HorizontalPadding(),
-              CommonPadding.sizeBoxWithHeight(height: 50),
-              Pinput(
-                length: length,
-                controller: codeController,
-                pinAnimationType: PinAnimationType.scale,
-                focusNode: focusNode,
-                followingPinTheme: followingPinTheme,
-                defaultPinTheme: defaultPinTheme,
-                onCompleted: (pin) {
-                  setState(() => showError = pin != '5555');
-                },
-                onSubmitted: (pin) {
-                  debugPrint("Successful :$pin");
-                  Toasts.getSuccessToast(text: "Successful :$pin");
-                },
-                focusedPinTheme: defaultPinTheme.copyWith(
-                  height: sizes!.fontRatio * 58,
-                  width: sizes!.fontRatio * 58,
-                  decoration: defaultPinTheme.decoration!.copyWith(
-                    border: Border.all(color: borderColor),
-                  ),
-                ),
-                errorPinTheme: defaultPinTheme.copyWith(
-                  decoration: BoxDecoration(
-                    color: errorColor,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-              CommonPadding.sizeBoxWithHeight(height: 50),
-              ValueListenableBuilder(
-                builder: (BuildContext context, value, Widget? child) {
-                  return CustomPasswordTextField(
-                    controller: passwordController,
-                    padding: 20,
-                    validator: (val) => null,
-                    inputType: TextInputType.name,
-                    hint: "New Password",
-                    isVisible: _isNewPassword.value,
-                    onPress: () {
-                      _isNewPassword.value = !_isNewPassword.value;
-                    },
-                  );
-                },
-                valueListenable: _isNewPassword,
-              ),
-              CommonPadding.sizeBoxWithHeight(height: 15),
-              ValueListenableBuilder(
-                builder: (BuildContext context, value, Widget? child) {
-                  return CustomPasswordTextField(
-                    controller: confirmPasswordController,
-                    padding: 20,
-                    validator: (val) => null,
-                    inputType: TextInputType.name,
-                    hint: "Confirm Password",
-                    isVisible: _isConfirmPassword.value,
-                    onPress: () {
-                      _isConfirmPassword.value = !_isConfirmPassword.value;
-                    },
-                  );
-                },
-                valueListenable: _isConfirmPassword,
-              ),
-              CommonPadding.sizeBoxWithHeight(height: 60),
-              CustomButton(
-                  name: "Reset Password",
-                  buttonColor: appColor,
-                  height: sizes!.heightRatio * 45,
-                  width: double.infinity,
-                  textSize: sizes!.fontRatio * 14,
-                  textColor: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  borderRadius: 5,
-                  onTapped: () {
-                    validateData();
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          color: AppColors.white,
+          width: sizes!.width,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                CommonPadding.sizeBoxWithHeight(height: 90),
+                Center(child: Image.asset("assets/png/main_logo.png")),
+                CommonPadding.sizeBoxWithHeight(height: 30),
+                Center(
+                  child: TextView.getMediumText16(
+                      "Reset Password Token has been sent to ${widget.phoneNumber}",
+                      Assets.latoBold,
+                      color: AppColors.black900,
+                      fontWeight: FontWeight.w500,
+                      textAlign: TextAlign.center,
+                      lines: 4),
+                ).get20HorizontalPadding(),
+                CommonPadding.sizeBoxWithHeight(height: 50),
+                Pinput(
+                  length: length,
+                  controller: codeController,
+                  pinAnimationType: PinAnimationType.scale,
+                  focusNode: focusNode,
+                  followingPinTheme: followingPinTheme,
+                  defaultPinTheme: defaultPinTheme,
+                  onCompleted: (pin) {
+                    setState(() => showError = pin != '5555');
                   },
-                  padding: 20),
-            ],
+                  onSubmitted: (pin) {
+                    debugPrint("Successful :$pin");
+                    Toasts.getSuccessToast(text: "Successful :$pin");
+                  },
+                  focusedPinTheme: defaultPinTheme.copyWith(
+                    height: sizes!.fontRatio * 58,
+                    width: sizes!.fontRatio * 58,
+                    decoration: defaultPinTheme.decoration!.copyWith(
+                      border: Border.all(color: borderColor),
+                    ),
+                  ),
+                  errorPinTheme: defaultPinTheme.copyWith(
+                    decoration: BoxDecoration(
+                      color: errorColor,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+                CommonPadding.sizeBoxWithHeight(height: 50),
+                ValueListenableBuilder(
+                  builder: (BuildContext context, value, Widget? child) {
+                    return CustomPasswordTextField(
+                      controller: passwordController,
+                      padding: 20,
+                      validator: (val) => null,
+                      inputType: TextInputType.name,
+                      hint: "New Password",
+                      isVisible: _isNewPassword.value,
+                      onPress: () {
+                        _isNewPassword.value = !_isNewPassword.value;
+                      },
+                    );
+                  },
+                  valueListenable: _isNewPassword,
+                ),
+                CommonPadding.sizeBoxWithHeight(height: 15),
+                ValueListenableBuilder(
+                  builder: (BuildContext context, value, Widget? child) {
+                    return CustomPasswordTextField(
+                      controller: confirmPasswordController,
+                      padding: 20,
+                      validator: (val) => null,
+                      inputType: TextInputType.name,
+                      hint: "Confirm Password",
+                      isVisible: _isConfirmPassword.value,
+                      onPress: () {
+                        _isConfirmPassword.value = !_isConfirmPassword.value;
+                      },
+                    );
+                  },
+                  valueListenable: _isConfirmPassword,
+                ),
+                CommonPadding.sizeBoxWithHeight(height: 60),
+                CustomButton(
+                    name: "Reset Password",
+                    buttonColor: appColor,
+                    height: sizes!.heightRatio * 45,
+                    width: double.infinity,
+                    textSize: sizes!.fontRatio * 14,
+                    textColor: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    borderRadius: 5,
+                    onTapped: () {
+                      validateData();
+                    },
+                    padding: 20),
+              ],
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 
   Future<void> validateData() async {

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/widgets/loader.dart';
+
 import '../../models/cities/GetCitiesResponse.dart';
 import '../../models/packages/PackagesResponse.dart';
 import '../../network_manager/api_url.dart';

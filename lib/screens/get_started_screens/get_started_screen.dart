@@ -15,6 +15,7 @@ import 'package:qbus/screens/round_trip_flow/step_one/round_trip_step_one_result
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
+
 import '../../../../widgets/custom_button.dart';
 import '../../res/colors.dart';
 import '../explore_screens/explore_screen.dart';
@@ -138,11 +139,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   @override
   Widget build(BuildContext context) {
     Provider.of<GetStartedProvider>(context, listen: true);
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(child: _getUI(context)),
-      ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(child: SingleChildScrollView(child: _getUI(context))),
     );
   }
 

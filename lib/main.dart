@@ -1,14 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:qbus/L10n/L10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:qbus/providers/multi_provider.dart';
-import 'package:qbus/screens/splash_screens/splash_screen.dart';
-import 'package:qbus/res/strings.dart';
+import 'package:provider/provider.dart';
+import 'package:qbus/L10n/L10n.dart';
 import 'package:qbus/local_cache/utils.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:qbus/providers/multi_provider.dart';
+import 'package:qbus/res/strings.dart';
+import 'package:qbus/screens/splash_screens/splash_screen.dart';
+
 import 'firebase_options.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {

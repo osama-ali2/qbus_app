@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:qbus/language.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:qbus/language.dart';
+
 import '../../../../local_cache/utils.dart';
-import '../../../../res/strings.dart';
 import '../../../../res/assets.dart';
 import '../../../../res/res.dart';
+import '../../../../res/strings.dart';
 import '../../../../widgets/text_views.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -21,11 +22,8 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-
   void _changeLanguage(lang) {
-    PreferenceUtils.setString(Strings.language,lang.languageCode);
-//    String selectedLanguage = PreferenceUtils.getString(Strings.language) ?? "en";
-//    debugPrint(selectedLanguage);
+    PreferenceUtils.setString(Strings.language, lang.languageCode);
   }
 
   @override
@@ -44,15 +42,17 @@ class _SettingScreenState extends State<SettingScreen> {
               textColor: Colors.white),
         ),
       ),
-      body: Column(
-        children: [
-          CommonPadding.sizeBoxWithHeight(height: 20),
-          getRow(
-            title: AppLocalizations.of(context)!.the_language,
-            language: AppLocalizations.of(context)!.language,
-            onPress: () {},
-          ),
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            CommonPadding.sizeBoxWithHeight(height: 20),
+            getRow(
+              title: AppLocalizations.of(context)!.the_language,
+              language: AppLocalizations.of(context)!.language,
+              onPress: () {},
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -101,14 +101,14 @@ class _SettingScreenState extends State<SettingScreen> {
                 items: Language.languageList()
                     .map<DropdownMenuItem<Language>>(
                         (language) => DropdownMenuItem(
-                      value: language,
-                      child: Row(
-                        children: <Widget>[
-                          Text(language.flag),
-                          Text(language.name),
-                        ],
-                      ),
-                    ))
+                              value: language,
+                              child: Row(
+                                children: <Widget>[
+                                  Text(language.flag),
+                                  Text(language.name),
+                                ],
+                              ),
+                            ))
                     .toList(),
               ),
               GestureDetector(
@@ -127,18 +127,4 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
         ),
       ).get20HorizontalPadding();
-
-// Widget _getUI(BuildContext context) {
-//   return Column(
-//     children: [
-//       const SizedBox(
-//         height: 10,
-//       ),
-//       SettingCard(
-//         onTap: () {},
-//         name: 'Language',
-//       ),
-//     ],
-//   );
-// }
 }

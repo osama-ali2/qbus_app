@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screens/booking_history_screens/booking_history_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screens/booking_history_screens/booking_history_screen.dart';
 
 import '../../utils/constant.dart';
 import '../get_started_screens/get_started_screen.dart';
@@ -11,10 +11,10 @@ class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({Key? key}) : super(key: key);
 
   @override
-  _BottomBarScreenState createState() => _BottomBarScreenState();
+  BottomBarScreenState createState() => BottomBarScreenState();
 }
 
-class _BottomBarScreenState extends State<BottomBarScreen> {
+class BottomBarScreenState extends State<BottomBarScreen> {
   int _selectedIndex = 0;
   List<Widget> _tabs = [];
 
@@ -42,7 +42,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     return Material(
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
-          items:  [
+          items: [
             BottomNavigationBarItem(
               icon: const Icon(
                 Icons.home_outlined,

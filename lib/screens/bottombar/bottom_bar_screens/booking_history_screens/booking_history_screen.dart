@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/package_history_screens/package_history_screen.dart';
+
 import '../../../../../res/assets.dart';
 import '../../../../../res/colors.dart';
 import '../../../../../res/common_padding.dart';
@@ -43,95 +42,93 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     Provider.of<BookingHistoryProvider>(context, listen: true);
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
         automaticallyImplyLeading: false,
         title: const CustomText(
             text: "Trip History",
-            //AppLocalizations.of(context)!.booking_history,
             textSize: 18,
             fontWeight: FontWeight.w700,
             textColor: Colors.white),
       ),
-      body: Container(
-        color: AppColors.white,
-        // height: sizes!.height,
-        width: sizes!.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // CommonPadding.sizeBoxWithHeight(height: 20),
-            bookingHistoryProvider.isTripHistoryLoaded == true
-                ? Expanded(
-                    child: ListView.builder(
-                      itemCount: bookingHistoryProvider
-                          .tripHistoryResponse.data!.length,
-                      itemBuilder: (context, index) {
-                        var data = bookingHistoryProvider
-                            .tripHistoryResponse.data![index];
-                        var fromCity = data.startStationName!.en!.toString();
-                        var toCity = data.arrivalStationName!.en!.toString();
-                        var timeFromCity = data.timeFrom.toString();
-                        var timeToCity = data.timeTo.toString();
-                        var fee = data.fees.toString();
-                        var rating = data.review.toString();
-                        var type = data.status.toString();
-                        var trip = data.providerName.toString();
+      body: SafeArea(
+        child: Container(
+          color: AppColors.white,
+          width: sizes!.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              bookingHistoryProvider.isTripHistoryLoaded == true
+                  ? Expanded(
+                      child: ListView.builder(
+                        itemCount: bookingHistoryProvider
+                            .tripHistoryResponse.data!.length,
+                        itemBuilder: (context, index) {
+                          var data = bookingHistoryProvider
+                              .tripHistoryResponse.data![index];
+                          var fromCity = data.startStationName!.en!.toString();
+                          var toCity = data.arrivalStationName!.en!.toString();
+                          var timeFromCity = data.timeFrom.toString();
+                          var timeToCity = data.timeTo.toString();
+                          var fee = data.fees.toString();
+                          var rating = data.review.toString();
+                          var type = data.status.toString();
+                          var trip = data.providerName.toString();
 
-                        var isUserAllowReview = data.isUserAllowReview;
+                          var isUserAllowReview = data.isUserAllowReview;
 
-                        var tripId = data.tripId;
-                        return Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: sizes!.widthRatio * 20,
-                              vertical: sizes!.heightRatio * 5),
-                          child: _bookingContainer(
-                              fromCity: fromCity,
-                              toCity: toCity,
-                              fee: fee,
-                              trip: trip,
-                              rating: rating,
-                              type: type,
-                              timeFromCity: timeFromCity,
-                              timeToCity: timeToCity,
-                              onReviewIt: () {
-                                showAlertDialog(
-                                    context: context, tripId: tripId!);
-                              },
-                              isUserAllowReview: isUserAllowReview!),
-                        );
-                      },
+                          var tripId = data.tripId;
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: sizes!.widthRatio * 20,
+                                vertical: sizes!.heightRatio * 5),
+                            child: _bookingContainer(
+                                fromCity: fromCity,
+                                toCity: toCity,
+                                fee: fee,
+                                trip: trip,
+                                rating: rating,
+                                type: type,
+                                timeFromCity: timeFromCity,
+                                timeToCity: timeToCity,
+                                onReviewIt: () {
+                                  showAlertDialog(
+                                      context: context, tripId: tripId!);
+                                },
+                                isUserAllowReview: isUserAllowReview!),
+                          );
+                        },
+                      ),
+                    )
+                  : const Center(
+                      child: Text("No Data Available"),
                     ),
-                  )
-                : const Center(
-                    child: Text("No Data Available"),
-                  ),
-            CommonPadding.sizeBoxWithHeight(height: 10),
-            CustomButton(
-                name: "Package History",
-                buttonColor: appColor,
-                height: sizes!.heightRatio * 45,
-                width: double.infinity,
-                textSize: sizes!.fontRatio * 14,
-                textColor: Colors.white,
-                fontWeight: FontWeight.bold,
-                borderRadius: 5,
-                onTapped: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PackageHistoryScreen()),
-                  );
-                },
-                padding: 20),
-            CommonPadding.sizeBoxWithHeight(height: 10),
-          ],
+              CommonPadding.sizeBoxWithHeight(height: 10),
+              CustomButton(
+                  name: "Package History",
+                  buttonColor: appColor,
+                  height: sizes!.heightRatio * 45,
+                  width: double.infinity,
+                  textSize: sizes!.fontRatio * 14,
+                  textColor: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  borderRadius: 5,
+                  onTapped: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PackageHistoryScreen()),
+                    );
+                  },
+                  padding: 20),
+              CommonPadding.sizeBoxWithHeight(height: 10),
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 
   Widget _bookingContainer(

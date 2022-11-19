@@ -9,9 +9,9 @@ import 'package:qbus/res/strings.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/screens/round_trip_flow/step_one/step_one_select_addition/step_one_select_addition_provider.dart';
 import 'package:qbus/screens/round_trip_flow/step_two/round_trip_step_two_result.dart';
-import 'package:qbus/screens/selectAddition/select_addition_provider.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
+
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
 
@@ -154,18 +154,20 @@ class _StepOneSelectAdditionScreenState
       ),
       backgroundColor: Colors.white,
       body: (stepOneSelectAdditionProvider.isTripLoaded == true)
-          ? ListView.builder(
-              itemCount: stepOneSelectAdditionProvider
-                  .tripAdditionalsResponse.data!.additional!.length,
-              itemBuilder: (context, index) {
-                currentIndex = index;
-                var data = stepOneSelectAdditionProvider
-                    .tripAdditionalsResponse.data!.additional![index];
-                var name = data.name!.en.toString();
-                var additionId = data.id.toString();
-                return _itemContainer(
-                    name: name, index: index, additionId: additionId);
-              })
+          ? SafeArea(
+              child: ListView.builder(
+                  itemCount: stepOneSelectAdditionProvider
+                      .tripAdditionalsResponse.data!.additional!.length,
+                  itemBuilder: (context, index) {
+                    currentIndex = index;
+                    var data = stepOneSelectAdditionProvider
+                        .tripAdditionalsResponse.data!.additional![index];
+                    var name = data.name!.en.toString();
+                    var additionId = data.id.toString();
+                    return _itemContainer(
+                        name: name, index: index, additionId: additionId);
+                  }),
+            )
           : const Center(
               child: Text("No Data Available"),
             ),

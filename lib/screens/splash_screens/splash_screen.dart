@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/screens/splash_screens/splash_provider.dart';
 import 'package:qbus/widgets/loader.dart';
+
 import '../../res/res.dart';
 
 class SplashScreen extends StatefulWidget {

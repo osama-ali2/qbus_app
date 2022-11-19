@@ -14,7 +14,6 @@ import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_text.dart';
 import '../../../widgets/custom_textField.dart';
 
-
 class PackageFilterScreen extends StatefulWidget {
   const PackageFilterScreen({Key? key}) : super(key: key);
 
@@ -24,15 +23,13 @@ class PackageFilterScreen extends StatefulWidget {
 
 class _PackageFilterScreenState extends State<PackageFilterScreen> {
   late TextEditingController couponController;
+  late GetStartedProvider getStartedProvider;
 
   var selectedCity = "Starting City";
-
   var selectCityId = "-1";
-
   bool internet = false;
   bool meal = false;
   bool hostel5Stars = false;
-
   bool additional = false;
 
   late DateTime _selectedDate;
@@ -41,8 +38,6 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
   String _startDate = "Start Date";
   String _endDate = "End Date";
   String _startTime = "Start Time";
-
-  late GetStartedProvider getStartedProvider;
 
   @override
   void initState() {
@@ -97,8 +92,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
   @override
   Widget build(BuildContext context) {
     Provider.of<GetStartedProvider>(context, listen: true);
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
@@ -110,253 +104,256 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
             textColor: Colors.white),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          color: AppColors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CommonPadding.sizeBoxWithHeight(height: 20),
-              CustomTextField(
-                controller: couponController,
-                padding: 0,
-                validator: (val) => null,
-                inputType: TextInputType.name,
-                hint: "Coupon",
-              ).get20HorizontalPadding(),
-              CommonPadding.sizeBoxWithHeight(height: 20),
-              GestureDetector(
-                onTap: () {
-                  _presentDate();
-
-                  setState(() {
-                    var date = DateFormat('yyyy-MM-dd')
-                        .format(_selectedDate)
-                        .toString();
-                    _startDate = date;
-                  });
-                },
-                child: Container(
-                  height: sizes!.heightRatio * 48,
-                  width: sizes!.widthRatio * 380,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: Colors.grey.shade400)),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: sizes!.widthRatio * 6),
-                        child: Text(
-                          _startDate,
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 10),
-                        ),
-                      )
-                    ],
-                  ),
+        child: SafeArea(
+          child: Container(
+            color: AppColors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CommonPadding.sizeBoxWithHeight(height: 20),
+                CustomTextField(
+                  controller: couponController,
+                  padding: 0,
+                  validator: (val) => null,
+                  inputType: TextInputType.name,
+                  hint: "Coupon",
                 ).get20HorizontalPadding(),
-              ),
-              CommonPadding.sizeBoxWithHeight(height: 20),
-              GestureDetector(
-                onTap: () {
-                  _presentDate();
+                CommonPadding.sizeBoxWithHeight(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    _presentDate();
 
-                  setState(() {
-                    var date = DateFormat('yyyy-MM-dd')
-                        .format(_selectedDate)
-                        .toString();
-                    _endDate = date;
-                  });
-                },
-                child: Container(
-                  height: sizes!.heightRatio * 48,
-                  width: sizes!.widthRatio * 380,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: Colors.grey.shade400)),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: sizes!.widthRatio * 6),
-                        child: Text(
-                          _endDate,
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 10),
+                    setState(() {
+                      var date = DateFormat('yyyy-MM-dd')
+                          .format(_selectedDate)
+                          .toString();
+                      _startDate = date;
+                    });
+                  },
+                  child: Container(
+                    height: sizes!.heightRatio * 48,
+                    width: sizes!.widthRatio * 380,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.grey.shade400)),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: sizes!.widthRatio * 6),
+                          child: Text(
+                            _startDate,
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 10),
+                          ),
+                        )
+                      ],
+                    ),
+                  ).get20HorizontalPadding(),
+                ),
+                CommonPadding.sizeBoxWithHeight(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    _presentDate();
+
+                    setState(() {
+                      var date = DateFormat('yyyy-MM-dd')
+                          .format(_selectedDate)
+                          .toString();
+                      _endDate = date;
+                    });
+                  },
+                  child: Container(
+                    height: sizes!.heightRatio * 48,
+                    width: sizes!.widthRatio * 380,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.grey.shade400)),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: sizes!.widthRatio * 6),
+                          child: Text(
+                            _endDate,
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 10),
+                          ),
+                        )
+                      ],
+                    ),
+                  ).get20HorizontalPadding(),
+                ),
+                CommonPadding.sizeBoxWithHeight(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    _presentTime();
+
+                    setState(() {
+                      _startTime =
+                          "${_selectedTime.hour.toString()}:${_selectedTime.minute.toString()}";
+                    });
+                  },
+                  child: Container(
+                    height: sizes!.heightRatio * 48,
+                    width: sizes!.widthRatio * 380,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.grey.shade400)),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: sizes!.widthRatio * 6),
+                          child: Text(
+                            _startTime,
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 10),
+                          ),
+                        )
+                      ],
+                    ),
+                  ).get20HorizontalPadding(),
+                ),
+                CommonPadding.sizeBoxWithHeight(height: 20),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: sizes!.widthRatio * 20.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 58,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Center(
+                      child: DropdownButton<String>(
+                        hint: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: sizes!.widthRatio * 10),
+                          child: CustomText(
+                              text: selectedCity,
+                              textSize: 12,
+                              fontWeight: FontWeight.normal,
+                              textColor: Colors.black),
                         ),
-                      )
-                    ],
-                  ),
-                ).get20HorizontalPadding(),
-              ),
-              CommonPadding.sizeBoxWithHeight(height: 20),
-              GestureDetector(
-                onTap: () {
-                  _presentTime();
+                        underline: const SizedBox(),
+                        isExpanded: true,
+                        //<String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
+                        items: getStartedProvider.cityList.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
 
-                  setState(() {
-                    _startTime =
-                        "${_selectedTime.hour.toString()}:${_selectedTime.minute.toString()}";
-                  });
-                },
-                child: Container(
-                  height: sizes!.heightRatio * 48,
-                  width: sizes!.widthRatio * 380,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: Colors.grey.shade400)),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: sizes!.widthRatio * 6),
-                        child: Text(
-                          _startTime,
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 10),
-                        ),
-                      )
-                    ],
-                  ),
-                ).get20HorizontalPadding(),
-              ),
-              CommonPadding.sizeBoxWithHeight(height: 20),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 20.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 58,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey.shade400),
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Center(
-                    child: DropdownButton<String>(
-                      hint: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: sizes!.widthRatio * 10),
-                        child: CustomText(
-                            text: selectedCity,
-                            textSize: 12,
-                            fontWeight: FontWeight.normal,
-                            textColor: Colors.black),
-                      ),
-                      underline: const SizedBox(),
-                      isExpanded: true,
-                      //<String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
-                      items: getStartedProvider.cityList.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            selectedCity = value!;
 
-                      onChanged: (value) {
-                        setState(() {
-                          selectedCity = value!;
-
-                          var l = getStartedProvider.citiesList.length;
-                          for (int i = 0; i < l; i++) {
-                            String name =
-                                getStartedProvider.citiesList[i]['city'];
-                            String id = getStartedProvider.citiesList[i]['id'];
-                            debugPrint("city: $name, id: $id");
-                            if (name.contains(selectedCity)) {
-                              selectCityId = id;
-                              debugPrint(
-                                  "MatchedCity&Id: $name, $selectCityId");
+                            var l = getStartedProvider.citiesList.length;
+                            for (int i = 0; i < l; i++) {
+                              String name =
+                                  getStartedProvider.citiesList[i]['city'];
+                              String id =
+                                  getStartedProvider.citiesList[i]['id'];
+                              debugPrint("city: $name, id: $id");
+                              if (name.contains(selectedCity)) {
+                                selectCityId = id;
+                                debugPrint(
+                                    "MatchedCity&Id: $name, $selectCityId");
+                              }
                             }
-                          }
-                        });
-                        debugPrint("selectedCity: $selectedCity");
-                      },
+                          });
+                          debugPrint("selectedCity: $selectedCity");
+                        },
+                      ),
                     ),
                   ),
                 ),
-              ),
-              CommonPadding.sizeBoxWithHeight(height: 20),
-              CustomText(
-                text: "Additional",
-                textSize: sizes!.fontRatio * 18,
-                fontWeight: FontWeight.w500,
-                textColor: Colors.black,
-                textAlign: TextAlign.start,
-              ).get20HorizontalPadding(),
-              CommonPadding.sizeBoxWithHeight(height: 15),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  checkBox(context, internet, "Hostel 5 Stars", () {
-                    hostel5Stars = false;
-                    meal = false;
-                    internet = true;
-                    setState(() {
-                      additional = internet;
-                    });
-                  }),
-                  CommonPadding.sizeBoxWithHeight(height: 15),
-                  checkBox(context, meal, "Meal", () {
-                    hostel5Stars = false;
-                    meal = true;
-                    internet = false;
-                    setState(() {
-                      additional = meal;
-                    });
-                  }),
-                  CommonPadding.sizeBoxWithHeight(height: 15),
-                  checkBox(context, hostel5Stars, "Internet", () {
-                    hostel5Stars = true;
-                    meal = false;
-                    internet = false;
+                CommonPadding.sizeBoxWithHeight(height: 20),
+                CustomText(
+                  text: "Additional",
+                  textSize: sizes!.fontRatio * 18,
+                  fontWeight: FontWeight.w500,
+                  textColor: Colors.black,
+                  textAlign: TextAlign.start,
+                ).get20HorizontalPadding(),
+                CommonPadding.sizeBoxWithHeight(height: 15),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    checkBox(context, internet, "Hostel 5 Stars", () {
+                      hostel5Stars = false;
+                      meal = false;
+                      internet = true;
+                      setState(() {
+                        additional = internet;
+                      });
+                    }),
+                    CommonPadding.sizeBoxWithHeight(height: 15),
+                    checkBox(context, meal, "Meal", () {
+                      hostel5Stars = false;
+                      meal = true;
+                      internet = false;
+                      setState(() {
+                        additional = meal;
+                      });
+                    }),
+                    CommonPadding.sizeBoxWithHeight(height: 15),
+                    checkBox(context, hostel5Stars, "Internet", () {
+                      hostel5Stars = true;
+                      meal = false;
+                      internet = false;
 
-                    setState(() {
-                      additional = hostel5Stars;
-                    });
-                  }),
-                ],
-              ).get20HorizontalPadding(),
-              CommonPadding.sizeBoxWithHeight(height: 20),
-              CustomButton(
-                      name: "Filter Result",
-                      buttonColor: appColor,
-                      height: sizes!.heightRatio * 45,
-                      width: double.infinity,
-                      textSize: sizes!.fontRatio * 16,
-                      textColor: Colors.white,
-                      fontWeight: FontWeight.normal,
-                      borderRadius: 5,
-                      onTapped: () {
-                        var couponCode =
-                            couponController.text.toString().trim();
+                      setState(() {
+                        additional = hostel5Stars;
+                      });
+                    }),
+                  ],
+                ).get20HorizontalPadding(),
+                CommonPadding.sizeBoxWithHeight(height: 20),
+                CustomButton(
+                        name: "Filter Result",
+                        buttonColor: appColor,
+                        height: sizes!.heightRatio * 45,
+                        width: double.infinity,
+                        textSize: sizes!.fontRatio * 16,
+                        textColor: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        borderRadius: 5,
+                        onTapped: () {
+                          var couponCode =
+                              couponController.text.toString().trim();
 
-                        var filterData = PackageFilterModel(
-                            code: couponCode,
-                            starting_city_id: selectCityId,
-                            date_from: _startDate,
-                            date_to: _endDate,
-                            time_from: _startTime,
-                            additional: [],
-                            offset: 0);
+                          var filterData = PackageFilterModel(
+                              code: couponCode,
+                              starting_city_id: selectCityId,
+                              date_from: _startDate,
+                              date_to: _endDate,
+                              time_from: _startTime,
+                              additional: [],
+                              offset: 0);
 
-                        debugPrint("myGlobal: ${filterData.toJson()}");
-                        Navigator.pop(context);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ExploreScreen(
-                              packageFilterModel: filterData,
+                          debugPrint("myGlobal: ${filterData.toJson()}");
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ExploreScreen(
+                                packageFilterModel: filterData,
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      padding: 0)
-                  .get20HorizontalPadding(),
-            ],
+                          );
+                        },
+                        padding: 0)
+                    .get20HorizontalPadding(),
+              ],
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 
   Widget checkBox(
