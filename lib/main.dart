@@ -20,6 +20,14 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   debugPrint('Handling a background message ${message.data}');
 }
 
+//*
+// [Flutter] Version: 3.3.8
+// [Developer]: Tayyab Mughal [Fullstack Mobile Application Engineer]
+// [Github]: https://www.github.com/tayyabmughal676
+// [Upwork]: https://www.upwork.com/freelancers/~01d478bbabdfa2e861
+// [Email]: mailto:tayyabmughal676@gmail.com
+// *//
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //Initializing the firebase
