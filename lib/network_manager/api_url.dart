@@ -1,5 +1,6 @@
 // BaseUrl
 const String baseUrl = "https://qbus.rabaaladawia.com/api/v1";
+const String baseNewUrl = "https://qbus-sa.com/api/v1";
 
 // Auth
 const String tripsApiUrl = "$baseUrl/trips";

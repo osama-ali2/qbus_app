@@ -95,7 +95,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
 
   void _presentStartDate() {
     showDatePicker(
-      initialEntryMode: DatePickerEntryMode.input,
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2022),
@@ -106,17 +106,17 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       }
       setState(() {
         _selectedStartDate = pickedDate;
-        var month = DateFormat('MM').format(_selectedStartDate).toString();
-        var year = DateFormat('yyyy').format(_selectedStartDate).toString();
-        debugPrint("_selectedDate: month $month");
-        debugPrint("_selectedDate: year $year");
+
+        _startDate =
+            DateFormat('yyyy-MM-dd').format(_selectedStartDate).toString();
+        debugPrint("_selectedStartDate: $_selectedStartDate");
       });
     });
   }
 
   void _presentEndDate() {
     showDatePicker(
-      initialEntryMode: DatePickerEntryMode.input,
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2022),
@@ -127,11 +127,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       }
       setState(() {
         _selectedEndDate = pickedDate;
+        _endDate = DateFormat('yyyy-MM-dd').format(_selectedEndDate).toString();
         debugPrint("_selectedEndDate: $_selectedEndDate");
-        // var month = DateFormat('MM').format(_selectedEndDate).toString();
-        // var year = DateFormat('yyyy').format(_selectedEndDate).toString();
-        // debugPrint("_selectedDate: month $month");
-        // debugPrint("_selectedDate: year $year");
       });
     });
   }
@@ -167,7 +164,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: sizes!.fontRatio * 20,
           ),
           Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               checkBox(
                   context, oneWayTrip, AppLocalizations.of(context)!.one_way,
@@ -296,10 +292,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             onTap: () {
               _presentStartDate();
               setState(() {
-                var date = DateFormat('yyyy-MM-dd')
-                    .format(_selectedStartDate)
-                    .toString();
-                _startDate = date;
+                // var date = DateFormat('yyyy-MM-dd')
+                //     .format(_selectedStartDate)
+                //     .toString();
+                // _startDate = date;
               });
             },
             child: Container(
@@ -332,10 +328,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   onTap: () {
                     _presentEndDate();
                     setState(() {
-                      var date = DateFormat('yyyy-MM-dd')
-                          .format(_selectedEndDate)
-                          .toString();
-                      _endDate = date;
+                      // var date = DateFormat('yyyy-MM-dd')
+                      //     .format(_selectedEndDate)
+                      //     .toString();
+                      // _endDate = date;
                     });
                   },
                   child: Container(
@@ -537,6 +533,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     );
   }
 
+  /// Package Card Container
   Widget packageCardContainer({
     required String title,
     required String rating,
@@ -649,8 +646,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                       height: sizes!.heightRatio * 20,
                       width: sizes!.widthRatio * 60,
                       decoration: BoxDecoration(
-                          color: appColor,
-                          borderRadius: BorderRadius.circular(5)),
+                        color: appColor,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                       child: Center(
                         child: CustomText(
                             text: "SKR $fee",
@@ -667,6 +665,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
         ),
       );
 
+  /// Check Box
   Widget checkBox(
       BuildContext context, bool isSelected, String name, Function onTap) {
     return InkWell(
@@ -677,10 +676,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: sizes!.heightRatio * 18,
             width: sizes!.widthRatio * 18,
             decoration: BoxDecoration(
-                color: isSelected ? appColor : Colors.white,
-                borderRadius: BorderRadius.circular(2),
-                border: Border.all(
-                    color: isSelected ? appColor : Colors.grey.shade400)),
+              color: isSelected ? appColor : Colors.white,
+              borderRadius: BorderRadius.circular(2),
+              border: Border.all(
+                  color: isSelected ? appColor : Colors.grey.shade400),
+            ),
             child: const Icon(
               Icons.check,
               size: 14,
