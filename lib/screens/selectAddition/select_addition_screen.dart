@@ -4,6 +4,7 @@ import 'package:qbus/models/trips/TripsResponse.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
+import 'package:qbus/screens/passenger_screens/passenger_screen.dart';
 import 'package:qbus/screens/selectAddition/select_addition_provider.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
@@ -76,18 +77,28 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
         child: Column(
           children: [
             CustomButton(
-                name: "Save Trip",
-                buttonColor: appColor,
-                height: sizes!.heightRatio * 45,
-                width: double.infinity,
-                textSize: sizes!.fontRatio * 14,
-                textColor: Colors.white,
-                fontWeight: FontWeight.w500,
-                borderRadius: 5,
-                onTapped: () async {
-                  await callOrderTrip();
-                },
-                padding: 20),
+              name: "Save Trip",
+              buttonColor: appColor,
+              height: sizes!.heightRatio * 45,
+              width: double.infinity,
+              textSize: sizes!.fontRatio * 14,
+              textColor: Colors.white,
+              fontWeight: FontWeight.w500,
+              borderRadius: 5,
+              onTapped: () async {
+                //TODO: Uncomment this
+                // await callOrderTrip();
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PassengerScreen(
+                              passengerCount:
+                                  num.parse(widget.passengersCount!),
+                            )));
+              },
+              padding: 20,
+            ),
             const SizedBox(
               height: 10,
             ),
@@ -110,8 +121,9 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                         height: sizes!.heightRatio * 45,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: appColor)),
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: appColor),
+                        ),
                         child: Center(
                           child: CustomText(
                               text: "Continue",
@@ -159,6 +171,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
     );
   }
 
+  /// Call Order Trip
   Future<void> callOrderTrip() async {
     if (widget.isOneWayTripChecked == true) {
       await selectAdditionProvider.oneWayOrderTrip(
@@ -199,10 +212,12 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
     // }
   }
 
-  Widget itemContainer(
-          {required String name,
-          required int index,
-          required String additionId}) =>
+  /// Item Container
+  Widget itemContainer({
+    required String name,
+    required int index,
+    required String additionId,
+  }) =>
       Column(
         children: [
           const SizedBox(
@@ -251,6 +266,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
         ],
       );
 
+  /// Items
   Widget _items(
       {required BuildContext context,
       required String name,

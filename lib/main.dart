@@ -92,7 +92,8 @@ class MyApp extends StatelessWidget {
         ),
         home: const SplashScreen(),
         //home: SignUpScreen(),
-        locale: Locale(PreferenceUtils.getString(Strings.language) ?? "en"),
+        //TODO: Uncomment this
+        //locale: Locale(PreferenceUtils.getString(Strings.language) ?? "en"),
         debugShowCheckedModeBanner: false,
       ),
     );
