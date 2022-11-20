@@ -569,8 +569,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   height: sizes!.heightRatio * 100,
                   width: sizes!.widthRatio * 140,
                   fit: BoxFit.fill,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
+                  loadingBuilder: (
+                    BuildContext context,
+                    Widget child,
+                    ImageChunkEvent? loadingProgress,
+                  ) {
                     if (loadingProgress == null) return child;
                     return Center(
                       child: CircularProgressIndicator(
