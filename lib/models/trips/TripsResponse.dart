@@ -1,7 +1,3 @@
-/// message : "success"
-/// code : 1
-/// data : {"trips":[{"id":34,"provider_name":"Provider1","time_from":"10:00","time_to":"17:00","start_station_name":{"ar":"محطة أ","en":"Station A"},"arrival_station_name":{"ar":"محطة ب","en":"Station B"},"fees":50,"rate":0,"from_city_name":{"ar":"عجمان","en":"Ajman","ur":"Ajman"},"to_city_name":{"ar":"الشارقة","en":"Sharjah","ur":"Sharjah"},"stops":1,"additionals":[{"ar":"وجبة","en":"Meal"},{"ar":"انترنت","en":"Internet"}]},{"id":35,"provider_name":"Provider1","time_from":"16:00","time_to":"17:00","start_station_name":{"ar":"محطة أ","en":"Station A"},"arrival_station_name":{"ar":"محطة ب","en":"Station B"},"fees":19,"rate":0,"from_city_name":{"ar":"عجمان","en":"Ajman","ur":"Ajman"},"to_city_name":{"ar":"الشارقة","en":"Sharjah","ur":"Sharjah"},"stops":1,"additionals":[{"ar":"انترنت","en":"Internet"}]},{"id":38,"provider_name":"Provider1","time_from":"07:00","time_to":"09:00","start_station_name":{"ar":"محطة أ","en":"Station A"},"arrival_station_name":{"ar":"محطة ب","en":"Station B"},"fees":29,"rate":0,"from_city_name":{"ar":"عجمان","en":"Ajman","ur":"Ajman"},"to_city_name":{"ar":"الشارقة","en":"Sharjah","ur":"Sharjah"},"stops":1,"additionals":[{"ar":"فندق","en":"Hotel"},{"ar":"وجبة","en":"Meal"}]},{"id":39,"provider_name":"Provider1","time_from":"10:00","time_to":"11:00","start_station_name":{"ar":"محطة أ","en":"Station A"},"arrival_station_name":{"ar":"محطة أ","en":"Station A"},"fees":20,"rate":0,"from_city_name":{"ar":"دبي","en":"Dubai","ur":"Dubai"},"to_city_name":{"ar":"الشارقة","en":"Sharjah","ur":"Sharjah"},"stops":1,"additionals":[{"ar":"فندق","en":"Hotel"}]},{"id":40,"provider_name":"Provider1","time_from":"10:00","time_to":"11:00","start_station_name":{"ar":"محطة أ","en":"Station A"},"arrival_station_name":{"ar":"محطة أ","en":"Station A"},"fees":29,"rate":0,"from_city_name":{"ar":"دبي","en":"Dubai","ur":"Dubai"},"to_city_name":{"ar":"العين","en":"Al Ain","ur":"Al Ain"},"stops":1,"additionals":[{"ar":"وجبة","en":"Meal"}]},{"id":41,"provider_name":"Provider1","time_from":"11:17","time_to":"16:17","start_station_name":{"ar":"محطة أ","en":"Station A"},"arrival_station_name":{"ar":"محطة أ","en":"Station A"},"fees":1400,"rate":0,"from_city_name":{"ar":"دبي","en":"Dubai","ur":"Dubai"},"to_city_name":{"ar":"الشارقة","en":"Sharjah","ur":"Sharjah"},"stops":1,"additionals":[]},{"id":42,"provider_name":"Provider1","time_from":"11:35","time_to":"16:35","start_station_name":{"ar":"محطة أ","en":"Station A"},"arrival_station_name":{"ar":"محطة ب","en":"Station B"},"fees":700,"rate":0,"from_city_name":{"ar":"عجمان","en":"Ajman","ur":"Ajman"},"to_city_name":{"ar":"الشارقة","en":"Sharjah","ur":"Sharjah"},"stops":1,"additionals":[]}]}
-
 class TripsResponse {
   TripsResponse({
     String? message,
@@ -40,8 +36,6 @@ class TripsResponse {
   }
 }
 
-/// trips : [{"id":34,"provider_name":"Provider1","time_from":"10:00","time_to":"17:00","start_station_name":{"ar":"محطة أ","en":"Station A"},"arrival_station_name":{"ar":"محطة ب","en":"Station B"},"fees":50,"rate":0,"from_city_name":{"ar":"عجمان","en":"Ajman","ur":"Ajman"},"to_city_name":{"ar":"الشارقة","en":"Sharjah","ur":"Sharjah"},"stops":1,"additionals":[{"ar":"وجبة","en":"Meal"},{"ar":"انترنت","en":"Internet"}]},{"id":35,"provider_name":"Provider1","time_from":"16:00","time_to":"17:00","start_station_name":{"ar":"محطة أ","en":"Station A"},"arrival_station_name":{"ar":"محطة ب","en":"Station B"},"fees":19,"rate":0,"from_city_name":{"ar":"عجمان","en":"Ajman","ur":"Ajman"},"to_city_name":{"ar":"الشارقة","en":"Sharjah","ur":"Sharjah"},"stops":1,"additionals":[{"ar":"انترنت","en":"Internet"}]},{"id":38,"provider_name":"Provider1","time_from":"07:00","time_to":"09:00","start_station_name":{"ar":"محطة أ","en":"Station A"},"arrival_station_name":{"ar":"محطة ب","en":"Station B"},"fees":29,"rate":0,"from_city_name":{"ar":"عجمان","en":"Ajman","ur":"Ajman"},"to_city_name":{"ar":"الشارقة","en":"Sharjah","ur":"Sharjah"},"stops":1,"additionals":[{"ar":"فندق","en":"Hotel"},{"ar":"وجبة","en":"Meal"}]},{"id":39,"provider_name":"Provider1","time_from":"10:00","time_to":"11:00","start_station_name":{"ar":"محطة أ","en":"Station A"},"arrival_station_name":{"ar":"محطة أ","en":"Station A"},"fees":20,"rate":0,"from_city_name":{"ar":"دبي","en":"Dubai","ur":"Dubai"},"to_city_name":{"ar":"الشارقة","en":"Sharjah","ur":"Sharjah"},"stops":1,"additionals":[{"ar":"فندق","en":"Hotel"}]},{"id":40,"provider_name":"Provider1","time_from":"10:00","time_to":"11:00","start_station_name":{"ar":"محطة أ","en":"Station A"},"arrival_station_name":{"ar":"محطة أ","en":"Station A"},"fees":29,"rate":0,"from_city_name":{"ar":"دبي","en":"Dubai","ur":"Dubai"},"to_city_name":{"ar":"العين","en":"Al Ain","ur":"Al Ain"},"stops":1,"additionals":[{"ar":"وجبة","en":"Meal"}]},{"id":41,"provider_name":"Provider1","time_from":"11:17","time_to":"16:17","start_station_name":{"ar":"محطة أ","en":"Station A"},"arrival_station_name":{"ar":"محطة أ","en":"Station A"},"fees":1400,"rate":0,"from_city_name":{"ar":"دبي","en":"Dubai","ur":"Dubai"},"to_city_name":{"ar":"الشارقة","en":"Sharjah","ur":"Sharjah"},"stops":1,"additionals":[]},{"id":42,"provider_name":"Provider1","time_from":"11:35","time_to":"16:35","start_station_name":{"ar":"محطة أ","en":"Station A"},"arrival_station_name":{"ar":"محطة ب","en":"Station B"},"fees":700,"rate":0,"from_city_name":{"ar":"عجمان","en":"Ajman","ur":"Ajman"},"to_city_name":{"ar":"الشارقة","en":"Sharjah","ur":"Sharjah"},"stops":1,"additionals":[]}]
-
 class Data {
   Data({
     List<Trips>? trips,
@@ -71,19 +65,6 @@ class Data {
   }
 }
 
-/// id : 34
-/// provider_name : "Provider1"
-/// time_from : "10:00"
-/// time_to : "17:00"
-/// start_station_name : {"ar":"محطة أ","en":"Station A"}
-/// arrival_station_name : {"ar":"محطة ب","en":"Station B"}
-/// fees : 50
-/// rate : 0
-/// from_city_name : {"ar":"عجمان","en":"Ajman","ur":"Ajman"}
-/// to_city_name : {"ar":"الشارقة","en":"Sharjah","ur":"Sharjah"}
-/// stops : 1
-/// additionals : [{"ar":"وجبة","en":"Meal"},{"ar":"انترنت","en":"Internet"}]
-
 class Trips {
   Trips({
     int? id,
@@ -96,7 +77,7 @@ class Trips {
     int? rate,
     FromCityName? fromCityName,
     ToCityName? toCityName,
-    int? stops,
+    String? stops,
     List<Additionals>? additionals,
   }) {
     _id = id;
@@ -151,7 +132,7 @@ class Trips {
   int? _rate;
   FromCityName? _fromCityName;
   ToCityName? _toCityName;
-  int? _stops;
+  String? _stops;
   List<Additionals>? _additionals;
 
   int? get id => _id;
@@ -174,7 +155,7 @@ class Trips {
 
   ToCityName? get toCityName => _toCityName;
 
-  int? get stops => _stops;
+  String? get stops => _stops;
 
   List<Additionals>? get additionals => _additionals;
 
@@ -206,178 +187,182 @@ class Trips {
   }
 }
 
-/// ar : "وجبة"
-/// en : "Meal"
-
 class Additionals {
   Additionals({
-    String? ar,
     String? en,
+    String? ar,
+    String? ur,
   }) {
-    _ar = ar;
     _en = en;
+    _ar = ar;
+    _ur = ur;
   }
 
   Additionals.fromJson(dynamic json) {
-    _ar = json['ar'];
     _en = json['en'];
+    _ar = json['ar'];
+    _ur = json['ur'];
   }
 
-  String? _ar;
   String? _en;
-
-  String? get ar => _ar;
+  String? _ar;
+  String? _ur;
 
   String? get en => _en;
 
+  String? get ar => _ar;
+
+  String? get ur => _ur;
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['ar'] = _ar;
     map['en'] = _en;
+    map['ar'] = _ar;
+    map['ur'] = _ur;
     return map;
   }
 }
 
-/// ar : "الشارقة"
-/// en : "Sharjah"
-/// ur : "Sharjah"
-
 class ToCityName {
   ToCityName({
-    String? ar,
     String? en,
+    String? ar,
     String? ur,
   }) {
-    _ar = ar;
     _en = en;
+    _ar = ar;
     _ur = ur;
   }
 
   ToCityName.fromJson(dynamic json) {
-    _ar = json['ar'];
     _en = json['en'];
+    _ar = json['ar'];
     _ur = json['ur'];
   }
 
-  String? _ar;
   String? _en;
+  String? _ar;
   String? _ur;
 
-  String? get ar => _ar;
-
   String? get en => _en;
+
+  String? get ar => _ar;
 
   String? get ur => _ur;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['ar'] = _ar;
     map['en'] = _en;
+    map['ar'] = _ar;
     map['ur'] = _ur;
     return map;
   }
 }
 
-/// ar : "عجمان"
-/// en : "Ajman"
-/// ur : "Ajman"
-
 class FromCityName {
   FromCityName({
-    String? ar,
     String? en,
+    String? ar,
     String? ur,
   }) {
-    _ar = ar;
     _en = en;
+    _ar = ar;
     _ur = ur;
   }
 
   FromCityName.fromJson(dynamic json) {
-    _ar = json['ar'];
     _en = json['en'];
+    _ar = json['ar'];
     _ur = json['ur'];
   }
 
-  String? _ar;
   String? _en;
+  String? _ar;
   String? _ur;
 
-  String? get ar => _ar;
-
   String? get en => _en;
+
+  String? get ar => _ar;
 
   String? get ur => _ur;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['ar'] = _ar;
     map['en'] = _en;
+    map['ar'] = _ar;
     map['ur'] = _ur;
     return map;
   }
 }
 
-/// ar : "محطة ب"
-/// en : "Station B"
-
 class ArrivalStationName {
   ArrivalStationName({
-    String? ar,
     String? en,
+    String? ar,
+    String? ur,
   }) {
-    _ar = ar;
     _en = en;
+    _ar = ar;
+    _ur = ur;
   }
 
   ArrivalStationName.fromJson(dynamic json) {
-    _ar = json['ar'];
     _en = json['en'];
+    _ar = json['ar'];
+    _ur = json['ur'];
   }
 
-  String? _ar;
   String? _en;
-
-  String? get ar => _ar;
+  String? _ar;
+  String? _ur;
 
   String? get en => _en;
 
+  String? get ar => _ar;
+
+  String? get ur => _ur;
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['ar'] = _ar;
     map['en'] = _en;
+    map['ar'] = _ar;
+    map['ur'] = _ur;
     return map;
   }
 }
 
-/// ar : "محطة أ"
-/// en : "Station A"
-
 class StartStationName {
   StartStationName({
-    String? ar,
     String? en,
+    String? ar,
+    String? ur,
   }) {
-    _ar = ar;
     _en = en;
+    _ar = ar;
+    _ur = ur;
   }
 
   StartStationName.fromJson(dynamic json) {
-    _ar = json['ar'];
     _en = json['en'];
+    _ar = json['ar'];
+    _ur = json['ur'];
   }
 
-  String? _ar;
   String? _en;
-
-  String? get ar => _ar;
+  String? _ar;
+  String? _ur;
 
   String? get en => _en;
 
+  String? get ar => _ar;
+
+  String? get ur => _ur;
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['ar'] = _ar;
     map['en'] = _en;
+    map['ar'] = _ar;
+    map['ur'] = _ur;
     return map;
   }
 }

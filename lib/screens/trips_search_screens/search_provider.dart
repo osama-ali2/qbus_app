@@ -10,8 +10,8 @@ import '../../network_manager/my_api.dart';
 
 class SearchProvider with ChangeNotifier {
   BuildContext? context;
-  final Logger _logger = Logger();
-  final Loader _loader = Loader();
+  final _logger = Logger();
+  final _loader = Loader();
   bool isTripDataLoaded = false;
   TripsResponse tripsResponse = TripsResponse();
 
@@ -24,7 +24,6 @@ class SearchProvider with ChangeNotifier {
       {required TripFilterModel tripFilterModel, required int offset}) async {
     try {
       _loader.showLoader(context: context);
-      // tripsResponse.data!.trips!.clear();
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
       Map<String, dynamic> body = {
@@ -38,17 +37,14 @@ class SearchProvider with ChangeNotifier {
         "offset": offset
       };
 
-      // var body = tripFilterModel.toJson();
-
       debugPrint("URL: $tripsApiUrl");
       debugPrint("tripsBody: $body");
-
       tripsResponse = await MyApi.callPostApi(
           url: tripsApiUrl,
           body: body,
           myHeaders: header,
           modelName: Models.tripsModel);
-      debugPrint("tripsBody: $body");
+      _logger.i("tripsBody: $body");
 
       if (tripsResponse.code == 1) {
         _logger.d("tripsResponse: ${tripsResponse.toJson()}");
@@ -57,10 +53,12 @@ class SearchProvider with ChangeNotifier {
         notifyListeners();
       } else {
         debugPrint("tripsResponse: Something wrong");
+        _logger.e("tripsResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
       debugPrint("tripsResponseError: ${e.toString()}");
+      _logger.e("tripsResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }
@@ -98,10 +96,12 @@ class SearchProvider with ChangeNotifier {
         notifyListeners();
       } else {
         debugPrint("tripsResponse: Something wrong");
+        _logger.e("tripsResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
       debugPrint("tripsResponseError: ${e.toString()}");
+      _logger.e("tripsResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

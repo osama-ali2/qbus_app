@@ -12,12 +12,12 @@ import '../../../res/strings.dart';
 
 class LoginProvider with ChangeNotifier {
   BuildContext? context;
-  final Logger _logger = Logger();
-  final Loader _loader = Loader();
+  bool isDataLoaded = false;
+
+  final _logger = Logger();
+  final _loader = Loader();
 
   LoginResponse loginResponse = LoginResponse();
-
-  bool isDataLoaded = false;
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
@@ -34,6 +34,7 @@ class LoginProvider with ChangeNotifier {
       Map<String, dynamic> header = {"Content-Type": "application/json"};
       Map<String, dynamic> body = {"phone": phoneNumber, "password": password};
       debugPrint("URL: $loginApiUrl");
+      _logger.i("loginBody: $body");
 
       loginResponse = await MyApi.callPostApi(
           url: loginApiUrl,
@@ -58,22 +59,24 @@ class LoginProvider with ChangeNotifier {
           String loginWallet =
               PreferenceUtils.getString(Strings.loginWallet) ?? "";
 
-          _logger.d(
+          _logger.i(
               "savedToken: $savedToken, name: $name, loginEmail $loginEmail, loginWallet: $loginWallet");
           _loader.hideLoader(context!);
           isDataLoaded = true;
 
           notifyListeners();
         }).onError((error, stackTrace) {
-          _logger.d("Save Error: ${error.toString()}");
+          _logger.e("Save Error: ${error.toString()}");
           _loader.hideLoader(context!);
         });
       } else {
         debugPrint("loginResponse: Something wrong");
+
         _loader.hideLoader(context!);
       }
     } catch (e) {
       debugPrint("loginResponseError: ${e.toString()}");
+      _logger.e("loginResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

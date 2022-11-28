@@ -122,7 +122,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                   .toString();
                               var thumbnailImage = "$baseUrl/$image";
                               var dateFrom = data.dateFrom.toString();
-                              var detail = data.description!.en.toString();
+                              var detail = data.description!.ur.toString();
                               // debugPrint("thumbnailImage: $thumbnailImage");
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 8.0),

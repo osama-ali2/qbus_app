@@ -1,44 +1,45 @@
-// BaseUrl
+// baseNewUrl
 const String baseUrl = "https://qbus.rabaaladawia.com/api/v1";
 const String baseNewUrl = "https://qbus-sa.com/api/v1";
 
 // Auth
-const String tripsApiUrl = "$baseUrl/trips";
-const String packagesApiUrl = "$baseUrl/packages"; //packages
-const String packagesDetailsApiUrl = "$baseUrl/packageDetail/"; //packages
+const String tripsApiUrl = "$baseNewUrl/trips";
+const String packagesApiUrl = "$baseNewUrl/packages"; //packages
+const String packagesDetailsApiUrl = "$baseNewUrl/packageDetail/"; //packages
 
-const String getAdditionalApiUrl = "$baseUrl/additionals";
-const String packageAdditionalApiUrl = "$baseUrl/packageAdditionals/";
-const String tripAdditionalApiUrl = "$baseUrl/tripAdditionals/";
+const String getAdditionalApiUrl = "$baseNewUrl/additionals";
+const String packageAdditionalApiUrl = "$baseNewUrl/packageAdditionals/";
+const String tripAdditionalApiUrl = "$baseNewUrl/tripAdditionals/";
 
-const String getAboutUsApiUrl = "$baseUrl/about_us";
-const String getCitiesApiUrl = "$baseUrl/cites";
+const String getAboutUsApiUrl = "$baseNewUrl/about_us";
+const String getCitiesApiUrl = "$baseNewUrl/cites";
 
-const String loginApiUrl = "$baseUrl/login";
-const String signUpApiUrl = "$baseUrl/signup";
-const String logoutApiUrl = "$baseUrl/logout";
-const String forgetPasswordApiUrl = "$baseUrl/forget_password";
-const String resetPasswordApiUrl = "$baseUrl/reset_password";
+const String loginApiUrl = "$baseNewUrl/login";
+const String signUpApiUrl = "$baseNewUrl/signup";
+const String logoutApiUrl = "$baseNewUrl/logout";
+const String forgetPasswordApiUrl = "$baseNewUrl/forget_password";
+const String resetPasswordApiUrl = "$baseNewUrl/reset_password";
 
-const String verifyPhoneNumberApiUrl = "$baseUrl/verify_phone";
-const String contactUsApiUrl = "$baseUrl/contact_us";
-const String getUserInfoApiUrl = "$baseUrl/user_info";
-const String getPrivacyPolicyApiUrl = "$baseUrl/privacy_policy";
-const String getReturnPolicyApiUrl = "$baseUrl/return_policy";
-const String updateUserProfileApiUrl = "$baseUrl/update_profile";
+const String verifyPhoneNumberApiUrl = "$baseNewUrl/verify_phone";
+const String contactUsApiUrl = "$baseNewUrl/contact_us";
+const String getUserInfoApiUrl = "$baseNewUrl/user_info";
+const String getPrivacyPolicyApiUrl = "$baseNewUrl/privacy_policy";
+const String getReturnPolicyApiUrl = "$baseNewUrl/return_policy";
+const String updateUserProfileApiUrl = "$baseNewUrl/update_profile";
 
 //Trips:
-const String oneWayOrderTripApiUrl = "$baseUrl/oneway_orders";
-const String roundOrderTripApiUrl = "$baseUrl/round_orders";
-const String multiOrderTripApiUrl = "$baseUrl/multi_orders";
+const String oneWayOrderTripApiUrl = "$baseNewUrl/oneway_orders";
+const String roundOrderTripApiUrl = "$baseNewUrl/round_orders";
+const String multiOrderTripApiUrl = "$baseNewUrl/multi_orders";
 
 // Histories:
-const String tripBookingHistoryApiUrl = "$baseUrl/trips_booking_history";
-const String packageBookingHistoryApiUrl = "$baseUrl/packages_booking_history";
+const String tripBookingHistoryApiUrl = "$baseNewUrl/trips_booking_history";
+const String packageBookingHistoryApiUrl =
+    "$baseNewUrl/packages_booking_history";
 
 //Ratings
-const String tripRatingReviewApiUrl = "$baseUrl/trip_review";
-const String packageRatingReviewApiUrl = "$baseUrl/package_review";
+const String tripRatingReviewApiUrl = "$baseNewUrl/trip_review";
+const String packageRatingReviewApiUrl = "$baseNewUrl/package_review";
 
 //Ignore
 const String kGoogleApiKey = "AIzaSyB20XGkT-LGQV7DexxbA5_q_HQrss1moSQ";

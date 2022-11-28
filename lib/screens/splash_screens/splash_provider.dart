@@ -20,10 +20,9 @@ class SplashProvider with ChangeNotifier {
     await Future.delayed(const Duration(
       seconds: 3,
     ));
-    if (PreferenceUtils.getString(Strings.loginEmail)!.isNotEmpty &&
-        PreferenceUtils.getString(Strings.loginUserToken)!.isNotEmpty) {
-      _logger.d("loginEmail: ${PreferenceUtils.getString(Strings.loginEmail)}");
-      _logger.d(
+    if (PreferenceUtils.getString(Strings.loginUserToken)!.isNotEmpty) {
+      _logger.i("loginEmail: ${PreferenceUtils.getString(Strings.loginEmail)}");
+      _logger.i(
           "loginUserToken: ${PreferenceUtils.getString(Strings.loginUserToken)}");
 
       Navigator.pushAndRemoveUntil(
