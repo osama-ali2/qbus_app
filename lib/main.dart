@@ -5,9 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/L10n/L10n.dart';
-import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/providers/multi_provider.dart';
-import 'package:qbus/res/strings.dart';
 import 'package:qbus/screens/splash_screens/splash_screen.dart';
 
 import 'firebase_options.dart';

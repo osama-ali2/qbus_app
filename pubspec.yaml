@@ -52,14 +52,14 @@ dependencies:
   fluttertoast: ^8.1.1
   #  Animated Loader
   lottie: ^2.0.0
-  cached_network_image: ^3.2.2
+  cached_network_image: ^3.2.3
   flutter_svg: any
   pin_code_fields: ^7.4.0
   pinput: ^2.2.10
   google_fonts: any
   custom_timer: any
   firebase_core: ^2.3.0
-  firebase_messaging: ^14.1.1
+  firebase_messaging: ^14.1.2
   flutter_local_notifications: ^9.7.0
   timezone: any
   #  Star Rating Bar

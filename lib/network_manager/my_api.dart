@@ -1,9 +1,11 @@
 import 'dart:io';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
+
 import '../models/error_model/ErrorResponse.dart';
 import '../res/strings.dart';
 import '../res/toasts.dart';
