@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/res/common_padding.dart';
@@ -45,6 +46,11 @@ class _SearchResultState extends State<SearchResult> {
   late SearchProvider searchProvider;
   late ScrollController _scrollController;
   int index = 0;
+
+  final demList = [
+    {"en: AC"},
+    {"en": "Hotel 3Stars"},
+  ];
 
   @override
   void initState() {
@@ -147,24 +153,18 @@ class _SearchResultState extends State<SearchResult> {
                                         ),
                                       );
                                     },
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: sizes!.widthRatio * 20,
-                                          vertical: sizes!.heightRatio * 5),
-                                      child: _cardContainer(
-                                          context: context,
-                                          stationA: stationA,
-                                          stationB: stationB,
-                                          fees: fees,
-                                          rate: rate,
-                                          fromCityName: fromCityName,
-                                          toCityName: toCityName,
-                                          timeFrom: timeFrom,
-                                          timeTo: timeTo,
-                                          stops: stops,
-                                          providerName: providerName,
-                                          additionals: data.additionals!),
-                                    ));
+                                    child: _redesignCardContainer(
+                                        stationA: stationA,
+                                        stationB: stationB,
+                                        fees: fees,
+                                        rate: rate,
+                                        fromCityName: fromCityName,
+                                        toCityName: toCityName,
+                                        timeFrom: timeFrom,
+                                        timeTo: timeTo,
+                                        stops: stops,
+                                        providerName: providerName,
+                                        additionals: data.additionals!));
                               })
                           : Center(
                               child: TextView.getSubHeadingTextWith15(
@@ -212,23 +212,23 @@ class _SearchResultState extends State<SearchResult> {
     );
   }
 
-  Widget _cardContainer(
-      {required BuildContext context,
-      required String stationA,
-      required String stationB,
-      required String fees,
-      required String rate,
-      required String fromCityName,
-      required String toCityName,
-      required String timeFrom,
-      required String timeTo,
-      required String stops,
-      required String providerName,
-      required List<Additionals> additionals}) {
-    return Container(
-      height: sizes!.heightRatio * 130,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
+  Widget _redesignCardContainer({
+    required String stationA,
+    required String stationB,
+    required String fees,
+    required String rate,
+    required String fromCityName,
+    required String toCityName,
+    required String timeFrom,
+    required String timeTo,
+    required String stops,
+    required String providerName,
+    required List<Additionals> additionals,
+  }) =>
+      Container(
+        height: sizes!.heightRatio * 188,
+        width: sizes!.widthRatio * 335,
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           boxShadow: const [
             BoxShadow(
@@ -237,132 +237,145 @@ class _SearchResultState extends State<SearchResult> {
               offset: Offset(0, 2),
             ),
           ],
-          color: Colors.white),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: sizes!.heightRatio * 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    CustomText(
-                        text: "$timeFrom $fromCityName",
-                        textSize: sizes!.fontRatio * 14,
-                        fontWeight: FontWeight.w400,
-                        textColor: const Color(0xff747268)),
-                    const Icon(
-                      Icons.play_arrow,
-                      color: Color(0xff747268),
-                      size: 18,
-                    ),
-                    CustomText(
-                        text: "$timeTo $toCityName",
-                        textSize: sizes!.fontRatio * 14,
-                        fontWeight: FontWeight.w400,
-                        textColor: const Color(0xff747268)),
-                  ],
-                ),
-                Container(
-                  height: sizes!.heightRatio * 20,
-                  width: sizes!.widthRatio * 55,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5), color: appColor),
-                  child: Center(
-                    child: CustomText(
-                        text: "SAR $fees",
-                        textSize: sizes!.fontRatio * 10,
-                        fontWeight: FontWeight.normal,
-                        textColor: Colors.white),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: sizes!.heightRatio * 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    CustomText(
-                        text: stationA,
-                        textSize: sizes!.fontRatio * 14,
-                        fontWeight: FontWeight.w400,
-                        textColor: const Color(0xff747268)),
-                    const Icon(
-                      Icons.play_arrow,
-                      color: Color(0xff747268),
-                      size: 18,
-                    ),
-                    CustomText(
-                        text: stationB,
-                        textSize: sizes!.fontRatio * 14,
-                        fontWeight: FontWeight.w400,
-                        textColor: const Color(0xff747268)),
-                  ],
-                ),
-                CustomText(
-                    text: "$stops Stops",
-                    textSize: sizes!.fontRatio * 14,
-                    fontWeight: FontWeight.w400,
-                    textColor: const Color(0xff747268))
-              ],
-            ),
-            SizedBox(
-              height: sizes!.heightRatio * 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomText(
-                    text: providerName,
-                    textSize: sizes!.fontRatio * 16,
-                    fontWeight: FontWeight.w500,
-                    textColor: const Color(0xff747268)),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.star,
-                      color: Colors.yellow,
-                      size: 18,
-                    ),
-                    CustomText(
-                        text: rate,
-                        textSize: sizes!.fontRatio * 16,
-                        fontWeight: FontWeight.normal,
-                        textColor: const Color(0xff747268)),
-                  ],
-                )
-              ],
-            ),
-            SizedBox(
-              height: sizes!.heightRatio * 10,
-            ),
-            SizedBox(
-              height: sizes!.heightRatio * 20,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: additionals.length,
-                itemBuilder: (context, index) {
-                  var data = additionals[index].en;
-                  return CustomText(
-                      text: "$data /",
-                      textSize: sizes!.fontRatio * 14,
-                      fontWeight: FontWeight.w500,
-                      textColor: Colors.grey);
-                },
-              ),
-            )
-          ],
+          color: Colors.white,
         ),
-      ),
-    );
-  }
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: sizes!.widthRatio * 10,
+              vertical: sizes!.heightRatio * 20),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextView.getGenericText(
+                      text: providerName,
+                      fontFamily: Assets.latoRegular,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.textColor,
+                      lines: 1),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.star,
+                        color: Colors.yellow,
+                        size: 20,
+                      ),
+                      CustomText(
+                          text: "$rate.0",
+                          textSize: sizes!.fontRatio * 16,
+                          fontWeight: FontWeight.normal,
+                          textColor: const Color(0xff747268)),
+                    ],
+                  ),
+                  CommonPadding.sizeBoxWithWidth(width: 4),
+                  Container(
+                    height: sizes!.heightRatio * 20,
+                    width: sizes!.widthRatio * 55,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: appColor),
+                    child: Center(
+                      child: CustomText(
+                          text: "SAR $fees",
+                          textSize: sizes!.fontRatio * 10,
+                          fontWeight: FontWeight.normal,
+                          textColor: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+              CommonPadding.sizeBoxWithHeight(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SvgPicture.asset(
+                    "assets/svg/bus_icon.svg",
+                    height: sizes!.heightRatio * 24,
+                    width: sizes!.widthRatio * 24,
+                  ),
+                  SizedBox(
+                    width: sizes!.widthRatio * 160,
+                    child: const Divider(
+                      color: AppColors.primary,
+                      thickness: 2,
+                    ),
+                  ),
+                  SvgPicture.asset(
+                    "assets/svg/bus_icon.svg",
+                    height: sizes!.heightRatio * 24,
+                    width: sizes!.widthRatio * 24,
+                  ),
+                ],
+              ),
+              CommonPadding.sizeBoxWithHeight(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextView.getGenericText(
+                      text: "$timeFrom $fromCityName",
+                      fontFamily: Assets.latoRegular,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.textColor,
+                      lines: 1),
+                  TextView.getGenericText(
+                      text: "$timeTo $toCityName",
+                      fontFamily: Assets.latoRegular,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.textColor,
+                      lines: 1),
+                ],
+              ),
+              CommonPadding.sizeBoxWithHeight(height: 4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  TextView.getGenericText(
+                      text: stationA,
+                      fontFamily: Assets.latoRegular,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.gray,
+                      lines: 1),
+                  TextView.getGenericText(
+                      text: "$stops Stops",
+                      fontFamily: Assets.latoRegular,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.gray,
+                      lines: 1),
+                  TextView.getGenericText(
+                      text: stationB,
+                      fontFamily: Assets.latoRegular,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.gray,
+                      lines: 1),
+                ],
+              ),
+              CommonPadding.sizeBoxWithHeight(height: 15),
+              SizedBox(
+                height: sizes!.heightRatio * 20,
+                // width: sizes!.widthRatio * 40,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: additionals.length,
+                  itemBuilder: (context, index) {
+                    var data = additionals[index].en;
+                    return CustomText(
+                        text: "$data/",
+                        textSize: sizes!.fontRatio * 14,
+                        fontWeight: FontWeight.w500,
+                        textColor: Colors.grey);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ).get20HorizontalPadding();
 }

@@ -9,8 +9,10 @@ class AppColors {
   static const gray100 = Color.fromRGBO(116, 114, 104, 1);
   static const gray200 = Color.fromRGBO(128, 128, 128, 1);
   static const gray300 = Color.fromRGBO(119, 131, 143, 1);
-
   static const borderColor = Color.fromRGBO(231, 232, 232, 1);
+
+  static const textColor = Color.fromRGBO(1, 1, 25, 1);
+
 
   static const transactionContainerShadowColor =
       Color.fromRGBO(163, 53, 150, 0.2);
