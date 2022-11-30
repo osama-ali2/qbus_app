@@ -10,8 +10,10 @@ class Assets {
   static const String pngThumbnail = 'assets/png/thumbnail.png';
   static const String svgBedroomIcon = 'assets/svg/bedroom_icon.svg';
   static const String svgBusIcon = 'assets/svg/bus_icon.svg';
+  static const String svgFilterIcon = 'assets/svg/filter_icon.svg';
   static const String svgForwardIcon = 'assets/svg/forward_icon.svg';
   static const String svgHomeIcon = 'assets/svg/home_icon.svg';
+  static const String svgLocationIcon = 'assets/svg/location_icon.svg';
   static const String svgSkipIcon = 'assets/svg/skip_icon.svg';
   static const String svgStarIcon = 'assets/svg/star_icon.svg';
   static const String svgUserIcon = 'assets/svg/user_icon.svg';

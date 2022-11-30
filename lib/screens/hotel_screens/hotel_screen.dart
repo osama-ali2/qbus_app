@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
+import 'package:qbus/res/toasts.dart';
 import 'package:qbus/widgets/custom_outline_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
+import 'package:qbus/widgets/text_views.dart';
 
 import '../../res/res.dart';
 import '../../utils/constant.dart';
@@ -51,13 +54,52 @@ class _HotelScreenState extends State<HotelScreen> {
             textSize: sizes!.fontRatio * 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
+        actions: [
+          Center(
+            child: Padding(
+                padding: EdgeInsets.only(right: sizes!.widthRatio * 20),
+                child: GestureDetector(
+                  onTap: () => Toasts.getWarningToast(text: "Try it later"),
+                  child: TextView.getGenericText(
+                      text: "Skip",
+                      fontFamily: Assets.latoRegular,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.whiteTextColor,
+                      lines: 1),
+                )),
+          ),
+        ],
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CommonPadding.sizeBoxWithHeight(height: 20),
+            CommonPadding.sizeBoxWithHeight(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  "Filter",
+                  style: TextStyle(
+                    fontSize: sizes!.fontRatio * 14,
+                    fontFamily: Assets.latoRegular,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.primary,
+                    decoration: TextDecoration.underline,
+                    decorationStyle: TextDecorationStyle.solid,
+                  ),
+                ),
+                CommonPadding.sizeBoxWithWidth(width: 4),
+                SvgPicture.asset(
+                  "assets/svg/filter_icon.svg",
+                  height: sizes!.heightRatio * 16,
+                  width: sizes!.widthRatio * 16,
+                ),
+              ],
+            ),
+            CommonPadding.sizeBoxWithHeight(height: 10),
             Expanded(
                 child: ListView.builder(
                     itemCount: 10,
@@ -78,31 +120,19 @@ class _HotelScreenState extends State<HotelScreen> {
                       );
                     })),
             CommonPadding.sizeBoxWithHeight(height: 10),
-            CustomOutlineButton(
-                name: "Skip",
-                buttonColor: appColor,
-                height: sizes!.heightRatio * 45,
-                width: double.infinity,
-                textSize: sizes!.fontRatio * 14,
-                textColor: appColor,
-                fontWeight: FontWeight.w500,
-                borderRadius: 5,
-                onTapped: () async {},
-                padding: 0),
-            CommonPadding.sizeBoxWithHeight(height: 10),
-            CustomButton(
-              name: "Save and select another Room",
-              buttonColor: appColor,
-              height: sizes!.heightRatio * 45,
-              width: double.infinity,
-              textSize: sizes!.fontRatio * 14,
-              textColor: Colors.white,
-              fontWeight: FontWeight.w500,
-              borderRadius: 5,
-              onTapped: () async {},
-              padding: 0,
-            ),
-            CommonPadding.sizeBoxWithHeight(height: 10),
+            // CustomButton(
+            //   name: "Save and select another Room",
+            //   buttonColor: appColor,
+            //   height: sizes!.heightRatio * 45,
+            //   width: double.infinity,
+            //   textSize: sizes!.fontRatio * 14,
+            //   textColor: Colors.white,
+            //   fontWeight: FontWeight.w500,
+            //   borderRadius: 5,
+            //   onTapped: () async {},
+            //   padding: 0,
+            // ),
+            // CommonPadding.sizeBoxWithHeight(height: 10),
             CustomButton(
               name: "Save And Review The Order",
               buttonColor: appColor,
@@ -134,7 +164,7 @@ class _HotelScreenState extends State<HotelScreen> {
     required int ratingNum,
   }) =>
       Container(
-        height: sizes!.heightRatio * 100,
+        height: sizes!.heightRatio * 136,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -147,10 +177,11 @@ class _HotelScreenState extends State<HotelScreen> {
             ],
             color: Colors.white),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              height: sizes!.heightRatio * 100,
-              width: sizes!.widthRatio * 140,
+              height: sizes!.heightRatio * 114,
+              width: sizes!.widthRatio * 100,
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(12)),
               child: ClipRRect(
@@ -182,17 +213,18 @@ class _HotelScreenState extends State<HotelScreen> {
               width: sizes!.widthRatio * 10,
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomText(
                         text: hotelTitle,
                         textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w700,
-                        textColor: Colors.black),
-                    CommonPadding.sizeBoxWithWidth(width: 10),
+                        textColor: AppColors.black900),
+                    CommonPadding.sizeBoxWithWidth(width: 60),
                     Container(
                       height: sizes!.heightRatio * 20,
                       width: sizes!.widthRatio * 60,
@@ -215,65 +247,71 @@ class _HotelScreenState extends State<HotelScreen> {
                 ),
                 Row(
                   children: [
-                    CustomText(
-                        text: cityName,
-                        textSize: sizes!.fontRatio * 12,
-                        fontWeight: FontWeight.normal,
-                        textColor: Colors.black),
-                    CommonPadding.sizeBoxWithWidth(width: 4),
-                    for (int i = 0; i < ratingNum; i++)
+                    for (int i = 0; i < 1; i++)
                       const Icon(
                         Icons.star,
                         color: Colors.yellow,
                         size: 18,
                       ),
+                    CommonPadding.sizeBoxWithWidth(width: 2),
+                    CustomText(
+                        text: "5.0",
+                        textSize: sizes!.fontRatio * 12,
+                        fontWeight: FontWeight.normal,
+                        textColor: Colors.black),
                   ],
                 ),
                 SizedBox(
                   height: sizes!.heightRatio * 5,
                 ),
-                CustomText(
-                    text: "Room Type",
-                    textSize: sizes!.fontRatio * 12,
-                    fontWeight: FontWeight.normal,
-                    textColor: Colors.black),
+                Row(
+                  children: [
+                    SvgPicture.asset("assets/svg/location_icon.svg"),
+                    CommonPadding.sizeBoxWithWidth(width: 4),
+                    CustomText(
+                        text: "Sharjah",
+                        textSize: sizes!.fontRatio * 12,
+                        fontWeight: FontWeight.w500,
+                        textColor: AppColors.gray),
+                  ],
+                ),
                 SizedBox(
                   height: sizes!.heightRatio * 5,
                 ),
                 Row(
                   children: [
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          "assets/svg/home_icon.svg",
-                          height: sizes!.heightRatio * 17,
-                          width: sizes!.widthRatio * 18,
-                        ),
-                        CommonPadding.sizeBoxWithWidth(width: 2),
-                        CustomText(
-                            text: houseNum,
-                            textSize: sizes!.fontRatio * 15,
-                            fontWeight: FontWeight.normal,
-                            textColor: Colors.black),
-                      ],
-                    ),
-                    CommonPadding.sizeBoxWithWidth(width: 2),
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          "assets/svg/bedroom_icon.svg",
-                          height: sizes!.heightRatio * 17,
-                          width: sizes!.widthRatio * 18,
-                        ),
-                        CommonPadding.sizeBoxWithWidth(width: 2),
-                        CustomText(
-                            text: bedRoomNum,
-                            textSize: sizes!.fontRatio * 15,
-                            fontWeight: FontWeight.normal,
-                            textColor: Colors.black),
-                      ],
-                    ),
-                    CommonPadding.sizeBoxWithWidth(width: 15),
+                    CustomText(
+                        text: "Booking Days",
+                        textSize: sizes!.fontRatio * 12,
+                        fontWeight: FontWeight.w400,
+                        textColor: AppColors.gray),
+                    CommonPadding.sizeBoxWithWidth(width: 60),
+                    Counter(
+                        number: roomCounter,
+                        onAdd: () {
+                          roomCounter++;
+                          setState(() {});
+                        },
+                        onMinus: () {
+                          if (roomCounter > 1) {
+                            roomCounter--;
+                            setState(() {});
+                          }
+                        }),
+                  ],
+                ),
+                SizedBox(
+                  height: sizes!.heightRatio * 5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomText(
+                        text: "Number of Rooms",
+                        textSize: sizes!.fontRatio * 12,
+                        fontWeight: FontWeight.w400,
+                        textColor: AppColors.gray),
+                    CommonPadding.sizeBoxWithWidth(width: 36),
                     Counter(
                         number: roomCounter,
                         onAdd: () {

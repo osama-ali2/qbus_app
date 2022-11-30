@@ -102,9 +102,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
             const SizedBox(
               height: 10,
             ),
-            (PreferenceUtils.getString(Strings.loginEmail)!.isNotEmpty &&
-                    PreferenceUtils.getString(Strings.loginUserToken)!
-                        .isNotEmpty)
+            (PreferenceUtils.getString(Strings.loginUserToken)!.isNotEmpty)
                 ? Container()
                 : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),

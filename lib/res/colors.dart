@@ -13,7 +13,6 @@ class AppColors {
 
   static const textColor = Color.fromRGBO(1, 1, 25, 1);
 
-
   static const transactionContainerShadowColor =
       Color.fromRGBO(163, 53, 150, 0.2);
   static const premiumCardColor = Color.fromRGBO(255, 248, 254, 1);
