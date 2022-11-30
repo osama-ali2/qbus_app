@@ -9,6 +9,10 @@ class Assets {
   static const String pngMainLogo = 'assets/png/main_logo.png';
   static const String pngThumbnail = 'assets/png/thumbnail.png';
   static const String svgBedroomIcon = 'assets/svg/bedroom_icon.svg';
+  static const String svgBottomHistoryIcon = 'assets/svg/bottom_history_icon.svg';
+  static const String svgBottomHomeIcon = 'assets/svg/bottom_home_icon.svg';
+  static const String svgBottomSettingIcon = 'assets/svg/bottom_setting_icon.svg';
+  static const String svgBottomUserIcon = 'assets/svg/bottom_user_icon.svg';
   static const String svgBusIcon = 'assets/svg/bus_icon.svg';
   static const String svgFilterIcon = 'assets/svg/filter_icon.svg';
   static const String svgForwardIcon = 'assets/svg/forward_icon.svg';
