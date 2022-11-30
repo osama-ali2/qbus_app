@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screens/package_history_screens/package_history_screen.dart';
-
 import '../../../../../res/assets.dart';
 import '../../../../../res/colors.dart';
 import '../../../../../res/common_padding.dart';
@@ -12,6 +10,7 @@ import '../../../../../utils/constant.dart';
 import '../../../../../widgets/custom_text.dart';
 import '../../../../../widgets/text_views.dart';
 import '../../../../widgets/custom_button.dart';
+import '../package_history_screens/package_history_screen.dart';
 import 'booking_history_provider.dart';
 
 class BookingHistoryScreen extends StatefulWidget {
@@ -119,7 +118,8 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const PackageHistoryScreen()),
+                        builder: (context) => const PackageHistoryScreen(),
+                      ),
                     );
                   },
                   padding: 20),
@@ -131,20 +131,21 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
     );
   }
 
-  Widget _bookingContainer(
-          {required String timeFromCity,
-          required String fromCity,
-          required String timeToCity,
-          required String toCity,
-          required String fee,
-          required String trip,
-          required String rating,
-          required String type,
-          required Function? onReviewIt,
-          required bool isUserAllowReview}) =>
+  Widget _bookingContainer({
+    required String timeFromCity,
+    required String fromCity,
+    required String timeToCity,
+    required String toCity,
+    required String fee,
+    required String trip,
+    required String rating,
+    required String type,
+    required Function? onReviewIt,
+    required bool isUserAllowReview,
+  }) =>
       Container(
-        height: sizes!.heightRatio * 110,
-        width: sizes!.widthRatio * 375,
+        height: sizes!.heightRatio * 190,
+        width: sizes!.width,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             boxShadow: const [
@@ -157,66 +158,108 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
             color: Colors.white),
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: sizes!.widthRatio * 15,
-              vertical: sizes!.heightRatio * 12),
+              horizontal: sizes!.widthRatio * 10,
+              vertical: sizes!.heightRatio * 20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextView.getMediumText14(
-                        "$timeFromCity $fromCity", Assets.latoRegular,
-                        color: AppColors.gray100,
-                        fontWeight: FontWeight.w300,
-                        lines: 1),
-                    SvgPicture.asset(
-                      "assets/svg/skip_icon.svg",
-                      height: sizes!.heightRatio * 24,
-                      width: sizes!.widthRatio * 24,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextView.getGenericText(
+                      text: trip,
+                      fontFamily: Assets.latoRegular,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.textColor,
+                      lines: 1),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.star,
+                        color: Colors.yellow,
+                        size: 20,
+                      ),
+                      CustomText(
+                          text: rating,
+                          textSize: sizes!.fontRatio * 16,
+                          fontWeight: FontWeight.normal,
+                          textColor: const Color(0xff747268)),
+                    ],
+                  ),
+                ],
+              ),
+              CommonPadding.sizeBoxWithHeight(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SvgPicture.asset(
+                    "assets/svg/bus_icon.svg",
+                    height: sizes!.heightRatio * 24,
+                    width: sizes!.widthRatio * 24,
+                  ),
+                  SizedBox(
+                    width: sizes!.widthRatio * 160,
+                    child: const Divider(
+                      color: AppColors.primary,
+                      thickness: 2,
                     ),
-                    TextView.getMediumText14(
-                        "$timeToCity $toCity", Assets.latoRegular,
-                        color: AppColors.gray100,
-                        fontWeight: FontWeight.w300,
-                        lines: 1),
-                    const Spacer(),
-                    Container(
-                      height: sizes!.heightRatio * 20,
-                      width: sizes!.widthRatio * 54,
-                      decoration: BoxDecoration(
-                        color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Center(
-                        child: TextView.getText10(
-                            "SAR $fee", Assets.latoRegular,
-                            color: AppColors.white, lines: 1),
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  SvgPicture.asset(
+                    "assets/svg/bus_icon.svg",
+                    height: sizes!.heightRatio * 24,
+                    width: sizes!.widthRatio * 24,
+                  ),
+                ],
               ),
-              CommonPadding.sizeBoxWithHeight(height: 10),
-              Expanded(
-                child: Row(
-                  children: [
-                    TextView.getMediumText16(trip, Assets.latoRegular,
-                        color: AppColors.gray100,
-                        fontWeight: FontWeight.w500,
-                        lines: 1),
-                    const Spacer(),
-                    SvgPicture.asset("assets/svg/star_icon.svg"),
-                    CommonPadding.sizeBoxWithWidth(width: 4),
-                    TextView.getMediumText14("($rating/5)", Assets.latoRegular,
-                        color: AppColors.gray100,
-                        fontWeight: FontWeight.w400,
-                        lines: 1),
-                  ],
-                ),
+              CommonPadding.sizeBoxWithHeight(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextView.getGenericText(
+                      text: "$timeFromCity $fromCity",
+                      fontFamily: Assets.latoRegular,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.textColor,
+                      lines: 1),
+                  TextView.getGenericText(
+                      text: "$timeToCity $toCity",
+                      fontFamily: Assets.latoRegular,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.textColor,
+                      lines: 1),
+                ],
               ),
-              CommonPadding.sizeBoxWithHeight(height: 10),
+              CommonPadding.sizeBoxWithHeight(height: 4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  TextView.getGenericText(
+                      text: "stationA",
+                      fontFamily: Assets.latoRegular,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.gray,
+                      lines: 1),
+                  TextView.getGenericText(
+                      text: "1 Stops",
+                      fontFamily: Assets.latoRegular,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.gray,
+                      lines: 1),
+                  TextView.getGenericText(
+                      text: "stationB",
+                      fontFamily: Assets.latoRegular,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.gray,
+                      lines: 1),
+                ],
+              ),
+              CommonPadding.sizeBoxWithHeight(height: 15),
               Row(
                 children: [
                   Container(
@@ -225,10 +268,11 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                     decoration: BoxDecoration(
                         // color: AppColors.primary,
                         borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: AppColors.primary, width: 1)),
+                        border: Border.all(
+                            color: AppColors.greenTextColor, width: 1)),
                     child: Center(
                       child: TextView.getText10(type, Assets.latoRegular,
-                          color: AppColors.primary, lines: 1),
+                          color: AppColors.greenTextColor, lines: 1),
                     ),
                   ),
                   CommonPadding.sizeBoxWithWidth(width: 10),
@@ -255,6 +299,21 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                           ),
                         )
                       : Container(),
+                  const Spacer(),
+                  Container(
+                    height: sizes!.heightRatio * 20,
+                    width: sizes!.widthRatio * 55,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: appColor),
+                    child: Center(
+                      child: CustomText(
+                          text: "SAR $fee",
+                          textSize: sizes!.fontRatio * 10,
+                          fontWeight: FontWeight.w700,
+                          textColor: Colors.white),
+                    ),
+                  ),
                 ],
               ),
             ],
