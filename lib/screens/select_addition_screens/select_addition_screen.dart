@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
+import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
 import 'package:qbus/screens/passenger_screens/passenger_screen.dart';
-import 'package:qbus/screens/selectAddition/select_addition_provider.dart';
+import 'package:qbus/screens/select_addition_screens/select_addition_provider.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
 
@@ -71,70 +72,6 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
   Widget build(BuildContext context) {
     Provider.of<SelectAdditionProvider>(context, listen: true);
     return Scaffold(
-      bottomNavigationBar: SizedBox(
-        height: sizes!.heightRatio * 130,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          children: [
-            CustomButton(
-              name: "Save Trip",
-              buttonColor: appColor,
-              height: sizes!.heightRatio * 45,
-              width: double.infinity,
-              textSize: sizes!.fontRatio * 14,
-              textColor: Colors.white,
-              fontWeight: FontWeight.w500,
-              borderRadius: 5,
-              onTapped: () async {
-                //TODO: Uncomment this
-                // await callOrderTrip();
-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PassengerScreen(
-                              passengerCount:
-                                  num.parse(widget.passengersCount!),
-                            )));
-              },
-              padding: 20,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            (PreferenceUtils.getString(Strings.loginUserToken)!.isNotEmpty)
-                ? Container()
-                : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        height: sizes!.heightRatio * 45,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: appColor),
-                        ),
-                        child: Center(
-                          child: CustomText(
-                              text: "Continue",
-                              textSize: sizes!.fontRatio * 15,
-                              fontWeight: FontWeight.w500,
-                              textColor: appColor),
-                        ),
-                      ),
-                    ),
-                  )
-          ],
-        ),
-      ),
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
@@ -148,20 +85,94 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
       backgroundColor: Colors.white,
       body: selectAdditionProvider.isTripLoaded == true
           ? SafeArea(
-              child: ListView.builder(
-                  itemCount: selectAdditionProvider
-                      .tripAdditionalsResponse.data!.additional!.length,
-                  itemBuilder: (context, index) {
-                    currentIndex = index;
-                    var name = selectAdditionProvider.tripAdditionalsResponse
-                        .data!.additional![index].name!.en
-                        .toString();
-                    var additionId = selectAdditionProvider
-                        .tripAdditionalsResponse.data!.additional![index].id
-                        .toString();
-                    return itemContainer(
-                        name: name, index: index, additionId: additionId);
-                  }),
+              child: Column(
+                children: [
+                  CommonPadding.sizeBoxWithHeight(height: 10),
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: selectAdditionProvider
+                            .tripAdditionalsResponse.data!.additional!.length,
+                        itemBuilder: (context, index) {
+                          currentIndex = index;
+                          var name = selectAdditionProvider
+                              .tripAdditionalsResponse
+                              .data!
+                              .additional![index]
+                              .name!
+                              .en
+                              .toString();
+                          var additionId = selectAdditionProvider
+                              .tripAdditionalsResponse
+                              .data!
+                              .additional![index]
+                              .id
+                              .toString();
+                          return itemContainer(
+                              name: name, index: index, additionId: additionId);
+                        }),
+                  ),
+                  CommonPadding.sizeBoxWithHeight(height: 10),
+                  CustomButton(
+                    name: "Save Trip",
+                    buttonColor: appColor,
+                    height: sizes!.heightRatio * 45,
+                    width: double.infinity,
+                    textSize: sizes!.fontRatio * 14,
+                    textColor: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    borderRadius: 5,
+                    onTapped: () async {
+                      //TODO: Uncomment this
+                      // await callOrderTrip();
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PassengerScreen(
+                            passengerCount: num.parse(widget.passengersCount!),
+                          ),
+                        ),
+                      );
+                    },
+                    padding: 20,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  (PreferenceUtils.getString(Strings.loginUserToken)!
+                          .isNotEmpty)
+                      ? Container()
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: sizes!.heightRatio * 45,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: appColor),
+                              ),
+                              child: Center(
+                                child: CustomText(
+                                    text: "Continue",
+                                    textSize: sizes!.fontRatio * 15,
+                                    fontWeight: FontWeight.w500,
+                                    textColor: appColor),
+                              ),
+                            ),
+                          ),
+                        ),
+                  CommonPadding.sizeBoxWithHeight(height: 10),
+                ],
+              ),
             )
           : const Center(
               child: Text("No Data Available"),

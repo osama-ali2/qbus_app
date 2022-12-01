@@ -5,10 +5,9 @@ import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/toasts.dart';
-import 'package:qbus/widgets/custom_outline_button.dart';
+import 'package:qbus/screens/review_order_screens/review_order_screen.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
-
 import '../../res/res.dart';
 import '../../utils/constant.dart';
 import '../../widgets/counter.dart';
@@ -101,24 +100,26 @@ class _HotelScreenState extends State<HotelScreen> {
             ),
             CommonPadding.sizeBoxWithHeight(height: 10),
             Expanded(
-                child: ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: sizes!.heightRatio * 5),
-                        child: packageCardContainer(
-                          hotelTitle: "First Class",
-                          cityName: "Gaga",
-                          rent: "200",
-                          roomType: "Room Type",
-                          hotelImage: "https://picsum.photos/200/300",
-                          houseNum: "10",
-                          bedRoomNum: "10",
-                          ratingNum: 3,
-                        ),
-                      );
-                    })),
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: sizes!.heightRatio * 5),
+                    child: packageCardContainer(
+                      hotelTitle: "First Class Hotel",
+                      cityName: "Gaga",
+                      rent: "200",
+                      roomType: "Room Type",
+                      hotelImage: "https://picsum.photos/200/300",
+                      houseNum: "10",
+                      bedRoomNum: "10",
+                      ratingNum: 3,
+                    ),
+                  );
+                },
+              ),
+            ),
             CommonPadding.sizeBoxWithHeight(height: 10),
             // CustomButton(
             //   name: "Save and select another Room",
@@ -142,7 +143,12 @@ class _HotelScreenState extends State<HotelScreen> {
               textColor: Colors.white,
               fontWeight: FontWeight.w500,
               borderRadius: 5,
-              onTapped: () async {},
+              onTapped: () async {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ReviewOrderScreen()));
+              },
               padding: 0,
             ),
             CommonPadding.sizeBoxWithHeight(height: 10),
@@ -224,7 +230,7 @@ class _HotelScreenState extends State<HotelScreen> {
                         textSize: sizes!.fontRatio * 14,
                         fontWeight: FontWeight.w700,
                         textColor: AppColors.black900),
-                    CommonPadding.sizeBoxWithWidth(width: 60),
+                    CommonPadding.sizeBoxWithWidth(width: 40),
                     Container(
                       height: sizes!.heightRatio * 20,
                       width: sizes!.widthRatio * 60,

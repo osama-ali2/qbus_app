@@ -13,9 +13,9 @@ import 'package:qbus/screens/round_trip_flow/step_one/round_trip_step_one_provid
 import 'package:qbus/screens/round_trip_flow/step_one/step_one_select_addition/step_one_select_addition_provider.dart';
 import 'package:qbus/screens/round_trip_flow/step_two/round_trip_step_two_provider.dart';
 import 'package:qbus/screens/round_trip_flow/step_two/step_two_select_addition/step_two_select_addition_provider.dart';
+import 'package:qbus/screens/select_addition_screens/select_addition_provider.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_provider.dart';
 import 'package:qbus/screens/trips_search_screens/search_provider.dart';
-
 import '../screens/auth/login_screens/login_provider.dart';
 import '../screens/auth/sign_up_screens/sign_up_provider.dart';
 import '../screens/bottombar/bottom_bar_screens/booking_history_screens/booking_history_provider.dart';
@@ -28,7 +28,6 @@ import '../screens/bottombar/bottom_bar_screens/setting_screens/setting_provider
 import '../screens/bottombar/bottom_bar_screens/setting_select_lang_screens/setting_select_lang_provider.dart';
 import '../screens/explore_screens/explore_provider.dart';
 import '../screens/explore_screens/package_filter_screens/package_filter_provider.dart';
-import '../screens/selectAddition/select_addition_provider.dart';
 import '../screens/splash_screens/splash_provider.dart';
 
 final multiProviders = [
