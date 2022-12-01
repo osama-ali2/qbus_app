@@ -1,7 +1,3 @@
-/// message : "messages.success"
-/// code : 1
-/// data : {"packages":{"id":1,"provider_id":1,"name":{"ur":"Tourist program to Saudi Arabia for 5 days","ar":"برنامج سياحي إلى السعودية لمدة 5 أيام","en":"Tourist program to Saudi Arabia for 5 days"},"date_from":"2022-07-20","time_from":"10:00","description":{"ur":"If you are thinking of visiting the Kingdom of Saudi Arabia to spend your vacation with the family, you can choose one of the tourism programs that we have organized for you in Saudi Arabia to suit your vacation days and which will enable you to spend enjoyable times in the Kingdom.\r\nWe offer you, lovers of tourist trips, a tourist program to Saudi Arabia for 5 days, where you will spend them in the most beautiful cities and tourist places in them.","ar":"إذا كنت تفكر بزيارة المملكة العربية السعودية لقضاء أجازتك مع العائلة يمكنكم اختيار أحد البرامج السياحية التي نظمناها لكم في السعودية لتناسب أيام عطلتكم والتي تمكنكم من قضاء أوقات ممتعة في المملكة.\r\nنقدم لكم محبي الرحلات السياحية برنامج سياحي إلى السعودية لمدة 5 أيام تقضونهم في أجمل المدن والأماكن السياحية فيها.","en":"If you are thinking of visiting the Kingdom of Saudi Arabia to spend your vacation with the family, you can choose one of the tourism programs that we have organized for you in Saudi Arabia to suit your vacation days and which will enable you to spend enjoyable times in the Kingdom.\r\nWe offer you, lovers of tourist trips, a tourist program to Saudi Arabia for 5 days, where you will spend them in the most beautiful cities and tourist places in them."},"image":"1656841362_sa.jpg","fees":3000,"start_station_name":"{\"ur\":\"Abha\",\"ar\":\"'ا'ب'ه''ا\",\"en\":\"Abha\"}","rate":0,"additionals":[{"id":2,"fees":5000,"name":{"ar":"وجبة","en":"Meal"}},{"id":3,"fees":0,"name":{"ar":"انترنت","en":"Internet"}}],"destinations":[{"id":8,"provider_id":1,"from_city_id":8,"to_city_id":12,"starting_terminal_id":1,"arrival_terminal_id":3,"stops":["2"],"created_at":"2022-07-03T09:37:47.000000Z","updated_at":"2022-07-03T09:37:47.000000Z","name":"Makka - Al Medina","from_city":{"id":8,"name":{"ur":"Makka","ar":"مكة المكرمة","en":"Makka"},"created_at":"2022-07-03T09:21:03.000000Z","updated_at":"2022-07-03T09:21:03.000000Z"},"to_city":{"id":12,"name":{"ur":"Al Medina","ar":"المدينة المنورة","en":"Al Medina"},"created_at":"2022-07-03T09:24:23.000000Z","updated_at":"2022-07-03T09:24:23.000000Z"}},{"id":9,"provider_id":1,"from_city_id":12,"to_city_id":6,"starting_terminal_id":1,"arrival_terminal_id":3,"stops":["2"],"created_at":"2022-07-03T09:38:13.000000Z","updated_at":"2022-07-03T09:38:13.000000Z","name":"Al Medina - Abha","from_city":{"id":12,"name":{"ur":"Al Medina","ar":"المدينة المنورة","en":"Al Medina"},"created_at":"2022-07-03T09:24:23.000000Z","updated_at":"2022-07-03T09:24:23.000000Z"},"to_city":{"id":6,"name":{"ur":"Abha","ar":"ابها","en":"Abha"},"created_at":"2022-07-03T09:19:49.000000Z","updated_at":"2022-07-03T09:19:49.000000Z"}}]},"image_base":"https://qbus.rabaaladawia.com/public/images/packages"}
-
 class PackageDetailResponse {
   PackageDetailResponse({
     String? message,
@@ -40,9 +36,6 @@ class PackageDetailResponse {
   }
 }
 
-/// packages : {"id":1,"provider_id":1,"name":{"ur":"Tourist program to Saudi Arabia for 5 days","ar":"برنامج سياحي إلى السعودية لمدة 5 أيام","en":"Tourist program to Saudi Arabia for 5 days"},"date_from":"2022-07-20","time_from":"10:00","description":{"ur":"If you are thinking of visiting the Kingdom of Saudi Arabia to spend your vacation with the family, you can choose one of the tourism programs that we have organized for you in Saudi Arabia to suit your vacation days and which will enable you to spend enjoyable times in the Kingdom.\r\nWe offer you, lovers of tourist trips, a tourist program to Saudi Arabia for 5 days, where you will spend them in the most beautiful cities and tourist places in them.","ar":"إذا كنت تفكر بزيارة المملكة العربية السعودية لقضاء أجازتك مع العائلة يمكنكم اختيار أحد البرامج السياحية التي نظمناها لكم في السعودية لتناسب أيام عطلتكم والتي تمكنكم من قضاء أوقات ممتعة في المملكة.\r\nنقدم لكم محبي الرحلات السياحية برنامج سياحي إلى السعودية لمدة 5 أيام تقضونهم في أجمل المدن والأماكن السياحية فيها.","en":"If you are thinking of visiting the Kingdom of Saudi Arabia to spend your vacation with the family, you can choose one of the tourism programs that we have organized for you in Saudi Arabia to suit your vacation days and which will enable you to spend enjoyable times in the Kingdom.\r\nWe offer you, lovers of tourist trips, a tourist program to Saudi Arabia for 5 days, where you will spend them in the most beautiful cities and tourist places in them."},"image":"1656841362_sa.jpg","fees":3000,"start_station_name":"{\"ur\":\"Abha\",\"ar\":\"'ا'ب'ه''ا\",\"en\":\"Abha\"}","rate":0,"additionals":[{"id":2,"fees":5000,"name":{"ar":"وجبة","en":"Meal"}},{"id":3,"fees":0,"name":{"ar":"انترنت","en":"Internet"}}],"destinations":[{"id":8,"provider_id":1,"from_city_id":8,"to_city_id":12,"starting_terminal_id":1,"arrival_terminal_id":3,"stops":["2"],"created_at":"2022-07-03T09:37:47.000000Z","updated_at":"2022-07-03T09:37:47.000000Z","name":"Makka - Al Medina","from_city":{"id":8,"name":{"ur":"Makka","ar":"مكة المكرمة","en":"Makka"},"created_at":"2022-07-03T09:21:03.000000Z","updated_at":"2022-07-03T09:21:03.000000Z"},"to_city":{"id":12,"name":{"ur":"Al Medina","ar":"المدينة المنورة","en":"Al Medina"},"created_at":"2022-07-03T09:24:23.000000Z","updated_at":"2022-07-03T09:24:23.000000Z"}},{"id":9,"provider_id":1,"from_city_id":12,"to_city_id":6,"starting_terminal_id":1,"arrival_terminal_id":3,"stops":["2"],"created_at":"2022-07-03T09:38:13.000000Z","updated_at":"2022-07-03T09:38:13.000000Z","name":"Al Medina - Abha","from_city":{"id":12,"name":{"ur":"Al Medina","ar":"المدينة المنورة","en":"Al Medina"},"created_at":"2022-07-03T09:24:23.000000Z","updated_at":"2022-07-03T09:24:23.000000Z"},"to_city":{"id":6,"name":{"ur":"Abha","ar":"ابها","en":"Abha"},"created_at":"2022-07-03T09:19:49.000000Z","updated_at":"2022-07-03T09:19:49.000000Z"}}]}
-/// image_base : "https://qbus.rabaaladawia.com/public/images/packages"
-
 class Data {
   Data({
     Packages? packages,
@@ -75,19 +68,6 @@ class Data {
   }
 }
 
-/// id : 1
-/// provider_id : 1
-/// name : {"ur":"Tourist program to Saudi Arabia for 5 days","ar":"برنامج سياحي إلى السعودية لمدة 5 أيام","en":"Tourist program to Saudi Arabia for 5 days"}
-/// date_from : "2022-07-20"
-/// time_from : "10:00"
-/// description : {"ur":"If you are thinking of visiting the Kingdom of Saudi Arabia to spend your vacation with the family, you can choose one of the tourism programs that we have organized for you in Saudi Arabia to suit your vacation days and which will enable you to spend enjoyable times in the Kingdom.\r\nWe offer you, lovers of tourist trips, a tourist program to Saudi Arabia for 5 days, where you will spend them in the most beautiful cities and tourist places in them.","ar":"إذا كنت تفكر بزيارة المملكة العربية السعودية لقضاء أجازتك مع العائلة يمكنكم اختيار أحد البرامج السياحية التي نظمناها لكم في السعودية لتناسب أيام عطلتكم والتي تمكنكم من قضاء أوقات ممتعة في المملكة.\r\nنقدم لكم محبي الرحلات السياحية برنامج سياحي إلى السعودية لمدة 5 أيام تقضونهم في أجمل المدن والأماكن السياحية فيها.","en":"If you are thinking of visiting the Kingdom of Saudi Arabia to spend your vacation with the family, you can choose one of the tourism programs that we have organized for you in Saudi Arabia to suit your vacation days and which will enable you to spend enjoyable times in the Kingdom.\r\nWe offer you, lovers of tourist trips, a tourist program to Saudi Arabia for 5 days, where you will spend them in the most beautiful cities and tourist places in them."}
-/// image : "1656841362_sa.jpg"
-/// fees : 3000
-/// start_station_name : "{\"ur\":\"Abha\",\"ar\":\"'ا'ب'ه''ا\",\"en\":\"Abha\"}"
-/// rate : 0
-/// additionals : [{"id":2,"fees":5000,"name":{"ar":"وجبة","en":"Meal"}},{"id":3,"fees":0,"name":{"ar":"انترنت","en":"Internet"}}]
-/// destinations : [{"id":8,"provider_id":1,"from_city_id":8,"to_city_id":12,"starting_terminal_id":1,"arrival_terminal_id":3,"stops":["2"],"created_at":"2022-07-03T09:37:47.000000Z","updated_at":"2022-07-03T09:37:47.000000Z","name":"Makka - Al Medina","from_city":{"id":8,"name":{"ur":"Makka","ar":"مكة المكرمة","en":"Makka"},"created_at":"2022-07-03T09:21:03.000000Z","updated_at":"2022-07-03T09:21:03.000000Z"},"to_city":{"id":12,"name":{"ur":"Al Medina","ar":"المدينة المنورة","en":"Al Medina"},"created_at":"2022-07-03T09:24:23.000000Z","updated_at":"2022-07-03T09:24:23.000000Z"}},{"id":9,"provider_id":1,"from_city_id":12,"to_city_id":6,"starting_terminal_id":1,"arrival_terminal_id":3,"stops":["2"],"created_at":"2022-07-03T09:38:13.000000Z","updated_at":"2022-07-03T09:38:13.000000Z","name":"Al Medina - Abha","from_city":{"id":12,"name":{"ur":"Al Medina","ar":"المدينة المنورة","en":"Al Medina"},"created_at":"2022-07-03T09:24:23.000000Z","updated_at":"2022-07-03T09:24:23.000000Z"},"to_city":{"id":6,"name":{"ur":"Abha","ar":"ابها","en":"Abha"},"created_at":"2022-07-03T09:19:49.000000Z","updated_at":"2022-07-03T09:19:49.000000Z"}}]
-
 class Packages {
   Packages({
     int? id,
@@ -97,8 +77,8 @@ class Packages {
     String? timeFrom,
     Description? description,
     String? image,
-    int? fees,
-    String? startStationName,
+    double? fees,
+    StartStationName? startStationName,
     int? rate,
     List<Additionals>? additionals,
     List<Destinations>? destinations,
@@ -128,7 +108,9 @@ class Packages {
         : null;
     _image = json['image'];
     _fees = json['fees'];
-    _startStationName = json['start_station_name'];
+    _startStationName = json['start_station_name'] != null
+        ? StartStationName.fromJson(json['start_station_name'])
+        : null;
     _rate = json['rate'];
     if (json['additionals'] != null) {
       _additionals = [];
@@ -151,8 +133,8 @@ class Packages {
   String? _timeFrom;
   Description? _description;
   String? _image;
-  int? _fees;
-  String? _startStationName;
+  double? _fees;
+  StartStationName? _startStationName;
   int? _rate;
   List<Additionals>? _additionals;
   List<Destinations>? _destinations;
@@ -171,9 +153,9 @@ class Packages {
 
   String? get image => _image;
 
-  int? get fees => _fees;
+  double? get fees => _fees;
 
-  String? get startStationName => _startStationName;
+  StartStationName? get startStationName => _startStationName;
 
   int? get rate => _rate;
 
@@ -195,7 +177,9 @@ class Packages {
     }
     map['image'] = _image;
     map['fees'] = _fees;
-    map['start_station_name'] = _startStationName;
+    if (_startStationName != null) {
+      map['start_station_name'] = _startStationName?.toJson();
+    }
     map['rate'] = _rate;
     if (_additionals != null) {
       map['additionals'] = _additionals?.map((v) => v.toJson()).toList();
@@ -206,19 +190,6 @@ class Packages {
     return map;
   }
 }
-
-/// id : 8
-/// provider_id : 1
-/// from_city_id : 8
-/// to_city_id : 12
-/// starting_terminal_id : 1
-/// arrival_terminal_id : 3
-/// stops : ["2"]
-/// created_at : "2022-07-03T09:37:47.000000Z"
-/// updated_at : "2022-07-03T09:37:47.000000Z"
-/// name : "Makka - Al Medina"
-/// from_city : {"id":8,"name":{"ur":"Makka","ar":"مكة المكرمة","en":"Makka"},"created_at":"2022-07-03T09:21:03.000000Z","updated_at":"2022-07-03T09:21:03.000000Z"}
-/// to_city : {"id":12,"name":{"ur":"Al Medina","ar":"المدينة المنورة","en":"Al Medina"},"created_at":"2022-07-03T09:24:23.000000Z","updated_at":"2022-07-03T09:24:23.000000Z"}
 
 class Destinations {
   Destinations({
@@ -324,11 +295,6 @@ class Destinations {
   }
 }
 
-/// id : 12
-/// name : {"ur":"Al Medina","ar":"المدينة المنورة","en":"Al Medina"}
-/// created_at : "2022-07-03T09:24:23.000000Z"
-/// updated_at : "2022-07-03T09:24:23.000000Z"
-
 class ToCity {
   ToCity({
     int? id,
@@ -374,50 +340,41 @@ class ToCity {
   }
 }
 
-/// ur : "Al Medina"
-/// ar : "المدينة المنورة"
-/// en : "Al Medina"
-
 class Name {
   Name({
-    String? ur,
-    String? ar,
     String? en,
+    String? ar,
+    String? ur,
   }) {
-    _ur = ur;
-    _ar = ar;
     _en = en;
+    _ar = ar;
+    _ur = ur;
   }
 
   Name.fromJson(dynamic json) {
-    _ur = json['ur'];
-    _ar = json['ar'];
     _en = json['en'];
+    _ar = json['ar'];
+    _ur = json['ur'];
   }
 
-  String? _ur;
-  String? _ar;
   String? _en;
-
-  String? get ur => _ur;
-
-  String? get ar => _ar;
+  String? _ar;
+  String? _ur;
 
   String? get en => _en;
 
+  String? get ar => _ar;
+
+  String? get ur => _ur;
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['ur'] = _ur;
-    map['ar'] = _ar;
     map['en'] = _en;
+    map['ar'] = _ar;
+    map['ur'] = _ur;
     return map;
   }
 }
-
-/// id : 8
-/// name : {"ur":"Makka","ar":"مكة المكرمة","en":"Makka"}
-/// created_at : "2022-07-03T09:21:03.000000Z"
-/// updated_at : "2022-07-03T09:21:03.000000Z"
 
 class FromCity {
   FromCity({
@@ -464,10 +421,6 @@ class FromCity {
   }
 }
 
-/// id : 2
-/// fees : 5000
-/// name : {"ar":"وجبة","en":"Meal"}
-
 class Additionals {
   Additionals({
     int? id,
@@ -506,42 +459,74 @@ class Additionals {
   }
 }
 
-/// ur : "If you are thinking of visiting the Kingdom of Saudi Arabia to spend your vacation with the family, you can choose one of the tourism programs that we have organized for you in Saudi Arabia to suit your vacation days and which will enable you to spend enjoyable times in the Kingdom.\r\nWe offer you, lovers of tourist trips, a tourist program to Saudi Arabia for 5 days, where you will spend them in the most beautiful cities and tourist places in them."
-/// ar : "إذا كنت تفكر بزيارة المملكة العربية السعودية لقضاء أجازتك مع العائلة يمكنكم اختيار أحد البرامج السياحية التي نظمناها لكم في السعودية لتناسب أيام عطلتكم والتي تمكنكم من قضاء أوقات ممتعة في المملكة.\r\nنقدم لكم محبي الرحلات السياحية برنامج سياحي إلى السعودية لمدة 5 أيام تقضونهم في أجمل المدن والأماكن السياحية فيها."
-/// en : "If you are thinking of visiting the Kingdom of Saudi Arabia to spend your vacation with the family, you can choose one of the tourism programs that we have organized for you in Saudi Arabia to suit your vacation days and which will enable you to spend enjoyable times in the Kingdom.\r\nWe offer you, lovers of tourist trips, a tourist program to Saudi Arabia for 5 days, where you will spend them in the most beautiful cities and tourist places in them."
+class StartStationName {
+  StartStationName({
+    String? en,
+    String? ar,
+    String? ur,
+  }) {
+    _en = en;
+    _ar = ar;
+    _ur = ur;
+  }
+
+  StartStationName.fromJson(dynamic json) {
+    _en = json['en'];
+    _ar = json['ar'];
+    _ur = json['ur'];
+  }
+
+  String? _en;
+  String? _ar;
+  String? _ur;
+
+  String? get en => _en;
+
+  String? get ar => _ar;
+
+  String? get ur => _ur;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['en'] = _en;
+    map['ar'] = _ar;
+    map['ur'] = _ur;
+    return map;
+  }
+}
 
 class Description {
   Description({
     String? ur,
-    String? ar,
     String? en,
+    String? ar,
   }) {
     _ur = ur;
-    _ar = ar;
     _en = en;
+    _ar = ar;
   }
 
   Description.fromJson(dynamic json) {
     _ur = json['ur'];
-    _ar = json['ar'];
     _en = json['en'];
+    _ar = json['ar'];
   }
 
   String? _ur;
-  String? _ar;
   String? _en;
+  String? _ar;
 
   String? get ur => _ur;
 
-  String? get ar => _ar;
-
   String? get en => _en;
+
+  String? get ar => _ar;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['ur'] = _ur;
-    map['ar'] = _ar;
     map['en'] = _en;
+    map['ar'] = _ar;
     return map;
   }
 }

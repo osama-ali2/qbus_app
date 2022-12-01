@@ -37,11 +37,12 @@ class PackageDetailProvider with ChangeNotifier {
         notifyListeners();
       } else {
         debugPrint("packageDetailResponse: Something wrong");
-
+        _logger.e("packageDetailResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
       debugPrint("packageDetailResponseError: ${e.toString()}");
+      _logger.e("packageDetailResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

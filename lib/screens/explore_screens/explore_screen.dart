@@ -9,10 +9,10 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/explore_screens/explore_provider.dart';
 import 'package:qbus/screens/explore_screens/package_detail_screens/package_detail_screen.dart';
+import 'package:qbus/screens/project_widgets/filter_container_widget.dart';
+import 'package:qbus/screens/project_widgets/package_card_container_widget.dart';
 import 'package:qbus/widgets/text_views.dart';
-
 import '../../../../utils/constant.dart';
-import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_text.dart';
 import 'package_filter_screens/package_filter_screen.dart';
 
@@ -36,13 +36,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
   @override
   void initState() {
     super.initState();
-
     exploreProvider = ExploreProvider();
     exploreProvider = Provider.of<ExploreProvider>(context, listen: false);
     exploreProvider.init(context: context);
 
     _scrollController = ScrollController();
-
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
@@ -88,7 +86,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
           child: exploreProvider.isListHasData > 0
               ? _getUI(context)
               : const Center(
-                  child: Text("no Data"),
+                  child: Text("No Data"),
                 ),
         ),
       ),
@@ -98,9 +96,16 @@ class _ExploreScreenState extends State<ExploreScreen> {
   Widget _getUI(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: sizes!.heightRatio * 10,
-        ),
+        CommonPadding.sizeBoxWithHeight(height: 10),
+        FilterContainerWidget(onPress: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const PackageFilterScreen(),
+            ),
+          );
+        }),
+        CommonPadding.sizeBoxWithHeight(height: 10),
         exploreProvider.isDataLoaded
             ? Expanded(
                 child:
@@ -135,7 +140,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                           packageId: packageId,
                                         ));
                                   },
-                                  child: packageCardContainer(
+                                  child: PackageCardContainerWidget(
                                       title: packageName,
                                       rating: rating,
                                       fee: fee,
@@ -155,158 +160,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           ),
               )
             : Container(),
-        CommonPadding.sizeBoxWithHeight(height: 15),
-        exploreProvider.isDataLoaded
-            ? CustomButton(
-                name: AppLocalizations.of(context)!.filter,
-                buttonColor: appColor,
-                height: sizes!.heightRatio * 45,
-                width: double.infinity,
-                textSize: sizes!.fontRatio * 14,
-                textColor: Colors.white,
-                fontWeight: FontWeight.normal,
-                borderRadius: 5,
-                onTapped: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PackageFilterScreen(),
-                    ),
-                  );
-                },
-                padding: 0)
-            : Container(),
-        CommonPadding.sizeBoxWithHeight(height: 30),
+        CommonPadding.sizeBoxWithHeight(height: 10),
       ],
     );
   }
-
-  Widget packageCardContainer({
-    required String title,
-    required String rating,
-    required String fee,
-    required String dateFrom,
-    required String detail,
-    required String image,
-  }) =>
-      Container(
-        height: sizes!.heightRatio * 100,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: const [
-              BoxShadow(
-                color: AppColors.containerShadowColor,
-                blurRadius: 10.0,
-                offset: Offset(0, 2),
-              ),
-            ],
-            color: Colors.white),
-        child: Row(
-          children: [
-            Container(
-              height: sizes!.heightRatio * 100,
-              width: sizes!.widthRatio * 140,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(12)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(6),
-                child: Image.network(
-                  image,
-                  height: sizes!.heightRatio * 100,
-                  width: sizes!.widthRatio * 140,
-                  fit: BoxFit.fill,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-            SizedBox(
-              width: sizes!.widthRatio * 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomText(
-                    text: title,
-                    textSize: sizes!.fontRatio * 14,
-                    fontWeight: FontWeight.w700,
-                    textColor: Colors.black),
-                SizedBox(
-                  height: sizes!.heightRatio * 5,
-                ),
-                SizedBox(
-                  height: sizes!.heightRatio * 30,
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  child: CustomText(
-                    text: "$detail...",
-                    textSize: sizes!.fontRatio * 10,
-                    fontWeight: FontWeight.normal,
-                    textColor: Colors.black,
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                SizedBox(
-                  height: sizes!.heightRatio * 5,
-                ),
-                CustomText(
-                  text: dateFrom,
-                  textSize: sizes!.fontRatio * 10,
-                  fontWeight: FontWeight.normal,
-                  textColor: Colors.black,
-                  textAlign: TextAlign.start,
-                ),
-                SizedBox(
-                  height: sizes!.heightRatio * 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                          size: 22,
-                        ),
-                        CustomText(
-                            text: rating,
-                            textSize: sizes!.fontRatio * 12,
-                            fontWeight: FontWeight.normal,
-                            textColor: Colors.black)
-                      ],
-                    ),
-                    CommonPadding.sizeBoxWithWidth(width: 85),
-                    Container(
-                      height: sizes!.heightRatio * 20,
-                      width: sizes!.widthRatio * 60,
-                      decoration: BoxDecoration(
-                          color: appColor,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Center(
-                        child: CustomText(
-                            text: "SAR $fee",
-                            textSize: sizes!.fontRatio * 10,
-                            fontWeight: FontWeight.normal,
-                            textColor: Colors.white),
-                      ),
-                    )
-                  ],
-                )
-              ],
-            )
-          ],
-        ),
-      );
 }
