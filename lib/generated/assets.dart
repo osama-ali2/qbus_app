@@ -7,6 +7,7 @@ class Assets {
   static const String imagesList = 'assets/images/list.png';
   static const String jsonBlueSimple = 'assets/json/blueSimple.json';
   static const String pngMainLogo = 'assets/png/main_logo.png';
+  static const String pngRectangle = 'assets/png/wallet_bg.png';
   static const String pngThumbnail = 'assets/png/thumbnail.png';
   static const String svgBedroomIcon = 'assets/svg/bedroom_icon.svg';
   static const String svgBottomHistoryIcon = 'assets/svg/bottom_history_icon.svg';
@@ -21,5 +22,6 @@ class Assets {
   static const String svgSkipIcon = 'assets/svg/skip_icon.svg';
   static const String svgStarIcon = 'assets/svg/star_icon.svg';
   static const String svgUserIcon = 'assets/svg/user_icon.svg';
+  static const String svgWalletBg = 'assets/svg/wallet_bg.png.svg';
 
 }

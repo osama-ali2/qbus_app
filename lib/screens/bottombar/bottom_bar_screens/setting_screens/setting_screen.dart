@@ -79,16 +79,12 @@ class _SettingScreenState extends State<SettingScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextView.getMediumText14(title, Assets.latoBold,
-                  color: AppColors.black900,
-                  fontWeight: FontWeight.w400,
-                  lines: 1),
-              const Spacer(),
               TextView.getMediumText14(language, Assets.latoBold,
                   color: AppColors.black900,
                   fontWeight: FontWeight.w400,
                   lines: 1),
               CommonPadding.sizeBoxWithWidth(width: 10),
+              const Spacer(),
               DropdownButton(
                 onChanged: (language) {
                   _changeLanguage(language);
@@ -99,16 +95,17 @@ class _SettingScreenState extends State<SettingScreen> {
                   size: 28,
                 ),
                 items: Language.languageList()
-                    .map<DropdownMenuItem<Language>>(
-                        (language) => DropdownMenuItem(
-                              value: language,
-                              child: Row(
-                                children: <Widget>[
-                                  Text(language.flag),
-                                  Text(language.name),
-                                ],
-                              ),
-                            ))
+                    .map<DropdownMenuItem<Language>>((language) =>
+                        DropdownMenuItem(
+                          value: language,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(language.flag),
+                              Text(language.name),
+                            ],
+                          ),
+                        ))
                     .toList(),
               ),
               GestureDetector(

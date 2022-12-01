@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/res/extensions.dart';
 
@@ -58,35 +59,46 @@ class _WalletScreenState extends State<WalletScreen> {
                 height: sizes!.heightRatio * 150,
                 width: sizes!.widthRatio * 335,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: AppColors.containerShadowColor,
-                        blurRadius: 10.0,
-                        offset: Offset(0, 2),
-                      ),
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: const LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                      AppColors.primary2,
+                      AppColors.primary,
                     ],
-                    color: Colors.white),
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppColors.containerShadowColor,
+                      blurRadius: 10.0,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                  // color: Colors.white,
+                ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: sizes!.widthRatio * 10,
-                      vertical: sizes!.widthRatio * 10),
+                    horizontal: sizes!.widthRatio * 20,
+                    vertical: sizes!.widthRatio * 30,
+                  ),
                   child: walletProvider.isProfileLoading == true
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const CustomText(
                                 text: "My Balance",
                                 textSize: 14,
                                 fontWeight: FontWeight.w400,
-                                textColor: Colors.black),
-                            CommonPadding.sizeBoxWithHeight(height: 10),
+                                textColor: Colors.white),
+                            CommonPadding.sizeBoxWithHeight(height: 5),
                             CustomText(
                                 text:
                                     "SAR ${walletProvider.userResponse.data!.user!.wallet.toString()}",
                                 textSize: 40,
                                 fontWeight: FontWeight.w700,
-                                textColor: Colors.black),
+                                textColor: Colors.white),
                           ],
                         )
                       : const Center(
