@@ -370,8 +370,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           Counter(
               number: passengersNumber,
               onAdd: () {
-                passengersNumber++;
-                setState(() {});
+                if (passengersNumber > 9) {
+                  Toasts.getWarningToast(text: "Only 10 Passengers Allowed");
+                } else {
+                  passengersNumber++;
+                  setState(() {});
+                }
               },
               onMinus: () {
                 if (passengersNumber > 1) {

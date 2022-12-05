@@ -44,8 +44,8 @@ class StepOneSelectAdditionProvider with ChangeNotifier {
           url: url, myHeaders: header, modelName: Models.tripAdditionalsModel);
 
       if (tripAdditionalsResponse.code == 1) {
-        _logger
-            .d("tripAdditionalsResponse: ${tripAdditionalsResponse.data!.toJson()}");
+        _logger.d(
+            "tripAdditionalsResponse: ${tripAdditionalsResponse.data!.toJson()}");
         var length = tripAdditionalsResponse.data!.additional!.length;
         for (int i = 0; i < length; i++) {
           Map<String, dynamic> demoData = {
@@ -61,10 +61,12 @@ class StepOneSelectAdditionProvider with ChangeNotifier {
         notifyListeners();
       } else {
         debugPrint("tripAdditionalsResponse: Something wrong");
+        _logger.i("tripAdditionalsResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
       debugPrint("tripAdditionalsResponseError: ${e.toString()}");
+      _logger.i("tripAdditionalsResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }
@@ -108,10 +110,11 @@ class StepOneSelectAdditionProvider with ChangeNotifier {
         notifyListeners();
       } else {
         debugPrint("roundOrderTripResponse: Something wrong");
+        _logger.i("roundOrderTripResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      _logger.d("roundOrderTripResponseError: ${e.toString()}");
+      _logger.i("roundOrderTripResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

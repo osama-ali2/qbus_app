@@ -9,6 +9,7 @@ import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/wallet
 import 'package:qbus/screens/explore_screens/package_detail_screens/package_detail_provider.dart';
 import 'package:qbus/screens/explore_screens/package_select_addition_screens/package_select_addition_provider.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
+import 'package:qbus/screens/passenger_screens/passenger_provider.dart';
 import 'package:qbus/screens/round_trip_flow/step_one/round_trip_step_one_provider.dart';
 import 'package:qbus/screens/round_trip_flow/step_one/step_one_select_addition/step_one_select_addition_provider.dart';
 import 'package:qbus/screens/round_trip_flow/step_two/round_trip_step_two_provider.dart';
@@ -153,6 +154,10 @@ final multiProviders = [
   ),
   ChangeNotifierProvider<RoundTripStepTwoProvider>(
     create: (_) => RoundTripStepTwoProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PassengerProvider>(
+    create: (_) => PassengerProvider(),
     lazy: true,
   ),
 ];

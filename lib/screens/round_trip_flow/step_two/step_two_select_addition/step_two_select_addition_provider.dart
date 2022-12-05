@@ -61,16 +61,19 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
           additionalList.add(demoData);
           selectAdditionalList.add(0);
           debugPrint("selectAdditionalList: ${selectAdditionalList.length}");
+          _logger.i("selectAdditionalList: ${selectAdditionalList.length}");
         }
         _loader.hideLoader(context!);
         isTripLoaded = true;
         notifyListeners();
       } else {
         debugPrint("tripAdditionalsResponse: Something wrong");
+        _logger.i("tripAdditionalsResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
       debugPrint("tripAdditionalsResponseError: ${e.toString()}");
+      _logger.i("tripAdditionalsResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }
@@ -121,7 +124,7 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
       debugPrint("Body: $body");
 
       if (roundOrderTripResponse.code == 1) {
-        _logger.d(
+        _logger.i(
             "roundOrderTripResponse: ${roundOrderTripResponse.toJson()}, ${roundOrderTripResponse.data!.message.toString()}");
         _loader.hideLoader(context!);
         isRoundOrderTripSaved = true;
@@ -132,7 +135,7 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      _logger.d("roundOrderTripResponseError: ${e.toString()}");
+      _logger.i("roundOrderTripResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

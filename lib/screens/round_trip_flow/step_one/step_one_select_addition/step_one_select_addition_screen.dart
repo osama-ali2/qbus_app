@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
+import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/strings.dart';
@@ -70,78 +71,6 @@ class _StepOneSelectAdditionScreenState
   Widget build(BuildContext context) {
     Provider.of<StepOneSelectAdditionProvider>(context, listen: true);
     return Scaffold(
-      bottomNavigationBar: SizedBox(
-        height: sizes!.heightRatio * 130,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          children: [
-            CustomButton(
-                name: "Save First Trip",
-                buttonColor: appColor,
-                height: sizes!.heightRatio * 45,
-                width: double.infinity,
-                textSize: sizes!.fontRatio * 14,
-                textColor: Colors.white,
-                fontWeight: FontWeight.w500,
-                borderRadius: 5,
-                onTapped: () async {
-                  debugPrint(
-                      "firstTripModelID: ${widget.firstTripsModel!.id} passengersCount: ${widget.passengersCount}, additionalList: ${stepOneSelectAdditionProvider.additionalList}");
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RoundTripStepTwoResult(
-                        toCity: widget.toCity,
-                        fromCity: widget.fromCity,
-                        tripFilterModel: widget.tripFilterModel,
-                        isRoundTripChecked: widget.isRoundTripChecked,
-                        tripFirstPassengersCount: widget.passengersCount,
-                        firstTripModel: widget.firstTripsModel,
-                        tripFirstAdditionalList:
-                            stepOneSelectAdditionProvider.additionalList,
-                      ),
-                    ),
-                  );
-                },
-                padding: 20),
-            const SizedBox(
-              height: 10,
-            ),
-            (PreferenceUtils.getString(Strings.loginEmail)!.isNotEmpty &&
-                    PreferenceUtils.getString(Strings.loginUserToken)!
-                        .isNotEmpty)
-                ? Container()
-                : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        height: sizes!.heightRatio * 45,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: appColor)),
-                        child: Center(
-                          child: CustomText(
-                              text: "Continue",
-                              textSize: sizes!.fontRatio * 15,
-                              fontWeight: FontWeight.w500,
-                              textColor: appColor),
-                        ),
-                      ),
-                    ),
-                  )
-          ],
-        ),
-      ),
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
@@ -155,18 +84,90 @@ class _StepOneSelectAdditionScreenState
       backgroundColor: Colors.white,
       body: (stepOneSelectAdditionProvider.isTripLoaded == true)
           ? SafeArea(
-              child: ListView.builder(
-                  itemCount: stepOneSelectAdditionProvider
-                      .tripAdditionalsResponse.data!.additional!.length,
-                  itemBuilder: (context, index) {
-                    currentIndex = index;
-                    var data = stepOneSelectAdditionProvider
-                        .tripAdditionalsResponse.data!.additional![index];
-                    var name = data.name!.en.toString();
-                    var additionId = data.id.toString();
-                    return _itemContainer(
-                        name: name, index: index, additionId: additionId);
-                  }),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: stepOneSelectAdditionProvider
+                            .tripAdditionalsResponse.data!.additional!.length,
+                        itemBuilder: (context, index) {
+                          currentIndex = index;
+                          var data = stepOneSelectAdditionProvider
+                              .tripAdditionalsResponse.data!.additional![index];
+                          var name = data.name!.en.toString();
+                          var additionId = data.id.toString();
+                          return _itemContainer(
+                              name: name, index: index, additionId: additionId);
+                        }),
+                  ),
+
+                  CustomButton(
+                      name: "Save First Trip",
+                      buttonColor: appColor,
+                      height: sizes!.heightRatio * 45,
+                      width: double.infinity,
+                      textSize: sizes!.fontRatio * 14,
+                      textColor: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      borderRadius: 5,
+                      onTapped: () async {
+                        debugPrint(
+                            "firstTripModelID: ${widget.firstTripsModel!.id} passengersCount: ${widget.passengersCount}, additionalList: ${stepOneSelectAdditionProvider.additionalList}");
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RoundTripStepTwoResult(
+                              toCity: widget.toCity,
+                              fromCity: widget.fromCity,
+                              tripFilterModel: widget.tripFilterModel,
+                              isRoundTripChecked: widget.isRoundTripChecked,
+                              tripFirstPassengersCount: widget.passengersCount,
+                              firstTripModel: widget.firstTripsModel,
+                              tripFirstAdditionalList:
+                                  stepOneSelectAdditionProvider.additionalList,
+                            ),
+                          ),
+                        );
+                      },
+                      padding: 20),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  // PreferenceUtils.getString(Strings.loginEmail)!.isNotEmpty &&
+                  (PreferenceUtils.getString(Strings.loginUserToken)!
+                          .isNotEmpty)
+                      ? Container()
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: sizes!.heightRatio * 45,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(color: appColor)),
+                              child: Center(
+                                child: CustomText(
+                                    text: "Continue",
+                                    textSize: sizes!.fontRatio * 15,
+                                    fontWeight: FontWeight.w500,
+                                    textColor: appColor),
+                              ),
+                            ),
+                          ),
+                        ),
+                  CommonPadding.sizeBoxWithHeight(height: 10),
+                ],
+              ),
             )
           : const Center(
               child: Text("No Data Available"),

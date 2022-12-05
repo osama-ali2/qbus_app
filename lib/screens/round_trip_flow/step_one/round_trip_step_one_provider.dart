@@ -51,16 +51,18 @@ class RoundTripStepOneProvider with ChangeNotifier {
       debugPrint("tripsBody: $body");
 
       if (tripsResponse.code == 1) {
-        _logger.d("tripsResponse: ${tripsResponse.toJson()}");
+        _logger.i("tripsResponse: ${tripsResponse.toJson()}");
         _loader.hideLoader(context!);
         isTripDataLoaded = true;
         notifyListeners();
       } else {
         debugPrint("tripsResponse: Something wrong");
+        _logger.i("tripsResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
       debugPrint("tripsResponseError: ${e.toString()}");
+      _logger.i("tripsResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }
@@ -98,10 +100,12 @@ class RoundTripStepOneProvider with ChangeNotifier {
         notifyListeners();
       } else {
         debugPrint("tripsResponse: Something wrong");
+        _logger.i("tripsResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
       debugPrint("tripsResponseError: ${e.toString()}");
+      _logger.i("tripsResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

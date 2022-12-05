@@ -70,61 +70,6 @@ class _StepTwoSelectAdditionScreenState
   Widget build(BuildContext context) {
     Provider.of<StepTwoSelectAdditionProvider>(context, listen: true);
     return Scaffold(
-      bottomNavigationBar: SizedBox(
-        height: sizes!.heightRatio * 130,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          children: [
-            CustomButton(
-                name: "Save Second Trip",
-                buttonColor: appColor,
-                height: sizes!.heightRatio * 45,
-                width: double.infinity,
-                textSize: sizes!.fontRatio * 14,
-                textColor: Colors.white,
-                fontWeight: FontWeight.w500,
-                borderRadius: 5,
-                onTapped: () async {
-                  await callOrderTrip();
-                },
-                padding: 20),
-            const SizedBox(
-              height: 10,
-            ),
-            (PreferenceUtils.getString(Strings.loginEmail)!.isNotEmpty &&
-                    PreferenceUtils.getString(Strings.loginUserToken)!
-                        .isNotEmpty)
-                ? Container()
-                : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        height: sizes!.heightRatio * 45,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: appColor)),
-                        child: Center(
-                          child: CustomText(
-                              text: "Continue",
-                              textSize: sizes!.fontRatio * 15,
-                              fontWeight: FontWeight.w500,
-                              textColor: appColor),
-                        ),
-                      ),
-                    ),
-                  )
-          ],
-        ),
-      ),
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
@@ -138,24 +83,75 @@ class _StepTwoSelectAdditionScreenState
       backgroundColor: Colors.white,
       body: stepTwoSelectAdditionProvider.isTripLoaded == true
           ? SafeArea(
-              child: ListView.builder(
-                  itemCount: stepTwoSelectAdditionProvider
-                      .tripAdditionalsResponse.data!.additional!.length,
-                  itemBuilder: (context, index) {
-                    currentIndex = index;
-                    var name = stepTwoSelectAdditionProvider
-                        .tripAdditionalsResponse
-                        .data!
-                        .additional![index]
-                        .name!
-                        .en
-                        .toString();
-                    var additionId = stepTwoSelectAdditionProvider
-                        .tripAdditionalsResponse.data!.additional![index].id
-                        .toString();
-                    return itemContainer(
-                        name: name, index: index, additionId: additionId);
-                  }),
+              child: Column(
+                children: [
+                  ListView.builder(
+                      itemCount: stepTwoSelectAdditionProvider
+                          .tripAdditionalsResponse.data!.additional!.length,
+                      itemBuilder: (context, index) {
+                        currentIndex = index;
+                        var name = stepTwoSelectAdditionProvider
+                            .tripAdditionalsResponse
+                            .data!
+                            .additional![index]
+                            .name!
+                            .en
+                            .toString();
+                        var additionId = stepTwoSelectAdditionProvider
+                            .tripAdditionalsResponse.data!.additional![index].id
+                            .toString();
+                        return itemContainer(
+                            name: name, index: index, additionId: additionId);
+                      }),
+                  CustomButton(
+                      name: "Save Second Trip",
+                      buttonColor: appColor,
+                      height: sizes!.heightRatio * 45,
+                      width: double.infinity,
+                      textSize: sizes!.fontRatio * 14,
+                      textColor: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      borderRadius: 5,
+                      onTapped: () async {
+                        await callOrderTrip();
+                      },
+                      padding: 20),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  //PreferenceUtils.getString(Strings.loginEmail)!.isNotEmpty &&
+                  (PreferenceUtils.getString(Strings.loginUserToken)!
+                          .isNotEmpty)
+                      ? Container()
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: sizes!.heightRatio * 45,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(color: appColor)),
+                              child: Center(
+                                child: CustomText(
+                                    text: "Continue",
+                                    textSize: sizes!.fontRatio * 15,
+                                    fontWeight: FontWeight.w500,
+                                    textColor: appColor),
+                              ),
+                            ),
+                          ),
+                        )
+                ],
+              ),
             )
           : const Center(
               child: Text("No Data Available"),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
+import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/hotel_screens/hotel_screen.dart';
+import 'package:qbus/screens/passenger_screens/passenger_provider.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/custom_textField.dart';
 
@@ -10,7 +13,7 @@ import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
 
 class PassengerScreen extends StatefulWidget {
-  final num passengerCount;
+  final int passengerCount;
 
   const PassengerScreen({Key? key, required this.passengerCount})
       : super(key: key);
@@ -20,12 +23,19 @@ class PassengerScreen extends StatefulWidget {
 }
 
 class _PassengerScreenState extends State<PassengerScreen> {
+  late PassengerProvider passengerProvider;
+
   final fullNameController = TextEditingController();
-  final controller = TextEditingController();
+  final idNumberController = TextEditingController();
 
   final List<TextEditingController> _controllers = [];
-
   final List<Widget> _fields = [];
+
+  /// Fields
+  final List<TextEditingController> _fullNameControllers = [];
+  final List<TextField> _fullNameFields = [];
+  final List<TextEditingController> _idNumberControllers = [];
+  final List<TextField> _telFields = [];
 
   final identityList = ["ID", "Passport"];
   final countryList = ["Saudi Arabic", "Qatar", "Pakistan"];
@@ -35,12 +45,14 @@ class _PassengerScreenState extends State<PassengerScreen> {
   @override
   void initState() {
     super.initState();
-  }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    addFields();
+    passengerProvider = PassengerProvider();
+    passengerProvider = Provider.of<PassengerProvider>(context, listen: false);
+    passengerProvider.init(context: context);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      addFields();
+    });
   }
 
   @override
@@ -52,20 +64,38 @@ class _PassengerScreenState extends State<PassengerScreen> {
   }
 
   void addFields() {
-    for (int i = 0; i < widget.passengerCount; i++) {
-      final controller = TextEditingController();
-      final field =
-          passengerContainer(passengerNumber: "${_controllers.length + 1}");
+    if (widget.passengerCount > 10) {
+      Toasts.getWarningToast(text: "Only 10 Passengers allowed");
+    } else {
+      for (int i = 0; i < widget.passengerCount; i++) {
+        final fullNameController = TextEditingController();
+        final idNumberController = TextEditingController();
+        final field = passengerContainer(
+          passengerNumber: "${i + 1}",
+          fullNameController: fullNameController,
+          idNumberController: idNumberController,
+        );
 
-      setState(() {
-        _controllers.add(controller);
-        _fields.add(field);
-      });
+        // final field = passengerOnlyFieldsContainer(
+        //   passengerNumber: "${i + 1}",
+        //   fullNameController: fullNameController,
+        //   idNumberController: idNumberController,
+        // );
+
+        debugPrint("functionCalled: $i");
+        setState(() {
+          _fullNameControllers.add(fullNameController);
+          _idNumberControllers.add(idNumberController);
+          _fields.add(field);
+        });
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<PassengerProvider>(context, listen: true);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
@@ -82,6 +112,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // passengerDropDownContainer(),
             Expanded(
               child: ListView.builder(
                 itemCount: _fields.length,
@@ -101,10 +132,17 @@ class _PassengerScreenState extends State<PassengerScreen> {
               fontWeight: FontWeight.w500,
               borderRadius: 5,
               onTapped: () async {
+                for (int i = 0; i < _fullNameControllers.length; i++) {
+                  debugPrint(
+                      "fullName: ${_fullNameControllers[i].value.text.toString().trim()}\nidNumber: ${_idNumberControllers[i].value.text.toString().trim()}");
+                }
+
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const HotelScreen()));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HotelScreen(),
+                  ),
+                );
               },
               padding: 0,
             ),
@@ -115,7 +153,11 @@ class _PassengerScreenState extends State<PassengerScreen> {
     );
   }
 
-  Widget passengerContainer({required String passengerNumber}) {
+  Widget passengerContainer({
+    required String passengerNumber,
+    required TextEditingController fullNameController,
+    required TextEditingController idNumberController,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -170,7 +212,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
         ),
         CommonPadding.sizeBoxWithHeight(height: 10),
         CustomTextField(
-          controller: fullNameController,
+          controller: idNumberController,
           padding: 0,
           validator: (val) => null,
           inputType: TextInputType.text,
@@ -211,6 +253,120 @@ class _PassengerScreenState extends State<PassengerScreen> {
             ),
           ),
         ),
+      ],
+    );
+  }
+
+  Widget passengerOnlyFieldsContainer({
+    required String passengerNumber,
+    required TextEditingController fullNameController,
+    required TextEditingController idNumberController,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CommonPadding.sizeBoxWithHeight(height: 20),
+        CustomText(
+            text: "Passenger $passengerNumber",
+            textSize: sizes!.fontRatio * 14,
+            fontWeight: FontWeight.w700,
+            textColor: Colors.black),
+        CommonPadding.sizeBoxWithHeight(height: 10),
+        CustomTextField(
+          controller: fullNameController,
+          padding: 0,
+          validator: (val) => null,
+          inputType: TextInputType.text,
+          hint: "Full Name",
+        ),
+        CommonPadding.sizeBoxWithHeight(height: 10),
+        CustomTextField(
+          controller: idNumberController,
+          padding: 0,
+          validator: (val) => null,
+          inputType: TextInputType.text,
+          hint: "ID Number",
+        ),
+        // CommonPadding.sizeBoxWithHeight(height: 10),
+      ],
+    );
+  }
+
+  Widget passengerDropDownContainer() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CommonPadding.sizeBoxWithHeight(height: 20),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: sizes!.heightRatio * 48,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: Colors.grey.shade400),
+              borderRadius: BorderRadius.circular(5)),
+          child: Center(
+            child: DropdownButton<String>(
+              hint: Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 10),
+                child: CustomText(
+                    text: selectedIdentityType,
+                    textSize: 12,
+                    fontWeight: FontWeight.normal,
+                    textColor: Colors.black),
+              ),
+              underline: const SizedBox(),
+              isExpanded: true,
+              items: identityList.map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedIdentityType = value!;
+                });
+              },
+            ),
+          ),
+        ),
+        CommonPadding.sizeBoxWithHeight(height: 10),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: sizes!.heightRatio * 48,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: Colors.grey.shade400),
+              borderRadius: BorderRadius.circular(5)),
+          child: Center(
+            child: DropdownButton<String>(
+              hint: Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 10),
+                child: CustomText(
+                    text: selectedCountry,
+                    textSize: 12,
+                    fontWeight: FontWeight.normal,
+                    textColor: Colors.black),
+              ),
+              underline: const SizedBox(),
+              isExpanded: true,
+              items: countryList.map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedCountry = value!;
+                });
+              },
+            ),
+          ),
+        ),
+        CommonPadding.sizeBoxWithHeight(height: 10),
       ],
     );
   }

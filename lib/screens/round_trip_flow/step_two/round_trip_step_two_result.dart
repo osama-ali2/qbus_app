@@ -7,14 +7,14 @@ import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
+import 'package:qbus/screens/project_widgets/trip_card_container_widget.dart';
 import 'package:qbus/screens/round_trip_flow/step_two/step_two_select_addition/step_two_select_addition_screen.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';
-import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/text_views.dart';
-
 import '../../../../navigation/navigation_helper.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
+import '../../project_widgets/filter_container_widget.dart';
 import 'round_trip_step_two_provider.dart';
 
 class RoundTripStepTwoResult extends StatefulWidget {
@@ -22,9 +22,6 @@ class RoundTripStepTwoResult extends StatefulWidget {
   final String? fromCity;
   final String? toCity;
   final bool? isRoundTripChecked;
-
-  // final String? passengersCount;
-  // First Trip
   final Trips? firstTripModel;
   final String? tripFirstPassengersCount;
   final List<Map<String, dynamic>>? tripFirstAdditionalList;
@@ -95,6 +92,16 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
       body: SafeArea(
         child: Column(
           children: [
+            CommonPadding.sizeBoxWithHeight(height: 10),
+            FilterContainerWidget(onPress: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const TripFilterScreen(),
+                ),
+              );
+            }),
+            CommonPadding.sizeBoxWithHeight(height: 10),
             searchProvider.isTripDataLoaded
                 ? Expanded(
                     child: searchProvider.tripsResponse.data!.trips!.isNotEmpty
@@ -121,47 +128,48 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
                               var tripId = data.id.toString();
 
                               return InkWell(
-                                  onTap: () {
-                                    NavigationHelper.pushRoute(
-                                      context,
-                                      StepTwoSelectAdditionScreen(
-                                        tripSecondId: tripId,
-                                        secondTripsModel: data,
-                                        isRoundTripChecked:
-                                            widget.isRoundTripChecked,
-                                        passengersCount:
-                                            widget.tripFirstPassengersCount,
-                                        toCityId:
-                                            widget.tripFilterModel!.to_city_id,
-                                        fromCityId: widget
-                                            .tripFilterModel!.from_city_id,
-                                        firstTripModel: widget.firstTripModel,
-                                        tripFirstAdditionalList:
-                                            widget.tripFirstAdditionalList,
-                                        tripFirstPassengersCount:
-                                            widget.tripFirstPassengersCount,
-                                      ),
-                                    );
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: sizes!.widthRatio * 20,
-                                        vertical: sizes!.heightRatio * 5),
-                                    child: _cardContainer(
-                                        context: context,
-                                        stationA: stationA,
-                                        stationB: stationB,
-                                        fees: fees,
-                                        rate: rate,
-                                        fromCityName: fromCityName,
-                                        toCityName: toCityName,
-                                        timeFrom: timeFrom,
-                                        timeTo: timeTo,
-                                        stops: stops,
-                                        providerName: providerName,
-                                        additionals: data.additionals!),
-                                  ));
-                            })
+                                onTap: () {
+                                  NavigationHelper.pushRoute(
+                                    context,
+                                    StepTwoSelectAdditionScreen(
+                                      tripSecondId: tripId,
+                                      secondTripsModel: data,
+                                      isRoundTripChecked:
+                                          widget.isRoundTripChecked,
+                                      passengersCount:
+                                          widget.tripFirstPassengersCount,
+                                      toCityId:
+                                          widget.tripFilterModel!.to_city_id,
+                                      fromCityId:
+                                          widget.tripFilterModel!.from_city_id,
+                                      firstTripModel: widget.firstTripModel,
+                                      tripFirstAdditionalList:
+                                          widget.tripFirstAdditionalList,
+                                      tripFirstPassengersCount:
+                                          widget.tripFirstPassengersCount,
+                                    ),
+                                  );
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: sizes!.heightRatio * 5),
+                                  child: TripCardContainerWidget(
+                                      // context: context,
+                                      stationA: stationA,
+                                      stationB: stationB,
+                                      fees: fees,
+                                      rate: rate,
+                                      fromCityName: fromCityName,
+                                      toCityName: toCityName,
+                                      timeFrom: timeFrom,
+                                      timeTo: timeTo,
+                                      stops: stops,
+                                      providerName: providerName,
+                                      additionals: data.additionals!),
+                                ),
+                              );
+                            },
+                          )
                         : Center(
                             child: TextView.getSubHeadingTextWith15(
                                 "No Data Available", Assets.latoBold,
@@ -172,184 +180,8 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
                   )
                 : Container(),
             CommonPadding.sizeBoxWithHeight(height: 10),
-            searchProvider.isTripDataLoaded
-                ? CustomButton(
-                        name: "Filter Result",
-                        buttonColor: appColor,
-                        height: sizes!.heightRatio * 45,
-                        width: double.infinity,
-                        textSize: sizes!.fontRatio * 16,
-                        textColor: Colors.white,
-                        fontWeight: FontWeight.normal,
-                        borderRadius: 5,
-                        onTapped: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const TripFilterScreen(),
-                            ),
-                          );
-                        },
-                        padding: 0)
-                    .get20HorizontalPadding()
-                : Container(),
-            CommonPadding.sizeBoxWithHeight(height: 10),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _cardContainer(
-      {required BuildContext context,
-      required String stationA,
-      required String stationB,
-      required String fees,
-      required String rate,
-      required String fromCityName,
-      required String toCityName,
-      required String timeFrom,
-      required String timeTo,
-      required String stops,
-      required String providerName,
-      required List<Additionals> additionals}) {
-    return Container(
-      height: sizes!.heightRatio * 130,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: const [
-            BoxShadow(
-              color: AppColors.containerShadowColor,
-              blurRadius: 10.0,
-              offset: Offset(0, 2),
-            ),
-          ],
-          color: Colors.white),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: sizes!.heightRatio * 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    CustomText(
-                        text: "$timeFrom $fromCityName",
-                        textSize: sizes!.fontRatio * 14,
-                        fontWeight: FontWeight.w400,
-                        textColor: const Color(0xff747268)),
-                    const Icon(
-                      Icons.play_arrow,
-                      color: Color(0xff747268),
-                      size: 18,
-                    ),
-                    CustomText(
-                        text: "$timeTo $toCityName",
-                        textSize: sizes!.fontRatio * 14,
-                        fontWeight: FontWeight.w400,
-                        textColor: const Color(0xff747268)),
-                  ],
-                ),
-                Container(
-                  height: sizes!.heightRatio * 20,
-                  width: sizes!.widthRatio * 55,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5), color: appColor),
-                  child: Center(
-                    child: CustomText(
-                        text: "SAR $fees",
-                        textSize: sizes!.fontRatio * 10,
-                        fontWeight: FontWeight.normal,
-                        textColor: Colors.white),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: sizes!.heightRatio * 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    CustomText(
-                        text: stationA,
-                        textSize: sizes!.fontRatio * 14,
-                        fontWeight: FontWeight.w400,
-                        textColor: const Color(0xff747268)),
-                    const Icon(
-                      Icons.play_arrow,
-                      color: Color(0xff747268),
-                      size: 18,
-                    ),
-                    CustomText(
-                        text: stationB,
-                        textSize: sizes!.fontRatio * 14,
-                        fontWeight: FontWeight.w400,
-                        textColor: const Color(0xff747268)),
-                  ],
-                ),
-                CustomText(
-                    text: "$stops Stops",
-                    textSize: sizes!.fontRatio * 14,
-                    fontWeight: FontWeight.w400,
-                    textColor: const Color(0xff747268))
-              ],
-            ),
-            SizedBox(
-              height: sizes!.heightRatio * 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomText(
-                    text: providerName,
-                    textSize: sizes!.fontRatio * 16,
-                    fontWeight: FontWeight.w500,
-                    textColor: const Color(0xff747268)),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.star,
-                      color: Colors.yellow,
-                      size: 18,
-                    ),
-                    CustomText(
-                        text: rate,
-                        textSize: sizes!.fontRatio * 16,
-                        fontWeight: FontWeight.normal,
-                        textColor: const Color(0xff747268)),
-                  ],
-                )
-              ],
-            ),
-            SizedBox(
-              height: sizes!.heightRatio * 10,
-            ),
-            SizedBox(
-              height: sizes!.heightRatio * 20,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: additionals.length,
-                itemBuilder: (context, index) {
-                  var data = additionals[index].en;
-                  return CustomText(
-                      text: "$data /",
-                      textSize: sizes!.fontRatio * 14,
-                      fontWeight: FontWeight.w500,
-                      textColor: Colors.grey);
-                },
-              ),
-            )
-          ],
-        ),
+        ).get20HorizontalPadding(),
       ),
     );
   }
