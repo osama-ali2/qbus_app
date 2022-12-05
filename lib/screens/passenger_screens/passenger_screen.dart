@@ -14,8 +14,10 @@ import '../../widgets/custom_button.dart';
 
 class PassengerScreen extends StatefulWidget {
   final int passengerCount;
+  final int tripId;
 
-  const PassengerScreen({Key? key, required this.passengerCount})
+  const PassengerScreen(
+      {Key? key, required this.passengerCount, required this.tripId})
       : super(key: key);
 
   @override
@@ -33,9 +35,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
 
   /// Fields
   final List<TextEditingController> _fullNameControllers = [];
-  final List<TextField> _fullNameFields = [];
   final List<TextEditingController> _idNumberControllers = [];
-  final List<TextField> _telFields = [];
 
   final identityList = ["ID", "Passport"];
   final countryList = ["Saudi Arabic", "Qatar", "Pakistan"];
@@ -140,7 +140,9 @@ class _PassengerScreenState extends State<PassengerScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const HotelScreen(),
+                    builder: (context) => HotelScreen(
+                      tripId: widget.tripId,
+                    ),
                   ),
                 );
               },

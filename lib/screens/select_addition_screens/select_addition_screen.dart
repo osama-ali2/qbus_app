@@ -130,6 +130,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                         MaterialPageRoute(
                           builder: (context) => PassengerScreen(
                             passengerCount: int.parse(widget.passengersCount!),
+                            tripId: int.parse(widget.tripId!),
                           ),
                         ),
                       );

@@ -13,6 +13,7 @@ import 'package:qbus/widgets/custom_button.dart';
 
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
+import '../../../passenger_screens/passenger_screen.dart';
 
 class StepTwoSelectAdditionScreen extends StatefulWidget {
   final String? tripSecondId;
@@ -113,7 +114,19 @@ class _StepTwoSelectAdditionScreenState
                       fontWeight: FontWeight.w500,
                       borderRadius: 5,
                       onTapped: () async {
-                        await callOrderTrip();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PassengerScreen(
+                              passengerCount:
+                                  int.parse("${widget.passengersCount}"),
+                              tripId: int.parse("${widget.tripSecondId}"),
+                            ),
+                          ),
+                        );
+
+                        ///Uncomment ->
+                        // await callOrderTrip();
                       },
                       padding: 20),
                   const SizedBox(

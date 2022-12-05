@@ -9,6 +9,7 @@ import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
+import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/text_views.dart';
 import '../../res/colors.dart';
@@ -144,7 +145,13 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
               textColor: Colors.white,
               fontWeight: FontWeight.w500,
               borderRadius: 5,
-              onTapped: () async {},
+              onTapped: () async {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const GetStartedScreen()),
+                    (route) => false);
+              },
               padding: 0,
             ),
             CommonPadding.sizeBoxWithHeight(height: 20),

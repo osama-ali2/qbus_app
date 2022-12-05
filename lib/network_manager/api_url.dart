@@ -41,5 +41,8 @@ const String packageBookingHistoryApiUrl =
 const String tripRatingReviewApiUrl = "$baseNewUrl/trip_review";
 const String packageRatingReviewApiUrl = "$baseNewUrl/package_review";
 
+//Hotels
+const String hotelRoomApiUrl = "$baseNewUrl/hotel_room/20";
+
 //Ignore
 const String kGoogleApiKey = "AIzaSyB20XGkT-LGQV7DexxbA5_q_HQrss1moSQ";

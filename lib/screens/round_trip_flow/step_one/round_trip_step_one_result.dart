@@ -124,7 +124,7 @@ class _RoundTripStepOneResultState extends State<RoundTripStepOneResult> {
                               var providerName = data.providerName.toString();
                               var tripId = data.id.toString();
 
-                              return InkWell(
+                              return GestureDetector(
                                   onTap: () {
                                     NavigationHelper.pushRoute(
                                       context,

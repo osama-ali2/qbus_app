@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/toasts.dart';
+import 'package:qbus/screens/hotel_screens/hotel_provider.dart';
 import 'package:qbus/screens/review_order_screens/review_order_screen.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
@@ -14,8 +16,11 @@ import '../../widgets/counter.dart';
 import '../../widgets/custom_button.dart';
 
 class HotelScreen extends StatefulWidget {
+  final int tripId;
+
   const HotelScreen({
     Key? key,
+    required this.tripId,
   }) : super(key: key);
 
   @override
@@ -26,14 +31,19 @@ class _HotelScreenState extends State<HotelScreen> {
   int roomCounter = 0;
   List<int> roomCounterList = [];
 
+  late HotelProvider hotelProvider;
+
   @override
   void initState() {
     super.initState();
-  }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+    hotelProvider = HotelProvider();
+    hotelProvider = Provider.of<HotelProvider>(context, listen: false);
+    hotelProvider.init(context: context);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      hotelProvider.getHotels(tripId: widget.tripId);
+    });
   }
 
   @override
@@ -43,6 +53,7 @@ class _HotelScreenState extends State<HotelScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<HotelProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
@@ -99,27 +110,44 @@ class _HotelScreenState extends State<HotelScreen> {
               ],
             ),
             CommonPadding.sizeBoxWithHeight(height: 10),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: sizes!.heightRatio * 5),
-                    child: packageCardContainer(
-                      hotelTitle: "First Class Hotel",
-                      cityName: "Gaga",
-                      rent: "200",
-                      roomType: "Room Type",
-                      hotelImage: "https://picsum.photos/200/300",
-                      houseNum: "10",
-                      bedRoomNum: "10",
-                      ratingNum: 3,
+            hotelProvider.isHotelLoaded == true
+                ? Expanded(
+                    child: ListView.builder(
+                      itemCount:
+                          hotelProvider.hotelRoomResponse.data!.rooms!.length,
+                      itemBuilder: (context, index) {
+                        var data =
+                            hotelProvider.hotelRoomResponse.data!.rooms![index];
+                        var hotelName = data.name?.en.toString();
+                        var city = data.city.toString();
+                        var rate = data.rate.toString();
+                        var roomNum = data.roomQuantity.toString();
+                        var bedNum = data.bedQuantity.toString();
+                        var imageUrl = hotelProvider
+                            .hotelRoomResponse.data!.imageBase
+                            .toString();
+
+                        var image = data.image.toString();
+
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: sizes!.heightRatio * 5),
+                          child: packageCardContainer(
+                            hotelTitle: hotelName ?? "First Class Hotel",
+                            cityName: city,
+                            rent: "100",
+                            roomType: "Room Type",
+                            hotelImage: "https://picsum.photos/200/300",
+                            //"$imageUrl/$image"
+                            houseNum: roomNum,
+                            bedRoomNum: bedNum,
+                            ratingNum: int.parse(rate),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
-            ),
+                  )
+                : Container(),
             CommonPadding.sizeBoxWithHeight(height: 10),
             // CustomButton(
             //   name: "Save and select another Room",
@@ -261,7 +289,7 @@ class _HotelScreenState extends State<HotelScreen> {
                       ),
                     CommonPadding.sizeBoxWithWidth(width: 2),
                     CustomText(
-                        text: "5.0",
+                        text: "$ratingNum.0",
                         textSize: sizes!.fontRatio * 12,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.black),
@@ -275,7 +303,7 @@ class _HotelScreenState extends State<HotelScreen> {
                     SvgPicture.asset("assets/svg/location_icon.svg"),
                     CommonPadding.sizeBoxWithWidth(width: 4),
                     CustomText(
-                        text: "Sharjah",
+                        text: cityName,
                         textSize: sizes!.fontRatio * 12,
                         fontWeight: FontWeight.w500,
                         textColor: AppColors.gray),

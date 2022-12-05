@@ -10,6 +10,7 @@ import 'package:qbus/models/auth/UserResponse.dart';
 import 'package:qbus/models/booking_history_model/TripHistoryResponse.dart';
 import 'package:qbus/models/contact_us/GetContactUsResponse.dart';
 import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
+import 'package:qbus/models/hotel/hotel_room_response.dart';
 import 'package:qbus/models/packages/PackageDetailResponse.dart';
 import 'package:qbus/models/privacy_policy/PrivacyPolicyResponse.dart';
 import 'package:qbus/models/privacy_policy/ReturnPolicyResponse.dart';
@@ -20,7 +21,6 @@ import 'package:qbus/models/trips/MultiOrdersTripResponse.dart';
 import 'package:qbus/models/trips/OneWayOrdersTripResponse.dart';
 import 'package:qbus/models/trips/RoundOrdersTripResponse.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
-
 import '../models/additionals/GetAdditionalResponse.dart';
 import '../models/booking_history_model/PackageHistoryResponse.dart';
 import '../models/cities/GetCitiesResponse.dart';
@@ -64,6 +64,9 @@ class Models {
   //Ratings
   static const String packageRatingModel = "packageRatingModel";
   static const String tripRatingModel = "tripRatingModel";
+
+  // Hotels
+  static const String hotelRoomModel = "hotelRoomModel";
 
   static Future<dynamic> getModelObject(
       String modelName, Map<String, dynamic> json) async {
@@ -118,6 +121,8 @@ class Models {
         return GetAdditionalResponse.fromJson(json);
       case tripsModel:
         return TripsResponse.fromJson(json);
+      case hotelRoomModel:
+        return HotelRoomResponse.fromJson(json);
       case errorModel:
         return ErrorResponse.fromJson(json);
       case validateErrorModel:
