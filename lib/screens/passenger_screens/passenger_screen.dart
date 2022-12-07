@@ -52,6 +52,9 @@ class _PassengerScreenState extends State<PassengerScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       addFields();
+
+      passengerProvider.getIdentityProofTypes();
+      passengerProvider.getCountriesList();
     });
   }
 

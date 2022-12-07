@@ -26,6 +26,8 @@ import '../models/booking_history_model/PackageHistoryResponse.dart';
 import '../models/cities/GetCitiesResponse.dart';
 import '../models/error_model/ErrorResponse.dart';
 import '../models/packages/PackagesResponse.dart';
+import '../models/passenger_models/GetCountriesResponse.dart';
+import '../models/passenger_models/IdentityProofTypesResponse.dart';
 
 class Models {
   //Error
@@ -67,6 +69,12 @@ class Models {
 
   // Hotels
   static const String hotelRoomModel = "hotelRoomModel";
+
+  // Identity Proof Types Model
+  static const String identityProofTypesModel = "identityProofTypesModel";
+
+  // Get Countries Model
+  static const String getCountriesModel = "getCountriesModel";
 
   static Future<dynamic> getModelObject(
       String modelName, Map<String, dynamic> json) async {
@@ -123,6 +131,10 @@ class Models {
         return TripsResponse.fromJson(json);
       case hotelRoomModel:
         return HotelRoomResponse.fromJson(json);
+      case identityProofTypesModel:
+        return IdentityProofTypesResponse.fromJson(json);
+      case getCountriesModel:
+        return GetCountriesResponse.fromJson(json);
       case errorModel:
         return ErrorResponse.fromJson(json);
       case validateErrorModel:

@@ -5,14 +5,13 @@ import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/hotel_screens/hotel_provider.dart';
+import 'package:qbus/screens/project_widgets/hotel_card_cotnainer_widget.dart';
 import 'package:qbus/screens/review_order_screens/review_order_screen.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
 import '../../res/res.dart';
 import '../../utils/constant.dart';
-import '../../widgets/counter.dart';
 import '../../widgets/custom_button.dart';
 
 class HotelScreen extends StatefulWidget {
@@ -28,9 +27,9 @@ class HotelScreen extends StatefulWidget {
 }
 
 class _HotelScreenState extends State<HotelScreen> {
-  int roomCounter = 0;
+  int _bookingDayCounter = 0;
+  int _numberOfRoomCounter = 0;
   List<int> roomCounterList = [];
-
   late HotelProvider hotelProvider;
 
   @override
@@ -69,7 +68,12 @@ class _HotelScreenState extends State<HotelScreen> {
             child: Padding(
                 padding: EdgeInsets.only(right: sizes!.widthRatio * 20),
                 child: GestureDetector(
-                  onTap: () => Toasts.getWarningToast(text: "Try it later"),
+                  onTap: () async => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ReviewOrderScreen(),
+                    ),
+                  ),
                   child: TextView.getGenericText(
                       text: "Skip",
                       fontFamily: Assets.latoRegular,
@@ -126,22 +130,43 @@ class _HotelScreenState extends State<HotelScreen> {
                         var imageUrl = hotelProvider
                             .hotelRoomResponse.data!.imageBase
                             .toString();
-
                         var image = data.image.toString();
 
                         return Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: sizes!.heightRatio * 5),
-                          child: packageCardContainer(
+                            vertical: sizes!.heightRatio * 5,
+                          ),
+                          child: HotelCardContainerWidget(
                             hotelTitle: hotelName ?? "First Class Hotel",
                             cityName: city,
                             rent: "100",
                             roomType: "Room Type",
-                            hotelImage: "https://picsum.photos/200/300",
-                            //"$imageUrl/$image"
+                            hotelImage: "$imageUrl/$image",
                             houseNum: roomNum,
                             bedRoomNum: bedNum,
                             ratingNum: int.parse(rate),
+                            onPlusBookingDayPress: () {
+                              _bookingDayCounter++;
+                              setState(() {});
+                            },
+                            onMinusBookingDayPress: () {
+                              if (_bookingDayCounter > 1) {
+                                _bookingDayCounter--;
+                                setState(() {});
+                              }
+                            },
+                            onPlusRoomPress: () {
+                              _numberOfRoomCounter++;
+                              setState(() {});
+                            },
+                            onMinusRoomPress: () {
+                              if (_numberOfRoomCounter > 1) {
+                                _numberOfRoomCounter--;
+                                setState(() {});
+                              }
+                            },
+                            bookingDayCounter: _bookingDayCounter,
+                            numberOfRoomCounter: _numberOfRoomCounter,
                           ),
                         );
                       },
@@ -149,19 +174,6 @@ class _HotelScreenState extends State<HotelScreen> {
                   )
                 : Container(),
             CommonPadding.sizeBoxWithHeight(height: 10),
-            // CustomButton(
-            //   name: "Save and select another Room",
-            //   buttonColor: appColor,
-            //   height: sizes!.heightRatio * 45,
-            //   width: double.infinity,
-            //   textSize: sizes!.fontRatio * 14,
-            //   textColor: Colors.white,
-            //   fontWeight: FontWeight.w500,
-            //   borderRadius: 5,
-            //   onTapped: () async {},
-            //   padding: 0,
-            // ),
-            // CommonPadding.sizeBoxWithHeight(height: 10),
             CustomButton(
               name: "Save And Review The Order",
               buttonColor: appColor,
@@ -173,9 +185,11 @@ class _HotelScreenState extends State<HotelScreen> {
               borderRadius: 5,
               onTapped: () async {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ReviewOrderScreen()));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ReviewOrderScreen(),
+                  ),
+                );
               },
               padding: 0,
             ),
@@ -185,184 +199,4 @@ class _HotelScreenState extends State<HotelScreen> {
       ),
     );
   }
-
-  /// Package Card Container
-  Widget packageCardContainer({
-    required String hotelTitle,
-    required String cityName,
-    required String rent,
-    required String roomType,
-    required String hotelImage,
-    required String houseNum,
-    required String bedRoomNum,
-    required int ratingNum,
-  }) =>
-      Container(
-        height: sizes!.heightRatio * 136,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: const [
-              BoxShadow(
-                color: AppColors.containerShadowColor,
-                blurRadius: 10.0,
-                offset: Offset(0, 2),
-              ),
-            ],
-            color: Colors.white),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              height: sizes!.heightRatio * 114,
-              width: sizes!.widthRatio * 100,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(12)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(6),
-                child: Image.network(
-                  hotelImage,
-                  height: sizes!.heightRatio * 100,
-                  width: sizes!.widthRatio * 140,
-                  fit: BoxFit.fill,
-                  loadingBuilder: (
-                    BuildContext context,
-                    Widget child,
-                    ImageChunkEvent? loadingProgress,
-                  ) {
-                    if (loadingProgress == null) return child;
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-            SizedBox(
-              width: sizes!.widthRatio * 10,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomText(
-                        text: hotelTitle,
-                        textSize: sizes!.fontRatio * 14,
-                        fontWeight: FontWeight.w700,
-                        textColor: AppColors.black900),
-                    CommonPadding.sizeBoxWithWidth(width: 40),
-                    Container(
-                      height: sizes!.heightRatio * 20,
-                      width: sizes!.widthRatio * 60,
-                      decoration: BoxDecoration(
-                        color: appColor,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Center(
-                        child: CustomText(
-                            text: "SKR $rent",
-                            textSize: sizes!.fontRatio * 10,
-                            fontWeight: FontWeight.normal,
-                            textColor: Colors.white),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: sizes!.heightRatio * 5,
-                ),
-                Row(
-                  children: [
-                    for (int i = 0; i < 1; i++)
-                      const Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                        size: 18,
-                      ),
-                    CommonPadding.sizeBoxWithWidth(width: 2),
-                    CustomText(
-                        text: "$ratingNum.0",
-                        textSize: sizes!.fontRatio * 12,
-                        fontWeight: FontWeight.normal,
-                        textColor: Colors.black),
-                  ],
-                ),
-                SizedBox(
-                  height: sizes!.heightRatio * 5,
-                ),
-                Row(
-                  children: [
-                    SvgPicture.asset("assets/svg/location_icon.svg"),
-                    CommonPadding.sizeBoxWithWidth(width: 4),
-                    CustomText(
-                        text: cityName,
-                        textSize: sizes!.fontRatio * 12,
-                        fontWeight: FontWeight.w500,
-                        textColor: AppColors.gray),
-                  ],
-                ),
-                SizedBox(
-                  height: sizes!.heightRatio * 5,
-                ),
-                Row(
-                  children: [
-                    CustomText(
-                        text: "Booking Days",
-                        textSize: sizes!.fontRatio * 12,
-                        fontWeight: FontWeight.w400,
-                        textColor: AppColors.gray),
-                    CommonPadding.sizeBoxWithWidth(width: 60),
-                    Counter(
-                        number: roomCounter,
-                        onAdd: () {
-                          roomCounter++;
-                          setState(() {});
-                        },
-                        onMinus: () {
-                          if (roomCounter > 1) {
-                            roomCounter--;
-                            setState(() {});
-                          }
-                        }),
-                  ],
-                ),
-                SizedBox(
-                  height: sizes!.heightRatio * 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomText(
-                        text: "Number of Rooms",
-                        textSize: sizes!.fontRatio * 12,
-                        fontWeight: FontWeight.w400,
-                        textColor: AppColors.gray),
-                    CommonPadding.sizeBoxWithWidth(width: 36),
-                    Counter(
-                        number: roomCounter,
-                        onAdd: () {
-                          roomCounter++;
-                          setState(() {});
-                        },
-                        onMinus: () {
-                          if (roomCounter > 1) {
-                            roomCounter--;
-                            setState(() {});
-                          }
-                        }),
-                  ],
-                ),
-              ],
-            )
-          ],
-        ),
-      );
 }

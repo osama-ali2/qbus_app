@@ -13,6 +13,7 @@ const String tripAdditionalApiUrl = "$baseNewUrl/tripAdditionals/";
 
 const String getAboutUsApiUrl = "$baseNewUrl/about_us";
 const String getCitiesApiUrl = "$baseNewUrl/cites";
+const String getCountriesApiUrl = "$baseNewUrl/countries";
 
 const String loginApiUrl = "$baseNewUrl/login";
 const String signUpApiUrl = "$baseNewUrl/signup";
@@ -43,6 +44,9 @@ const String packageRatingReviewApiUrl = "$baseNewUrl/package_review";
 
 //Hotels
 const String hotelRoomApiUrl = "$baseNewUrl/hotel_room/20";
+
+//Identity Proof Types
+const String identityProofTypesApiUrl = "$baseNewUrl/identity_proof_types";
 
 //Ignore
 const String kGoogleApiKey = "AIzaSyB20XGkT-LGQV7DexxbA5_q_HQrss1moSQ";
