@@ -5,6 +5,7 @@ import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/hotel_screens/hotel_screen.dart';
 import 'package:qbus/screens/passenger_screens/passenger_provider.dart';
+import 'package:qbus/screens/project_widgets/passenger_container_widget.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/custom_textField.dart';
 
@@ -52,7 +53,6 @@ class _PassengerScreenState extends State<PassengerScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       addFields();
-
       passengerProvider.getIdentityProofTypes();
       passengerProvider.getCountriesList();
     });
@@ -73,10 +73,20 @@ class _PassengerScreenState extends State<PassengerScreen> {
       for (int i = 0; i < widget.passengerCount; i++) {
         final fullNameController = TextEditingController();
         final idNumberController = TextEditingController();
-        final field = passengerContainer(
+        // final field = passengerContainer(
+        //   passengerNumber: "${i + 1}",
+        //   fullNameController: fullNameController,
+        //   idNumberController: idNumberController,
+        // );
+
+        final field = PassengerContainerWidget(
+          key: Key("${i + 1}"),
           passengerNumber: "${i + 1}",
           fullNameController: fullNameController,
           idNumberController: idNumberController,
+          selectedCountry: selectedCountry,
+          selectedIdentityType: selectedIdentityType,
+          passengerProvider: passengerProvider,
         );
 
         // final field = passengerOnlyFieldsContainer(

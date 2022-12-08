@@ -115,8 +115,8 @@ class PassengerProvider with ChangeNotifier {
         "Authorization": "Bearer $userToken"
       };
       var url = getCountriesApiUrl;
-      debugPrint("URL: $url");
-      debugPrint("Header: $header");
+      _logger.i("URL: $url");
+      _logger.i("Header: $header");
 
       getCountriesResponse = await MyApi.callGetApi(
         url: url,
@@ -127,7 +127,6 @@ class PassengerProvider with ChangeNotifier {
       if (identityProofTypesResponse.code == 1) {
         _logger
             .d("getCountriesResponse: ${identityProofTypesResponse.toJson()}");
-
 
         var l = getCountriesResponse.data!.countries!.length;
         debugPrint("l:$l");
