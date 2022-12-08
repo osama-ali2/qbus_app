@@ -24,8 +24,15 @@ class PassengerProvider with ChangeNotifier {
   bool isIdentityTypesLoaded = false;
   bool isCountriesLoaded = false;
 
-  List<int> selectAdditionalList = [];
-  List<Map<String, dynamic>> additionalList = [];
+  // Identity Proof Types Lists
+  List<String> identityProofTypeNameList = [];
+  List<String> identityProofTypeIdList = [];
+  List<Map<String, dynamic>> identityProofTypesMapList = [];
+
+  // Country Lists
+  List<String> countryNameList = [];
+  List<String> countryIdList = [];
+  List<Map<String, dynamic>> countryMapList = [];
 
   IdentityProofTypesResponse identityProofTypesResponse =
       IdentityProofTypesResponse();
@@ -37,7 +44,13 @@ class PassengerProvider with ChangeNotifier {
 
   Future<void> getIdentityProofTypes() async {
     try {
-      _loader.showLoader(context: context);
+      // _loader.showLoader(context: context);
+
+      // Clear the list
+      identityProofTypeNameList.clear();
+      identityProofTypeIdList.clear();
+      identityProofTypesMapList.clear();
+
       Map<String, dynamic> header = {
         "Content-Type": "application/json",
         "Authorization": "Bearer $userToken"
@@ -55,22 +68,48 @@ class PassengerProvider with ChangeNotifier {
       if (identityProofTypesResponse.code == 1) {
         _logger.d(
             "identityProofTypesResponse: ${identityProofTypesResponse.toJson()}");
-        _loader.hideLoader(context!);
+
+        var l = identityProofTypesResponse.data!.identityProofTypes!.length;
+        debugPrint("l:$l");
+        for (int i = 0; i < l; i++) {
+          var name = identityProofTypesResponse
+              .data!.identityProofTypes![i].name!.en
+              .toString();
+          var id = identityProofTypesResponse.data!.identityProofTypes![i].id!
+              .toString();
+
+          Map<String, dynamic> map = {
+            "id": id,
+            "name": name,
+          };
+
+          _logger.i("map:$map");
+          identityProofTypeNameList.add(name);
+          identityProofTypeIdList.add(id);
+          identityProofTypesMapList.add(map);
+        }
+
+        // _loader.hideLoader(context!);
         isIdentityTypesLoaded = true;
         notifyListeners();
       } else {
         _logger.i("identityProofTypesResponse: Something wrong");
-        _loader.hideLoader(context!);
+        // _loader.hideLoader(context!);
       }
     } catch (e) {
       _logger.e("onErrorIdentityProofTypesResponse:${e.toString()}");
-      _loader.hideLoader(context!);
+      // _loader.hideLoader(context!);
     }
   }
 
   Future<void> getCountriesList() async {
     try {
-      // _loader.showLoader(context: context);
+      _loader.showLoader(context: context);
+      // Clear the list
+      countryNameList.clear();
+      countryIdList.clear();
+      countryMapList.clear();
+
       Map<String, dynamic> header = {
         "Content-Type": "application/json",
         "Authorization": "Bearer $userToken"
@@ -88,16 +127,36 @@ class PassengerProvider with ChangeNotifier {
       if (identityProofTypesResponse.code == 1) {
         _logger
             .d("getCountriesResponse: ${identityProofTypesResponse.toJson()}");
-        // _loader.hideLoader(context!);
+
+
+        var l = getCountriesResponse.data!.countries!.length;
+        debugPrint("l:$l");
+        for (int i = 0; i < l; i++) {
+          var name =
+              getCountriesResponse.data!.countries![i].name!.en.toString();
+          var id = getCountriesResponse.data!.countries![i].id!.toString();
+
+          Map<String, dynamic> map = {
+            "id": id,
+            "name": name,
+          };
+
+          _logger.i("map:$map");
+          countryNameList.add(name);
+          countryIdList.add(id);
+          countryMapList.add(map);
+        }
+        _loader.hideLoader(context!);
+
         isCountriesLoaded = true;
         notifyListeners();
       } else {
         _logger.i("getCountriesResponse: Something wrong");
-        // _loader.hideLoader(context!);
+        _loader.hideLoader(context!);
       }
     } catch (e) {
       _logger.e("onErrorGetCountriesResponse:${e.toString()}");
-      // _loader.hideLoader(context!);
+      _loader.hideLoader(context!);
     }
   }
 }

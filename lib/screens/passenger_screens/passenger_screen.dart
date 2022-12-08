@@ -201,7 +201,8 @@ class _PassengerScreenState extends State<PassengerScreen> {
               ),
               underline: const SizedBox(),
               isExpanded: true,
-              items: identityList.map((String value) {
+              items: passengerProvider.identityProofTypeNameList
+                  .map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
@@ -209,7 +210,22 @@ class _PassengerScreenState extends State<PassengerScreen> {
               }).toList(),
               onChanged: (value) {
                 setState(() {
+                  // selectedIdentityType = value!;
+
                   selectedIdentityType = value!;
+                  debugPrint("selectedIdentityType: $selectedIdentityType");
+                  var l = passengerProvider.identityProofTypeNameList.length;
+                  for (int i = 0; i < l; i++) {
+                    String name =
+                        passengerProvider.identityProofTypesMapList[i]['name'];
+                    String id =
+                        passengerProvider.identityProofTypesMapList[i]['id'];
+                    debugPrint("city: $name, id: $id");
+                    if (name.contains(selectedIdentityType)) {
+                      // departureFromID = id;
+                      debugPrint("identityType&Id: $name, $id");
+                    }
+                  }
                 });
               },
             ),
@@ -244,7 +260,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
               ),
               underline: const SizedBox(),
               isExpanded: true,
-              items: countryList.map((String value) {
+              items: passengerProvider.countryNameList.map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
@@ -253,6 +269,18 @@ class _PassengerScreenState extends State<PassengerScreen> {
               onChanged: (value) {
                 setState(() {
                   selectedCountry = value!;
+
+                  debugPrint("selectedCountry: $selectedCountry");
+                  var l = passengerProvider.countryNameList.length;
+                  for (int i = 0; i < l; i++) {
+                    String name = passengerProvider.countryMapList[i]['name'];
+                    String id = passengerProvider.countryMapList[i]['id'];
+                    debugPrint("city: $name, id: $id");
+                    if (name.contains(selectedCountry)) {
+                      // departureFromID = id;
+                      debugPrint("countryCity&Id: $name, $id");
+                    }
+                  }
                 });
               },
             ),
