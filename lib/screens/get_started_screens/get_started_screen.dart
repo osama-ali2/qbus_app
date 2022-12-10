@@ -19,7 +19,7 @@ import 'package:qbus/widgets/custom_text.dart';
 import '../../../../widgets/custom_button.dart';
 import '../explore_screens/explore_screen.dart';
 import '../explore_screens/package_detail_screens/package_detail_screen.dart';
-import '../trips_search_screens/search_result.dart';
+import '../trips_search_screens/trips_search_result.dart';
 
 class GetStartedScreen extends StatefulWidget {
   const GetStartedScreen({Key? key}) : super(key: key);

@@ -121,6 +121,8 @@ class _StepTwoSelectAdditionScreenState
                               passengerCount:
                                   int.parse("${widget.passengersCount}"),
                               tripId: int.parse("${widget.tripSecondId}"),
+                              additionalList:
+                                  stepTwoSelectAdditionProvider.additionalList,
                             ),
                           ),
                         );

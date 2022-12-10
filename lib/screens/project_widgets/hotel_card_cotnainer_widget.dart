@@ -123,10 +123,11 @@ class HotelCardContainerWidget extends StatelessWidget {
                     ),
                     child: Center(
                       child: CustomText(
-                          text: "SKR $rent",
-                          textSize: sizes!.fontRatio * 10,
-                          fontWeight: FontWeight.normal,
-                          textColor: Colors.white),
+                        text: "SKR $rent",
+                        textSize: sizes!.fontRatio * 10,
+                        fontWeight: FontWeight.normal,
+                        textColor: Colors.white,
+                      ),
                     ),
                   )
                 ],
@@ -158,10 +159,11 @@ class HotelCardContainerWidget extends StatelessWidget {
                   SvgPicture.asset("assets/svg/location_icon.svg"),
                   CommonPadding.sizeBoxWithWidth(width: 4),
                   CustomText(
-                      text: cityName,
-                      textSize: sizes!.fontRatio * 12,
-                      fontWeight: FontWeight.w500,
-                      textColor: AppColors.gray),
+                    text: cityName,
+                    textSize: sizes!.fontRatio * 12,
+                    fontWeight: FontWeight.w500,
+                    textColor: AppColors.gray,
+                  ),
                 ],
               ),
               SizedBox(
@@ -189,10 +191,11 @@ class HotelCardContainerWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomText(
-                      text: "Number of Rooms",
-                      textSize: sizes!.fontRatio * 12,
-                      fontWeight: FontWeight.w400,
-                      textColor: AppColors.gray),
+                    text: "Number of Rooms",
+                    textSize: sizes!.fontRatio * 12,
+                    fontWeight: FontWeight.w400,
+                    textColor: AppColors.gray,
+                  ),
                   CommonPadding.sizeBoxWithWidth(width: 36),
                   Counter(
                     number: numberOfRoomCounter,

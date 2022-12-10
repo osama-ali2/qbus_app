@@ -29,6 +29,9 @@ class PassengerProvider with ChangeNotifier {
   List<String> identityProofTypeIdList = [];
   List<Map<String, dynamic>> identityProofTypesMapList = [];
 
+  List<int> userIdentityProofTypeId = [];
+  List<int> userCountryId = [];
+
   // Country Lists
   List<String> countryNameList = [];
   List<String> countryIdList = [];

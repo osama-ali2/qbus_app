@@ -14,7 +14,7 @@ import '../../res/assets.dart';
 import '../../res/colors.dart';
 import '../../widgets/text_views.dart';
 import '../select_addition_screens/select_addition_screen.dart';
-import 'search_provider.dart';
+import 'trips_search_provider.dart';
 
 class SearchResult extends StatefulWidget {
   final TripFilterModel? tripFilterModel;
@@ -25,16 +25,16 @@ class SearchResult extends StatefulWidget {
   final bool? isMultiDestinationChecked;
   final String? passengersCount;
 
-  const SearchResult(
-      {Key? key,
-      this.tripFilterModel,
-      this.fromCity,
-      this.toCity,
-      this.isOneWayTripChecked,
-      this.isRoundTripChecked,
-      this.isMultiDestinationChecked,
-      this.passengersCount})
-      : super(key: key);
+  const SearchResult({
+    Key? key,
+    this.tripFilterModel,
+    this.fromCity,
+    this.toCity,
+    this.isOneWayTripChecked,
+    this.isRoundTripChecked,
+    this.isMultiDestinationChecked,
+    this.passengersCount,
+  }) : super(key: key);
 
   @override
   State<SearchResult> createState() => _SearchResultState();
@@ -116,44 +116,64 @@ class _SearchResultState extends State<SearchResult> {
                               itemCount: searchProvider
                                   .tripsResponse.data!.trips!.length,
                               itemBuilder: (context, i) {
-                                var data = searchProvider
+                                var tripData = searchProvider
                                     .tripsResponse.data!.trips![i];
                                 var stationA =
-                                    data.startStationName!.en.toString();
+                                    tripData.startStationName!.en.toString();
                                 var stationB =
-                                    data.arrivalStationName!.en.toString();
-                                var fees = data.fees.toString();
-                                var rate = data.rate.toString();
+                                    tripData.arrivalStationName!.en.toString();
+                                var fees = tripData.fees.toString();
+                                var rate = tripData.rate.toString();
                                 var fromCityName =
-                                    data.fromCityName!.en.toString();
-                                var toCityName = data.toCityName!.en.toString();
-                                var timeFrom = data.timeFrom.toString();
-                                var timeTo = data.timeTo.toString();
-                                var stops = data.stops.toString();
-                                var providerName = data.providerName.toString();
+                                    tripData.fromCityName!.en.toString();
+                                var toCityName =
+                                    tripData.toCityName!.en.toString();
+                                var timeFrom = tripData.timeFrom.toString();
+                                var timeTo = tripData.timeTo.toString();
+                                var stops = tripData.stops.toString();
+                                var providerName =
+                                    tripData.providerName.toString();
 
-                                var tripId = data.id.toString();
+                                var tripId = tripData.id.toString();
 
                                 return InkWell(
                                   onTap: () {
                                     NavigationHelper.pushRoute(
-                                      context,
-                                      SelectAdditionScreen(
-                                        tripId: tripId,
-                                        tripsModel: data,
-                                        isRoundTripChecked:
-                                            widget.isRoundTripChecked,
-                                        isOneWayTripChecked:
-                                            widget.isOneWayTripChecked,
-                                        isMultiDestinationChecked:
-                                            widget.isMultiDestinationChecked,
-                                        passengersCount: widget.passengersCount,
-                                        toCityId:
-                                            widget.tripFilterModel!.to_city_id,
-                                        fromCityId: widget
-                                            .tripFilterModel!.from_city_id,
-                                      ),
-                                    );
+                                        context,
+                                        SelectAdditionScreen(
+                                          tripsModel: tripData,
+                                          isOneWayTripChecked:
+                                              widget.isOneWayTripChecked!,
+                                          isRoundTripChecked:
+                                              widget.isRoundTripChecked!,
+                                          isMultiDestinationChecked:
+                                              widget.isMultiDestinationChecked!,
+                                          passengersCount:
+                                              widget.passengersCount!,
+                                          toCityId: widget
+                                              .tripFilterModel!.to_city_id!,
+                                          fromCityId: widget
+                                              .tripFilterModel!.from_city_id!,
+                                        )
+
+                                        // SelectAdditionScreen(
+                                        //   tripId: tripId,
+                                        //   tripsModel: data,
+                                        //   isRoundTripChecked:
+                                        //       widget.isRoundTripChecked,
+                                        //   isOneWayTripChecked:
+                                        //       widget.isOneWayTripChecked,
+                                        //   isMultiDestinationChecked:
+                                        //       widget.isMultiDestinationChecked,
+                                        //   passengersCount: widget.passengersCount,
+                                        //   toCityId:
+                                        //       widget.tripFilterModel!.to_city_id,
+                                        //   fromCityId: widget
+                                        //       .tripFilterModel!.from_city_id,
+                                        // ),
+                                        //
+
+                                        );
                                   },
                                   child: TripCardContainerWidget(
                                     stationA: stationA,
@@ -166,7 +186,7 @@ class _SearchResultState extends State<SearchResult> {
                                     timeTo: timeTo,
                                     stops: stops,
                                     providerName: providerName,
-                                    additionals: data.additionals!,
+                                    additionals: tripData.additionals!,
                                   ),
                                 );
                               })

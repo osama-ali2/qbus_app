@@ -17,9 +17,16 @@ import '../../widgets/custom_button.dart';
 class HotelScreen extends StatefulWidget {
   final int tripId;
 
+  final String passengerCounts;
+  final List<Map<String, dynamic>> paramPassengerBody;
+  final List<Map<String, dynamic>> paramAdditionalList;
+
   const HotelScreen({
     Key? key,
     required this.tripId,
+    required this.passengerCounts,
+    required this.paramPassengerBody,
+    required this.paramAdditionalList,
   }) : super(key: key);
 
   @override
@@ -27,10 +34,11 @@ class HotelScreen extends StatefulWidget {
 }
 
 class _HotelScreenState extends State<HotelScreen> {
-  int _bookingDayCounter = 0;
-  int _numberOfRoomCounter = 0;
-  List<int> roomCounterList = [];
   late HotelProvider hotelProvider;
+  int currentIndex = 0;
+
+  int bookingDaysCounter = 0;
+  int numberOfRoomsCounter = 0;
 
   @override
   void initState() {
@@ -48,6 +56,10 @@ class _HotelScreenState extends State<HotelScreen> {
   @override
   void dispose() {
     super.dispose();
+
+    hotelProvider.selectBookingDaysList.clear();
+    hotelProvider.selectNumberOfRoomsList.clear();
+    hotelProvider.hotelRoomBody.clear();
   }
 
   @override
@@ -120,6 +132,7 @@ class _HotelScreenState extends State<HotelScreen> {
                       itemCount:
                           hotelProvider.hotelRoomResponse.data!.rooms!.length,
                       itemBuilder: (context, index) {
+                        currentIndex = index;
                         var data =
                             hotelProvider.hotelRoomResponse.data!.rooms![index];
                         var hotelName = data.name?.en.toString();
@@ -132,41 +145,96 @@ class _HotelScreenState extends State<HotelScreen> {
                             .toString();
                         var image = data.image.toString();
 
+                        var thumbnailUrl = "$imageUrl/$image";
+
+                        var roomId = int.parse("${data.id}");
+
                         return Padding(
                           padding: EdgeInsets.symmetric(
                             vertical: sizes!.heightRatio * 5,
                           ),
                           child: HotelCardContainerWidget(
+                            key: Key("$index"),
                             hotelTitle: hotelName ?? "First Class Hotel",
                             cityName: city,
                             rent: "100",
                             roomType: "Room Type",
-                            hotelImage: "$imageUrl/$image",
+                            hotelImage: thumbnailUrl,
                             houseNum: roomNum,
                             bedRoomNum: bedNum,
                             ratingNum: int.parse(rate),
                             onPlusBookingDayPress: () {
-                              _bookingDayCounter++;
-                              setState(() {});
+                              setState(() {
+                                bookingDaysCounter = hotelProvider
+                                    .selectBookingDaysList[index]++;
+                                Map<String, dynamic> selected = {
+                                  "room_id": roomId,
+                                  "rooms_number": numberOfRoomsCounter,
+                                  "days": bookingDaysCounter + 1
+                                };
+                                debugPrint("bookingDaysCounter:$selected");
+                                hotelProvider.hotelRoomBody[index]
+                                    .addAll(selected);
+                              });
                             },
                             onMinusBookingDayPress: () {
-                              if (_bookingDayCounter > 1) {
-                                _bookingDayCounter--;
-                                setState(() {});
+                              if (hotelProvider.selectBookingDaysList[index] >
+                                  0) {
+                                setState(() {
+                                  bookingDaysCounter = hotelProvider
+                                      .selectBookingDaysList[index]--;
+                                  Map<String, dynamic> selected = {
+                                    "room_id": roomId,
+                                    "rooms_number": numberOfRoomsCounter,
+                                    "days": bookingDaysCounter - 1
+                                  };
+                                  debugPrint("bookingDaysCounter:$selected");
+                                  hotelProvider.hotelRoomBody[index]
+                                      .addAll(selected);
+                                });
                               }
                             },
                             onPlusRoomPress: () {
-                              _numberOfRoomCounter++;
-                              setState(() {});
+                              setState(() {
+                                numberOfRoomsCounter = hotelProvider
+                                    .selectNumberOfRoomsList[index]++;
+                                Map<String, dynamic> selected = {
+                                  "room_id": roomId,
+                                  "rooms_number": numberOfRoomsCounter + 1,
+                                  "days": bookingDaysCounter
+                                };
+                                debugPrint("numberOfRoomsCounter:$selected");
+
+                                hotelProvider.hotelRoomBody[index]
+                                    .addAll(selected);
+                              });
                             },
                             onMinusRoomPress: () {
-                              if (_numberOfRoomCounter > 1) {
-                                _numberOfRoomCounter--;
-                                setState(() {});
+                              if (hotelProvider.selectNumberOfRoomsList[index] >
+                                  0) {
+                                setState(() {
+                                  numberOfRoomsCounter = hotelProvider
+                                      .selectNumberOfRoomsList[index]--;
+                                  Map<String, dynamic> selected = {
+                                    "room_id": roomId,
+                                    "rooms_number": numberOfRoomsCounter - 1,
+                                    "days": bookingDaysCounter
+                                  };
+                                  debugPrint("numberOfRoomsCounter:$selected");
+
+                                  hotelProvider.hotelRoomBody[index]
+                                      .addAll(selected);
+                                });
                               }
                             },
-                            bookingDayCounter: _bookingDayCounter,
-                            numberOfRoomCounter: _numberOfRoomCounter,
+                            bookingDayCounter:
+                                hotelProvider.selectBookingDaysList.isNotEmpty
+                                    ? hotelProvider.selectBookingDaysList[index]
+                                    : 0,
+                            numberOfRoomCounter: hotelProvider
+                                    .selectNumberOfRoomsList.isNotEmpty
+                                ? hotelProvider.selectNumberOfRoomsList[index]
+                                : 0,
                           ),
                         );
                       },
@@ -174,29 +242,45 @@ class _HotelScreenState extends State<HotelScreen> {
                   )
                 : Container(),
             CommonPadding.sizeBoxWithHeight(height: 10),
-            CustomButton(
-              name: "Save And Review The Order",
-              buttonColor: appColor,
-              height: sizes!.heightRatio * 45,
-              width: double.infinity,
-              textSize: sizes!.fontRatio * 14,
-              textColor: Colors.white,
-              fontWeight: FontWeight.w500,
-              borderRadius: 5,
-              onTapped: () async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ReviewOrderScreen(),
-                  ),
-                );
-              },
-              padding: 0,
-            ),
+            hotelProvider.isHotelLoaded == true
+                ? CustomButton(
+                    name: "Save And Review The Order",
+                    buttonColor: appColor,
+                    height: sizes!.heightRatio * 45,
+                    width: double.infinity,
+                    textSize: sizes!.fontRatio * 14,
+                    textColor: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    borderRadius: 5,
+                    onTapped: () async {
+                      saveTripOrder();
+                    },
+                    padding: 0,
+                  )
+                : Container(),
             CommonPadding.sizeBoxWithHeight(height: 10),
           ],
         ).get20HorizontalPadding(),
       ),
     );
+  }
+
+  void saveTripOrder() async {
+    await hotelProvider.oneWayOrderTrip(
+      tripId: "${widget.tripId}",
+      passengerCounts: widget.passengerCounts,
+      paramPassengerBody: widget.paramPassengerBody,
+      additionalList: widget.paramAdditionalList,
+    );
+
+    if (hotelProvider.isOneWayOrderTripSaved) {
+      if (!mounted) return;
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const ReviewOrderScreen(),
+        ),
+      );
+    }
   }
 }

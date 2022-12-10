@@ -17,25 +17,24 @@ import '../../res/strings.dart';
 import '../auth/login_screens/login_screen.dart';
 
 class SelectAdditionScreen extends StatefulWidget {
-  final String? tripId;
-  final Trips? tripsModel;
-  final bool? isOneWayTripChecked;
-  final bool? isRoundTripChecked;
-  final bool? isMultiDestinationChecked;
-  final String? passengersCount;
-  final String? toCityId;
-  final String? fromCityId;
+  // final String? tripId;
+  final Trips tripsModel;
+  final bool isOneWayTripChecked;
+  final bool isRoundTripChecked;
+  final bool isMultiDestinationChecked;
+  final String passengersCount;
+  final String toCityId;
+  final String fromCityId;
 
   const SelectAdditionScreen({
     Key? key,
-    this.tripId,
-    this.tripsModel,
-    this.isOneWayTripChecked,
-    this.isRoundTripChecked,
-    this.isMultiDestinationChecked,
-    this.passengersCount,
-    this.toCityId,
-    this.fromCityId,
+    required this.tripsModel,
+    required this.isOneWayTripChecked,
+    required this.isRoundTripChecked,
+    required this.isMultiDestinationChecked,
+    required this.passengersCount,
+    required this.toCityId,
+    required this.fromCityId,
   }) : super(key: key);
 
   @override
@@ -59,7 +58,9 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
     selectAdditionProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      selectAdditionProvider.getAdditionalData(id: widget.tripId!);
+      selectAdditionProvider.getAdditionalData(
+        id: widget.tripsModel.id!.toString(),
+      );
     });
 
     debugPrint("isOneWayTripChecked: ${widget.isOneWayTripChecked}");
@@ -108,12 +109,16 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                               .id
                               .toString();
                           return itemContainer(
-                              name: name, index: index, additionId: additionId);
+                            name: name,
+                            index: index,
+                            additionId: additionId,
+                          );
                         }),
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 10),
                   CustomButton(
-                    name: "Save Trip",
+                    name: "Next",
+                    //"Save Trip",
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,
@@ -129,8 +134,10 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => PassengerScreen(
-                            passengerCount: int.parse(widget.passengersCount!),
-                            tripId: int.parse(widget.tripId!),
+                            passengerCount: int.parse(widget.passengersCount),
+                            tripId: widget.tripsModel.id!,
+                            additionalList:
+                                selectAdditionProvider.additionalList,
                           ),
                         ),
                       );
@@ -185,7 +192,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
   Future<void> callOrderTrip() async {
     if (widget.isOneWayTripChecked == true) {
       await selectAdditionProvider.oneWayOrderTrip(
-          trips: widget.tripsModel!, passengersCount: widget.passengersCount!);
+          trips: widget.tripsModel, passengersCount: widget.passengersCount);
       if (selectAdditionProvider.isOneWayOrderTripSaved == true) {
         // await selectAdditionProvider.getAdditionalData(id: widget.tripId!);
         if (!mounted) return;
@@ -200,7 +207,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
         debugPrint("isRoundTripCounter:$isRoundTripCounter");
       });
       await selectAdditionProvider.roundOrderTrip(
-          trips: widget.tripsModel!, passengersCount: widget.passengersCount!);
+          trips: widget.tripsModel, passengersCount: widget.passengersCount);
       if (selectAdditionProvider.isRoundOrderTripSaved == true) {
         if (!mounted) return;
         Navigator.pushAndRemoveUntil(
@@ -234,11 +241,10 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
             height: 10,
           ),
           currentIndex == index
-              ? _items(
+              ? _itemsCounter(
                   context: context,
                   name: name,
                   add: () {
-                    // selectAdditionProvider.selectAdditionalList[index]++;
                     setState(() {
                       var counter =
                           selectAdditionProvider.selectAdditionalList[index]++;
@@ -253,7 +259,6 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                   minus: () {
                     if (selectAdditionProvider.selectAdditionalList[index] >
                         0) {
-                      // selectAdditionProvider.selectAdditionalList[index]--;
                       setState(() {
                         var counter = selectAdditionProvider
                             .selectAdditionalList[index]--;
@@ -266,8 +271,9 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                       });
                     }
                   },
-                  number: selectAdditionProvider.selectAdditionalList[index])
-              : _items(
+                  number: selectAdditionProvider.selectAdditionalList[index],
+                )
+              : _itemsCounter(
                   context: context,
                   name: name,
                   add: () {},
@@ -277,7 +283,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
       );
 
   /// Items
-  Widget _items(
+  Widget _itemsCounter(
       {required BuildContext context,
       required String name,
       required Function add,

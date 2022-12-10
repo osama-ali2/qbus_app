@@ -107,8 +107,6 @@ class _PassengerContainerWidgetState extends State<PassengerContainerWidget> {
               }).toList(),
               onChanged: (value) {
                 setState(() {
-                  // selectedIdentityType = value!;
-
                   widget.selectedIdentityType = value!;
                   debugPrint(
                       "selectedIdentityType: ${widget.selectedIdentityType}");
@@ -121,8 +119,10 @@ class _PassengerContainerWidgetState extends State<PassengerContainerWidget> {
                         .passengerProvider.identityProofTypesMapList[i]['id'];
                     debugPrint("city: $name, id: $id");
                     if (name.contains(widget.selectedIdentityType)) {
-                      // departureFromID = id;
                       debugPrint("identityType&Id: $name, $id");
+                      var proofId = int.parse(id);
+                      widget.passengerProvider.userIdentityProofTypeId
+                          .add(proofId);
                     }
                   }
                 });
@@ -135,7 +135,7 @@ class _PassengerContainerWidgetState extends State<PassengerContainerWidget> {
           controller: widget.idNumberController,
           padding: 0,
           validator: (val) => null,
-          inputType: TextInputType.text,
+          inputType: TextInputType.number,
           hint: "ID Number",
         ),
         CommonPadding.sizeBoxWithHeight(height: 10),
@@ -181,6 +181,8 @@ class _PassengerContainerWidgetState extends State<PassengerContainerWidget> {
                     if (name.contains(widget.selectedCountry)) {
                       // departureFromID = id;
                       debugPrint("countryCity&Id: $name, $id");
+                      var countryId = int.parse(id);
+                      widget.passengerProvider.userCountryId.add(countryId);
                     }
                   }
                 });
