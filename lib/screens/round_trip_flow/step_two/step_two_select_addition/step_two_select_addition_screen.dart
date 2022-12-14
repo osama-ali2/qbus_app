@@ -61,6 +61,7 @@ class _StepTwoSelectAdditionScreenState
     stepTwoSelectAdditionProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Load Additionals.
       stepTwoSelectAdditionProvider.getAdditionalData(id: widget.tripSecondId!);
     });
 
@@ -82,28 +83,30 @@ class _StepTwoSelectAdditionScreenState
             textColor: Colors.white),
       ),
       backgroundColor: Colors.white,
-      body: stepTwoSelectAdditionProvider.isTripLoaded == true
-          ? SafeArea(
-              child: Column(
+      body: SafeArea(
+        child: stepTwoSelectAdditionProvider.isTripLoaded == true
+            ? Column(
                 children: [
-                  ListView.builder(
-                      itemCount: stepTwoSelectAdditionProvider
-                          .tripAdditionalsResponse.data!.additional!.length,
-                      itemBuilder: (context, index) {
-                        currentIndex = index;
-                        var name = stepTwoSelectAdditionProvider
-                            .tripAdditionalsResponse
-                            .data!
-                            .additional![index]
-                            .name!
-                            .en
-                            .toString();
-                        var additionId = stepTwoSelectAdditionProvider
-                            .tripAdditionalsResponse.data!.additional![index].id
-                            .toString();
-                        return itemContainer(
-                            name: name, index: index, additionId: additionId);
-                      }),
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: stepTwoSelectAdditionProvider
+                            .tripAdditionalsResponse.data!.additional!.length,
+                        itemBuilder: (context, index) {
+                          currentIndex = index;
+                          var name = stepTwoSelectAdditionProvider
+                              .tripAdditionalsResponse
+                              .data!
+                              .additional![index]
+                              .name!
+                              .en
+                              .toString();
+                          var additionId = stepTwoSelectAdditionProvider
+                              .tripAdditionalsResponse.data!.additional![index].id
+                              .toString();
+                          return itemContainer(
+                              name: name, index: index, additionId: additionId);
+                        }),
+                  ),
                   CustomButton(
                       name: "Save Second Trip",
                       buttonColor: appColor,
@@ -114,18 +117,24 @@ class _StepTwoSelectAdditionScreenState
                       fontWeight: FontWeight.w500,
                       borderRadius: 5,
                       onTapped: () async {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PassengerScreen(
-                              passengerCount:
-                                  int.parse("${widget.passengersCount}"),
-                              tripId: int.parse("${widget.tripSecondId}"),
-                              additionalList:
-                                  stepTwoSelectAdditionProvider.additionalList,
-                            ),
-                          ),
-                        );
+
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => const BottomBarScreen()),
+                                (route) => false);
+
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => PassengerScreen(
+                        //       passengerCount:
+                        //           int.parse("${widget.passengersCount}"),
+                        //       tripId: int.parse("${widget.tripSecondId}"),
+                        //       additionalList:
+                        //           stepTwoSelectAdditionProvider.additionalList,
+                        //     ),
+                        //   ),
+                        // );
 
                         ///Uncomment ->
                         // await callOrderTrip();
@@ -166,11 +175,11 @@ class _StepTwoSelectAdditionScreenState
                           ),
                         )
                 ],
+              )
+            : const Center(
+                child: Text("No Data Available"),
               ),
-            )
-          : const Center(
-              child: Text("No Data Available"),
-            ),
+      ),
     );
   }
 

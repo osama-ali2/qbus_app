@@ -50,7 +50,7 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
           url: url, myHeaders: header, modelName: Models.tripAdditionalsModel);
       if (tripAdditionalsResponse.code == 1) {
         _logger
-            .d("tripAdditionalsResponse: ${tripAdditionalsResponse.toJson()}");
+            .i("tripAdditionalsResponse: ${tripAdditionalsResponse.toJson()}");
 
         var length = tripAdditionalsResponse.data!.additional!.length;
         for (int i = 0; i < length; i++) {
@@ -60,20 +60,17 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
           };
           additionalList.add(demoData);
           selectAdditionalList.add(0);
-          debugPrint("selectAdditionalList: ${selectAdditionalList.length}");
           _logger.i("selectAdditionalList: ${selectAdditionalList.length}");
         }
         _loader.hideLoader(context!);
         isTripLoaded = true;
         notifyListeners();
       } else {
-        debugPrint("tripAdditionalsResponse: Something wrong");
-        _logger.i("tripAdditionalsResponse: Something wrong");
+        _logger.e("tripAdditionalsResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      debugPrint("tripAdditionalsResponseError: ${e.toString()}");
-      _logger.i("tripAdditionalsResponseError: ${e.toString()}");
+      _logger.e("tripAdditionalsResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

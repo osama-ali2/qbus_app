@@ -95,6 +95,26 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextView.getGenericText(
+                    text: "Discount",
+                    fontFamily: Assets.latoRegular,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.black900,
+                    lines: 1),
+                TextView.getGenericText(
+                    text: "49.05",
+                    fontFamily: Assets.latoRegular,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.black900,
+                    lines: 1),
+              ],
+            ),
+            CommonPadding.sizeBoxWithHeight(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextView.getGenericText(
                     text: "Tax 15%",
                     fontFamily: Assets.latoRegular,
                     fontSize: 14,
@@ -199,7 +219,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                   color: AppColors.black900,
                 ),
                 TextView.getGenericText(
-                    text: "12:30 al madina",
+                    text: "12:30 Al madina",
                     fontFamily: Assets.latoRegular,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,

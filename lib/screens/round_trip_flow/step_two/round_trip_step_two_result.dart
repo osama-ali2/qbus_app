@@ -43,17 +43,19 @@ class RoundTripStepTwoResult extends StatefulWidget {
 }
 
 class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
-  late RoundTripStepTwoProvider searchProvider;
+  late RoundTripStepTwoProvider roundTripStepTwoProvider;
   late ScrollController _scrollController;
   int index = 0;
 
   @override
   void initState() {
     super.initState();
-    searchProvider = RoundTripStepTwoProvider();
-    searchProvider =
+    roundTripStepTwoProvider = RoundTripStepTwoProvider();
+    roundTripStepTwoProvider =
         Provider.of<RoundTripStepTwoProvider>(context, listen: false);
-    searchProvider.init(context: context);
+    roundTripStepTwoProvider.init(context: context);
+
+    // Pagination
     _scrollController = ScrollController();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -63,12 +65,13 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
           index++;
           debugPrint("EndingIndex: $index");
         });
-        searchProvider.getTripsData(
+        roundTripStepTwoProvider.getTripsData(
             tripFilterModel: widget.tripFilterModel!, offset: index);
       }
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      searchProvider.getTripsData(
+      // Load Trip
+      roundTripStepTwoProvider.getTripsData(
           tripFilterModel: widget.tripFilterModel!, offset: index);
     });
 
@@ -102,16 +105,17 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
               );
             }),
             CommonPadding.sizeBoxWithHeight(height: 10),
-            searchProvider.isTripDataLoaded
+            roundTripStepTwoProvider.isTripDataLoaded
                 ? Expanded(
-                    child: searchProvider.tripsResponse.data!.trips!.isNotEmpty
+                    child: roundTripStepTwoProvider
+                            .tripsResponse.data!.trips!.isNotEmpty
                         ? ListView.builder(
                             controller: _scrollController,
-                            itemCount: searchProvider
+                            itemCount: roundTripStepTwoProvider
                                 .tripsResponse.data!.trips!.length,
                             itemBuilder: (context, i) {
-                              var data =
-                                  searchProvider.tripsResponse.data!.trips![i];
+                              var data = roundTripStepTwoProvider
+                                  .tripsResponse.data!.trips![i];
                               var stationA =
                                   data.startStationName!.en.toString();
                               var stationB =

@@ -1,7 +1,3 @@
-/// code : 1
-/// message : "TripOrder saved successfully."
-/// data : {"message":"TripOrder saved successfully."}
-
 class OneWayOrdersTripResponse {
   OneWayOrdersTripResponse({
       int? code, 
@@ -37,24 +33,22 @@ class OneWayOrdersTripResponse {
 
 }
 
-/// message : "TripOrder saved successfully."
-
 class Data {
   Data({
-      String? message,}){
-    _message = message;
+      int? tripId,}){
+    _tripId = tripId;
 }
 
   Data.fromJson(dynamic json) {
-    _message = json['message'];
+    _tripId = json['trip_id'];
   }
-  String? _message;
+  int? _tripId;
 
-  String? get message => _message;
+  int? get tripId => _tripId;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['message'] = _message;
+    map['trip_id'] = _tripId;
     return map;
   }
 

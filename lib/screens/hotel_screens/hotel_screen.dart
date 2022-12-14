@@ -179,7 +179,7 @@ class _HotelScreenState extends State<HotelScreen> {
                             },
                             onMinusBookingDayPress: () {
                               if (hotelProvider.selectBookingDaysList[index] >
-                                  0) {
+                                  1) {
                                 setState(() {
                                   bookingDaysCounter = hotelProvider
                                       .selectBookingDaysList[index]--;
@@ -211,7 +211,7 @@ class _HotelScreenState extends State<HotelScreen> {
                             },
                             onMinusRoomPress: () {
                               if (hotelProvider.selectNumberOfRoomsList[index] >
-                                  0) {
+                                  1) {
                                 setState(() {
                                   numberOfRoomsCounter = hotelProvider
                                       .selectNumberOfRoomsList[index]--;
@@ -266,6 +266,11 @@ class _HotelScreenState extends State<HotelScreen> {
   }
 
   void saveTripOrder() async {
+
+
+
+
+
     await hotelProvider.oneWayOrderTrip(
       tripId: "${widget.tripId}",
       passengerCounts: widget.passengerCounts,

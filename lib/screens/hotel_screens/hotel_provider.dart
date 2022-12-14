@@ -134,17 +134,19 @@ class HotelProvider with ChangeNotifier {
       debugPrint("URL: $url");
       _logger.i("newBody: $newBody");
       oneWayOrdersTripResponse = await MyApi.callPostApi(
-          url: url,
-          myHeaders: header,
-          body: newBody,
-          modelName: Models.oneWayOrderTripModel);
+        url: url,
+        myHeaders: header,
+        body: newBody,
+        modelName: Models.oneWayOrderTripModel,
+      );
 
       if (oneWayOrdersTripResponse.code == 1) {
         _logger.i(
-            "oneWayOrdersTripResponse: ${oneWayOrdersTripResponse.toJson()}, ${oneWayOrdersTripResponse.data!.message.toString()}");
+            "oneWayOrdersTripResponse: ${oneWayOrdersTripResponse.toJson()}, ${oneWayOrdersTripResponse.message.toString()}");
 
         Toasts.getSuccessToast(
-            text: oneWayOrdersTripResponse.data!.message.toString());
+          text: oneWayOrdersTripResponse.message.toString(),
+        );
 
         //clear the data lists
         additionalList.clear();

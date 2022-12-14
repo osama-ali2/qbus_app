@@ -69,6 +69,13 @@ class _StepOneSelectAdditionScreenState
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    // stepOneSelectAdditionProvider.selectAdditionalList.clear();
+    // stepOneSelectAdditionProvider.additionalList.clear();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Provider.of<StepOneSelectAdditionProvider>(context, listen: true);
     return Scaffold(
@@ -114,8 +121,6 @@ class _StepOneSelectAdditionScreenState
                       onTapped: () async {
                         debugPrint(
                             "firstTripModelID: ${widget.firstTripsModel!.id} passengersCount: ${widget.passengersCount}, additionalList: ${stepOneSelectAdditionProvider.additionalList}");
-
-
 
                         /// TODO: Uncomment Round Trip Step Two Result;
                         Navigator.push(

@@ -117,7 +117,7 @@ class SelectAdditionProvider with ChangeNotifier {
 
       if (oneWayOrdersTripResponse.code == 1) {
         _logger.d(
-            "oneWayOrdersTripResponse: ${oneWayOrdersTripResponse.toJson()}, ${oneWayOrdersTripResponse.data!.message.toString()}");
+            "oneWayOrdersTripResponse: ${oneWayOrdersTripResponse.toJson()}, ${oneWayOrdersTripResponse.message.toString()}");
         _loader.hideLoader(context!);
         isOneWayOrderTripSaved = true;
         additionalList.clear();
