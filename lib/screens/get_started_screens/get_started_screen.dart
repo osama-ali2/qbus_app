@@ -1,6 +1,9 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/local_notification_service/local_notification_service.dart';
 import 'package:qbus/models/PackageFilterModel.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
@@ -8,14 +11,15 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
+import 'package:qbus/screens/project_widgets/package_card_container_widget.dart';
+import 'package:qbus/screens/round_trip_flow/step_one/round_trip_step_one_result.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import '../../../../widgets/custom_button.dart';
-import '../../res/colors.dart';
 import '../explore_screens/explore_screen.dart';
 import '../explore_screens/package_detail_screens/package_detail_screen.dart';
-import '../search_screens/search_result.dart';
+import '../trips_search_screens/trips_search_result.dart';
 
 class GetStartedScreen extends StatefulWidget {
   const GetStartedScreen({Key? key}) : super(key: key);
@@ -25,10 +29,10 @@ class GetStartedScreen extends StatefulWidget {
 }
 
 class _GetStartedScreenState extends State<GetStartedScreen> {
-  bool oneRoad = false;
+  bool oneWayTrip = false;
   bool roundTrip = true;
   bool multiTrip = false;
-  int number = 0;
+  int passengersNumber = 1;
 
   bool tripType = false;
 
@@ -59,6 +63,28 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     arrivalToController = TextEditingController();
     dateController = TextEditingController();
     _selectedStartDate = DateTime.now();
+    _selectedEndDate = DateTime.now();
+
+    LocalNotificationService.instance.initialize();
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      debugPrint('Got a message [GetStartedScreen] whilst in the foreground!');
+      debugPrint('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        debugPrint(
+            'Message also contained a notification: ${message.notification!.title}');
+
+        LocalNotificationService.instance.showNotification(
+            id: 1,
+            title: message.notification!.title!,
+            body: message.notification!.body!);
+
+        if (message.data['type'] == 'chat') {
+          debugPrint("Type is Chat Opened");
+        }
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getStartedProvider.getPackagesData();
@@ -68,7 +94,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
 
   void _presentStartDate() {
     showDatePicker(
-      initialEntryMode: DatePickerEntryMode.input,
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2022),
@@ -79,17 +105,17 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       }
       setState(() {
         _selectedStartDate = pickedDate;
-        var month = DateFormat('MM').format(_selectedStartDate).toString();
-        var year = DateFormat('yyyy').format(_selectedStartDate).toString();
-        debugPrint("_selectedDate: month $month");
-        debugPrint("_selectedDate: year $year");
+
+        _startDate =
+            DateFormat('yyyy-MM-dd').format(_selectedStartDate).toString();
+        debugPrint("_selectedStartDate: $_selectedStartDate");
       });
     });
   }
 
   void _presentEndDate() {
     showDatePicker(
-      initialEntryMode: DatePickerEntryMode.input,
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2022),
@@ -100,10 +126,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       }
       setState(() {
         _selectedEndDate = pickedDate;
-        var month = DateFormat('MM').format(_selectedEndDate).toString();
-        var year = DateFormat('yyyy').format(_selectedEndDate).toString();
-        debugPrint("_selectedDate: month $month");
-        debugPrint("_selectedDate: year $year");
+        _endDate = DateFormat('yyyy-MM-dd').format(_selectedEndDate).toString();
+        debugPrint("_selectedEndDate: $_selectedEndDate");
       });
     });
   }
@@ -111,17 +135,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   @override
   Widget build(BuildContext context) {
     Provider.of<GetStartedProvider>(context, listen: true);
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(child: _getUI(context)),
-      ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(child: SingleChildScrollView(child: _getUI(context))),
     );
-  }
-
-  void _changeLanguage(lang) {
-    const Locale("ar", 'Ar');
-    debugPrint(lang.name);
   }
 
   Widget _getUI(BuildContext context) {
@@ -135,64 +152,37 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           ),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             CustomText(
-              text: "Book Bus\nLet's Do Now!",
+              text: AppLocalizations.of(context)!.home_title,
               textSize: sizes!.fontRatio * 18,
               fontWeight: FontWeight.w500,
               textColor: Colors.black,
               textAlign: TextAlign.start,
             ),
-            // DropdownButton(
-            //   onChanged: (language) {
-            //     _changeLanguage(language);
-            //   },
-            //   underline: const SizedBox(),
-            //   icon: const Icon(
-            //     Icons.language,
-            //     size: 28,
-            //   ),
-            //   items: Language.languageList()
-            //       .map<DropdownMenuItem<Language>>(
-            //           (language) => DropdownMenuItem(
-            //                 value: language,
-            //                 child: Row(
-            //                   children: <Widget>[
-            //                     Text(language.flag),
-            //                     Text(language.name),
-            //                   ],
-            //                 ),
-            //               ))
-            //       .toList(),
-            // ),
           ]),
           SizedBox(
             height: sizes!.fontRatio * 20,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              checkBox(context, oneRoad, "One Way", () {
+              checkBox(
+                  context, oneWayTrip, AppLocalizations.of(context)!.one_way,
+                  () {
                 multiTrip = false;
                 roundTrip = false;
-                oneRoad = true;
+                oneWayTrip = true;
                 setState(() {
-                  tripType = oneRoad;
+                  tripType = oneWayTrip;
                 });
               }),
-              checkBox(context, roundTrip, "Round Trip", () {
+              CommonPadding.sizeBoxWithWidth(width: 20),
+              checkBox(
+                  context, roundTrip, AppLocalizations.of(context)!.round_trip,
+                  () {
                 multiTrip = false;
                 roundTrip = true;
-                oneRoad = false;
+                oneWayTrip = false;
                 setState(() {
                   tripType = roundTrip;
-                });
-              }),
-              checkBox(context, multiTrip, "Multi Destination", () {
-                multiTrip = true;
-                roundTrip = false;
-                oneRoad = false;
-
-                setState(() {
-                  tripType = multiTrip;
                 });
               }),
             ],
@@ -245,14 +235,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               ),
             ),
           ),
-
-          // CustomTextField(
-          //   controller: departureFromController,
-          //   padding: 0,
-          //   validator: (val) => null,
-          //   inputType: TextInputType.name,
-          //   hint: "Departure from",
-          // ),
           SizedBox(
             height: sizes!.heightRatio * 10,
           ),
@@ -302,26 +284,17 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               ),
             ),
           ),
-
-          // CustomTextField(
-          //   controller: arrivalToController,
-          //   padding: 0,
-          //   validator: (val) => null,
-          //   inputType: TextInputType.name,
-          //   hint: "Arrival to",
-          // ),
           SizedBox(
             height: sizes!.heightRatio * 10,
           ),
           GestureDetector(
             onTap: () {
               _presentStartDate();
-
               setState(() {
-                var date = DateFormat('yyyy-MM-dd')
-                    .format(_selectedStartDate)
-                    .toString();
-                _startDate = date;
+                // var date = DateFormat('yyyy-MM-dd')
+                //     .format(_selectedStartDate)
+                //     .toString();
+                // _startDate = date;
               });
             },
             child: Container(
@@ -354,18 +327,19 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   onTap: () {
                     _presentEndDate();
                     setState(() {
-                      var date = DateFormat('yyyy-MM-dd')
-                          .format(_selectedStartDate)
-                          .toString();
-                      _endDate = date;
+                      // var date = DateFormat('yyyy-MM-dd')
+                      //     .format(_selectedEndDate)
+                      //     .toString();
+                      // _endDate = date;
                     });
                   },
                   child: Container(
                     height: sizes!.heightRatio * 48,
                     width: sizes!.widthRatio * 380,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: Colors.grey.shade400)),
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.grey.shade400),
+                    ),
                     child: Row(
                       children: [
                         Padding(
@@ -386,7 +360,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: sizes!.heightRatio * 20,
           ),
           CustomText(
-              text: "Passengers count",
+              text: AppLocalizations.of(context)!.passengers_count,
               textSize: sizes!.fontRatio * 14,
               fontWeight: FontWeight.normal,
               textColor: Colors.black),
@@ -394,14 +368,18 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: sizes!.heightRatio * 10,
           ),
           Counter(
-              number: number,
+              number: passengersNumber,
               onAdd: () {
-                number++;
-                setState(() {});
+                if (passengersNumber > 9) {
+                  Toasts.getWarningToast(text: "Only 10 Passengers Allowed");
+                } else {
+                  passengersNumber++;
+                  setState(() {});
+                }
               },
               onMinus: () {
-                if (number > 0) {
-                  number--;
+                if (passengersNumber > 1) {
+                  passengersNumber--;
                   setState(() {});
                 }
               }),
@@ -409,7 +387,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: sizes!.heightRatio * 15,
           ),
           CustomButton(
-              name: "Search",
+              name: AppLocalizations.of(context)!.search,
               buttonColor: appColor,
               height: sizes!.heightRatio * 45,
               width: double.infinity,
@@ -418,23 +396,54 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               fontWeight: FontWeight.normal,
               borderRadius: 5,
               onTapped: () {
+                debugPrint("departureFromID: $departureFromID, "
+                    "arrivalToID: $arrivalToID,"
+                    "_startDate: $_startDate, "
+                    "_endDate: $_endDate,"
+                    "departureFrom: $departureFrom, arrivalTo:$arrivalTo");
+
                 if (departureFromID != "-1" &&
                     arrivalToID != "-1" &&
                     _startDate != "" &&
                     departureFrom != "" &&
                     arrivalTo != "") {
-                  NavigationHelper.pushRoute(
-                      context,
-                      SearchResult(
-                        fromCity: departureFrom,
-                        toCity: arrivalTo,
-                        tripFilterModel: TripFilterModel(
+                  if (roundTrip == true) {
+                    debugPrint("roundTrip == $roundTrip");
+                    NavigationHelper.pushRoute(
+                        context,
+                        RoundTripStepOneResult(
+                          fromCity: departureFrom,
+                          toCity: arrivalTo,
+                          isRoundTripChecked: roundTrip,
+                          passengersCount: "$passengersNumber",
+                          tripFilterModel: TripFilterModel(
                             from_city_id: departureFromID,
                             to_city_id: arrivalToID,
-                            date_from: _startDate),
-                      ));
+                            date_from: _startDate,
+                            date_to: _endDate,
+                          ),
+                        ));
+                  } else {
+                    NavigationHelper.pushRoute(
+                        context,
+                        SearchResult(
+                          fromCity: departureFrom,
+                          toCity: arrivalTo,
+                          isMultiDestinationChecked: multiTrip,
+                          isOneWayTripChecked: oneWayTrip,
+                          isRoundTripChecked: roundTrip,
+                          passengersCount: "$passengersNumber",
+                          tripFilterModel: TripFilterModel(
+                            from_city_id: departureFromID,
+                            to_city_id: arrivalToID,
+                            date_from: _startDate,
+                            // date_to: _endDate,
+                          ),
+                        ));
+                  }
                 } else {
-                  Toasts.getErrorToast(text: "Fields are required");
+                  Toasts.getErrorToast(
+                      text: AppLocalizations.of(context)!.required_fields);
                 }
               },
               padding: 0),
@@ -445,7 +454,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomText(
-                  text: "Packages",
+                  text: AppLocalizations.of(context)!.packages,
                   textSize: sizes!.fontRatio * 18,
                   fontWeight: FontWeight.normal,
                   textColor: Colors.black),
@@ -460,7 +469,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 child: Row(
                   children: [
                     CustomText(
-                        text: "Explore",
+                        text: AppLocalizations.of(context)!.explore,
                         textSize: sizes!.fontRatio * 16,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.black),
@@ -496,7 +505,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                             .toString();
                         var thumbnailImage = "$baseUrl/$image";
                         var dateFrom = data.dateFrom.toString();
-                        var detail = data.description!.en.toString();
+                        var detail = data.description!.ur.toString();
                         // debugPrint("thumbnailImage: $thumbnailImage");
                         return Padding(
                           padding:
@@ -510,7 +519,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                                     packageId: packageId,
                                   ));
                             },
-                            child: packageCardContainer(
+                            child: PackageCardContainerWidget(
                                 title: packageName,
                                 rating: rating,
                                 fee: fee,
@@ -527,135 +536,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     );
   }
 
-  Widget packageCardContainer({
-    required String title,
-    required String rating,
-    required String fee,
-    required String dateFrom,
-    required String detail,
-    required String image,
-  }) =>
-      Container(
-        height: sizes!.heightRatio * 100,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: const [
-              BoxShadow(
-                color: AppColors.containerShadowColor,
-                blurRadius: 10.0,
-                offset: Offset(0, 2),
-              ),
-            ],
-            color: Colors.white),
-        child: Row(
-          children: [
-            Container(
-              height: sizes!.heightRatio * 100,
-              width: sizes!.widthRatio * 140,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(12)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(6),
-                child: Image.network(
-                  image,
-                  height: sizes!.heightRatio * 100,
-                  width: sizes!.widthRatio * 140,
-                  fit: BoxFit.fill,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-            SizedBox(
-              height: sizes!.heightRatio * 5,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomText(
-                    text: title,
-                    textSize: sizes!.fontRatio * 14,
-                    fontWeight: FontWeight.w700,
-                    textColor: Colors.black),
-                SizedBox(
-                  height: sizes!.heightRatio * 5,
-                ),
-                SizedBox(
-                  height: sizes!.heightRatio * 30,
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  child: CustomText(
-                    text: "$detail...",
-                    textSize: sizes!.fontRatio * 10,
-                    fontWeight: FontWeight.normal,
-                    textColor: Colors.black,
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                SizedBox(
-                  height: sizes!.heightRatio * 5,
-                ),
-                CustomText(
-                  text: dateFrom,
-                  textSize: sizes!.fontRatio * 10,
-                  fontWeight: FontWeight.normal,
-                  textColor: Colors.black,
-                  textAlign: TextAlign.start,
-                ),
-                SizedBox(
-                  height: sizes!.heightRatio * 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                          size: 22,
-                        ),
-                        CustomText(
-                            text: rating,
-                            textSize: sizes!.fontRatio * 12,
-                            fontWeight: FontWeight.normal,
-                            textColor: Colors.black)
-                      ],
-                    ),
-                    CommonPadding.sizeBoxWithWidth(width: 85),
-                    Container(
-                      height: sizes!.heightRatio * 20,
-                      width: sizes!.widthRatio * 60,
-                      decoration: BoxDecoration(
-                          color: appColor,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Center(
-                        child: CustomText(
-                            text: "SKR $fee",
-                            textSize: sizes!.fontRatio * 10,
-                            fontWeight: FontWeight.normal,
-                            textColor: Colors.white),
-                      ),
-                    )
-                  ],
-                )
-              ],
-            )
-          ],
-        ),
-      );
-
+  /// Check Box
   Widget checkBox(
       BuildContext context, bool isSelected, String name, Function onTap) {
     return InkWell(
@@ -666,10 +547,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             height: sizes!.heightRatio * 18,
             width: sizes!.widthRatio * 18,
             decoration: BoxDecoration(
-                color: isSelected ? appColor : Colors.white,
-                borderRadius: BorderRadius.circular(2),
-                border: Border.all(
-                    color: isSelected ? appColor : Colors.grey.shade400)),
+              color: isSelected ? appColor : Colors.white,
+              borderRadius: BorderRadius.circular(2),
+              border: Border.all(
+                  color: isSelected ? appColor : Colors.grey.shade400),
+            ),
             child: const Icon(
               Icons.check,
               size: 14,

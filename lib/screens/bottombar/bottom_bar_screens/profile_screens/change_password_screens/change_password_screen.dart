@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/res/extensions.dart';
-import 'package:qbus/widgets/custom_outline_button.dart';
 
 import '../../../../../res/colors.dart';
 import '../../../../../res/common_padding.dart';
@@ -39,18 +38,18 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     Provider.of<ChangePasswordProvider>(context, listen: true); //Watch
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: appColor,
-          elevation: 0,
-          title: const CustomText(
-              text: "Change Password",
-              textSize: 18,
-              fontWeight: FontWeight.w700,
-              textColor: Colors.white),
-        ),
-        body: Container(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: appColor,
+        elevation: 0,
+        title: const CustomText(
+            text: "Change Password",
+            textSize: 18,
+            fontWeight: FontWeight.w700,
+            textColor: Colors.white),
+      ),
+      body: SafeArea(
+        child: Container(
           color: AppColors.white,
           height: sizes!.height,
           width: sizes!.width,

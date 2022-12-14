@@ -46,7 +46,7 @@ class SignUpProvider with ChangeNotifier {
         "address": address,
         "date_of_birth": "30-05-2000",
         "city_id": cityId,
-        "marital_status": status,
+        "marital_status": status.toLowerCase(),
         "password": password
       };
 
@@ -63,7 +63,11 @@ class SignUpProvider with ChangeNotifier {
       if (signUpResponse.code == 1) {
         _logger.d("signUpResponse: ${signUpResponse.toJson()}");
         _loader.hideLoader(context!);
-        NavigationHelper.pushRoute(context!,  PhoneActivationScreen(phoneNumber: phoneNumber,));
+        NavigationHelper.pushRoute(
+            context!,
+            PhoneActivationScreen(
+              phoneNumber: phoneNumber,
+            ));
         isDataLoaded = true;
       } else {
         debugPrint("signUpResponse: Something wrong");

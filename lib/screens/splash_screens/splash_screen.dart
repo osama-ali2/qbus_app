@@ -1,10 +1,8 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/navigation/navigation_helper.dart';
-import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
 import 'package:qbus/screens/splash_screens/splash_provider.dart';
 import 'package:qbus/widgets/loader.dart';
+
 import '../../res/res.dart';
 
 class SplashScreen extends StatefulWidget {

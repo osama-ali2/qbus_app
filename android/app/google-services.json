@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "155075794894",
+    "project_id": "qbus-app",
+    "storage_bucket": "qbus-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155075794894:android:ea6c4b816a04d9cfdd7d9f",
+        "android_client_info": {
+          "package_name": "com.solodev.qbus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155075794894-82elcsi8hi24p00dhbgofefn0n637rmc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRxLmSlCtGGIQMG51NrGXXI73fJksPAxk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155075794894-82elcsi8hi24p00dhbgofefn0n637rmc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

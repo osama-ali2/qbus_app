@@ -34,6 +34,12 @@ extension StringUtils on String {
   String capitalize() {
     return "${this[0].toUpperCase()} ${this[1].toLowerCase()}";
   }
+
+  /// Truncate a string if it's longer than [maxLength] and add an [ellipsis].
+  String getShortString(int maxLength, [String ellipsis = "…"]) =>
+      length > maxLength
+          ? '${substring(0, maxLength - ellipsis.length)}$ellipsis'
+          : this;
 }
 
 extension BoolExtension on int {

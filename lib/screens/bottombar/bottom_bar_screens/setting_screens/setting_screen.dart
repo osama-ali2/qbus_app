@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:qbus/language.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_text.dart';
+
+import '../../../../local_cache/utils.dart';
 import '../../../../res/assets.dart';
 import '../../../../res/res.dart';
+import '../../../../res/strings.dart';
 import '../../../../widgets/text_views.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -17,6 +22,10 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  void _changeLanguage(lang) {
+    PreferenceUtils.setString(Strings.language, lang.languageCode);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,21 +36,23 @@ class _SettingScreenState extends State<SettingScreen> {
         automaticallyImplyLeading: false,
         title: Center(
           child: CustomText(
-              text: "Settings",
+              text: AppLocalizations.of(context)!.settings,
               textSize: sizes!.fontRatio * 18,
               fontWeight: FontWeight.w700,
               textColor: Colors.white),
         ),
       ),
-      body: Column(
-        children: [
-          CommonPadding.sizeBoxWithHeight(height: 20),
-          getRow(
-            title: "Language",
-            language: "English",
-            onPress: () {},
-          )
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            CommonPadding.sizeBoxWithHeight(height: 20),
+            getRow(
+              title: AppLocalizations.of(context)!.the_language,
+              language: AppLocalizations.of(context)!.language,
+              onPress: () {},
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -68,16 +79,35 @@ class _SettingScreenState extends State<SettingScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextView.getMediumText14(title, Assets.latoBold,
-                  color: AppColors.black900,
-                  fontWeight: FontWeight.w400,
-                  lines: 1),
-              const Spacer(),
               TextView.getMediumText14(language, Assets.latoBold,
                   color: AppColors.black900,
                   fontWeight: FontWeight.w400,
                   lines: 1),
               CommonPadding.sizeBoxWithWidth(width: 10),
+              const Spacer(),
+              DropdownButton(
+                onChanged: (language) {
+                  _changeLanguage(language);
+                },
+                underline: const SizedBox(),
+                icon: const Icon(
+                  Icons.language,
+                  size: 28,
+                ),
+                items: Language.languageList()
+                    .map<DropdownMenuItem<Language>>((language) =>
+                        DropdownMenuItem(
+                          value: language,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(language.flag),
+                              Text(language.name),
+                            ],
+                          ),
+                        ))
+                    .toList(),
+              ),
               GestureDetector(
                 onTap: () {
                   if (onPress != null) {
@@ -94,18 +124,4 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
         ),
       ).get20HorizontalPadding();
-
-// Widget _getUI(BuildContext context) {
-//   return Column(
-//     children: [
-//       const SizedBox(
-//         height: 10,
-//       ),
-//       SettingCard(
-//         onTap: () {},
-//         name: 'Language',
-//       ),
-//     ],
-//   );
-// }
 }

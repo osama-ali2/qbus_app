@@ -18,6 +18,7 @@ class ProfileProvider with ChangeNotifier {
 
   LogoutResponse logoutResponse = LogoutResponse();
   UserResponse userResponse = UserResponse();
+
   bool isUserLogout = false;
   bool isProfileLoading = false;
 
@@ -84,10 +85,12 @@ class ProfileProvider with ChangeNotifier {
         notifyListeners();
       } else {
         debugPrint("userResponse: Something wrong");
+        _logger.e("userResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
       debugPrint("userResponseError: ${e.toString()}");
+      _logger.e("userResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

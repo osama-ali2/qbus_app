@@ -7,19 +7,19 @@ class Counter extends StatelessWidget {
   final Function onAdd;
   final Function onMinus;
 
-  const Counter(
-      {Key? key,
-      required this.number,
-      required this.onAdd,
-      required this.onMinus})
-      : super(key: key);
+  const Counter({
+    Key? key,
+    required this.number,
+    required this.onAdd,
+    required this.onMinus,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         InkWell(
-          onTap: () => onMinus(),
+          onTap: () => onMinus.call(),
           child: Container(
             height: 30,
             width: 30,
@@ -46,19 +46,21 @@ class Counter extends StatelessWidget {
           width: 5,
         ),
         InkWell(
-          onTap: () => onAdd(),
+          onTap: () => onAdd.call(),
           child: Container(
             height: 30,
             width: 30,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: AppColors.primary)),
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(color: AppColors.primary),
+            ),
             child: const Center(
-                child: CustomText(
-                    text: "+",
-                    textSize: 16,
-                    fontWeight: FontWeight.bold,
-                    textColor: AppColors.primary)),
+              child: CustomText(
+                  text: "+",
+                  textSize: 16,
+                  fontWeight: FontWeight.bold,
+                  textColor: AppColors.primary),
+            ),
           ),
         ),
       ],

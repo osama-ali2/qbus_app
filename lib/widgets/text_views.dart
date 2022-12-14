@@ -4,6 +4,31 @@ import 'package:flutter/material.dart';
 import '../res/res.dart';
 
 class TextView {
+
+  static Text getGenericText({
+    required String text,
+    required String fontFamily,
+    required int fontSize,
+    required FontWeight fontWeight,
+    required Color color,
+    final TextAlign textAlign = TextAlign.start,
+    required int lines,
+  }) {
+    return Text(
+      text,
+      textAlign: textAlign,
+      softWrap: true,
+      maxLines: lines,
+      style: TextStyle(
+        fontSize: sizes!.fontRatio * fontSize,
+        fontWeight: fontWeight,
+        fontFamily: fontFamily,
+        color: color,
+      ),
+    );
+  }
+
+
   static Text getDrawerMenuText13(final text, final fontFamily,
       {@required final color,
       final TextAlign textAlign = TextAlign.center,

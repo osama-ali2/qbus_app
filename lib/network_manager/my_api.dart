@@ -1,15 +1,20 @@
 import 'dart:io';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
+
 import '../models/error_model/ErrorResponse.dart';
 import '../res/strings.dart';
 import '../res/toasts.dart';
 import 'models.dart';
 
 class MyApi {
+  /// Call Post API
+  /// Params: url, body, Map params, Map headers
+  /// [callPostApi]
   static Future<dynamic> callPostApi(
       {String? url,
       dynamic body,
@@ -71,6 +76,19 @@ class MyApi {
 
             return null;
 
+          case 404:
+            ErrorResponse errorResponse =
+                await Models.getModelObject(Models.errorModel, response.data);
+            Toasts.getErrorToast(text: errorResponse.data?.message);
+            if (errorResponse.code == 0) {
+              Toasts.getErrorToast(text: errorResponse.message);
+              debugPrint("errorResponse: ${errorResponse.toJson()}");
+              return errorResponse;
+            } else {
+              Toasts.getErrorToast(text: errorResponse.message);
+            }
+            return null;
+
           default:
             Toasts.getErrorToast(text: Strings.badHappenedError);
             return null;
@@ -110,6 +128,18 @@ class MyApi {
             }
 
             return null;
+          case 404:
+            ErrorResponse errorResponse = await Models.getModelObject(
+                Models.errorModel, ex.response?.data);
+            Toasts.getErrorToast(text: errorResponse.data?.message);
+            if (errorResponse.code == 0) {
+              Toasts.getErrorToast(text: errorResponse.message);
+              debugPrint("errorResponse: ${errorResponse.toJson()}");
+              return errorResponse;
+            } else {
+              Toasts.getErrorToast(text: errorResponse.message);
+            }
+            return null;
           case 500:
             Toasts.getErrorToast(text: "Internal Server Error");
             Toasts.getErrorToast(text: errorResponse.data?.message);
@@ -126,6 +156,10 @@ class MyApi {
       return null;
     }
   }
+
+  /// Call Get API
+  /// Params: url, Map params, Map headers
+  /// [callGetApi]
 
   static Future<dynamic> callGetApi(
       {String? url,
@@ -191,6 +225,9 @@ class MyApi {
     }
   }
 
+  /// Call Put API
+  /// Params: url, body, Map params, Map headers
+  /// [callPutApi]
   static Future<dynamic> callPutApi(
       {String? url,
       dynamic body,
@@ -258,7 +295,9 @@ class MyApi {
     }
   }
 
-  //   Delete
+  /// Call Delete API
+  /// Params: url, body, Map params, Map headers
+  /// [callDeleteApi]
   static Future<dynamic> callDeleteApi(
       {String? url,
       dynamic body,

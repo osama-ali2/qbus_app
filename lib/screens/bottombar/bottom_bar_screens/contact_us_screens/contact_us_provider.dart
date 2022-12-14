@@ -39,6 +39,23 @@ class ContactUsProvider with ChangeNotifier {
         "message": message
       };
 
+      // Response response = await dio.post(packagesApiUrl,
+      //     data: body,
+      //     options: Options(
+      //       headers: header,
+      //     ));
+      //
+      // switch (response.statusCode) {
+      //   case 200:
+      //     debugPrint("ResponseData: ${response.data}");
+      //     break;
+      //   case 301:
+      //     debugPrint("ResponseData: ${response.data}");
+      //     break;
+      //   default:
+      // }
+
+
       debugPrint("URL: $contactUsApiUrl");
       debugPrint("contactUsBody: $body");
       getContactUsResponse = await MyApi.callPostApi(

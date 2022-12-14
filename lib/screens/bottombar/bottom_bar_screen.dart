@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/booking_history_screens/booking_history_screen.dart';
 
 import '../../utils/constant.dart';
@@ -10,10 +11,10 @@ class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({Key? key}) : super(key: key);
 
   @override
-  _BottomBarScreenState createState() => _BottomBarScreenState();
+  BottomBarScreenState createState() => BottomBarScreenState();
 }
 
-class _BottomBarScreenState extends State<BottomBarScreen> {
+class BottomBarScreenState extends State<BottomBarScreen> {
   int _selectedIndex = 0;
   List<Widget> _tabs = [];
 
@@ -41,34 +42,36 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     return Material(
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
-          items: const [
+          items: [
+            
             BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.home_outlined,
                 size: 28,
               ),
-              label: 'Home',
+              label: AppLocalizations.of(context)!.home,
             ),
+
             BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.list,
                 size: 28,
               ),
-              label: 'History',
+              label: AppLocalizations.of(context)!.history,
             ),
             BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.person_outline,
                 size: 28,
               ),
-              label: 'Profile',
+              label: AppLocalizations.of(context)!.profile,
             ),
             BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.settings,
                 size: 28,
               ),
-              label: 'Settings',
+              label: AppLocalizations.of(context)!.settings,
             ),
           ],
           type: BottomNavigationBarType.fixed,
