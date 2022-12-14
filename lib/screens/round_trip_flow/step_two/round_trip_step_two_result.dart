@@ -18,25 +18,25 @@ import '../../project_widgets/filter_container_widget.dart';
 import 'round_trip_step_two_provider.dart';
 
 class RoundTripStepTwoResult extends StatefulWidget {
-  final TripFilterModel? tripFilterModel;
-  final String? fromCity;
-  final String? toCity;
-  final bool? isRoundTripChecked;
-  final Trips? firstTripModel;
-  final String? tripFirstPassengersCount;
-  final List<Map<String, dynamic>>? tripFirstAdditionalList;
+  final TripFilterModel tripFilterModel;
+  final String fromCity;
+  final String toCity;
+  final bool isRoundTripChecked;
+  final Trips firstTripModel;
+  final String tripFirstPassengersCount;
+  final List<Map<String, dynamic>> tripFirstAdditionalList;
 
-  const RoundTripStepTwoResult(
-      {Key? key,
-      this.tripFilterModel,
-      this.fromCity,
-      this.toCity,
-      this.isRoundTripChecked,
-      // this.passengersCount,
-      this.firstTripModel,
-      this.tripFirstPassengersCount,
-      this.tripFirstAdditionalList})
-      : super(key: key);
+  const RoundTripStepTwoResult({
+    Key? key,
+    required this.tripFilterModel,
+    required this.fromCity,
+    required this.toCity,
+    required this.isRoundTripChecked,
+    // this.passengersCount,
+    required this.firstTripModel,
+    required this.tripFirstPassengersCount,
+    required this.tripFirstAdditionalList,
+  }) : super(key: key);
 
   @override
   State<RoundTripStepTwoResult> createState() => _RoundTripStepTwoResultState();
