@@ -253,10 +253,7 @@ class _HotelScreenState extends State<HotelScreen> {
                     fontWeight: FontWeight.w500,
                     borderRadius: 5,
                     onTapped: () async {
-
-
-
-                      //saveTripOrder();
+                      await saveTripOrder();
                     },
                     padding: 0,
                   )
@@ -268,7 +265,7 @@ class _HotelScreenState extends State<HotelScreen> {
     );
   }
 
-  void saveTripOrder() async {
+  Future<void> saveTripOrder() async {
     await hotelProvider.oneWayOrderTrip(
       tripId: "${widget.tripId}",
       passengerCounts: widget.passengerCounts,

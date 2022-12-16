@@ -277,7 +277,9 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                     fontWeight: FontWeight.w500,
                     borderRadius: 5,
                     onTapped: () async {
-                      saveTripOrder();
+                      // saveTripOrder();
+
+                      stepTwoTrip();
 
                       debugPrint(
                           "hotelData:${widget.tripId}, ${widget.passengerCounts}, ${widget.paramPassengerBody}, ${widget.paramAdditionalList}, ${roundTripHotelProvider.hotelRoomBody}");
@@ -305,27 +307,29 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
           tripFirstPassengersCount: widget.passengerCounts,
           firstTripModel: widget.firstTripModel,
           tripFirstAdditionalList: widget.paramAdditionalList,
+          paramPassengerBody: widget.paramPassengerBody,
+          paramHotelBody: roundTripHotelProvider.hotelRoomBody,
         ),
       ),
     );
   }
 
-  void saveTripOrder() async {
-    await roundTripHotelProvider.oneWayOrderTrip(
-      tripId: "${widget.tripId}",
-      passengerCounts: widget.passengerCounts,
-      paramPassengerBody: widget.paramPassengerBody,
-      additionalList: widget.paramAdditionalList,
-    );
-
-    if (roundTripHotelProvider.isOneWayOrderTripSaved) {
-      if (!mounted) return;
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const ReviewOrderScreen(),
-        ),
-      );
-    }
-  }
+// void saveTripOrder() async {
+//   await roundTripHotelProvider.oneWayOrderTrip(
+//     tripId: "${widget.tripId}",
+//     passengerCounts: widget.passengerCounts,
+//     paramPassengerBody: widget.paramPassengerBody,
+//     additionalList: widget.paramAdditionalList,
+//   );
+//
+//   if (roundTripHotelProvider.isOneWayOrderTripSaved) {
+//     if (!mounted) return;
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(
+//         builder: (context) => const ReviewOrderScreen(),
+//       ),
+//     );
+//   }
+// }
 }

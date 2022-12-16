@@ -25,6 +25,8 @@ class RoundTripStepTwoResult extends StatefulWidget {
   final Trips firstTripModel;
   final String tripFirstPassengersCount;
   final List<Map<String, dynamic>> tripFirstAdditionalList;
+  final List<Map<String, dynamic>> paramPassengerBody;
+  final List<Map<String, dynamic>> paramHotelBody;
 
   const RoundTripStepTwoResult({
     Key? key,
@@ -36,6 +38,7 @@ class RoundTripStepTwoResult extends StatefulWidget {
     required this.firstTripModel,
     required this.tripFirstPassengersCount,
     required this.tripFirstAdditionalList,
+    required this.paramPassengerBody, required this.paramHotelBody,
   }) : super(key: key);
 
   @override
@@ -66,13 +69,13 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
           debugPrint("EndingIndex: $index");
         });
         roundTripStepTwoProvider.getTripsData(
-            tripFilterModel: widget.tripFilterModel!, offset: index);
+            tripFilterModel: widget.tripFilterModel, offset: index);
       }
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Load Trip
       roundTripStepTwoProvider.getTripsData(
-          tripFilterModel: widget.tripFilterModel!, offset: index);
+          tripFilterModel: widget.tripFilterModel, offset: index);
     });
 
     debugPrint("isRoundTripChecked: ${widget.isRoundTripChecked}");
@@ -87,10 +90,11 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "${widget.fromCity ?? ""} - ${widget.toCity ?? ""}",
-            textSize: 18,
-            fontWeight: FontWeight.w400,
-            textColor: Colors.white),
+          text: "${widget.fromCity} - ${widget.toCity}",
+          textSize: 18,
+          fontWeight: FontWeight.w400,
+          textColor: Colors.white,
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -143,14 +147,17 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
                                       passengersCount:
                                           widget.tripFirstPassengersCount,
                                       toCityId:
-                                          widget.tripFilterModel!.to_city_id,
+                                          widget.tripFilterModel.to_city_id,
                                       fromCityId:
-                                          widget.tripFilterModel!.from_city_id,
+                                          widget.tripFilterModel.from_city_id,
                                       firstTripModel: widget.firstTripModel,
                                       tripFirstAdditionalList:
                                           widget.tripFirstAdditionalList,
                                       tripFirstPassengersCount:
                                           widget.tripFirstPassengersCount,
+                                      paramPassengerBody:
+                                          widget.paramPassengerBody,
+                                      paramHotelBody: widget.paramHotelBody,
                                     ),
                                   );
                                 },

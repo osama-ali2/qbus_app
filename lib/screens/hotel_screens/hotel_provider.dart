@@ -69,7 +69,6 @@ class HotelProvider with ChangeNotifier {
             "rooms_number": 0,
             "days": 0
           };
-
           hotelRoomBody.add(demoData);
           selectBookingDaysList.add(0);
           selectNumberOfRoomsList.add(0);
@@ -79,8 +78,7 @@ class HotelProvider with ChangeNotifier {
         isHotelLoaded = true;
         notifyListeners();
       } else {
-        debugPrint("hotelRoomResponse: Something wrong");
-        _logger.i("hotelRoomResponse: Something wrong");
+        _logger.e("hotelRoomResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
@@ -89,6 +87,7 @@ class HotelProvider with ChangeNotifier {
     }
   }
 
+  // One Way Order Trip
   Future<void> oneWayOrderTrip({
     required String tripId,
     required String passengerCounts,

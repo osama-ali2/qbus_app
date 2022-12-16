@@ -169,7 +169,7 @@ class SelectAdditionProvider with ChangeNotifier {
 
       if (roundOrderTripResponse.code == 1) {
         _logger.d(
-            "roundOrderTripResponse: ${roundOrderTripResponse.toJson()}, ${roundOrderTripResponse.data!.message.toString()}");
+            "roundOrderTripResponse: ${roundOrderTripResponse.toJson()}, ${roundOrderTripResponse.toString()}");
         _loader.hideLoader(context!);
         isRoundOrderTripSaved = true;
         additionalList.clear();
