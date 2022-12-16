@@ -103,7 +103,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                   onTap: () async => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ReviewOrderScreen(),
+                      builder: (context) =>  ReviewOrderScreen(tripId: 1,),
                     ),
                   ),
                   child: TextView.getGenericText(

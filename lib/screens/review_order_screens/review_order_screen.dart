@@ -5,11 +5,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
+import 'package:qbus/screens/review_order_screens/review_order_provider.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/text_views.dart';
 import '../../res/colors.dart';
@@ -17,15 +19,40 @@ import '../../utils/constant.dart';
 import '../../widgets/custom_text.dart';
 
 class ReviewOrderScreen extends StatefulWidget {
-  const ReviewOrderScreen({Key? key}) : super(key: key);
+  final int tripId;
+
+  const ReviewOrderScreen({Key? key, required this.tripId}) : super(key: key);
 
   @override
   State<ReviewOrderScreen> createState() => _ReviewOrderScreenState();
 }
 
 class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
+  late ReviewOrderProvider reviewOrderProvider;
+
+  @override
+  void initState() {
+    super.initState();
+
+    reviewOrderProvider = ReviewOrderProvider();
+    reviewOrderProvider =
+        Provider.of<ReviewOrderProvider>(context, listen: false);
+    reviewOrderProvider.init(context: context);
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      reviewOrderProvider.orderReview(tripId: widget.tripId);
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    Provider.of<ReviewOrderProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
@@ -40,25 +67,55 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  if (index % 2 == 0) {
-                    return orderContainer(
-                        quantity: "2", title: "Hilton Honor", price: "100");
-                  } else {
-                    return tripOrderContainer(
-                        quantity: "2",
-                        fromTime: "10:30",
-                        fromCity: "Al Makka",
-                        toTime: "1:30",
-                        toCity: "Al Madina",
-                        price: "1000");
-                  }
-                },
-              ),
-            ),
+            reviewOrderProvider.isOrderReviewLoaded == true
+                ? Expanded(
+                    child: ListView.builder(
+                      itemCount: reviewOrderProvider
+                          .orderReviewResponse.data!.tripOrders!.length,
+                      itemBuilder: (context, index) {
+                        var data = reviewOrderProvider
+                            .orderReviewResponse.data!.tripOrders![index];
+                        var fromCity = data.fromCity!.name!.en.toString();
+                        var toCity = data.toCity!.name!.en.toString();
+                        var timeFrom = data.timeFrom!;
+                        var timeTo = data.timeTo!;
+
+                        if (reviewOrderProvider.orderReviewResponse.data!
+                            .tripOrders![index].hotelsRooms!.isNotEmpty) {
+                          return orderContainer(
+                              quantity: "2",
+                              title: "Hilton Honor",
+                              price: "100");
+                        } else {
+                          return tripOrderContainer(
+                              quantity: "2",
+                              fromTime: timeFrom,
+                              fromCity: fromCity,
+                              toTime: timeTo,
+                              toCity: toCity,
+                              price: "1000");
+                        }
+
+                        // if (fromCity != null) {
+                        //   return orderContainer(
+                        //       quantity: "2",
+                        //       title: "Hilton Honor",
+                        //       price: "100");
+                        // } else {
+                        //   return tripOrderContainer(
+                        //       quantity: "2",
+                        //       fromTime: "10:30",
+                        //       fromCity: "Al Makka",
+                        //       toTime: "1:30",
+                        //       toCity: "Al Madina",
+                        //       price: "1000");
+                        // }
+                      },
+                    ),
+                  )
+                : const Center(
+                    child: Text("No Data"),
+                  ),
             CommonPadding.sizeBoxWithHeight(height: 20),
             Align(
               alignment: Alignment.topLeft,
@@ -71,90 +128,18 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                   lines: 1),
             ),
             CommonPadding.sizeBoxWithHeight(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextView.getGenericText(
-                    text: "Sub Total",
-                    fontFamily: Assets.latoRegular,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.black900,
-                    lines: 1),
-                TextView.getGenericText(
-                    text: "249.05",
-                    fontFamily: Assets.latoRegular,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.black900,
-                    lines: 1),
-              ],
-            ),
+            totalCalculationContainer(title: "Sub Total", value: "249.05"),
             CommonPadding.sizeBoxWithHeight(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextView.getGenericText(
-                    text: "Discount",
-                    fontFamily: Assets.latoRegular,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.black900,
-                    lines: 1),
-                TextView.getGenericText(
-                    text: "49.05",
-                    fontFamily: Assets.latoRegular,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.black900,
-                    lines: 1),
-              ],
-            ),
+            totalCalculationContainer(title: "Discount", value: "29.05"),
             CommonPadding.sizeBoxWithHeight(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextView.getGenericText(
-                    text: "Tax 15%",
-                    fontFamily: Assets.latoRegular,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.black900,
-                    lines: 1),
-                TextView.getGenericText(
-                    text: "49.05",
-                    fontFamily: Assets.latoRegular,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.black900,
-                    lines: 1),
-              ],
-            ),
+            totalCalculationContainer(title: "Tax 15%", value: "49.05"),
             CommonPadding.sizeBoxWithHeight(height: 5),
             const Divider(
               color: AppColors.borderColor,
               thickness: 1,
             ),
             CommonPadding.sizeBoxWithHeight(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextView.getGenericText(
-                    text: "Total Cost",
-                    fontFamily: Assets.latoRegular,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.black900,
-                    lines: 1),
-                TextView.getGenericText(
-                    text: "293 SAR",
-                    fontFamily: Assets.latoRegular,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.black900,
-                    lines: 1),
-              ],
-            ),
+            totalCalculationContainer(title: "Total Cost", value: "293 SAR"),
             CommonPadding.sizeBoxWithHeight(height: 20),
             CustomButton(
               name: "PROCESS TO CHECKOUT",
@@ -180,6 +165,28 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
       ),
     );
   }
+
+  Widget totalCalculationContainer(
+          {required String title, required String value}) =>
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          TextView.getGenericText(
+              text: title,
+              fontFamily: Assets.latoRegular,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: AppColors.black900,
+              lines: 1),
+          TextView.getGenericText(
+              text: value,
+              fontFamily: Assets.latoRegular,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: AppColors.black900,
+              lines: 1),
+        ],
+      );
 
   Widget tripOrderContainer({
     required String quantity,

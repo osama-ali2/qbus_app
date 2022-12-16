@@ -32,6 +32,7 @@ const String updateUserProfileApiUrl = "$baseNewUrl/update_profile";
 const String oneWayOrderTripApiUrl = "$baseNewUrl/oneway_orders";
 const String roundOrderTripApiUrl = "$baseNewUrl/round_orders";
 const String multiOrderTripApiUrl = "$baseNewUrl/multi_orders";
+const String ordersReviewApiUrl = "$baseNewUrl/orders_review";
 
 // Histories:
 const String tripBookingHistoryApiUrl = "$baseNewUrl/trips_booking_history";

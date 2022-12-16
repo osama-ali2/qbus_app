@@ -28,6 +28,7 @@ import '../models/error_model/ErrorResponse.dart';
 import '../models/packages/PackagesResponse.dart';
 import '../models/passenger_models/GetCountriesResponse.dart';
 import '../models/passenger_models/IdentityProofTypesResponse.dart';
+import '../models/trips/OrderReviewResponse.dart';
 
 class Models {
   //Error
@@ -58,6 +59,7 @@ class Models {
   static const String oneWayOrderTripModel = "oneWayOrderTripModel";
   static const String roundOrderTripModel = "roundOrderTripModel";
   static const String multiOrderTripModel = "multiOrderTripModel";
+  static const String ordersReviewModel = "ordersReviewModel";
 
   //Histories:
   static const String tripBookingHistoryModel = "tripBookingHistoryModel";
@@ -135,6 +137,8 @@ class Models {
         return IdentityProofTypesResponse.fromJson(json);
       case getCountriesModel:
         return GetCountriesResponse.fromJson(json);
+      case ordersReviewModel:
+        return OrderReviewResponse.fromJson(json);
       case errorModel:
         return ErrorResponse.fromJson(json);
       case validateErrorModel:

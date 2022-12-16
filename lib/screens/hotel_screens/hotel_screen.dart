@@ -5,6 +5,7 @@ import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
+import 'package:qbus/screens/hotel_screens/hotel_filter_screens/hotel_filter_screen.dart';
 import 'package:qbus/screens/hotel_screens/hotel_provider.dart';
 import 'package:qbus/screens/project_widgets/hotel_card_container_widget.dart';
 import 'package:qbus/screens/review_order_screens/review_order_screen.dart';
@@ -83,7 +84,9 @@ class _HotelScreenState extends State<HotelScreen> {
                   onTap: () async => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ReviewOrderScreen(),
+                      builder: (context) => const ReviewOrderScreen(
+                        tripId: 1,
+                      ),
                     ),
                   ),
                   child: TextView.getGenericText(
@@ -103,27 +106,37 @@ class _HotelScreenState extends State<HotelScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CommonPadding.sizeBoxWithHeight(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  "Filter",
-                  style: TextStyle(
-                    fontSize: sizes!.fontRatio * 14,
-                    fontFamily: Assets.latoRegular,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.primary,
-                    decoration: TextDecoration.underline,
-                    decorationStyle: TextDecorationStyle.solid,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HotelFilterScreen(),
                   ),
-                ),
-                CommonPadding.sizeBoxWithWidth(width: 4),
-                SvgPicture.asset(
-                  "assets/svg/filter_icon.svg",
-                  height: sizes!.heightRatio * 16,
-                  width: sizes!.widthRatio * 16,
-                ),
-              ],
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "Filter",
+                    style: TextStyle(
+                      fontSize: sizes!.fontRatio * 14,
+                      fontFamily: Assets.latoRegular,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.primary,
+                      decoration: TextDecoration.underline,
+                      decorationStyle: TextDecorationStyle.solid,
+                    ),
+                  ),
+                  CommonPadding.sizeBoxWithWidth(width: 4),
+                  SvgPicture.asset(
+                    "assets/svg/filter_icon.svg",
+                    height: sizes!.heightRatio * 16,
+                    width: sizes!.widthRatio * 16,
+                  ),
+                ],
+              ),
             ),
             CommonPadding.sizeBoxWithHeight(height: 10),
             hotelProvider.isHotelLoaded == true
@@ -275,10 +288,15 @@ class _HotelScreenState extends State<HotelScreen> {
 
     if (hotelProvider.isOneWayOrderTripSaved) {
       if (!mounted) return;
+
+      var tripId = hotelProvider.oneWayOrdersTripResponse.data!.tripId;
+
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const ReviewOrderScreen(),
+          builder: (context) => ReviewOrderScreen(
+            tripId: tripId!,
+          ),
         ),
       );
     }
