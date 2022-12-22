@@ -44,7 +44,7 @@ const String tripRatingReviewApiUrl = "$baseNewUrl/trip_review";
 const String packageRatingReviewApiUrl = "$baseNewUrl/package_review";
 
 //Hotels
-const String hotelRoomApiUrl = "$baseNewUrl/hotel_room/20";
+const String hotelRoomApiUrl = "$baseNewUrl/hotel_room/";
 
 //Identity Proof Types
 const String identityProofTypesApiUrl = "$baseNewUrl/identity_proof_types";

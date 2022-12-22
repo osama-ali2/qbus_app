@@ -48,8 +48,8 @@ class HotelProvider with ChangeNotifier {
       };
 
       /// Uncomment -> make dynamic
-      // var url = "$hotelRoomApiUrl$tripId";
-      var url = hotelRoomApiUrl;
+      var url = "$hotelRoomApiUrl$tripId";
+      // var url = hotelRoomApiUrl;
       debugPrint("URL: $url");
       debugPrint("Header: $header");
 
@@ -117,6 +117,8 @@ class HotelProvider with ChangeNotifier {
         }
         return false;
       });
+
+      _logger.d("newHotelBody: $newHotelBody");
 
       // API->Body
       final newBody = {

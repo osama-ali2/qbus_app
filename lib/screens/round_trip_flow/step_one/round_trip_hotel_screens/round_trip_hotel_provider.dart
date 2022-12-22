@@ -49,8 +49,8 @@ class RoundTripHotelProvider with ChangeNotifier {
       };
 
       /// Uncomment -> make dynamic
-      // var url = "$hotelRoomApiUrl$tripId";
-      var url = hotelRoomApiUrl;
+      var url = "$hotelRoomApiUrl$tripId";
+      // var url = hotelRoomApiUrl;
       debugPrint("URL: $url");
       debugPrint("Header: $header");
 

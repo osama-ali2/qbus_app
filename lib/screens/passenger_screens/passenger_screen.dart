@@ -174,16 +174,20 @@ class _PassengerScreenState extends State<PassengerScreen> {
       debugPrint("passengerBody: ${passengerBody.map((e) => e)} ");
     }
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => HotelScreen(
-          tripId: widget.tripId,
-          passengerCounts: widget.passengerCount.toString(),
-          paramPassengerBody: passengerBody,
-          paramAdditionalList: widget.additionalList,
+    if (passengerBody.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HotelScreen(
+            tripId: widget.tripId,
+            passengerCounts: widget.passengerCount.toString(),
+            paramPassengerBody: passengerBody,
+            paramAdditionalList: widget.additionalList,
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      Toasts.getWarningToast(text: "The fields is required");
+    }
   }
 }

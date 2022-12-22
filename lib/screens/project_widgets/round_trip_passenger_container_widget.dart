@@ -136,7 +136,7 @@ class _RoundTripPassengerContainerWidgetState
           controller: widget.idNumberController,
           padding: 0,
           validator: (val) => null,
-          inputType: TextInputType.number,
+          inputType: TextInputType.text,
           hint: "ID Number",
         ),
         CommonPadding.sizeBoxWithHeight(height: 10),
