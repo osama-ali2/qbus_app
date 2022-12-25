@@ -100,12 +100,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
             child: Padding(
                 padding: EdgeInsets.only(right: sizes!.widthRatio * 20),
                 child: GestureDetector(
-                  onTap: () async => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>  ReviewOrderScreen(tripId: 1,),
-                    ),
-                  ),
+                  onTap: () async => skipAndStepTwoTrip(),
                   child: TextView.getGenericText(
                       text: "Skip",
                       fontFamily: Assets.latoRegular,
@@ -309,6 +304,27 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
           tripFirstAdditionalList: widget.paramAdditionalList,
           paramPassengerBody: widget.paramPassengerBody,
           paramHotelBody: roundTripHotelProvider.hotelRoomBody,
+        ),
+      ),
+    );
+  }
+
+  //
+  void skipAndStepTwoTrip() async {
+    /// TODO: Uncomment Round Trip Step Two Result;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RoundTripStepTwoResult(
+          toCity: widget.toCity,
+          fromCity: widget.fromCity,
+          tripFilterModel: widget.tripFilterModel,
+          isRoundTripChecked: widget.isRoundTripChecked,
+          tripFirstPassengersCount: widget.passengerCounts,
+          firstTripModel: widget.firstTripModel,
+          tripFirstAdditionalList: widget.paramAdditionalList,
+          paramPassengerBody: widget.paramPassengerBody,
+          paramHotelBody: const [],
         ),
       ),
     );

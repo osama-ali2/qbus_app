@@ -81,14 +81,16 @@ class _HotelScreenState extends State<HotelScreen> {
             child: Padding(
                 padding: EdgeInsets.only(right: sizes!.widthRatio * 20),
                 child: GestureDetector(
-                  onTap: () async => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ReviewOrderScreen(
-                        tripId: 1,
-                      ),
-                    ),
-                  ),
+                  onTap: () async => skipAndSaveTripOrder(),
+
+                  //     Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const ReviewOrderScreen(
+                  //       tripId: 1,
+                  //     ),
+                  //   ),
+                  // ),
                   child: TextView.getGenericText(
                       text: "Skip",
                       fontFamily: Assets.latoRegular,
@@ -280,6 +282,31 @@ class _HotelScreenState extends State<HotelScreen> {
 
   Future<void> saveTripOrder() async {
     await hotelProvider.oneWayOrderTrip(
+      tripId: "${widget.tripId}",
+      passengerCounts: widget.passengerCounts,
+      paramPassengerBody: widget.paramPassengerBody,
+      additionalList: widget.paramAdditionalList,
+    );
+
+    if (hotelProvider.isOneWayOrderTripSaved) {
+      if (!mounted) return;
+
+      var tripId = hotelProvider.oneWayOrdersTripResponse.data!.tripId;
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ReviewOrderScreen(
+            tripId: tripId!,
+          ),
+        ),
+      );
+    }
+  }
+
+  // Skip And Save Trip Order
+  Future<void> skipAndSaveTripOrder() async {
+    await hotelProvider.skipAndOneWayOrderTrip(
       tripId: "${widget.tripId}",
       passengerCounts: widget.passengerCounts,
       paramPassengerBody: widget.paramPassengerBody,
