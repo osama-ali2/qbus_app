@@ -189,6 +189,10 @@ class _StepTwoSelectAdditionScreenState
         isRoundTripCounter++;
         debugPrint("isRoundTripCounter:$isRoundTripCounter");
       });
+
+      debugPrint(
+          "debug: ${widget.firstTripModel}, ${widget.passengersCount}, ${widget.tripFirstAdditionalList}, ${widget.secondTripsModel}, ${widget.paramPassengerBody}, ${widget.paramHotelBody}");
+
       await stepTwoSelectAdditionProvider.roundOrderTrip(
         tripFirstId: widget.firstTripModel!,
         passengersCount: widget.passengersCount!,
@@ -197,6 +201,7 @@ class _StepTwoSelectAdditionScreenState
         paramPassengerBody: widget.paramPassengerBody,
         paramHotelBody: widget.paramHotelBody,
       );
+
       if (stepTwoSelectAdditionProvider.isRoundOrderTripSaved == true) {
         if (!mounted) return;
         // Navigator.pushAndRemoveUntil(

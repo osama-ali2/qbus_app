@@ -37,6 +37,7 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
     isRoundOrderTripSaved = false;
   }
 
+  /// Get Additional Data
   Future<void> getAdditionalData({required String id}) async {
     try {
       // selectAdditionalList.clear();
@@ -75,6 +76,7 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
     }
   }
 
+  /// Round Order Trip
   Future<void> roundOrderTrip({
     required Trips tripFirstId,
     required List<Map<String, dynamic>> tripFirstAdditionalList,

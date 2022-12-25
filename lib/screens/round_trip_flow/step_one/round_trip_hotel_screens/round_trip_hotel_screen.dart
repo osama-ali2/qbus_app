@@ -56,8 +56,8 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
   late RoundTripHotelProvider roundTripHotelProvider;
   int currentIndex = 0;
 
-  int bookingDaysCounter = 0;
-  int numberOfRoomsCounter = 0;
+  int bookingDaysCounter = 1;
+  int numberOfRoomsCounter = 1;
 
   @override
   void initState() {
@@ -184,7 +184,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                                 Map<String, dynamic> selected = {
                                   "room_id": roomId,
                                   "rooms_number": numberOfRoomsCounter,
-                                  "days": bookingDaysCounter + 1
+                                  "days": bookingDaysCounter++
                                 };
                                 debugPrint("bookingDaysCounter:$selected");
                                 //
@@ -202,7 +202,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                                   Map<String, dynamic> selected = {
                                     "room_id": roomId,
                                     "rooms_number": numberOfRoomsCounter,
-                                    "days": bookingDaysCounter - 1
+                                    "days": bookingDaysCounter--
                                   };
                                   debugPrint("bookingDaysCounter:$selected");
                                   roundTripHotelProvider.hotelRoomBody[index]
@@ -216,7 +216,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                                     .selectNumberOfRoomsList[index]++;
                                 Map<String, dynamic> selected = {
                                   "room_id": roomId,
-                                  "rooms_number": numberOfRoomsCounter + 1,
+                                  "rooms_number": numberOfRoomsCounter++,
                                   "days": bookingDaysCounter
                                 };
                                 debugPrint("numberOfRoomsCounter:$selected");
@@ -234,7 +234,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                                       .selectNumberOfRoomsList[index]--;
                                   Map<String, dynamic> selected = {
                                     "room_id": roomId,
-                                    "rooms_number": numberOfRoomsCounter - 1,
+                                    "rooms_number": numberOfRoomsCounter--,
                                     "days": bookingDaysCounter
                                   };
                                   debugPrint("numberOfRoomsCounter:$selected");

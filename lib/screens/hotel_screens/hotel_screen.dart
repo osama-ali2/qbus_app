@@ -38,8 +38,8 @@ class _HotelScreenState extends State<HotelScreen> {
   late HotelProvider hotelProvider;
   int currentIndex = 0;
 
-  int bookingDaysCounter = 0;
-  int numberOfRoomsCounter = 0;
+  int bookingDaysCounter = 1;
+  int numberOfRoomsCounter = 1;
 
   @override
   void initState() {
@@ -185,7 +185,7 @@ class _HotelScreenState extends State<HotelScreen> {
                                 Map<String, dynamic> selected = {
                                   "room_id": roomId,
                                   "rooms_number": numberOfRoomsCounter,
-                                  "days": bookingDaysCounter + 1
+                                  "days": bookingDaysCounter++
                                 };
                                 debugPrint("bookingDaysCounter:$selected");
                                 hotelProvider.hotelRoomBody[index]
@@ -201,7 +201,7 @@ class _HotelScreenState extends State<HotelScreen> {
                                   Map<String, dynamic> selected = {
                                     "room_id": roomId,
                                     "rooms_number": numberOfRoomsCounter,
-                                    "days": bookingDaysCounter - 1
+                                    "days": bookingDaysCounter--
                                   };
                                   debugPrint("bookingDaysCounter:$selected");
                                   hotelProvider.hotelRoomBody[index]
@@ -215,7 +215,7 @@ class _HotelScreenState extends State<HotelScreen> {
                                     .selectNumberOfRoomsList[index]++;
                                 Map<String, dynamic> selected = {
                                   "room_id": roomId,
-                                  "rooms_number": numberOfRoomsCounter + 1,
+                                  "rooms_number": numberOfRoomsCounter++,
                                   "days": bookingDaysCounter
                                 };
                                 debugPrint("numberOfRoomsCounter:$selected");
