@@ -67,52 +67,78 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
       body: SafeArea(
         child: Column(
           children: [
+            CommonPadding.sizeBoxWithHeight(height: 10),
             reviewOrderProvider.isOrderReviewLoaded == true
-                ? Expanded(
-                    child: ListView.builder(
-                      itemCount: reviewOrderProvider
-                          .orderReviewResponse.data!.tripOrders!.length,
-                      itemBuilder: (context, index) {
-                        var data = reviewOrderProvider
-                            .orderReviewResponse.data!.tripOrders![index];
-                        var fromCity = data.fromCity!.name!.en.toString();
-                        var toCity = data.toCity!.name!.en.toString();
-                        var timeFrom = data.timeFrom!;
-                        var timeTo = data.timeTo!;
-
-                        if (reviewOrderProvider.orderReviewResponse.data!
-                            .tripOrders![index].hotelsRooms!.isNotEmpty) {
-                          return orderContainer(
-                              quantity: "2",
-                              title: "Hilton Honor",
-                              price: "100");
-                        } else {
-                          return tripOrderContainer(
-                              quantity: "2",
-                              fromTime: timeFrom,
-                              fromCity: fromCity,
-                              toTime: timeTo,
-                              toCity: toCity,
-                              price: "1000");
-                        }
-
-                        // if (fromCity != null) {
-                        //   return orderContainer(
-                        //       quantity: "2",
-                        //       title: "Hilton Honor",
-                        //       price: "100");
-                        // } else {
-                        //   return tripOrderContainer(
-                        //       quantity: "2",
-                        //       fromTime: "10:30",
-                        //       fromCity: "Al Makka",
-                        //       toTime: "1:30",
-                        //       toCity: "Al Madina",
-                        //       price: "1000");
-                        // }
-                      },
-                    ),
-                  )
+                ? tripOrderContainer(
+                    quantity: reviewOrderProvider
+                            .oneWayOrderReviewResponse.data?.count
+                            .toString() ??
+                        "0",
+                    fromTime: reviewOrderProvider
+                            .oneWayOrderReviewResponse.data?.timeFrom
+                            .toString() ??
+                        "null",
+                    fromCity: reviewOrderProvider
+                            .oneWayOrderReviewResponse.data?.fromCity?.name?.en
+                            .toString() ??
+                        "null",
+                    toTime: reviewOrderProvider
+                            .oneWayOrderReviewResponse.data?.timeTo
+                            .toString() ??
+                        "null",
+                    toCity: reviewOrderProvider
+                            .oneWayOrderReviewResponse.data?.toCity?.name?.en
+                            .toString() ??
+                        "null",
+                    price: reviewOrderProvider
+                            .oneWayOrderReviewResponse.data?.fees
+                            .toString() ??
+                        "00.0")
+                //  Expanded(
+                //     child: ListView.builder(
+                //       itemCount: reviewOrderProvider
+                //           .orderReviewResponse.data!.tripOrders!.length,
+                //       itemBuilder: (context, index) {
+                //         var data = reviewOrderProvider
+                //             .orderReviewResponse.data!.tripOrders![index];
+                //         var fromCity = data.fromCity!.name!.en.toString();
+                //         var toCity = data.toCity!.name!.en.toString();
+                //         var timeFrom = data.timeFrom!;
+                //         var timeTo = data.timeTo!;
+                //
+                //         if (reviewOrderProvider.orderReviewResponse.data!
+                //             .tripOrders![index].hotelsRooms!.isNotEmpty) {
+                //           return orderContainer(
+                //               quantity: "2",
+                //               title: "Hilton Honor",
+                //               price: "100");
+                //         } else {
+                //           return tripOrderContainer(
+                //               quantity: "2",
+                //               fromTime: timeFrom,
+                //               fromCity: fromCity,
+                //               toTime: timeTo,
+                //               toCity: toCity,
+                //               price: "1000");
+                //         }
+                //
+                //         // if (fromCity != null) {
+                //         //   return orderContainer(
+                //         //       quantity: "2",
+                //         //       title: "Hilton Honor",
+                //         //       price: "100");
+                //         // } else {
+                //         //   return tripOrderContainer(
+                //         //       quantity: "2",
+                //         //       fromTime: "10:30",
+                //         //       fromCity: "Al Makka",
+                //         //       toTime: "1:30",
+                //         //       toCity: "Al Madina",
+                //         //       price: "1000");
+                //         // }
+                //       },
+                //     ),
+                //   )
                 : const Center(
                     child: Text("No Data"),
                   ),
@@ -128,18 +154,34 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                   lines: 1),
             ),
             CommonPadding.sizeBoxWithHeight(height: 10),
-            totalCalculationContainer(title: "Sub Total", value: "249.05"),
+            totalCalculationContainer(title: "Sub Total", value: "00.0"),
             CommonPadding.sizeBoxWithHeight(height: 5),
-            totalCalculationContainer(title: "Discount", value: "29.05"),
+            totalCalculationContainer(
+              title: "Discount",
+              value: reviewOrderProvider
+                      .oneWayOrderReviewResponse.data?.discount
+                      .toString() ??
+                  "00.00",
+            ),
             CommonPadding.sizeBoxWithHeight(height: 5),
-            totalCalculationContainer(title: "Tax 15%", value: "49.05"),
+            totalCalculationContainer(
+              title: "Tax",
+              value: reviewOrderProvider.oneWayOrderReviewResponse.data?.tax
+                      .toString() ??
+                  "49.05",
+            ),
             CommonPadding.sizeBoxWithHeight(height: 5),
             const Divider(
               color: AppColors.borderColor,
               thickness: 1,
             ),
             CommonPadding.sizeBoxWithHeight(height: 10),
-            totalCalculationContainer(title: "Total Cost", value: "293 SAR"),
+            totalCalculationContainer(
+              title: "Total Cost",
+              value: reviewOrderProvider.oneWayOrderReviewResponse.data?.total
+                      .toString() ??
+                  "00.0",
+            ),
             CommonPadding.sizeBoxWithHeight(height: 20),
             CustomButton(
               name: "PROCESS TO CHECKOUT",
@@ -179,12 +221,13 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
               color: AppColors.black900,
               lines: 1),
           TextView.getGenericText(
-              text: value,
-              fontFamily: Assets.latoRegular,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: AppColors.black900,
-              lines: 1),
+            text: "$value SAR",
+            fontFamily: Assets.latoRegular,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: AppColors.black900,
+            lines: 1,
+          ),
         ],
       );
 
@@ -213,7 +256,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                     color: AppColors.black900,
                     lines: 1),
                 TextView.getGenericText(
-                    text: "10:30 Makkah",
+                    text: "$fromTime $fromCity",
                     fontFamily: Assets.latoRegular,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
@@ -226,7 +269,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                   color: AppColors.black900,
                 ),
                 TextView.getGenericText(
-                    text: "12:30 Al madina",
+                    text: "$toTime $toCity",
                     fontFamily: Assets.latoRegular,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,

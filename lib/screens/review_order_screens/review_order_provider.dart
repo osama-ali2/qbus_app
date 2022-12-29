@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/local_cache/utils.dart';
+import 'package:qbus/models/trips/OneWayOrderReviewResponse.dart';
 import 'package:qbus/models/trips/OrderReviewResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
 import 'package:qbus/network_manager/models.dart';
@@ -20,7 +21,9 @@ class ReviewOrderProvider with ChangeNotifier {
   final _logger = Logger();
   final _loader = Loader();
 
-  OrderReviewResponse orderReviewResponse = OrderReviewResponse();
+  // OrderReviewResponse orderReviewResponse = OrderReviewResponse();
+  OneWayOrderReviewResponse oneWayOrderReviewResponse =
+      OneWayOrderReviewResponse();
 
   bool isOrderReviewLoaded = false;
 
@@ -41,37 +44,36 @@ class ReviewOrderProvider with ChangeNotifier {
         "Authorization": "Bearer $userToken"
       };
 
-      final body = {
-        "orders_ids": [148]
-      };
+      final body = {"orders_id": tripId};
 
-      var url = ordersReviewApiUrl;
+      // var url = ordersReviewApiUrl;
+      var url = oneWayOrderOrderApiUrl;
       debugPrint("URL: $url");
       _logger.d("newBody: $body");
-      orderReviewResponse = await MyApi.callPostApi(
+      oneWayOrderReviewResponse = await MyApi.callPostApi(
         url: url,
         myHeaders: header,
         body: body,
-        modelName: Models.ordersReviewModel,
+        modelName: Models.oneWayOrderReviewModel, //Models.ordersReviewModel,
       );
 
-      if (orderReviewResponse.code == 1) {
+      if (oneWayOrderReviewResponse.code == 1) {
         _logger.d(
-            "orderReviewResponse: ${orderReviewResponse.toJson()}, ${orderReviewResponse.message.toString()}");
+            "oneWayOrderReviewResponse: ${oneWayOrderReviewResponse.toJson()}, ${oneWayOrderReviewResponse.message.toString()}");
 
         Toasts.getSuccessToast(
-          text: orderReviewResponse.message.toString(),
+          text: oneWayOrderReviewResponse.message.toString(),
         );
 
         isOrderReviewLoaded = true;
         _loader.hideLoader(context!);
         notifyListeners();
       } else {
-        _logger.e("orderReviewResponse: Something wrong");
+        _logger.e("oneWayOrderReviewResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      _logger.e("orderReviewResponseError: ${e.toString()}");
+      _logger.e("oneWayOrderReviewResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

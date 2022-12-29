@@ -52,12 +52,10 @@ class SearchProvider with ChangeNotifier {
         isTripDataLoaded = true;
         notifyListeners();
       } else {
-        debugPrint("tripsResponse: Something wrong");
         _logger.e("tripsResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      debugPrint("tripsResponseError: ${e.toString()}");
       _logger.e("tripsResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }

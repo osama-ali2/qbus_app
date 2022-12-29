@@ -28,6 +28,7 @@ import '../models/error_model/ErrorResponse.dart';
 import '../models/packages/PackagesResponse.dart';
 import '../models/passenger_models/GetCountriesResponse.dart';
 import '../models/passenger_models/IdentityProofTypesResponse.dart';
+import '../models/trips/OneWayOrderReviewResponse.dart';
 import '../models/trips/OrderReviewResponse.dart';
 
 class Models {
@@ -77,6 +78,9 @@ class Models {
 
   // Get Countries Model
   static const String getCountriesModel = "getCountriesModel";
+
+  // One Way Order Review Response
+  static const String oneWayOrderReviewModel = "oneWayOrderReviewModel";
 
   static Future<dynamic> getModelObject(
       String modelName, Map<String, dynamic> json) async {
@@ -139,6 +143,8 @@ class Models {
         return GetCountriesResponse.fromJson(json);
       case ordersReviewModel:
         return OrderReviewResponse.fromJson(json);
+      case oneWayOrderReviewModel:
+        return OneWayOrderReviewResponse.fromJson(json);
       case errorModel:
         return ErrorResponse.fromJson(json);
       case validateErrorModel:
