@@ -81,6 +81,7 @@ class Models {
 
   // One Way Order Review Response
   static const String oneWayOrderReviewModel = "oneWayOrderReviewModel";
+  static const String roundOrderReviewModel = "roundOrderReviewModel";
 
   static Future<dynamic> getModelObject(
       String modelName, Map<String, dynamic> json) async {
@@ -145,6 +146,8 @@ class Models {
         return OrderReviewResponse.fromJson(json);
       case oneWayOrderReviewModel:
         return OneWayOrderReviewResponse.fromJson(json);
+      case roundOrderReviewModel:
+        return RoundOrdersTripResponse.fromJson(json);
       case errorModel:
         return ErrorResponse.fromJson(json);
       case validateErrorModel:

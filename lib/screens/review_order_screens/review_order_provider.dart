@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/trips/OneWayOrderReviewResponse.dart';
-import 'package:qbus/models/trips/OrderReviewResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
 import 'package:qbus/network_manager/models.dart';
 import 'package:qbus/network_manager/my_api.dart';
@@ -21,7 +20,6 @@ class ReviewOrderProvider with ChangeNotifier {
   final _logger = Logger();
   final _loader = Loader();
 
-  // OrderReviewResponse orderReviewResponse = OrderReviewResponse();
   OneWayOrderReviewResponse oneWayOrderReviewResponse =
       OneWayOrderReviewResponse();
 

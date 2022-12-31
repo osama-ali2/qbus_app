@@ -212,8 +212,9 @@ class _StepTwoSelectAdditionScreenState
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const RoundTripReviewOrderScreen(
-              orderId: 1,
+            builder: (context) => RoundTripReviewOrderScreen(
+              orderId: stepTwoSelectAdditionProvider
+                  .roundOrderTripResponse.data!.tripId!,
             ),
           ),
         );

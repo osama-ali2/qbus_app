@@ -5,19 +5,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
+import 'package:qbus/screens/round_trip_flow/step_two/round_trip_review_order_screens/round_trip_review_order_provider.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
 
 class RoundTripReviewOrderScreen extends StatefulWidget {
-  final int orderId;
+  final List<int> orderId;
 
   const RoundTripReviewOrderScreen({Key? key, required this.orderId})
       : super(key: key);
@@ -29,8 +31,25 @@ class RoundTripReviewOrderScreen extends StatefulWidget {
 
 class _RoundTripReviewOrderScreenState
     extends State<RoundTripReviewOrderScreen> {
+  late RoundTripReviewOrderProvider roundTripReviewOrderProvider;
+
+  @override
+  void initState() {
+    super.initState();
+
+    roundTripReviewOrderProvider = RoundTripReviewOrderProvider();
+    roundTripReviewOrderProvider =
+        Provider.of<RoundTripReviewOrderProvider>(context, listen: false);
+    roundTripReviewOrderProvider.init(context: context);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      roundTripReviewOrderProvider.roundOrderReview(tripId: widget.orderId);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    Provider.of<RoundTripReviewOrderProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
