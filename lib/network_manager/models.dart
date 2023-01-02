@@ -19,6 +19,7 @@ import 'package:qbus/models/rating_models/PackageRatingResponse.dart';
 import 'package:qbus/models/rating_models/TripRatingResponse.dart';
 import 'package:qbus/models/trips/MultiOrdersTripResponse.dart';
 import 'package:qbus/models/trips/OneWayOrdersTripResponse.dart';
+import 'package:qbus/models/trips/RoundOrderReviewResponse.dart';
 import 'package:qbus/models/trips/RoundOrdersTripResponse.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
 import '../models/additionals/GetAdditionalResponse.dart';
@@ -147,7 +148,7 @@ class Models {
       case oneWayOrderReviewModel:
         return OneWayOrderReviewResponse.fromJson(json);
       case roundOrderReviewModel:
-        return RoundOrdersTripResponse.fromJson(json);
+        return RoundOrderReviewResponse.fromJson(json);
       case errorModel:
         return ErrorResponse.fromJson(json);
       case validateErrorModel:

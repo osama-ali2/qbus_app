@@ -78,9 +78,9 @@ class TripOrders {
     List<HotelsRooms>? hotelsRooms,
     List<Additionals>? additionals,
     int? discount,
-    double? tax,
+    int? tax,
     String? taxType,
-    double? total,
+    int? total,
   }) {
     _count = count;
     _fromCity = fromCity;
@@ -101,7 +101,7 @@ class TripOrders {
   TripOrders.fromJson(dynamic json) {
     _count = json['count'];
     _fromCity =
-    json['from_city'] != null ? FromCity.fromJson(json['from_city']) : null;
+        json['from_city'] != null ? FromCity.fromJson(json['from_city']) : null;
     _toCity = json['to_city'] != null ? ToCity.fromJson(json['to_city']) : null;
     _fees = json['fees'];
     _timeFrom = json['time_from'];
@@ -137,9 +137,9 @@ class TripOrders {
   List<HotelsRooms>? _hotelsRooms;
   List<Additionals>? _additionals;
   int? _discount;
-  double? _tax;
+  int? _tax;
   String? _taxType;
-  double? _total;
+  int? _total;
 
   int? get count => _count;
 
@@ -163,11 +163,11 @@ class TripOrders {
 
   int? get discount => _discount;
 
-  double? get tax => _tax;
+  int? get tax => _tax;
 
   String? get taxType => _taxType;
 
-  double? get total => _total;
+  int? get total => _total;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -200,7 +200,7 @@ class TripOrders {
 class Additionals {
   Additionals({
     int? id,
-    double? fees,
+    int? fees,
     int? count,
     String? name,
   }) {
@@ -218,13 +218,13 @@ class Additionals {
   }
 
   int? _id;
-  double? _fees;
+  int? _fees;
   int? _count;
   String? _name;
 
   int? get id => _id;
 
-  double? get fees => _fees;
+  int? get fees => _fees;
 
   int? get count => _count;
 
@@ -338,7 +338,6 @@ class ToCity {
   }
 }
 
-
 class FromCity {
   FromCity({
     Name? name,
@@ -362,4 +361,3 @@ class FromCity {
     return map;
   }
 }
-
