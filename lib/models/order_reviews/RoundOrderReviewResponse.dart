@@ -78,9 +78,9 @@ class TripOrders {
     List<HotelsRooms>? hotelsRooms,
     List<Additionals>? additionals,
     int? discount,
-    int? tax,
+    dynamic tax,
     String? taxType,
-    int? total,
+    dynamic total,
   }) {
     _count = count;
     _fromCity = fromCity;
@@ -137,9 +137,9 @@ class TripOrders {
   List<HotelsRooms>? _hotelsRooms;
   List<Additionals>? _additionals;
   int? _discount;
-  int? _tax;
+  dynamic _tax;
   String? _taxType;
-  int? _total;
+  dynamic _total;
 
   int? get count => _count;
 
@@ -163,11 +163,11 @@ class TripOrders {
 
   int? get discount => _discount;
 
-  int? get tax => _tax;
+  dynamic get tax => _tax;
 
   String? get taxType => _taxType;
 
-  int? get total => _total;
+  dynamic get total => _total;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

@@ -6,7 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/local_cache/utils.dart';
-import 'package:qbus/models/trips/RoundOrderReviewResponse.dart';
+import 'package:qbus/models/order_reviews/RoundOrderReviewResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
 import 'package:qbus/network_manager/models.dart';
 import 'package:qbus/network_manager/my_api.dart';

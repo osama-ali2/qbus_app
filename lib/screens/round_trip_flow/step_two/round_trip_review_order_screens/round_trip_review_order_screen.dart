@@ -17,7 +17,8 @@ import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
-import '../../../../models/trips/RoundOrderReviewResponse.dart';
+
+import '../../../../models/order_reviews/RoundOrderReviewResponse.dart';
 
 class RoundTripReviewOrderScreen extends StatefulWidget {
   final List<int> orderId;

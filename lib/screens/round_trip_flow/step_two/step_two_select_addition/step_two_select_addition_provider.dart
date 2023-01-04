@@ -92,15 +92,21 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
         "Authorization": "Bearer $userToken"
       };
 
-      final newHotelBody = [];
-      paramHotelBody.firstWhere((element) {
-        if (element['rooms_number'] > 0 && element['days'] > 0) {
-          debugPrint("elementSelected:$element");
-          newHotelBody.add(element);
-          return true;
-        }
-        return false;
-      });
+      var newHotelBody = [];
+      if (paramHotelBody.isEmpty) {
+        paramHotelBody.firstWhere(
+          (element) {
+            if (element['rooms_number'] > 0 && element['days'] > 0) {
+              debugPrint("elementSelected:$element");
+              newHotelBody.add(element);
+              return true;
+            }
+            return false;
+          },
+        );
+      } else {
+        newHotelBody = [];
+      }
 
       _logger.d("paramHotelBody: $paramHotelBody");
 
