@@ -128,8 +128,14 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                             },
                           ),
                         )
-                      : const Center(
-                          child: Text("No Hotel Rooms"),
+                      : Center(
+                          child: TextView.getGenericText(
+                              text: "No Hotel Rooms",
+                              fontFamily: Assets.latoRegular,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.black900,
+                              lines: 1),
                         ),
                   reviewOrderProvider.oneWayOrderReviewResponse.data!
                           .additionals!.isNotEmpty
@@ -157,8 +163,14 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                             },
                           ),
                         )
-                      : const Center(
-                          child: Text("No Additionals"),
+                      : Center(
+                          child: TextView.getGenericText(
+                              text: "No Additionals",
+                              fontFamily: Assets.latoRegular,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.black900,
+                              lines: 1),
                         ),
                   CommonPadding.sizeBoxWithHeight(height: 20),
                   Align(

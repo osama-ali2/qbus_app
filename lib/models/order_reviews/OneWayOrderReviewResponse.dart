@@ -51,7 +51,7 @@ class Data {
     int? discount,
     double? tax,
     String? taxType,
-    double? total,
+    int? total,
   }) {
     _count = count;
     _fromCity = fromCity;
@@ -110,7 +110,7 @@ class Data {
   int? _discount;
   double? _tax;
   String? _taxType;
-  double? _total;
+  int? _total;
 
   int? get count => _count;
 
@@ -138,7 +138,7 @@ class Data {
 
   String? get taxType => _taxType;
 
-  double? get total => _total;
+  int? get total => _total;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -171,7 +171,7 @@ class Data {
 class Additionals {
   Additionals({
     int? id,
-    double? fees,
+    int? fees,
     int? count,
     String? name,
   }) {
@@ -189,13 +189,13 @@ class Additionals {
   }
 
   int? _id;
-  double? _fees;
+  int? _fees;
   int? _count;
   String? _name;
 
   int? get id => _id;
 
-  double? get fees => _fees;
+  int? get fees => _fees;
 
   int? get count => _count;
 
@@ -213,7 +213,7 @@ class Additionals {
 
 class HotelsRooms {
   HotelsRooms({
-    int? days,
+    String? days,
     Name? name,
     int? fees,
   }) {
@@ -228,11 +228,11 @@ class HotelsRooms {
     _fees = json['fees'];
   }
 
-  int? _days;
+  String? _days;
   Name? _name;
   int? _fees;
 
-  int? get days => _days;
+  String? get days => _days;
 
   Name? get name => _name;
 

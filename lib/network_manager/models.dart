@@ -11,6 +11,7 @@ import 'package:qbus/models/booking_history_model/TripHistoryResponse.dart';
 import 'package:qbus/models/contact_us/GetContactUsResponse.dart';
 import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
 import 'package:qbus/models/hotel/hotel_room_response.dart';
+import 'package:qbus/models/order_reviews/OneWayOrderReviewResponse.dart';
 import 'package:qbus/models/packages/PackageDetailResponse.dart';
 import 'package:qbus/models/privacy_policy/PrivacyPolicyResponse.dart';
 import 'package:qbus/models/privacy_policy/ReturnPolicyResponse.dart';
@@ -29,7 +30,6 @@ import '../models/error_model/ErrorResponse.dart';
 import '../models/packages/PackagesResponse.dart';
 import '../models/passenger_models/GetCountriesResponse.dart';
 import '../models/passenger_models/IdentityProofTypesResponse.dart';
-import '../models/trips/OneWayOrderReviewResponse.dart';
 import '../models/trips/OrderReviewResponse.dart';
 
 class Models {
