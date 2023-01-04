@@ -30,12 +30,8 @@ class PassengerScreen extends StatefulWidget {
 class _PassengerScreenState extends State<PassengerScreen> {
   late PassengerProvider passengerProvider;
 
-  final fullNameController = TextEditingController();
-  final idNumberController = TextEditingController();
-
   final List<TextEditingController> _controllers = [];
   final List<Widget> _fields = [];
-
   final List<Map<String, dynamic>> passengerBody = [];
 
   /// Fields
@@ -65,10 +61,12 @@ class _PassengerScreenState extends State<PassengerScreen> {
 
   @override
   void dispose() {
+    super.dispose();
     for (final controller in _controllers) {
       controller.dispose();
     }
-    super.dispose();
+    _fullNameControllers.clear();
+    _idNumberControllers.clear();
   }
 
   void addFields() {
