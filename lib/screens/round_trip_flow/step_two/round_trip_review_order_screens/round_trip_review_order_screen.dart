@@ -72,26 +72,29 @@ class _RoundTripReviewOrderScreenState
                       itemCount: roundTripReviewOrderProvider
                           .roundOrderReviewResponse.data!.tripOrders!.length,
                       itemBuilder: (context, index) {
-                        var data = roundTripReviewOrderProvider
+                        var dataTrip = roundTripReviewOrderProvider
                             .roundOrderReviewResponse.data!.tripOrders![index];
 
+                        /// Data
+                        var data = roundTripReviewOrderProvider
+                            .roundOrderReviewResponse.data!;
                         var discount = data.discount.toString();
                         var taxValue = data.tax.toString();
                         var total = data.total.toString();
-
                         var fees = data.fees.toString();
-                        var timeFrom = data.timeFrom.toString();
-                        var timeTo = data.timeTo.toString();
-                        var dateFrom = data.dateFrom.toString();
-                        var dateTo = data.dateTo.toString();
-                        var fromCity = data.fromCity!.name!.en.toString();
-                        var toCity = data.toCity!.name!.en.toString();
-                        var count = data.count.toString();
 
-                        var hotelRoomsLength = data.hotelsRooms!.length;
-                        var additionalLength = data.additionals!.length;
-                        var hotelRoomsData = data.hotelsRooms;
-                        var additionalData = data.additionals;
+                        var timeFrom = dataTrip.timeFrom.toString();
+                        var timeTo = dataTrip.timeTo.toString();
+                        var dateFrom = dataTrip.dateFrom.toString();
+                        var dateTo = dataTrip.dateTo.toString();
+                        var fromCity = dataTrip.fromCity!.name!.en.toString();
+                        var toCity = dataTrip.toCity!.name!.en.toString();
+                        var count = dataTrip.count.toString();
+
+                        var hotelRoomsLength = dataTrip.hotelsRooms!.length;
+                        var additionalLength = dataTrip.additionals!.length;
+                        var hotelRoomsData = dataTrip.hotelsRooms;
+                        var additionalData = dataTrip.additionals;
 
                         return Padding(
                             padding: EdgeInsets.symmetric(
@@ -115,6 +118,107 @@ class _RoundTripReviewOrderScreenState
                                 hotelsRoomsData: hotelRoomsData!));
                       },
                     ),
+                  ),
+                  CommonPadding.sizeBoxWithHeight(height: 20),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: TextView.getGenericText(
+                        text: "Total",
+                        fontFamily: Assets.latoRegular,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.black900,
+                        lines: 1),
+                  ),
+                  CommonPadding.sizeBoxWithHeight(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextView.getGenericText(
+                          text: "Sub Total",
+                          fontFamily: Assets.latoRegular,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.black900,
+                          lines: 1),
+                      TextView.getGenericText(
+                          text: "00.00",
+                          fontFamily: Assets.latoRegular,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.black900,
+                          lines: 1),
+                    ],
+                  ),
+                  CommonPadding.sizeBoxWithHeight(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextView.getGenericText(
+                          text: "Discount",
+                          fontFamily: Assets.latoRegular,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.black900,
+                          lines: 1),
+                      TextView.getGenericText(
+                          text: roundTripReviewOrderProvider
+                              .roundOrderReviewResponse.data!.discount
+                              .toString(),
+                          fontFamily: Assets.latoRegular,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.black900,
+                          lines: 1),
+                    ],
+                  ),
+                  CommonPadding.sizeBoxWithHeight(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextView.getGenericText(
+                          text: "Tax 15%",
+                          fontFamily: Assets.latoRegular,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.black900,
+                          lines: 1),
+                      TextView.getGenericText(
+                          text: roundTripReviewOrderProvider
+                              .roundOrderReviewResponse.data!.tax
+                              .toString(),
+                          fontFamily: Assets.latoRegular,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.black900,
+                          lines: 1),
+                    ],
+                  ),
+                  CommonPadding.sizeBoxWithHeight(height: 5),
+                  const Divider(
+                    color: AppColors.borderColor,
+                    thickness: 1,
+                  ),
+                  CommonPadding.sizeBoxWithHeight(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextView.getGenericText(
+                          text: "Total Cost",
+                          fontFamily: Assets.latoRegular,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.black900,
+                          lines: 1),
+                      TextView.getGenericText(
+                          text:
+                              "${roundTripReviewOrderProvider.roundOrderReviewResponse.data!.total.toString()} SAR",
+                          fontFamily: Assets.latoRegular,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.black900,
+                          lines: 1),
+                    ],
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 20),
                   CustomButton(
@@ -190,102 +294,6 @@ class _RoundTripReviewOrderScreenState
               title: hotelsRoomsData[i].name!.en.toString(),
               price: hotelsRoomsData[i].fees.toString(),
             ),
-          CommonPadding.sizeBoxWithHeight(height: 20),
-          Align(
-            alignment: Alignment.topLeft,
-            child: TextView.getGenericText(
-                text: "Total",
-                fontFamily: Assets.latoRegular,
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color: AppColors.black900,
-                lines: 1),
-          ),
-          CommonPadding.sizeBoxWithHeight(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextView.getGenericText(
-                  text: "Sub Total",
-                  fontFamily: Assets.latoRegular,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black900,
-                  lines: 1),
-              TextView.getGenericText(
-                  text: "00.00",
-                  fontFamily: Assets.latoRegular,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black900,
-                  lines: 1),
-            ],
-          ),
-          CommonPadding.sizeBoxWithHeight(height: 5),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextView.getGenericText(
-                  text: "Discount",
-                  fontFamily: Assets.latoRegular,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black900,
-                  lines: 1),
-              TextView.getGenericText(
-                  text: discount,
-                  fontFamily: Assets.latoRegular,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black900,
-                  lines: 1),
-            ],
-          ),
-          CommonPadding.sizeBoxWithHeight(height: 5),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextView.getGenericText(
-                  text: "Tax 15%",
-                  fontFamily: Assets.latoRegular,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black900,
-                  lines: 1),
-              TextView.getGenericText(
-                  text: taxValue,
-                  fontFamily: Assets.latoRegular,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black900,
-                  lines: 1),
-            ],
-          ),
-          CommonPadding.sizeBoxWithHeight(height: 5),
-          const Divider(
-            color: AppColors.borderColor,
-            thickness: 1,
-          ),
-          CommonPadding.sizeBoxWithHeight(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextView.getGenericText(
-                  text: "Total Cost",
-                  fontFamily: Assets.latoRegular,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.black900,
-                  lines: 1),
-              TextView.getGenericText(
-                  text: "$total SAR",
-                  fontFamily: Assets.latoRegular,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.black900,
-                  lines: 1),
-            ],
-          ),
         ],
       );
 

@@ -39,8 +39,16 @@ class RoundOrderReviewResponse {
 class Data {
   Data({
     List<TripOrders>? tripOrders,
+    int? fees,
+    int? discount,
+    dynamic tax,
+    dynamic total,
   }) {
     _tripOrders = tripOrders;
+    _fees = fees;
+    _discount = discount;
+    _tax = tax;
+    _total = total;
   }
 
   Data.fromJson(dynamic json) {
@@ -50,17 +58,37 @@ class Data {
         _tripOrders?.add(TripOrders.fromJson(v));
       });
     }
+    _fees = json['fees'];
+    _discount = json['discount'];
+    _tax = json['tax'];
+    _total = json['total'];
   }
 
   List<TripOrders>? _tripOrders;
+  int? _fees;
+  int? _discount;
+  dynamic _tax;
+  dynamic _total;
 
   List<TripOrders>? get tripOrders => _tripOrders;
+
+  int? get fees => _fees;
+
+  int? get discount => _discount;
+
+  dynamic get tax => _tax;
+
+  dynamic get total => _total;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     if (_tripOrders != null) {
       map['trip_orders'] = _tripOrders?.map((v) => v.toJson()).toList();
     }
+    map['fees'] = _fees;
+    map['discount'] = _discount;
+    map['tax'] = _tax;
+    map['total'] = _total;
     return map;
   }
 }
@@ -70,32 +98,24 @@ class TripOrders {
     int? count,
     FromCity? fromCity,
     ToCity? toCity,
-    int? fees,
     String? timeFrom,
     String? timeTo,
     String? dateFrom,
     String? dateTo,
     List<HotelsRooms>? hotelsRooms,
     List<Additionals>? additionals,
-    int? discount,
-    dynamic tax,
     String? taxType,
-    dynamic total,
   }) {
     _count = count;
     _fromCity = fromCity;
     _toCity = toCity;
-    _fees = fees;
     _timeFrom = timeFrom;
     _timeTo = timeTo;
     _dateFrom = dateFrom;
     _dateTo = dateTo;
     _hotelsRooms = hotelsRooms;
     _additionals = additionals;
-    _discount = discount;
-    _tax = tax;
     _taxType = taxType;
-    _total = total;
   }
 
   TripOrders.fromJson(dynamic json) {
@@ -103,7 +123,6 @@ class TripOrders {
     _fromCity =
         json['from_city'] != null ? FromCity.fromJson(json['from_city']) : null;
     _toCity = json['to_city'] != null ? ToCity.fromJson(json['to_city']) : null;
-    _fees = json['fees'];
     _timeFrom = json['time_from'];
     _timeTo = json['time_to'];
     _dateFrom = json['date_from'];
@@ -120,34 +139,25 @@ class TripOrders {
         _additionals?.add(Additionals.fromJson(v));
       });
     }
-    _discount = json['discount'];
-    _tax = json['tax'];
     _taxType = json['tax_type'];
-    _total = json['total'];
   }
 
   int? _count;
   FromCity? _fromCity;
   ToCity? _toCity;
-  int? _fees;
   String? _timeFrom;
   String? _timeTo;
   String? _dateFrom;
   String? _dateTo;
   List<HotelsRooms>? _hotelsRooms;
   List<Additionals>? _additionals;
-  int? _discount;
-  dynamic _tax;
   String? _taxType;
-  dynamic _total;
 
   int? get count => _count;
 
   FromCity? get fromCity => _fromCity;
 
   ToCity? get toCity => _toCity;
-
-  int? get fees => _fees;
 
   String? get timeFrom => _timeFrom;
 
@@ -161,13 +171,7 @@ class TripOrders {
 
   List<Additionals>? get additionals => _additionals;
 
-  int? get discount => _discount;
-
-  dynamic get tax => _tax;
-
   String? get taxType => _taxType;
-
-  dynamic get total => _total;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -178,7 +182,6 @@ class TripOrders {
     if (_toCity != null) {
       map['to_city'] = _toCity?.toJson();
     }
-    map['fees'] = _fees;
     map['time_from'] = _timeFrom;
     map['time_to'] = _timeTo;
     map['date_from'] = _dateFrom;
@@ -189,10 +192,7 @@ class TripOrders {
     if (_additionals != null) {
       map['additionals'] = _additionals?.map((v) => v.toJson()).toList();
     }
-    map['discount'] = _discount;
-    map['tax'] = _tax;
     map['tax_type'] = _taxType;
-    map['total'] = _total;
     return map;
   }
 }
@@ -278,42 +278,6 @@ class HotelsRooms {
   }
 }
 
-class Name {
-  Name({
-    String? en,
-    String? ar,
-    String? ur,
-  }) {
-    _en = en;
-    _ar = ar;
-    _ur = ur;
-  }
-
-  Name.fromJson(dynamic json) {
-    _en = json['en'];
-    _ar = json['ar'];
-    _ur = json['ur'];
-  }
-
-  String? _en;
-  String? _ar;
-  String? _ur;
-
-  String? get en => _en;
-
-  String? get ar => _ar;
-
-  String? get ur => _ur;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['en'] = _en;
-    map['ar'] = _ar;
-    map['ur'] = _ur;
-    return map;
-  }
-}
-
 class ToCity {
   ToCity({
     Name? name,
@@ -358,6 +322,42 @@ class FromCity {
     if (_name != null) {
       map['name'] = _name?.toJson();
     }
+    return map;
+  }
+}
+
+class Name {
+  Name({
+    String? en,
+    String? ar,
+    String? ur,
+  }) {
+    _en = en;
+    _ar = ar;
+    _ur = ur;
+  }
+
+  Name.fromJson(dynamic json) {
+    _en = json['en'];
+    _ar = json['ar'];
+    _ur = json['ur'];
+  }
+
+  String? _en;
+  String? _ar;
+  String? _ur;
+
+  String? get en => _en;
+
+  String? get ar => _ar;
+
+  String? get ur => _ur;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['en'] = _en;
+    map['ar'] = _ar;
+    map['ur'] = _ur;
     return map;
   }
 }
