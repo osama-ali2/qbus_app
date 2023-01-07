@@ -18,25 +18,28 @@ import '../../project_widgets/filter_container_widget.dart';
 import 'round_trip_step_two_provider.dart';
 
 class RoundTripStepTwoResult extends StatefulWidget {
-  final TripFilterModel? tripFilterModel;
-  final String? fromCity;
-  final String? toCity;
-  final bool? isRoundTripChecked;
-  final Trips? firstTripModel;
-  final String? tripFirstPassengersCount;
-  final List<Map<String, dynamic>>? tripFirstAdditionalList;
+  final TripFilterModel tripFilterModel;
+  final String fromCity;
+  final String toCity;
+  final bool isRoundTripChecked;
+  final Trips firstTripModel;
+  final String tripFirstPassengersCount;
+  final List<Map<String, dynamic>> tripFirstAdditionalList;
+  final List<Map<String, dynamic>> paramPassengerBody;
+  final List<Map<String, dynamic>> paramHotelBody;
 
-  const RoundTripStepTwoResult(
-      {Key? key,
-      this.tripFilterModel,
-      this.fromCity,
-      this.toCity,
-      this.isRoundTripChecked,
-      // this.passengersCount,
-      this.firstTripModel,
-      this.tripFirstPassengersCount,
-      this.tripFirstAdditionalList})
-      : super(key: key);
+  const RoundTripStepTwoResult({
+    Key? key,
+    required this.tripFilterModel,
+    required this.fromCity,
+    required this.toCity,
+    required this.isRoundTripChecked,
+    // this.passengersCount,
+    required this.firstTripModel,
+    required this.tripFirstPassengersCount,
+    required this.tripFirstAdditionalList,
+    required this.paramPassengerBody, required this.paramHotelBody,
+  }) : super(key: key);
 
   @override
   State<RoundTripStepTwoResult> createState() => _RoundTripStepTwoResultState();
@@ -66,13 +69,13 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
           debugPrint("EndingIndex: $index");
         });
         roundTripStepTwoProvider.getTripsData(
-            tripFilterModel: widget.tripFilterModel!, offset: index);
+            tripFilterModel: widget.tripFilterModel, offset: index);
       }
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Load Trip
       roundTripStepTwoProvider.getTripsData(
-          tripFilterModel: widget.tripFilterModel!, offset: index);
+          tripFilterModel: widget.tripFilterModel, offset: index);
     });
 
     debugPrint("isRoundTripChecked: ${widget.isRoundTripChecked}");
@@ -87,10 +90,11 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "${widget.fromCity ?? ""} - ${widget.toCity ?? ""}",
-            textSize: 18,
-            fontWeight: FontWeight.w400,
-            textColor: Colors.white),
+          text: "${widget.fromCity} - ${widget.toCity}",
+          textSize: 18,
+          fontWeight: FontWeight.w400,
+          textColor: Colors.white,
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -143,14 +147,17 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
                                       passengersCount:
                                           widget.tripFirstPassengersCount,
                                       toCityId:
-                                          widget.tripFilterModel!.to_city_id,
+                                          widget.tripFilterModel.to_city_id,
                                       fromCityId:
-                                          widget.tripFilterModel!.from_city_id,
+                                          widget.tripFilterModel.from_city_id,
                                       firstTripModel: widget.firstTripModel,
                                       tripFirstAdditionalList:
                                           widget.tripFirstAdditionalList,
                                       tripFirstPassengersCount:
                                           widget.tripFirstPassengersCount,
+                                      paramPassengerBody:
+                                          widget.paramPassengerBody,
+                                      paramHotelBody: widget.paramHotelBody,
                                     ),
                                   );
                                 },

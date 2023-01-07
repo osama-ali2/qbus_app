@@ -103,18 +103,17 @@ class StepOneSelectAdditionProvider with ChangeNotifier {
 
       if (roundOrderTripResponse.code == 1) {
         _logger.d(
-            "roundOrderTripResponse: ${roundOrderTripResponse.toJson()}, ${roundOrderTripResponse.data!.message.toString()}");
+            "roundOrderTripResponse: ${roundOrderTripResponse.toJson()}, ${roundOrderTripResponse.toString()}");
         _loader.hideLoader(context!);
         isRoundOrderTripSaved = true;
         additionalList.clear();
         notifyListeners();
       } else {
-        debugPrint("roundOrderTripResponse: Something wrong");
-        _logger.i("roundOrderTripResponse: Something wrong");
+        _logger.e("roundOrderTripResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      _logger.i("roundOrderTripResponseError: ${e.toString()}");
+      _logger.e("roundOrderTripResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

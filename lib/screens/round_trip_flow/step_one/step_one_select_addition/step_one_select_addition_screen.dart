@@ -8,14 +8,13 @@ import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/strings.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
-import 'package:qbus/screens/passenger_screens/passenger_screen.dart';
-import 'package:qbus/screens/round_trip_flow/step_one/step_one_select_addition/step_one_select_addition_provider.dart';
-import 'package:qbus/screens/round_trip_flow/step_two/round_trip_step_two_result.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
 
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
+import '../round_trip_passenger_screens/round_trip_passenger_screen.dart';
+import 'step_one_select_addition_provider.dart';
 
 class StepOneSelectAdditionScreen extends StatefulWidget {
   final String? tripId;
@@ -122,22 +121,44 @@ class _StepOneSelectAdditionScreenState
                         debugPrint(
                             "firstTripModelID: ${widget.firstTripsModel!.id} passengersCount: ${widget.passengersCount}, additionalList: ${stepOneSelectAdditionProvider.additionalList}");
 
-                        /// TODO: Uncomment Round Trip Step Two Result;
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => RoundTripStepTwoResult(
-                              toCity: widget.toCity,
-                              fromCity: widget.fromCity,
-                              tripFilterModel: widget.tripFilterModel,
-                              isRoundTripChecked: widget.isRoundTripChecked,
-                              tripFirstPassengersCount: widget.passengersCount,
-                              firstTripModel: widget.firstTripsModel,
+                            builder: (context) => RoundTripPassengerScreen(
+                              passengerCount:
+                                  int.parse(widget.passengersCount!),
+                              tripId: int.parse(widget.tripId!),
+                              additionalList:
+                                  stepOneSelectAdditionProvider.additionalList,
+                              tripFilterModel: widget.tripFilterModel!,
+                              fromCity: widget.fromCity!,
+                              toCity: widget.toCity!,
+                              isRoundTripChecked: widget.isRoundTripChecked!,
+                              firstTripModel: widget.firstTripsModel!,
+                              tripFirstPassengersCount:
+                                  widget.passengersCount.toString(),
                               tripFirstAdditionalList:
                                   stepOneSelectAdditionProvider.additionalList,
                             ),
                           ),
                         );
+
+                        /// TODO: Uncomment Round Trip Step Two Result;
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => RoundTripStepTwoResult(
+                        //       toCity: widget.toCity,
+                        //       fromCity: widget.fromCity,
+                        //       tripFilterModel: widget.tripFilterModel,
+                        //       isRoundTripChecked: widget.isRoundTripChecked,
+                        //       tripFirstPassengersCount: widget.passengersCount,
+                        //       firstTripModel: widget.firstTripsModel,
+                        //       tripFirstAdditionalList:
+                        //           stepOneSelectAdditionProvider.additionalList,
+                        //     ),
+                        //   ),
+                        // );
                       },
                       padding: 20),
                   const SizedBox(

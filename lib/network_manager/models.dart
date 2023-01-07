@@ -1,4 +1,5 @@
 import 'package:qbus/models/about_us/GetAboutUsResponse.dart';
+import 'package:qbus/models/additionals/GetAdditionalResponse.dart';
 import 'package:qbus/models/additionals/PackageAdditionalsResponse.dart';
 import 'package:qbus/models/additionals/TripAdditionalsResponse.dart';
 import 'package:qbus/models/auth/ForgotPasswordResponse.dart';
@@ -7,11 +8,19 @@ import 'package:qbus/models/auth/LoginResponse.dart';
 import 'package:qbus/models/auth/LogoutResponse.dart';
 import 'package:qbus/models/auth/SignUpResponse.dart';
 import 'package:qbus/models/auth/UserResponse.dart';
+import 'package:qbus/models/booking_history_model/PackageHistoryResponse.dart';
 import 'package:qbus/models/booking_history_model/TripHistoryResponse.dart';
+import 'package:qbus/models/cities/GetCitiesResponse.dart';
 import 'package:qbus/models/contact_us/GetContactUsResponse.dart';
+import 'package:qbus/models/error_model/ErrorResponse.dart';
 import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
 import 'package:qbus/models/hotel/hotel_room_response.dart';
+import 'package:qbus/models/order_reviews/OneWayOrderReviewResponse.dart';
+import 'package:qbus/models/order_reviews/RoundOrderReviewResponse.dart';
 import 'package:qbus/models/packages/PackageDetailResponse.dart';
+import 'package:qbus/models/packages/PackagesResponse.dart';
+import 'package:qbus/models/passenger_models/GetCountriesResponse.dart';
+import 'package:qbus/models/passenger_models/IdentityProofTypesResponse.dart';
 import 'package:qbus/models/privacy_policy/PrivacyPolicyResponse.dart';
 import 'package:qbus/models/privacy_policy/ReturnPolicyResponse.dart';
 import 'package:qbus/models/profile/UpdateUserProfileResponse.dart';
@@ -19,15 +28,9 @@ import 'package:qbus/models/rating_models/PackageRatingResponse.dart';
 import 'package:qbus/models/rating_models/TripRatingResponse.dart';
 import 'package:qbus/models/trips/MultiOrdersTripResponse.dart';
 import 'package:qbus/models/trips/OneWayOrdersTripResponse.dart';
+import 'package:qbus/models/trips/OrderReviewResponse.dart';
 import 'package:qbus/models/trips/RoundOrdersTripResponse.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
-import '../models/additionals/GetAdditionalResponse.dart';
-import '../models/booking_history_model/PackageHistoryResponse.dart';
-import '../models/cities/GetCitiesResponse.dart';
-import '../models/error_model/ErrorResponse.dart';
-import '../models/packages/PackagesResponse.dart';
-import '../models/passenger_models/GetCountriesResponse.dart';
-import '../models/passenger_models/IdentityProofTypesResponse.dart';
 
 class Models {
   //Error
@@ -58,6 +61,7 @@ class Models {
   static const String oneWayOrderTripModel = "oneWayOrderTripModel";
   static const String roundOrderTripModel = "roundOrderTripModel";
   static const String multiOrderTripModel = "multiOrderTripModel";
+  static const String ordersReviewModel = "ordersReviewModel";
 
   //Histories:
   static const String tripBookingHistoryModel = "tripBookingHistoryModel";
@@ -75,6 +79,10 @@ class Models {
 
   // Get Countries Model
   static const String getCountriesModel = "getCountriesModel";
+
+  // One Way Order Review Response
+  static const String oneWayOrderReviewModel = "oneWayOrderReviewModel";
+  static const String roundOrderReviewModel = "roundOrderReviewModel";
 
   static Future<dynamic> getModelObject(
       String modelName, Map<String, dynamic> json) async {
@@ -135,6 +143,12 @@ class Models {
         return IdentityProofTypesResponse.fromJson(json);
       case getCountriesModel:
         return GetCountriesResponse.fromJson(json);
+      case ordersReviewModel:
+        return OrderReviewResponse.fromJson(json);
+      case oneWayOrderReviewModel:
+        return OneWayOrderReviewResponse.fromJson(json);
+      case roundOrderReviewModel:
+        return RoundOrderReviewResponse.fromJson(json);
       case errorModel:
         return ErrorResponse.fromJson(json);
       case validateErrorModel:

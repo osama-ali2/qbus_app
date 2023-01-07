@@ -9,18 +9,17 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/custom_textField.dart';
+import '../round_trip_flow/step_one/round_trip_passenger_screens/round_trip_passenger_provider.dart';
 
-import '../passenger_screens/passenger_provider.dart';
-
-class PassengerContainerWidget extends StatefulWidget {
+class RoundTripPassengerContainerWidget extends StatefulWidget {
   final String passengerNumber;
   final TextEditingController fullNameController;
   final TextEditingController idNumberController;
   String selectedCountry;
   String selectedIdentityType;
-  PassengerProvider passengerProvider;
+  RoundTripPassengerProvider passengerProvider;
 
-  PassengerContainerWidget({
+  RoundTripPassengerContainerWidget({
     Key? key,
     required this.passengerNumber,
     required this.fullNameController,
@@ -31,19 +30,21 @@ class PassengerContainerWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<PassengerContainerWidget> createState() =>
-      _PassengerContainerWidgetState();
+  State<RoundTripPassengerContainerWidget> createState() =>
+      _RoundTripPassengerContainerWidgetState();
 }
 
-class _PassengerContainerWidgetState extends State<PassengerContainerWidget> {
-  late PassengerProvider passengerProvider;
+class _RoundTripPassengerContainerWidgetState
+    extends State<RoundTripPassengerContainerWidget> {
+  late RoundTripPassengerProvider passengerProvider;
 
   @override
   void initState() {
     super.initState();
 
-    passengerProvider = PassengerProvider();
-    passengerProvider = Provider.of<PassengerProvider>(context, listen: false);
+    passengerProvider = RoundTripPassengerProvider();
+    passengerProvider =
+        Provider.of<RoundTripPassengerProvider>(context, listen: false);
     passengerProvider.init(context: context);
     //
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -57,7 +58,7 @@ class _PassengerContainerWidgetState extends State<PassengerContainerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<PassengerProvider>(context, listen: true);
+    Provider.of<RoundTripPassengerProvider>(context, listen: true);
     debugPrint("passengerNumberRebuild: ${widget.passengerNumber}");
 
     return Column(

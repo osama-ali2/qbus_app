@@ -1,41 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/models/TripFilterModel.dart';
+import 'package:qbus/models/trips/TripsResponse.dart';
 import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
-import 'package:qbus/screens/hotel_screens/hotel_filter_screens/hotel_filter_screen.dart';
-import 'package:qbus/screens/hotel_screens/hotel_provider.dart';
+import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/project_widgets/hotel_card_container_widget.dart';
 import 'package:qbus/screens/review_order_screens/review_order_screen.dart';
+import 'package:qbus/screens/round_trip_flow/step_two/round_trip_step_two_result.dart';
+import 'package:qbus/utils/constant.dart';
+import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
-import '../../res/res.dart';
-import '../../utils/constant.dart';
-import '../../widgets/custom_button.dart';
 
-class HotelScreen extends StatefulWidget {
+import 'round_trip_hotel_provider.dart';
+
+class RoundTripHotelScreen extends StatefulWidget {
   final int tripId;
-
   final String passengerCounts;
   final List<Map<String, dynamic>> paramPassengerBody;
   final List<Map<String, dynamic>> paramAdditionalList;
 
-  const HotelScreen({
+// Trip Data
+  final TripFilterModel tripFilterModel;
+  final String fromCity;
+  final String toCity;
+  final bool isRoundTripChecked;
+  final Trips firstTripModel;
+  final String tripFirstPassengersCount;
+  final List<Map<String, dynamic>> tripFirstAdditionalList;
+
+  const RoundTripHotelScreen({
     Key? key,
     required this.tripId,
     required this.passengerCounts,
     required this.paramPassengerBody,
     required this.paramAdditionalList,
+    required this.tripFilterModel,
+    required this.fromCity,
+    required this.toCity,
+    required this.isRoundTripChecked,
+    required this.firstTripModel,
+    required this.tripFirstPassengersCount,
+    required this.tripFirstAdditionalList,
   }) : super(key: key);
 
   @override
-  State<HotelScreen> createState() => _HotelScreenState();
+  State<RoundTripHotelScreen> createState() => _RoundTripHotelScreenState();
 }
 
-class _HotelScreenState extends State<HotelScreen> {
-  late HotelProvider hotelProvider;
+class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
+  late RoundTripHotelProvider roundTripHotelProvider;
   int currentIndex = 0;
 
   int bookingDaysCounter = 1;
@@ -45,12 +63,13 @@ class _HotelScreenState extends State<HotelScreen> {
   void initState() {
     super.initState();
 
-    hotelProvider = HotelProvider();
-    hotelProvider = Provider.of<HotelProvider>(context, listen: false);
-    hotelProvider.init(context: context);
+    roundTripHotelProvider = RoundTripHotelProvider();
+    roundTripHotelProvider =
+        Provider.of<RoundTripHotelProvider>(context, listen: false);
+    roundTripHotelProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      hotelProvider.getHotels(tripId: widget.tripId);
+      roundTripHotelProvider.getHotels(tripId: widget.tripId);
     });
   }
 
@@ -58,14 +77,14 @@ class _HotelScreenState extends State<HotelScreen> {
   void dispose() {
     super.dispose();
 
-    hotelProvider.selectBookingDaysList.clear();
-    hotelProvider.selectNumberOfRoomsList.clear();
-    hotelProvider.hotelRoomBody.clear();
+    roundTripHotelProvider.selectBookingDaysList.clear();
+    roundTripHotelProvider.selectNumberOfRoomsList.clear();
+    roundTripHotelProvider.hotelRoomBody.clear();
   }
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<HotelProvider>(context, listen: true);
+    Provider.of<RoundTripHotelProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
@@ -81,16 +100,7 @@ class _HotelScreenState extends State<HotelScreen> {
             child: Padding(
                 padding: EdgeInsets.only(right: sizes!.widthRatio * 20),
                 child: GestureDetector(
-                  onTap: () async => skipAndSaveTripOrder(),
-
-                  //     Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const ReviewOrderScreen(
-                  //       tripId: 1,
-                  //     ),
-                  //   ),
-                  // ),
+                  onTap: () async => skipAndStepTwoTrip(),
                   child: TextView.getGenericText(
                       text: "Skip",
                       fontFamily: Assets.latoRegular,
@@ -108,60 +118,48 @@ class _HotelScreenState extends State<HotelScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CommonPadding.sizeBoxWithHeight(height: 10),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HotelFilterScreen(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  "Filter",
+                  style: TextStyle(
+                    fontSize: sizes!.fontRatio * 14,
+                    fontFamily: Assets.latoRegular,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.primary,
+                    decoration: TextDecoration.underline,
+                    decorationStyle: TextDecorationStyle.solid,
                   ),
-                );
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    "Filter",
-                    style: TextStyle(
-                      fontSize: sizes!.fontRatio * 14,
-                      fontFamily: Assets.latoRegular,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.primary,
-                      decoration: TextDecoration.underline,
-                      decorationStyle: TextDecorationStyle.solid,
-                    ),
-                  ),
-                  CommonPadding.sizeBoxWithWidth(width: 4),
-                  SvgPicture.asset(
-                    "assets/svg/filter_icon.svg",
-                    height: sizes!.heightRatio * 16,
-                    width: sizes!.widthRatio * 16,
-                  ),
-                ],
-              ),
+                ),
+                CommonPadding.sizeBoxWithWidth(width: 4),
+                SvgPicture.asset(
+                  "assets/svg/filter_icon.svg",
+                  height: sizes!.heightRatio * 16,
+                  width: sizes!.widthRatio * 16,
+                ),
+              ],
             ),
             CommonPadding.sizeBoxWithHeight(height: 10),
-            hotelProvider.isHotelLoaded == true
+            roundTripHotelProvider.isHotelLoaded == true
                 ? Expanded(
                     child: ListView.builder(
-                      itemCount:
-                          hotelProvider.hotelRoomResponse.data!.rooms!.length,
+                      itemCount: roundTripHotelProvider
+                          .hotelRoomResponse.data!.rooms!.length,
                       itemBuilder: (context, index) {
                         currentIndex = index;
-                        var data =
-                            hotelProvider.hotelRoomResponse.data!.rooms![index];
+                        var data = roundTripHotelProvider
+                            .hotelRoomResponse.data!.rooms![index];
                         var hotelName = data.name?.en.toString();
                         var city = data.city.toString();
                         var rate = data.rate.toString();
                         var roomNum = data.roomQuantity.toString();
                         var bedNum = data.bedQuantity.toString();
-                        var imageUrl = hotelProvider
+                        var imageUrl = roundTripHotelProvider
                             .hotelRoomResponse.data!.imageBase
                             .toString();
                         var image = data.image.toString();
-
                         var thumbnailUrl = "$imageUrl/$image";
-
                         var roomId = int.parse("${data.id}");
 
                         return Padding(
@@ -180,23 +178,26 @@ class _HotelScreenState extends State<HotelScreen> {
                             ratingNum: int.parse(rate),
                             onPlusBookingDayPress: () {
                               setState(() {
-                                bookingDaysCounter = hotelProvider
+                                bookingDaysCounter = roundTripHotelProvider
                                     .selectBookingDaysList[index]++;
+                                //
                                 Map<String, dynamic> selected = {
                                   "room_id": roomId,
                                   "rooms_number": numberOfRoomsCounter,
                                   "days": bookingDaysCounter++
                                 };
                                 debugPrint("bookingDaysCounter:$selected");
-                                hotelProvider.hotelRoomBody[index]
+                                //
+                                roundTripHotelProvider.hotelRoomBody[index]
                                     .addAll(selected);
                               });
                             },
                             onMinusBookingDayPress: () {
-                              if (hotelProvider.selectBookingDaysList[index] >
+                              if (roundTripHotelProvider
+                                      .selectBookingDaysList[index] >
                                   1) {
                                 setState(() {
-                                  bookingDaysCounter = hotelProvider
+                                  bookingDaysCounter = roundTripHotelProvider
                                       .selectBookingDaysList[index]--;
                                   Map<String, dynamic> selected = {
                                     "room_id": roomId,
@@ -204,14 +205,14 @@ class _HotelScreenState extends State<HotelScreen> {
                                     "days": bookingDaysCounter--
                                   };
                                   debugPrint("bookingDaysCounter:$selected");
-                                  hotelProvider.hotelRoomBody[index]
+                                  roundTripHotelProvider.hotelRoomBody[index]
                                       .addAll(selected);
                                 });
                               }
                             },
                             onPlusRoomPress: () {
                               setState(() {
-                                numberOfRoomsCounter = hotelProvider
+                                numberOfRoomsCounter = roundTripHotelProvider
                                     .selectNumberOfRoomsList[index]++;
                                 Map<String, dynamic> selected = {
                                   "room_id": roomId,
@@ -220,35 +221,38 @@ class _HotelScreenState extends State<HotelScreen> {
                                 };
                                 debugPrint("numberOfRoomsCounter:$selected");
 
-                                hotelProvider.hotelRoomBody[index]
+                                roundTripHotelProvider.hotelRoomBody[index]
                                     .addAll(selected);
                               });
                             },
                             onMinusRoomPress: () {
-                              if (hotelProvider.selectNumberOfRoomsList[index] >
+                              if (roundTripHotelProvider
+                                      .selectNumberOfRoomsList[index] >
                                   1) {
                                 setState(() {
-                                  numberOfRoomsCounter = hotelProvider
+                                  numberOfRoomsCounter = roundTripHotelProvider
                                       .selectNumberOfRoomsList[index]--;
                                   Map<String, dynamic> selected = {
                                     "room_id": roomId,
-                                    "rooms_number": numberOfRoomsCounter - 1,
+                                    "rooms_number": numberOfRoomsCounter--,
                                     "days": bookingDaysCounter
                                   };
                                   debugPrint("numberOfRoomsCounter:$selected");
 
-                                  hotelProvider.hotelRoomBody[index]
+                                  roundTripHotelProvider.hotelRoomBody[index]
                                       .addAll(selected);
                                 });
                               }
                             },
-                            bookingDayCounter:
-                                hotelProvider.selectBookingDaysList.isNotEmpty
-                                    ? hotelProvider.selectBookingDaysList[index]
-                                    : 0,
-                            numberOfRoomCounter: hotelProvider
+                            bookingDayCounter: roundTripHotelProvider
+                                    .selectBookingDaysList.isNotEmpty
+                                ? roundTripHotelProvider
+                                    .selectBookingDaysList[index]
+                                : 0,
+                            numberOfRoomCounter: roundTripHotelProvider
                                     .selectNumberOfRoomsList.isNotEmpty
-                                ? hotelProvider.selectNumberOfRoomsList[index]
+                                ? roundTripHotelProvider
+                                    .selectNumberOfRoomsList[index]
                                 : 0,
                           ),
                         );
@@ -257,9 +261,9 @@ class _HotelScreenState extends State<HotelScreen> {
                   )
                 : Container(),
             CommonPadding.sizeBoxWithHeight(height: 10),
-            hotelProvider.isHotelLoaded == true
+            roundTripHotelProvider.isHotelLoaded == true
                 ? CustomButton(
-                    name: "Save And Review The Order",
+                    name: "Save And Start Trip Two",
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,
@@ -268,7 +272,12 @@ class _HotelScreenState extends State<HotelScreen> {
                     fontWeight: FontWeight.w500,
                     borderRadius: 5,
                     onTapped: () async {
-                      await saveTripOrder();
+                      // saveTripOrder();
+
+                      stepTwoTrip();
+
+                      debugPrint(
+                          "hotelData:${widget.tripId}, ${widget.passengerCounts}, ${widget.paramPassengerBody}, ${widget.paramAdditionalList}, ${roundTripHotelProvider.hotelRoomBody}");
                     },
                     padding: 0,
                   )
@@ -280,52 +289,63 @@ class _HotelScreenState extends State<HotelScreen> {
     );
   }
 
-  Future<void> saveTripOrder() async {
-    await hotelProvider.oneWayOrderTrip(
-      tripId: "${widget.tripId}",
-      passengerCounts: widget.passengerCounts,
-      paramPassengerBody: widget.paramPassengerBody,
-      additionalList: widget.paramAdditionalList,
-    );
-
-    if (hotelProvider.isOneWayOrderTripSaved) {
-      if (!mounted) return;
-
-      var tripId = hotelProvider.oneWayOrdersTripResponse.data!.tripId;
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ReviewOrderScreen(
-            tripId: tripId!,
-          ),
+  void stepTwoTrip() async {
+    /// TODO: Uncomment Round Trip Step Two Result;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RoundTripStepTwoResult(
+          toCity: widget.toCity,
+          fromCity: widget.fromCity,
+          tripFilterModel: widget.tripFilterModel,
+          isRoundTripChecked: widget.isRoundTripChecked,
+          tripFirstPassengersCount: widget.passengerCounts,
+          firstTripModel: widget.firstTripModel,
+          tripFirstAdditionalList: widget.paramAdditionalList,
+          paramPassengerBody: widget.paramPassengerBody,
+          paramHotelBody: roundTripHotelProvider.hotelRoomBody,
         ),
-      );
-    }
+      ),
+    );
   }
 
-  // Skip And Save Trip Order
-  Future<void> skipAndSaveTripOrder() async {
-    await hotelProvider.skipAndOneWayOrderTrip(
-      tripId: "${widget.tripId}",
-      passengerCounts: widget.passengerCounts,
-      paramPassengerBody: widget.paramPassengerBody,
-      additionalList: widget.paramAdditionalList,
-    );
-
-    if (hotelProvider.isOneWayOrderTripSaved) {
-      if (!mounted) return;
-
-      var tripId = hotelProvider.oneWayOrdersTripResponse.data!.tripId;
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ReviewOrderScreen(
-            tripId: tripId!,
-          ),
+  //
+  void skipAndStepTwoTrip() async {
+    /// TODO: Uncomment Round Trip Step Two Result;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RoundTripStepTwoResult(
+          toCity: widget.toCity,
+          fromCity: widget.fromCity,
+          tripFilterModel: widget.tripFilterModel,
+          isRoundTripChecked: widget.isRoundTripChecked,
+          tripFirstPassengersCount: widget.passengerCounts,
+          firstTripModel: widget.firstTripModel,
+          tripFirstAdditionalList: widget.paramAdditionalList,
+          paramPassengerBody: widget.paramPassengerBody,
+          paramHotelBody: const [],
         ),
-      );
-    }
+      ),
+    );
   }
+
+// void saveTripOrder() async {
+//   await roundTripHotelProvider.oneWayOrderTrip(
+//     tripId: "${widget.tripId}",
+//     passengerCounts: widget.passengerCounts,
+//     paramPassengerBody: widget.paramPassengerBody,
+//     additionalList: widget.paramAdditionalList,
+//   );
+//
+//   if (roundTripHotelProvider.isOneWayOrderTripSaved) {
+//     if (!mounted) return;
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(
+//         builder: (context) => const ReviewOrderScreen(),
+//       ),
+//     );
+//   }
+// }
 }

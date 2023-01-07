@@ -32,6 +32,10 @@ const String updateUserProfileApiUrl = "$baseNewUrl/update_profile";
 const String oneWayOrderTripApiUrl = "$baseNewUrl/oneway_orders";
 const String roundOrderTripApiUrl = "$baseNewUrl/round_orders";
 const String multiOrderTripApiUrl = "$baseNewUrl/multi_orders";
+const String ordersReviewApiUrl = "$baseNewUrl/orders_review";
+
+const String oneWayOrderOrderApiUrl = "$baseNewUrl/order_review/one-way";
+const String roundWayOrderApiUrl = "$baseNewUrl/order_review/round";
 
 // Histories:
 const String tripBookingHistoryApiUrl = "$baseNewUrl/trips_booking_history";
@@ -43,7 +47,7 @@ const String tripRatingReviewApiUrl = "$baseNewUrl/trip_review";
 const String packageRatingReviewApiUrl = "$baseNewUrl/package_review";
 
 //Hotels
-const String hotelRoomApiUrl = "$baseNewUrl/hotel_room/20";
+const String hotelRoomApiUrl = "$baseNewUrl/hotel_room/";
 
 //Identity Proof Types
 const String identityProofTypesApiUrl = "$baseNewUrl/identity_proof_types";

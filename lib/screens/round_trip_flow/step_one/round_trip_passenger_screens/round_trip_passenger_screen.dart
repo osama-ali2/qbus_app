@@ -1,37 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/models/TripFilterModel.dart';
+import 'package:qbus/models/trips/TripsResponse.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
+import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
-import 'package:qbus/screens/hotel_screens/hotel_screen.dart';
-import 'package:qbus/screens/passenger_screens/passenger_provider.dart';
-import 'package:qbus/screens/project_widgets/passenger_container_widget.dart';
+import 'package:qbus/screens/project_widgets/round_trip_passenger_container_widget.dart';
+import 'package:qbus/utils/constant.dart';
+import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
-import '../../res/res.dart';
-import '../../utils/constant.dart';
-import '../../widgets/custom_button.dart';
+import '../round_trip_hotel_screens/round_trip_hotel_screen.dart';
+import 'round_trip_passenger_provider.dart';
 
-class PassengerScreen extends StatefulWidget {
+class RoundTripPassengerScreen extends StatefulWidget {
   final int passengerCount;
   final int tripId;
   final List<Map<String, dynamic>> additionalList;
 
-  const PassengerScreen({
+  // Trip Data
+  final TripFilterModel tripFilterModel;
+  final String fromCity;
+  final String toCity;
+  final bool isRoundTripChecked;
+  final Trips firstTripModel;
+  final String tripFirstPassengersCount;
+  final List<Map<String, dynamic>> tripFirstAdditionalList;
+
+  const RoundTripPassengerScreen({
     Key? key,
     required this.passengerCount,
     required this.tripId,
     required this.additionalList,
+    required this.tripFilterModel,
+    required this.fromCity,
+    required this.toCity,
+    required this.isRoundTripChecked,
+    required this.firstTripModel,
+    required this.tripFirstPassengersCount,
+    required this.tripFirstAdditionalList,
   }) : super(key: key);
 
   @override
-  State<PassengerScreen> createState() => _PassengerScreenState();
+  State<RoundTripPassengerScreen> createState() => _PassengerScreenState();
 }
 
-class _PassengerScreenState extends State<PassengerScreen> {
-  late PassengerProvider passengerProvider;
+class _PassengerScreenState extends State<RoundTripPassengerScreen> {
+  late RoundTripPassengerProvider roundTripPassengerProvider;
+
+  final fullNameController = TextEditingController();
+  final idNumberController = TextEditingController();
 
   final List<TextEditingController> _controllers = [];
   final List<Widget> _fields = [];
+
   final List<Map<String, dynamic>> passengerBody = [];
 
   /// Fields
@@ -48,25 +70,27 @@ class _PassengerScreenState extends State<PassengerScreen> {
   void initState() {
     super.initState();
 
-    passengerProvider = PassengerProvider();
-    passengerProvider = Provider.of<PassengerProvider>(context, listen: false);
-    passengerProvider.init(context: context);
+    roundTripPassengerProvider = RoundTripPassengerProvider();
+    roundTripPassengerProvider =
+        Provider.of<RoundTripPassengerProvider>(context, listen: false);
+    roundTripPassengerProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Create Passenger Fields
       addFields();
-      passengerProvider.getIdentityProofTypes();
-      passengerProvider.getCountriesList();
+      // Load Identity Proof Types
+      roundTripPassengerProvider.getIdentityProofTypes();
+      // Get Countries List
+      roundTripPassengerProvider.getCountriesList();
     });
   }
 
   @override
   void dispose() {
-    super.dispose();
     for (final controller in _controllers) {
       controller.dispose();
     }
-    _fullNameControllers.clear();
-    _idNumberControllers.clear();
+    super.dispose();
   }
 
   void addFields() {
@@ -77,14 +101,14 @@ class _PassengerScreenState extends State<PassengerScreen> {
         final fullNameController = TextEditingController();
         final idNumberController = TextEditingController();
 
-        final field = PassengerContainerWidget(
+        final field = RoundTripPassengerContainerWidget(
           key: Key("${i + 1}"),
           passengerNumber: "${i + 1}",
           fullNameController: fullNameController,
           idNumberController: idNumberController,
           selectedCountry: selectedCountry,
           selectedIdentityType: selectedIdentityType,
-          passengerProvider: passengerProvider,
+          passengerProvider: roundTripPassengerProvider,
         );
 
         debugPrint("functionCalled: $i");
@@ -99,7 +123,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<PassengerProvider>(context, listen: true);
+    Provider.of<RoundTripPassengerProvider>(context, listen: true);
 
     return Scaffold(
       appBar: AppBar(
@@ -152,8 +176,8 @@ class _PassengerScreenState extends State<PassengerScreen> {
       var fullName = _fullNameControllers[i].value.text.toString().trim();
       var idNumber = _idNumberControllers[i].value.text.toString().trim();
 
-      var proofId = passengerProvider.userIdentityProofTypeId[i];
-      var countryId = passengerProvider.userCountryId[i];
+      var proofId = roundTripPassengerProvider.userIdentityProofTypeId[i];
+      var countryId = roundTripPassengerProvider.userCountryId[i];
 
       debugPrint(
         "fullName: $fullName"
@@ -172,20 +196,23 @@ class _PassengerScreenState extends State<PassengerScreen> {
       debugPrint("passengerBody: ${passengerBody.map((e) => e)} ");
     }
 
-    if (passengerBody.isNotEmpty) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HotelScreen(
-            tripId: widget.tripId,
-            passengerCounts: widget.passengerCount.toString(),
-            paramPassengerBody: passengerBody,
-            paramAdditionalList: widget.additionalList,
-          ),
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RoundTripHotelScreen(
+          tripId: widget.tripId,
+          passengerCounts: widget.passengerCount.toString(),
+          paramPassengerBody: passengerBody,
+          paramAdditionalList: widget.additionalList,
+          tripFilterModel: widget.tripFilterModel,
+          fromCity: widget.fromCity,
+          toCity: widget.toCity,
+          isRoundTripChecked: widget.isRoundTripChecked,
+          firstTripModel: widget.firstTripModel,
+          tripFirstPassengersCount: widget.passengerCount.toString(),
+          tripFirstAdditionalList: widget.tripFirstAdditionalList,
         ),
-      );
-    } else {
-      Toasts.getWarningToast(text: "The fields is required");
-    }
+      ),
+    );
   }
 }

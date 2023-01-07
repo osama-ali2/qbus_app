@@ -20,7 +20,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 //*
-// [Flutter] Version: 3.3.8
+// [Flutter] Version: 3.3.10
 // [Developer]: Tayyab Mughal [Fullstack Mobile Application Engineer]
 // [Github]: https://www.github.com/tayyabmughal676
 // [Upwork]: https://www.upwork.com/freelancers/~01d478bbabdfa2e861

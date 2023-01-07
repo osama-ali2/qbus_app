@@ -6,14 +6,13 @@ import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/strings.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
-import 'package:qbus/screens/round_trip_flow/step_two/step_two_select_addition/step_two_select_addition_provider.dart';
+import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
+import 'package:qbus/widgets/custom_text.dart';
 
-import '../../../../utils/constant.dart';
-import '../../../../widgets/custom_text.dart';
-import '../../../passenger_screens/passenger_screen.dart';
+import '../round_trip_review_order_screens/round_trip_review_order_screen.dart';
+import 'step_two_select_addition_provider.dart';
 
 class StepTwoSelectAdditionScreen extends StatefulWidget {
   final String? tripSecondId;
@@ -22,6 +21,8 @@ class StepTwoSelectAdditionScreen extends StatefulWidget {
   final String? passengersCount;
   final String? toCityId;
   final String? fromCityId;
+  final List<Map<String, dynamic>> paramPassengerBody;
+  final List<Map<String, dynamic>> paramHotelBody;
 
   //First Trip
   final Trips? firstTripModel;
@@ -39,6 +40,8 @@ class StepTwoSelectAdditionScreen extends StatefulWidget {
     this.firstTripModel,
     this.tripFirstPassengersCount,
     this.tripFirstAdditionalList,
+    required this.paramPassengerBody,
+    required this.paramHotelBody,
   }) : super(key: key);
 
   @override
@@ -101,14 +104,17 @@ class _StepTwoSelectAdditionScreenState
                               .en
                               .toString();
                           var additionId = stepTwoSelectAdditionProvider
-                              .tripAdditionalsResponse.data!.additional![index].id
+                              .tripAdditionalsResponse
+                              .data!
+                              .additional![index]
+                              .id
                               .toString();
                           return itemContainer(
                               name: name, index: index, additionId: additionId);
                         }),
                   ),
                   CustomButton(
-                      name: "Save Second Trip",
+                      name: "Save Second Trip & Review Order",
                       buttonColor: appColor,
                       height: sizes!.heightRatio * 45,
                       width: double.infinity,
@@ -117,12 +123,6 @@ class _StepTwoSelectAdditionScreenState
                       fontWeight: FontWeight.w500,
                       borderRadius: 5,
                       onTapped: () async {
-
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(builder: (context) => const BottomBarScreen()),
-                                (route) => false);
-
                         // Navigator.push(
                         //   context,
                         //   MaterialPageRoute(
@@ -137,7 +137,7 @@ class _StepTwoSelectAdditionScreenState
                         // );
 
                         ///Uncomment ->
-                        // await callOrderTrip();
+                        await callOrderTrip();
                       },
                       padding: 20),
                   const SizedBox(
@@ -189,18 +189,35 @@ class _StepTwoSelectAdditionScreenState
         isRoundTripCounter++;
         debugPrint("isRoundTripCounter:$isRoundTripCounter");
       });
+
+      debugPrint(
+          "debug: ${widget.firstTripModel}, ${widget.passengersCount}, ${widget.tripFirstAdditionalList}, ${widget.secondTripsModel}, ${widget.paramPassengerBody}, ${widget.paramHotelBody}");
+
       await stepTwoSelectAdditionProvider.roundOrderTrip(
         tripFirstId: widget.firstTripModel!,
         passengersCount: widget.passengersCount!,
         tripFirstAdditionalList: widget.tripFirstAdditionalList!,
         tripSecondId: widget.secondTripsModel!,
+        paramPassengerBody: widget.paramPassengerBody,
+        paramHotelBody: widget.paramHotelBody,
       );
+
       if (stepTwoSelectAdditionProvider.isRoundOrderTripSaved == true) {
         if (!mounted) return;
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => const BottomBarScreen()),
-            (route) => false);
+        // Navigator.pushAndRemoveUntil(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => const BottomBarScreen()),
+        //     (route) => false);
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RoundTripReviewOrderScreen(
+              orderId: stepTwoSelectAdditionProvider
+                  .roundOrderTripResponse.data!.tripId!,
+            ),
+          ),
+        );
       }
     }
   }
@@ -215,7 +232,7 @@ class _StepTwoSelectAdditionScreenState
             height: 10,
           ),
           currentIndex == index
-              ? _items(
+              ? _itemsCounter(
                   context: context,
                   name: name,
                   add: () {
@@ -250,7 +267,7 @@ class _StepTwoSelectAdditionScreenState
                   },
                   number:
                       stepTwoSelectAdditionProvider.selectAdditionalList[index])
-              : _items(
+              : _itemsCounter(
                   context: context,
                   name: name,
                   add: () {},
@@ -259,7 +276,7 @@ class _StepTwoSelectAdditionScreenState
         ],
       );
 
-  Widget _items(
+  Widget _itemsCounter(
       {required BuildContext context,
       required String name,
       required Function add,
