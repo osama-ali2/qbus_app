@@ -1,12 +1,12 @@
 class OneWayOrdersTripResponse {
   OneWayOrdersTripResponse({
-      int? code, 
-      String? message, 
-      Data? data,}){
+    int? code,
+    String? message,
+    Data? data,}){
     _code = code;
     _message = message;
     _data = data;
-}
+  }
 
   OneWayOrdersTripResponse.fromJson(dynamic json) {
     _code = json['code'];
@@ -35,9 +35,9 @@ class OneWayOrdersTripResponse {
 
 class Data {
   Data({
-      int? tripId,}){
+    int? tripId,}){
     _tripId = tripId;
-}
+  }
 
   Data.fromJson(dynamic json) {
     _tripId = json['trip_id'];

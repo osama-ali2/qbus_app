@@ -151,7 +151,7 @@ class _SearchResultState extends State<SearchResult> {
                                             passengerCount: int.parse(
                                                 widget.passengersCount!),
                                             tripId: tripData.id!,
-                                            additionalList: const [],
+                                            additionalList: [],
                                           ),
                                         ),
                                       );
