@@ -25,6 +25,8 @@ class SelectAdditionScreen extends StatefulWidget {
   final String toCityId;
   final String fromCityId;
 
+  final bool? isHotelEmpty;
+
   const SelectAdditionScreen({
     Key? key,
     required this.tripsModel,
@@ -34,6 +36,7 @@ class SelectAdditionScreen extends StatefulWidget {
     required this.passengersCount,
     required this.toCityId,
     required this.fromCityId,
+    this.isHotelEmpty,
   }) : super(key: key);
 
   @override
@@ -137,6 +140,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                             tripId: widget.tripsModel.id!,
                             additionalList:
                                 selectAdditionProvider.additionalList,
+                            isHotelEmpty: widget.isHotelEmpty,
                           ),
                         ),
                       );

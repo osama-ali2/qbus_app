@@ -1,7 +1,7 @@
 class OneWayOrderReviewResponse {
   OneWayOrderReviewResponse({
     int? code,
-    String? message,
+    dynamic message,
     Data? data,
   }) {
     _code = code;
@@ -16,12 +16,12 @@ class OneWayOrderReviewResponse {
   }
 
   int? _code;
-  String? _message;
+  dynamic _message;
   Data? _data;
 
   int? get code => _code;
 
-  String? get message => _message;
+  dynamic get message => _message;
 
   Data? get data => _data;
 
@@ -42,15 +42,15 @@ class Data {
     FromCity? fromCity,
     ToCity? toCity,
     int? fees,
-    String? timeFrom,
-    String? timeTo,
-    String? dateFrom,
-    String? dateTo,
+    dynamic timeFrom,
+    dynamic timeTo,
+    dynamic dateFrom,
+    dynamic dateTo,
     List<HotelsRooms>? hotelsRooms,
     List<Additionals>? additionals,
     int? discount,
     dynamic tax,
-    String? taxType,
+    dynamic taxType,
     int? total,
   }) {
     _count = count;
@@ -101,15 +101,15 @@ class Data {
   FromCity? _fromCity;
   ToCity? _toCity;
   int? _fees;
-  String? _timeFrom;
-  String? _timeTo;
-  String? _dateFrom;
-  String? _dateTo;
+  dynamic _timeFrom;
+  dynamic _timeTo;
+  dynamic _dateFrom;
+  dynamic _dateTo;
   List<HotelsRooms>? _hotelsRooms;
   List<Additionals>? _additionals;
   int? _discount;
   dynamic _tax;
-  String? _taxType;
+  dynamic _taxType;
   int? _total;
 
   int? get count => _count;
@@ -120,13 +120,13 @@ class Data {
 
   int? get fees => _fees;
 
-  String? get timeFrom => _timeFrom;
+  dynamic get timeFrom => _timeFrom;
 
-  String? get timeTo => _timeTo;
+  dynamic get timeTo => _timeTo;
 
-  String? get dateFrom => _dateFrom;
+  dynamic get dateFrom => _dateFrom;
 
-  String? get dateTo => _dateTo;
+  dynamic get dateTo => _dateTo;
 
   List<HotelsRooms>? get hotelsRooms => _hotelsRooms;
 
@@ -136,7 +136,7 @@ class Data {
 
   dynamic get tax => _tax;
 
-  String? get taxType => _taxType;
+  dynamic get taxType => _taxType;
 
   int? get total => _total;
 
@@ -173,7 +173,7 @@ class Additionals {
     int? id,
     int? fees,
     int? count,
-    String? name,
+    dynamic name,
   }) {
     _id = id;
     _fees = fees;
@@ -191,7 +191,7 @@ class Additionals {
   int? _id;
   int? _fees;
   int? _count;
-  String? _name;
+  dynamic _name;
 
   int? get id => _id;
 
@@ -199,7 +199,7 @@ class Additionals {
 
   int? get count => _count;
 
-  String? get name => _name;
+  dynamic get name => _name;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -213,7 +213,7 @@ class Additionals {
 
 class HotelsRooms {
   HotelsRooms({
-    String? days,
+    dynamic days,
     Name? name,
     int? fees,
   }) {
@@ -228,11 +228,11 @@ class HotelsRooms {
     _fees = json['fees'];
   }
 
-  String? _days;
+  dynamic _days;
   Name? _name;
   int? _fees;
 
-  String? get days => _days;
+  dynamic get days => _days;
 
   Name? get name => _name;
 
@@ -299,9 +299,9 @@ class FromCity {
 
 class Name {
   Name({
-    String? en,
-    String? ar,
-    String? ur,
+    dynamic en,
+    dynamic ar,
+    dynamic ur,
   }) {
     _en = en;
     _ar = ar;
@@ -314,15 +314,15 @@ class Name {
     _ur = json['ur'];
   }
 
-  String? _en;
-  String? _ar;
-  String? _ur;
+  dynamic _en;
+  dynamic _ar;
+  dynamic _ur;
 
-  String? get en => _en;
+  dynamic get en => _en;
 
-  String? get ar => _ar;
+  dynamic get ar => _ar;
 
-  String? get ur => _ur;
+  dynamic get ur => _ur;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

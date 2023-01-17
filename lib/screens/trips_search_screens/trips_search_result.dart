@@ -162,6 +162,7 @@ class _SearchResultState extends State<SearchResult> {
                                       NavigationHelper.pushRoute(
                                         context,
                                         SelectAdditionScreen(
+                                          isHotelEmpty: tripData.hotels!.isEmpty,
                                           tripsModel: tripData,
                                           isOneWayTripChecked:
                                               widget.isOneWayTripChecked!,
