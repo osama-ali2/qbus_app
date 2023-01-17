@@ -167,6 +167,87 @@ class HotelProvider with ChangeNotifier {
     }
   }
 
+  /// One Way Order Trip
+  Future<void> oneWayOrderTripCallFromPassengerScreen({
+    required String tripId,
+    required String passengerCounts,
+    required List<Map<String, dynamic>> paramPassengerBody,
+    required List<Map<String, dynamic>> additionalList,
+  }) async {
+    try {
+      _loader.showLoader(context: context);
+
+      // Headers
+      Map<String, dynamic> header = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $userToken"
+      };
+
+      _logger.i("trips.id: $tripId");
+      _logger.i("additionalList: ${additionalList.map((e) => e)}");
+      _logger.i("paramPassengerBody: ${paramPassengerBody.map((e) => e)}");
+      _logger.i("hotelRoomBody: ${hotelRoomBody.map((e) => e)}");
+
+      // final newHotelBody = [];
+      // hotelRoomBody.firstWhere(
+      //   (element) {
+      //     if (element['rooms_number'] > 0 && element['days'] > 0) {
+      //       debugPrint("elementSelected:$element");
+      //       newHotelBody.add(element);
+      //       return true;
+      //     }
+      //     return false;
+      //   },
+      //   // orElse:
+      // );
+
+      // API->Body
+      final newBody = {
+        "trip_id": tripId,
+        "count": passengerCounts,
+        "code": "",
+        "additional": [],
+        "passengers": paramPassengerBody,
+        "hotel_rooms": [], //hotelRoomBody,
+        "user_notes": ""
+      };
+      _logger.i("newBody: $newBody");
+
+      var url = oneWayOrderTripApiUrl;
+      debugPrint("URL: $url");
+      oneWayOrdersTripResponse = await MyApi.callPostApi(
+        url: url,
+        myHeaders: header,
+        body: newBody,
+        modelName: Models.oneWayOrderTripModel,
+      );
+
+      if (oneWayOrdersTripResponse.code == 1) {
+        _logger.i(
+            "oneWayOrdersTripResponse: ${oneWayOrdersTripResponse.toJson()}, ${oneWayOrdersTripResponse.message.toString()}");
+
+        Toasts.getSuccessToast(
+          text: oneWayOrdersTripResponse.message.toString(),
+        );
+
+        //clear the data lists
+        additionalList.clear();
+        paramPassengerBody.clear();
+        hotelRoomBody.clear();
+
+        isOneWayOrderTripSaved = true;
+        _loader.hideLoader(context!);
+        notifyListeners();
+      } else {
+        _logger.e("oneWayOrdersTripResponse: Something wrong");
+        _loader.hideLoader(context!);
+      }
+    } catch (e) {
+      _logger.e("oneWayOrdersTripResponseError: ${e.toString()}");
+      _loader.hideLoader(context!);
+    }
+  }
+
   // One Way Order Trip
   Future<void> skipAndOneWayOrderTrip({
     required String tripId,

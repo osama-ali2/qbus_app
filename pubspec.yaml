@@ -39,7 +39,7 @@ dependencies:
   #  For Error
   logger: ^1.1.0
   #  State Management
-  provider: ^6.0.4
+  provider: ^6.0.5
   #  Image Selections
   image_picker: ^0.8.6
   #  Dio Network Library
@@ -47,11 +47,11 @@ dependencies:
   #  Connectivity Check
   connectivity_plus: ^3.0.2
   #  Shared Preferences
-  shared_preferences: ^2.0.15
+  shared_preferences: ^2.0.16
   #  Toast
-  fluttertoast: ^8.1.1
+  fluttertoast: ^8.1.2
   #  Animated Loader
-  lottie: ^2.0.0
+  lottie: ^2.2.0
   cached_network_image: ^3.2.3
   flutter_svg: any
   pin_code_fields: ^7.4.0
@@ -64,6 +64,7 @@ dependencies:
   timezone: any
   #  Star Rating Bar
   flutter_rating_bar: ^4.0.1
+  collection: ^1.16.0
 
 
 dev_dependencies:

@@ -143,6 +143,8 @@ class _SearchResultState extends State<SearchResult> {
                                     if (tripData.additionals!.isEmpty) {
                                       debugPrint(
                                           "tripData.additionals!.isEmpty:${tripData.additionals!.isEmpty}");
+                                      debugPrint(
+                                          "tripData.hotels!.isEmpty:${tripData.hotels!.isEmpty}");
 
                                       Navigator.push(
                                         context,
@@ -152,6 +154,7 @@ class _SearchResultState extends State<SearchResult> {
                                                 widget.passengersCount!),
                                             tripId: tripData.id!,
                                             additionalList: [],
+                                            isHotelEmpty: tripData.hotels!.isEmpty,
                                           ),
                                         ),
                                       );

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/toasts.dart';
+import 'package:qbus/screens/hotel_screens/hotel_provider.dart';
 import 'package:qbus/screens/hotel_screens/hotel_screen.dart';
 import 'package:qbus/screens/passenger_screens/passenger_provider.dart';
 import 'package:qbus/screens/project_widgets/passenger_container_widget.dart';
@@ -10,17 +11,20 @@ import 'package:qbus/widgets/custom_text.dart';
 import '../../res/res.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
+import '../review_order_screens/review_order_screen.dart';
 
 class PassengerScreen extends StatefulWidget {
   final int passengerCount;
   final int tripId;
   final List<Map<String, dynamic>> additionalList;
+  final bool? isHotelEmpty;
 
   const PassengerScreen({
     Key? key,
     required this.passengerCount,
     required this.tripId,
     required this.additionalList,
+    this.isHotelEmpty,
   }) : super(key: key);
 
   @override
@@ -29,6 +33,7 @@ class PassengerScreen extends StatefulWidget {
 
 class _PassengerScreenState extends State<PassengerScreen> {
   late PassengerProvider passengerProvider;
+  late HotelProvider hotelProvider;
 
   final List<TextEditingController> _controllers = [];
   final List<Widget> _fields = [];
@@ -51,6 +56,11 @@ class _PassengerScreenState extends State<PassengerScreen> {
     passengerProvider = PassengerProvider();
     passengerProvider = Provider.of<PassengerProvider>(context, listen: false);
     passengerProvider.init(context: context);
+
+    /// Hotel Provider
+    hotelProvider = HotelProvider();
+    hotelProvider = Provider.of<HotelProvider>(context, listen: false);
+    hotelProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       addFields();
@@ -100,6 +110,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
   @override
   Widget build(BuildContext context) {
     Provider.of<PassengerProvider>(context, listen: true);
+    Provider.of<HotelProvider>(context, listen: true);
 
     return Scaffold(
       appBar: AppBar(
@@ -173,19 +184,46 @@ class _PassengerScreenState extends State<PassengerScreen> {
     }
 
     if (passengerBody.isNotEmpty) {
+      if (widget.isHotelEmpty == true) {
+        debugPrint("isHotelEmpty: ${widget.isHotelEmpty}");
+        await saveTripOrder();
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HotelScreen(
+              tripId: widget.tripId,
+              passengerCounts: widget.passengerCount.toString(),
+              paramPassengerBody: passengerBody,
+              paramAdditionalList: widget.additionalList,
+            ),
+          ),
+        );
+      }
+    } else {
+      Toasts.getWarningToast(text: "The fields is required");
+    }
+  }
+
+  Future<void> saveTripOrder() async {
+    await hotelProvider.oneWayOrderTripCallFromPassengerScreen(
+      tripId: "${widget.tripId}",
+      passengerCounts: widget.passengerCount.toString(),
+      paramPassengerBody: passengerBody,
+      additionalList: widget.additionalList,
+    );
+
+    if (hotelProvider.isOneWayOrderTripSaved) {
+      if (!mounted) return;
+      var tripId = hotelProvider.oneWayOrdersTripResponse.data!.tripId;
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => HotelScreen(
-            tripId: widget.tripId,
-            passengerCounts: widget.passengerCount.toString(),
-            paramPassengerBody: passengerBody,
-            paramAdditionalList: widget.additionalList,
+          builder: (context) => ReviewOrderScreen(
+            tripId: tripId!,
           ),
         ),
       );
-    } else {
-      Toasts.getWarningToast(text: "The fields is required");
     }
   }
 }

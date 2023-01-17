@@ -49,7 +49,7 @@ class Data {
     List<HotelsRooms>? hotelsRooms,
     List<Additionals>? additionals,
     int? discount,
-    double? tax,
+    dynamic tax,
     String? taxType,
     int? total,
   }) {
@@ -108,7 +108,7 @@ class Data {
   List<HotelsRooms>? _hotelsRooms;
   List<Additionals>? _additionals;
   int? _discount;
-  double? _tax;
+  dynamic _tax;
   String? _taxType;
   int? _total;
 
@@ -134,7 +134,7 @@ class Data {
 
   int? get discount => _discount;
 
-  double? get tax => _tax;
+  dynamic get tax => _tax;
 
   String? get taxType => _taxType;
 
