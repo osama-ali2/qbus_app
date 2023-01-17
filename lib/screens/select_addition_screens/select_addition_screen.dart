@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
+import 'package:qbus/res/strings.dart';
+import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
 import 'package:qbus/screens/passenger_screens/passenger_screen.dart';
 import 'package:qbus/screens/select_addition_screens/select_addition_provider.dart';
+import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
-
-import '../../../../utils/constant.dart';
-import '../../../../widgets/custom_text.dart';
-import '../../local_cache/utils.dart';
-import '../../res/strings.dart';
-import '../auth/login_screens/login_screen.dart';
+import 'package:qbus/widgets/custom_text.dart';
 
 class SelectAdditionScreen extends StatefulWidget {
   // final String? tripId;
@@ -26,6 +25,8 @@ class SelectAdditionScreen extends StatefulWidget {
   final String toCityId;
   final String fromCityId;
 
+  final bool? isHotelEmpty;
+
   const SelectAdditionScreen({
     Key? key,
     required this.tripsModel,
@@ -35,6 +36,7 @@ class SelectAdditionScreen extends StatefulWidget {
     required this.passengersCount,
     required this.toCityId,
     required this.fromCityId,
+    this.isHotelEmpty,
   }) : super(key: key);
 
   @override
@@ -138,6 +140,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                             tripId: widget.tripsModel.id!,
                             additionalList:
                                 selectAdditionProvider.additionalList,
+                            isHotelEmpty: widget.isHotelEmpty,
                           ),
                         ),
                       );

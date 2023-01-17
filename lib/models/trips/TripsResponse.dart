@@ -1,3 +1,7 @@
+/// message : "success"
+/// code : 1
+/// data : {"trips":[{"id":40,"provider_name":"مسرى الفاروق","time_from":"13:00","time_to":"14:00","start_station_name":{"en":"Al-Thalithiya","ar":"الثليثية","ur":"Al-Thalithiya"},"arrival_station_name":{"en":"North Azizia","ar":"العزيزية الشمالية","ur":"North Azizia"},"fees":100,"rate":0,"from_city_name":{"en":"alahsa","ar":"الاحساء","ur":"alahsa"},"to_city_name":{"en":"Makka","ar":"مكة المكرمة","ur":"Makka"},"stops":null,"additionals":[{"en":"tea","ar":"tea","ur":"tea"}],"hotels":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]}]}
+
 class TripsResponse {
   TripsResponse({
     String? message,
@@ -36,6 +40,8 @@ class TripsResponse {
   }
 }
 
+/// trips : [{"id":40,"provider_name":"مسرى الفاروق","time_from":"13:00","time_to":"14:00","start_station_name":{"en":"Al-Thalithiya","ar":"الثليثية","ur":"Al-Thalithiya"},"arrival_station_name":{"en":"North Azizia","ar":"العزيزية الشمالية","ur":"North Azizia"},"fees":100,"rate":0,"from_city_name":{"en":"alahsa","ar":"الاحساء","ur":"alahsa"},"to_city_name":{"en":"Makka","ar":"مكة المكرمة","ur":"Makka"},"stops":null,"additionals":[{"en":"tea","ar":"tea","ur":"tea"}],"hotels":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]}]
+
 class Data {
   Data({
     List<Trips>? trips,
@@ -65,6 +71,20 @@ class Data {
   }
 }
 
+/// id : 40
+/// provider_name : "مسرى الفاروق"
+/// time_from : "13:00"
+/// time_to : "14:00"
+/// start_station_name : {"en":"Al-Thalithiya","ar":"الثليثية","ur":"Al-Thalithiya"}
+/// arrival_station_name : {"en":"North Azizia","ar":"العزيزية الشمالية","ur":"North Azizia"}
+/// fees : 100
+/// rate : 0
+/// from_city_name : {"en":"alahsa","ar":"الاحساء","ur":"alahsa"}
+/// to_city_name : {"en":"Makka","ar":"مكة المكرمة","ur":"Makka"}
+/// stops : null
+/// additionals : [{"en":"tea","ar":"tea","ur":"tea"}]
+/// hotels : [{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]
+
 class Trips {
   Trips({
     int? id,
@@ -77,8 +97,9 @@ class Trips {
     int? rate,
     FromCityName? fromCityName,
     ToCityName? toCityName,
-    String? stops,
+    dynamic stops,
     List<Additionals>? additionals,
+    List<Hotels>? hotels,
   }) {
     _id = id;
     _providerName = providerName;
@@ -92,6 +113,7 @@ class Trips {
     _toCityName = toCityName;
     _stops = stops;
     _additionals = additionals;
+    _hotels = hotels;
   }
 
   Trips.fromJson(dynamic json) {
@@ -120,6 +142,12 @@ class Trips {
         _additionals?.add(Additionals.fromJson(v));
       });
     }
+    if (json['hotels'] != null) {
+      _hotels = [];
+      json['hotels'].forEach((v) {
+        _hotels?.add(Hotels.fromJson(v));
+      });
+    }
   }
 
   int? _id;
@@ -132,8 +160,9 @@ class Trips {
   int? _rate;
   FromCityName? _fromCityName;
   ToCityName? _toCityName;
-  String? _stops;
+  dynamic _stops;
   List<Additionals>? _additionals;
+  List<Hotels>? _hotels;
 
   int? get id => _id;
 
@@ -155,9 +184,11 @@ class Trips {
 
   ToCityName? get toCityName => _toCityName;
 
-  String? get stops => _stops;
+  dynamic get stops => _stops;
 
   List<Additionals>? get additionals => _additionals;
+
+  List<Hotels>? get hotels => _hotels;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -183,9 +214,48 @@ class Trips {
     if (_additionals != null) {
       map['additionals'] = _additionals?.map((v) => v.toJson()).toList();
     }
+    if (_hotels != null) {
+      map['hotels'] = _hotels?.map((v) => v.toJson()).toList();
+    }
     return map;
   }
 }
+
+/// fees : "100"
+/// room_type : "2"
+
+class Hotels {
+  Hotels({
+    String? fees,
+    String? roomType,
+  }) {
+    _fees = fees;
+    _roomType = roomType;
+  }
+
+  Hotels.fromJson(dynamic json) {
+    _fees = json['fees'];
+    _roomType = json['room_type'];
+  }
+
+  String? _fees;
+  String? _roomType;
+
+  String? get fees => _fees;
+
+  String? get roomType => _roomType;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['fees'] = _fees;
+    map['room_type'] = _roomType;
+    return map;
+  }
+}
+
+/// en : "tea"
+/// ar : "tea"
+/// ur : "tea"
 
 class Additionals {
   Additionals({
@@ -223,6 +293,10 @@ class Additionals {
   }
 }
 
+/// en : "Makka"
+/// ar : "مكة المكرمة"
+/// ur : "Makka"
+
 class ToCityName {
   ToCityName({
     String? en,
@@ -258,6 +332,10 @@ class ToCityName {
     return map;
   }
 }
+
+/// en : "alahsa"
+/// ar : "الاحساء"
+/// ur : "alahsa"
 
 class FromCityName {
   FromCityName({
@@ -295,6 +373,10 @@ class FromCityName {
   }
 }
 
+/// en : "North Azizia"
+/// ar : "العزيزية الشمالية"
+/// ur : "North Azizia"
+
 class ArrivalStationName {
   ArrivalStationName({
     String? en,
@@ -330,6 +412,10 @@ class ArrivalStationName {
     return map;
   }
 }
+
+/// en : "Al-Thalithiya"
+/// ar : "الثليثية"
+/// ur : "Al-Thalithiya"
 
 class StartStationName {
   StartStationName({

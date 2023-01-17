@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
+import 'package:qbus/res/res.dart';
+import 'package:qbus/screens/passenger_screens/passenger_screen.dart';
 import 'package:qbus/screens/project_widgets/filter_container_widget.dart';
 import 'package:qbus/screens/project_widgets/trip_card_container_widget.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';
@@ -107,7 +109,7 @@ class _SearchResultState extends State<SearchResult> {
                         ),
                       );
                     }),
-                    CommonPadding.sizeBoxWithHeight(height: 10),
+                    CommonPadding.sizeBoxWithHeight(height: 5),
                     Expanded(
                       child: searchProvider
                               .tripsResponse.data!.trips!.isNotEmpty
@@ -134,13 +136,33 @@ class _SearchResultState extends State<SearchResult> {
                                 var providerName =
                                     tripData.providerName.toString();
 
-                                var tripId = tripData.id.toString();
+                                //var tripId = tripData.id.toString();
 
                                 return InkWell(
                                   onTap: () {
-                                    NavigationHelper.pushRoute(
+                                    if (tripData.additionals!.isEmpty) {
+                                      debugPrint(
+                                          "tripData.additionals!.isEmpty:${tripData.additionals!.isEmpty}");
+                                      debugPrint(
+                                          "tripData.hotels!.isEmpty:${tripData.hotels!.isEmpty}");
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => PassengerScreen(
+                                            passengerCount: int.parse(
+                                                widget.passengersCount!),
+                                            tripId: tripData.id!,
+                                            additionalList: [],
+                                            isHotelEmpty: tripData.hotels!.isEmpty,
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      NavigationHelper.pushRoute(
                                         context,
                                         SelectAdditionScreen(
+                                          isHotelEmpty: tripData.hotels!.isEmpty,
                                           tripsModel: tripData,
                                           isOneWayTripChecked:
                                               widget.isOneWayTripChecked!,
@@ -154,39 +176,26 @@ class _SearchResultState extends State<SearchResult> {
                                               .tripFilterModel!.to_city_id!,
                                           fromCityId: widget
                                               .tripFilterModel!.from_city_id!,
-                                        )
-
-                                        // SelectAdditionScreen(
-                                        //   tripId: tripId,
-                                        //   tripsModel: data,
-                                        //   isRoundTripChecked:
-                                        //       widget.isRoundTripChecked,
-                                        //   isOneWayTripChecked:
-                                        //       widget.isOneWayTripChecked,
-                                        //   isMultiDestinationChecked:
-                                        //       widget.isMultiDestinationChecked,
-                                        //   passengersCount: widget.passengersCount,
-                                        //   toCityId:
-                                        //       widget.tripFilterModel!.to_city_id,
-                                        //   fromCityId: widget
-                                        //       .tripFilterModel!.from_city_id,
-                                        // ),
-                                        //
-
-                                        );
+                                        ),
+                                      );
+                                    }
                                   },
-                                  child: TripCardContainerWidget(
-                                    stationA: stationA,
-                                    stationB: stationB,
-                                    fees: fees,
-                                    rate: rate,
-                                    fromCityName: fromCityName,
-                                    toCityName: toCityName,
-                                    timeFrom: timeFrom,
-                                    timeTo: timeTo,
-                                    stops: stops,
-                                    providerName: providerName,
-                                    additionals: tripData.additionals!,
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: sizes!.heightRatio * 4),
+                                    child: TripCardContainerWidget(
+                                      stationA: stationA,
+                                      stationB: stationB,
+                                      fees: fees,
+                                      rate: rate,
+                                      fromCityName: fromCityName,
+                                      toCityName: toCityName,
+                                      timeFrom: timeFrom,
+                                      timeTo: timeTo,
+                                      stops: stops,
+                                      providerName: providerName,
+                                      additionals: tripData.additionals!,
+                                    ),
                                   ),
                                 );
                               })
@@ -199,29 +208,6 @@ class _SearchResultState extends State<SearchResult> {
                             ),
                     ),
                     CommonPadding.sizeBoxWithHeight(height: 10),
-                    // searchProvider.isTripDataLoaded
-                    //     ? CustomButton(
-                    //             name: "Filter Result",
-                    //             buttonColor: appColor,
-                    //             height: sizes!.heightRatio * 45,
-                    //             width: double.infinity,
-                    //             textSize: sizes!.fontRatio * 16,
-                    //             textColor: Colors.white,
-                    //             fontWeight: FontWeight.normal,
-                    //             borderRadius: 5,
-                    //             onTapped: () {
-                    //               Navigator.push(
-                    //                 context,
-                    //                 MaterialPageRoute(
-                    //                   builder: (context) =>
-                    //                       const TripFilterScreen(),
-                    //                 ),
-                    //               );
-                    //             },
-                    //             padding: 0)
-                    //         .get20HorizontalPadding()
-                    //     : Container(),
-                    // CommonPadding.sizeBoxWithHeight(height: 10),
                   ],
                 ).get20HorizontalPadding(),
               )

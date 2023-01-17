@@ -76,7 +76,6 @@ class RoundTripHotelProvider with ChangeNotifier {
           selectBookingDaysList.add(0);
           selectNumberOfRoomsList.add(0);
         }
-
         _loader.hideLoader(context!);
         isHotelLoaded = true;
         notifyListeners();
@@ -85,7 +84,7 @@ class RoundTripHotelProvider with ChangeNotifier {
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      _logger.e("onError:${e.toString()}");
+      _logger.e("onHotelRoomResponseError:${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

@@ -38,7 +38,8 @@ class RoundTripStepTwoResult extends StatefulWidget {
     required this.firstTripModel,
     required this.tripFirstPassengersCount,
     required this.tripFirstAdditionalList,
-    required this.paramPassengerBody, required this.paramHotelBody,
+    required this.paramPassengerBody,
+    required this.paramHotelBody,
   }) : super(key: key);
 
   @override

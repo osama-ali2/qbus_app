@@ -259,7 +259,15 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                       },
                     ),
                   )
-                : Container(),
+                : Center(
+                    child: TextView.getGenericText(
+                        text: "No Hotel Founds",
+                        fontFamily: Assets.latoRegular,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.whiteTextColor,
+                        lines: 1),
+                  ),
             CommonPadding.sizeBoxWithHeight(height: 10),
             roundTripHotelProvider.isHotelLoaded == true
                 ? CustomButton(

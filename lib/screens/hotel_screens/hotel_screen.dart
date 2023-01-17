@@ -159,9 +159,7 @@ class _HotelScreenState extends State<HotelScreen> {
                             .hotelRoomResponse.data!.imageBase
                             .toString();
                         var image = data.image.toString();
-
                         var thumbnailUrl = "$imageUrl/$image";
-
                         var roomId = int.parse("${data.id}");
 
                         return Padding(
@@ -255,7 +253,15 @@ class _HotelScreenState extends State<HotelScreen> {
                       },
                     ),
                   )
-                : Container(),
+                : Center(
+                    child: TextView.getGenericText(
+                        text: "No Hotel Founds",
+                        fontFamily: Assets.latoRegular,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.whiteTextColor,
+                        lines: 1),
+                  ),
             CommonPadding.sizeBoxWithHeight(height: 10),
             hotelProvider.isHotelLoaded == true
                 ? CustomButton(

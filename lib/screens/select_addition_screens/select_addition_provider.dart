@@ -43,10 +43,9 @@ class SelectAdditionProvider with ChangeNotifier {
     isTripLoaded = false;
   }
 
+  /// Get Additional Data
   Future<void> getAdditionalData({required String id}) async {
     try {
-      // selectAdditionalList.clear();
-
       _loader.showLoader(context: context);
       Map<String, dynamic> header = {"Content-Type": "application/json"};
       var url = "$tripAdditionalApiUrl$id";
@@ -81,6 +80,7 @@ class SelectAdditionProvider with ChangeNotifier {
     }
   }
 
+  /// One Way Order Trip
   Future<void> oneWayOrderTrip(
       {required Trips trips, required String passengersCount}) async {
     try {
@@ -132,6 +132,7 @@ class SelectAdditionProvider with ChangeNotifier {
     }
   }
 
+  /// Round Order Trip
   Future<void> roundOrderTrip(
       {required Trips trips, required String passengersCount}) async {
     try {
@@ -184,6 +185,7 @@ class SelectAdditionProvider with ChangeNotifier {
     }
   }
 
+  /// Multi-Order Trip
   Future<void> multiOrderTrip(
       {required Trips trips, required String passengersCount}) async {
     try {
