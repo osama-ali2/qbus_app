@@ -8,6 +8,7 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/project_widgets/trip_card_container_widget.dart';
+import 'package:qbus/screens/round_trip_flow/step_two/step_two_select_addition/step_two_select_addition_provider.dart';
 import 'package:qbus/screens/round_trip_flow/step_two/step_two_select_addition/step_two_select_addition_screen.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';
 import 'package:qbus/widgets/text_views.dart';
@@ -15,6 +16,7 @@ import '../../../../navigation/navigation_helper.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
 import '../../project_widgets/filter_container_widget.dart';
+import 'round_trip_review_order_screens/round_trip_review_order_screen.dart';
 import 'round_trip_step_two_provider.dart';
 
 class RoundTripStepTwoResult extends StatefulWidget {
@@ -48,16 +50,26 @@ class RoundTripStepTwoResult extends StatefulWidget {
 
 class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
   late RoundTripStepTwoProvider roundTripStepTwoProvider;
+  late StepTwoSelectAdditionProvider stepTwoSelectAdditionProvider;
+
+  //Controller
   late ScrollController _scrollController;
   int index = 0;
 
   @override
   void initState() {
     super.initState();
+
     roundTripStepTwoProvider = RoundTripStepTwoProvider();
     roundTripStepTwoProvider =
         Provider.of<RoundTripStepTwoProvider>(context, listen: false);
     roundTripStepTwoProvider.init(context: context);
+
+    /// StepTwoSelectAdditionProvider
+    stepTwoSelectAdditionProvider = StepTwoSelectAdditionProvider();
+    stepTwoSelectAdditionProvider =
+        Provider.of<StepTwoSelectAdditionProvider>(context, listen: false);
+    stepTwoSelectAdditionProvider.init(context: context);
 
     // Pagination
     _scrollController = ScrollController();
@@ -85,6 +97,7 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
   @override
   Widget build(BuildContext context) {
     Provider.of<RoundTripStepTwoProvider>(context, listen: true);
+    Provider.of<StepTwoSelectAdditionProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
@@ -137,30 +150,38 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
                               var tripId = data.id.toString();
 
                               return InkWell(
-                                onTap: () {
-                                  NavigationHelper.pushRoute(
-                                    context,
-                                    StepTwoSelectAdditionScreen(
-                                      tripSecondId: tripId,
-                                      secondTripsModel: data,
-                                      isRoundTripChecked:
-                                          widget.isRoundTripChecked,
-                                      passengersCount:
-                                          widget.tripFirstPassengersCount,
-                                      toCityId:
-                                          widget.tripFilterModel.to_city_id,
-                                      fromCityId:
-                                          widget.tripFilterModel.from_city_id,
-                                      firstTripModel: widget.firstTripModel,
-                                      tripFirstAdditionalList:
-                                          widget.tripFirstAdditionalList,
-                                      tripFirstPassengersCount:
-                                          widget.tripFirstPassengersCount,
-                                      paramPassengerBody:
-                                          widget.paramPassengerBody,
-                                      paramHotelBody: widget.paramHotelBody,
-                                    ),
-                                  );
+                                onTap: () async {
+                                  if (data.additionals!.isEmpty) {
+                                    debugPrint(
+                                        "roundTripAdditional:${data.additionals!.isEmpty}");
+                                    debugPrint(
+                                        "roundTripHotels:${data.hotels!.isEmpty}");
+                                    await callOrderTrip(tripId: data);
+                                  } else {
+                                    NavigationHelper.pushRoute(
+                                      context,
+                                      StepTwoSelectAdditionScreen(
+                                        tripSecondId: tripId,
+                                        secondTripsModel: data,
+                                        isRoundTripChecked:
+                                            widget.isRoundTripChecked,
+                                        passengersCount:
+                                            widget.tripFirstPassengersCount,
+                                        toCityId:
+                                            widget.tripFilterModel.to_city_id,
+                                        fromCityId:
+                                            widget.tripFilterModel.from_city_id,
+                                        firstTripModel: widget.firstTripModel,
+                                        tripFirstAdditionalList:
+                                            widget.tripFirstAdditionalList,
+                                        tripFirstPassengersCount:
+                                            widget.tripFirstPassengersCount,
+                                        paramPassengerBody:
+                                            widget.paramPassengerBody,
+                                        paramHotelBody: widget.paramHotelBody,
+                                      ),
+                                    );
+                                  }
                                 },
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
@@ -196,5 +217,31 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
         ).get20HorizontalPadding(),
       ),
     );
+  }
+
+  Future<void> callOrderTrip({required Trips tripId}) async {
+    if (widget.isRoundTripChecked == true) {
+      await stepTwoSelectAdditionProvider.roundOrderTrip(
+        tripFirstId: widget.firstTripModel,
+        passengersCount: widget.tripFirstPassengersCount,
+        tripFirstAdditionalList: widget.tripFirstAdditionalList,
+        tripSecondId: tripId,
+        paramPassengerBody: widget.paramPassengerBody,
+        paramHotelBody: widget.paramHotelBody,
+      );
+
+      if (stepTwoSelectAdditionProvider.isRoundOrderTripSaved == true) {
+        if (!mounted) return;
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RoundTripReviewOrderScreen(
+              orderId: stepTwoSelectAdditionProvider
+                  .roundOrderTripResponse.data!.tripId!,
+            ),
+          ),
+        );
+      }
+    }
   }
 }

@@ -24,6 +24,8 @@ class StepOneSelectAdditionScreen extends StatefulWidget {
   final String? toCityId;
   final String? fromCityId;
 
+  final bool? isHotelEmpty;
+
   //Load Trip
   final TripFilterModel? tripFilterModel;
   final String? fromCity;
@@ -40,6 +42,7 @@ class StepOneSelectAdditionScreen extends StatefulWidget {
     this.tripFilterModel,
     this.fromCity,
     this.toCity,
+    this.isHotelEmpty,
   }) : super(key: key);
 
   @override
@@ -125,6 +128,7 @@ class _StepOneSelectAdditionScreenState
                           context,
                           MaterialPageRoute(
                             builder: (context) => RoundTripPassengerScreen(
+                              isHotelEmpty: widget.isHotelEmpty,
                               passengerCount:
                                   int.parse(widget.passengersCount!),
                               tripId: int.parse(widget.tripId!),
