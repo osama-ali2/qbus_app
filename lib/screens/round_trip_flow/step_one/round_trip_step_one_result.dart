@@ -130,12 +130,15 @@ class _RoundTripStepOneResultState extends State<RoundTripStepOneResult> {
                                     if (data.additionals!.isEmpty) {
                                       debugPrint(
                                           "roundTripAdditional:${data.additionals!.isEmpty}");
+                                      debugPrint(
+                                          "roundTripHotels:${data.hotels!.isEmpty}");
 
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               RoundTripPassengerScreen(
+                                            isHotelEmpty: data.hotels!.isEmpty,
                                             passengerCount: int.parse(
                                                 widget.passengersCount!),
                                             tripId: int.parse(tripId),
@@ -158,6 +161,7 @@ class _RoundTripStepOneResultState extends State<RoundTripStepOneResult> {
                                       NavigationHelper.pushRoute(
                                         context,
                                         StepOneSelectAdditionScreen(
+                                          isHotelEmpty: data.hotels!.isEmpty,
                                           tripId: tripId,
                                           firstTripsModel: data,
                                           isRoundTripChecked:

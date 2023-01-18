@@ -7,6 +7,7 @@ import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/project_widgets/round_trip_passenger_container_widget.dart';
+import 'package:qbus/screens/round_trip_flow/step_two/round_trip_step_two_result.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
@@ -26,6 +27,7 @@ class RoundTripPassengerScreen extends StatefulWidget {
   final Trips firstTripModel;
   final String tripFirstPassengersCount;
   final List<Map<String, dynamic>> tripFirstAdditionalList;
+  final bool? isHotelEmpty;
 
   const RoundTripPassengerScreen({
     Key? key,
@@ -39,6 +41,7 @@ class RoundTripPassengerScreen extends StatefulWidget {
     required this.firstTripModel,
     required this.tripFirstPassengersCount,
     required this.tripFirstAdditionalList,
+    this.isHotelEmpty,
   }) : super(key: key);
 
   @override
@@ -196,21 +199,50 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
       debugPrint("passengerBody: ${passengerBody.map((e) => e)} ");
     }
 
+    if (passengerBody.isNotEmpty) {
+      if (widget.isHotelEmpty == true) {
+        debugPrint("isHotelEmpty: ${widget.isHotelEmpty}");
+        stepTwoTrip();
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RoundTripHotelScreen(
+              tripId: widget.tripId,
+              passengerCounts: widget.passengerCount.toString(),
+              paramPassengerBody: passengerBody,
+              paramAdditionalList: widget.additionalList,
+              tripFilterModel: widget.tripFilterModel,
+              fromCity: widget.fromCity,
+              toCity: widget.toCity,
+              isRoundTripChecked: widget.isRoundTripChecked,
+              firstTripModel: widget.firstTripModel,
+              tripFirstPassengersCount: widget.passengerCount.toString(),
+              tripFirstAdditionalList: widget.tripFirstAdditionalList,
+            ),
+          ),
+        );
+      }
+    } else {
+      Toasts.getWarningToast(text: "The fields is required");
+    }
+  }
+
+  void stepTwoTrip() async {
+    /// TODO: Uncomment Round Trip Step Two Result;
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => RoundTripHotelScreen(
-          tripId: widget.tripId,
-          passengerCounts: widget.passengerCount.toString(),
-          paramPassengerBody: passengerBody,
-          paramAdditionalList: widget.additionalList,
-          tripFilterModel: widget.tripFilterModel,
-          fromCity: widget.fromCity,
+        builder: (context) => RoundTripStepTwoResult(
           toCity: widget.toCity,
+          fromCity: widget.fromCity,
+          tripFilterModel: widget.tripFilterModel,
           isRoundTripChecked: widget.isRoundTripChecked,
-          firstTripModel: widget.firstTripModel,
           tripFirstPassengersCount: widget.passengerCount.toString(),
+          firstTripModel: widget.firstTripModel,
           tripFirstAdditionalList: widget.tripFirstAdditionalList,
+          paramPassengerBody: passengerBody,
+          paramHotelBody: [],
         ),
       ),
     );
