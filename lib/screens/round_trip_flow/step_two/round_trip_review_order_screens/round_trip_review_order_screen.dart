@@ -81,8 +81,9 @@ class _RoundTripReviewOrderScreenState
                         var discount = data.discount.toString();
                         var taxValue = data.tax.toString();
                         var total = data.total.toString();
-                        var fees = data.fees.toString();
+                        //var finalFrees = data.fees.toString();
 
+                        // Data Trip
                         var timeFrom = dataTrip.timeFrom.toString();
                         var timeTo = dataTrip.timeTo.toString();
                         var dateFrom = dataTrip.dateFrom.toString();
@@ -90,6 +91,7 @@ class _RoundTripReviewOrderScreenState
                         var fromCity = dataTrip.fromCity!.name!.en.toString();
                         var toCity = dataTrip.toCity!.name!.en.toString();
                         var count = dataTrip.count.toString();
+                        var tripFee = dataTrip.fees.toString();
 
                         var hotelRoomsLength = dataTrip.hotelsRooms!.length;
                         var additionalLength = dataTrip.additionals!.length;
@@ -97,25 +99,27 @@ class _RoundTripReviewOrderScreenState
                         var additionalData = dataTrip.additionals;
 
                         return Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: sizes!.heightRatio * 10,
-                            ),
-                            child: _returnOrderReview(
-                                discount: discount,
-                                taxValue: taxValue,
-                                total: total,
-                                fees: fees,
-                                timeFrom: timeFrom,
-                                timeTo: timeTo,
-                                dateFrom: dateFrom,
-                                dateTo: dateTo,
-                                fromCity: fromCity,
-                                toCity: toCity,
-                                count: count,
-                                hotelRoomsLength: hotelRoomsLength,
-                                additionalLength: additionalLength,
-                                additionalData: additionalData!,
-                                hotelsRoomsData: hotelRoomsData!));
+                          padding: EdgeInsets.symmetric(
+                            vertical: sizes!.heightRatio * 10,
+                          ),
+                          child: _returnOrderReview(
+                            discount: discount,
+                            taxValue: taxValue,
+                            total: total,
+                            fees: tripFee,
+                            timeFrom: timeFrom,
+                            timeTo: timeTo,
+                            dateFrom: dateFrom,
+                            dateTo: dateTo,
+                            fromCity: fromCity,
+                            toCity: toCity,
+                            count: count,
+                            hotelRoomsLength: hotelRoomsLength,
+                            additionalLength: additionalLength,
+                            additionalData: additionalData!,
+                            hotelsRoomsData: hotelRoomsData!,
+                          ),
+                        );
                       },
                     ),
                   ),

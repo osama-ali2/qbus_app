@@ -170,4 +170,99 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
       _loader.hideLoader(context!);
     }
   }
+
+  /// Round Order Trip
+  Future<void> roundOrderTripCallFromStepTwo({
+    required Trips tripFirstId,
+    required List<Map<String, dynamic>> tripFirstAdditionalList,
+    required List<Map<String, dynamic>> paramPassengerBody,
+    required List<Map<String, dynamic>> paramHotelBody,
+    required Trips tripSecondId,
+    required String passengersCount,
+  }) async {
+    try {
+      _loader.showLoader(context: context);
+      Map<String, dynamic> header = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $userToken"
+      };
+
+      // var newHotelBody = [];
+      // if (paramHotelBody.isEmpty) {
+      //   paramHotelBody.firstWhere(
+      //     (element) {
+      //       if (element['rooms_number'] > 0 && element['days'] > 0) {
+      //         debugPrint("elementSelected:$element");
+      //         newHotelBody.add(element);
+      //         return true;
+      //       }
+      //       return false;
+      //     },
+      //   );
+      // } else {
+      //   newHotelBody = [];
+      // }
+
+      _logger.d("paramHotelBody: $paramHotelBody");
+
+      // First Trip Body
+      Map<String, dynamic> tripFirstBody = {
+        "trip_id": tripFirstId.id,
+        "count": passengersCount,
+        "code": "",
+        "additional": tripFirstAdditionalList,
+        "passengers": paramPassengerBody,
+        "hotel_rooms": [],
+        "user_notes": ""
+      };
+      _logger.i("tripFirstBody: $tripFirstBody");
+
+      // Second Trip Body
+      Map<String, dynamic> tripSecondBody = {
+        "trip_id": tripSecondId.id,
+        "count": passengersCount,
+        "code": "",
+        "additional": additionalList,
+        "passengers": paramPassengerBody,
+        "hotel_rooms": [],
+        "user_notes": ""
+      };
+      _logger.d("tripSecondBody: $tripSecondBody");
+
+      Map<String, dynamic> body = {
+        "trips": [tripFirstBody, tripSecondBody]
+      };
+      _logger.d("body: $body");
+
+      var url = roundOrderTripApiUrl;
+      debugPrint("URL: $url");
+      debugPrint("Header: $header");
+
+      roundOrderTripResponse = await MyApi.callPostApi(
+          url: url,
+          myHeaders: header,
+          body: body,
+          modelName: Models.roundOrderTripModel);
+
+      if (roundOrderTripResponse.code == 1) {
+        _logger.i(
+            "roundOrderTripResponse: ${roundOrderTripResponse.toJson()}, ${roundOrderTripResponse.toString()}");
+        _loader.hideLoader(context!);
+        isRoundOrderTripSaved = true;
+
+        //clear the data lists
+        additionalList.clear();
+        paramPassengerBody.clear();
+        paramHotelBody.clear();
+
+        notifyListeners();
+      } else {
+        _logger.e("roundOrderTripResponse: Something wrong");
+        _loader.hideLoader(context!);
+      }
+    } catch (e) {
+      _logger.e("roundOrderTripResponseError: ${e.toString()}");
+      _loader.hideLoader(context!);
+    }
+  }
 }

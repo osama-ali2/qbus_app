@@ -1,6 +1,10 @@
+/// code : 1
+/// message : "retrieved successfully."
+/// data : {"trip_orders":[{"count":1,"from_city":{"name":{"en":"alahsa","ar":"الاحساء","ur":"alahsa"}},"to_city":{"name":{"en":"Makka","ar":"مكة المكرمة","ur":"Makka"}},"fees":299,"time_from":"06:00","time_to":"06:00","date_from":"2023-01-09","date_to":"2023-01-09","hotels_rooms":[{"days":2,"name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"fees":200}],"additionals":[{"id":1,"fees":10,"count":2,"name":"tea"}],"tax_type":"inclusive"},{"count":1,"from_city":{"name":{"en":"Makka","ar":"مكة المكرمة","ur":"Makka"}},"to_city":{"name":{"en":"alahsa","ar":"الاحساء","ur":"alahsa"}},"fees":298,"time_from":"07:00","time_to":"05:00","date_from":"2023-01-12","date_to":"2023-01-12","hotels_rooms":[{"days":2,"name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"fees":200}],"additionals":[{"id":1,"fees":15,"count":3,"name":"tea"}],"tax_type":"inclusive"}],"fees":597,"discount":0,"tax":93.3,"total":622.02}
+
 class RoundOrderReviewResponse {
   RoundOrderReviewResponse({
-    int? code,
+    num? code,
     String? message,
     Data? data,
   }) {
@@ -15,11 +19,11 @@ class RoundOrderReviewResponse {
     _data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
-  int? _code;
+  num? _code;
   String? _message;
   Data? _data;
 
-  int? get code => _code;
+  num? get code => _code;
 
   String? get message => _message;
 
@@ -36,13 +40,19 @@ class RoundOrderReviewResponse {
   }
 }
 
+/// trip_orders : [{"count":1,"from_city":{"name":{"en":"alahsa","ar":"الاحساء","ur":"alahsa"}},"to_city":{"name":{"en":"Makka","ar":"مكة المكرمة","ur":"Makka"}},"fees":299,"time_from":"06:00","time_to":"06:00","date_from":"2023-01-09","date_to":"2023-01-09","hotels_rooms":[{"days":2,"name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"fees":200}],"additionals":[{"id":1,"fees":10,"count":2,"name":"tea"}],"tax_type":"inclusive"},{"count":1,"from_city":{"name":{"en":"Makka","ar":"مكة المكرمة","ur":"Makka"}},"to_city":{"name":{"en":"alahsa","ar":"الاحساء","ur":"alahsa"}},"fees":298,"time_from":"07:00","time_to":"05:00","date_from":"2023-01-12","date_to":"2023-01-12","hotels_rooms":[{"days":2,"name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"fees":200}],"additionals":[{"id":1,"fees":15,"count":3,"name":"tea"}],"tax_type":"inclusive"}]
+/// fees : 597
+/// discount : 0
+/// tax : 93.3
+/// total : 622.02
+
 class Data {
   Data({
     List<TripOrders>? tripOrders,
-    int? fees,
-    int? discount,
-    dynamic tax,
-    dynamic total,
+    num? fees,
+    num? discount,
+    num? tax,
+    num? total,
   }) {
     _tripOrders = tripOrders;
     _fees = fees;
@@ -65,20 +75,20 @@ class Data {
   }
 
   List<TripOrders>? _tripOrders;
-  int? _fees;
-  int? _discount;
-  dynamic _tax;
-  dynamic _total;
+  num? _fees;
+  num? _discount;
+  num? _tax;
+  num? _total;
 
   List<TripOrders>? get tripOrders => _tripOrders;
 
-  int? get fees => _fees;
+  num? get fees => _fees;
 
-  int? get discount => _discount;
+  num? get discount => _discount;
 
-  dynamic get tax => _tax;
+  num? get tax => _tax;
 
-  dynamic get total => _total;
+  num? get total => _total;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -93,11 +103,24 @@ class Data {
   }
 }
 
+/// count : 1
+/// from_city : {"name":{"en":"alahsa","ar":"الاحساء","ur":"alahsa"}}
+/// to_city : {"name":{"en":"Makka","ar":"مكة المكرمة","ur":"Makka"}}
+/// fees : 299
+/// time_from : "06:00"
+/// time_to : "06:00"
+/// date_from : "2023-01-09"
+/// date_to : "2023-01-09"
+/// hotels_rooms : [{"days":2,"name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"fees":200}]
+/// additionals : [{"id":1,"fees":10,"count":2,"name":"tea"}]
+/// tax_type : "inclusive"
+
 class TripOrders {
   TripOrders({
-    int? count,
+    num? count,
     FromCity? fromCity,
     ToCity? toCity,
+    num? fees,
     String? timeFrom,
     String? timeTo,
     String? dateFrom,
@@ -109,6 +132,7 @@ class TripOrders {
     _count = count;
     _fromCity = fromCity;
     _toCity = toCity;
+    _fees = fees;
     _timeFrom = timeFrom;
     _timeTo = timeTo;
     _dateFrom = dateFrom;
@@ -123,6 +147,7 @@ class TripOrders {
     _fromCity =
         json['from_city'] != null ? FromCity.fromJson(json['from_city']) : null;
     _toCity = json['to_city'] != null ? ToCity.fromJson(json['to_city']) : null;
+    _fees = json['fees'];
     _timeFrom = json['time_from'];
     _timeTo = json['time_to'];
     _dateFrom = json['date_from'];
@@ -142,9 +167,10 @@ class TripOrders {
     _taxType = json['tax_type'];
   }
 
-  int? _count;
+  num? _count;
   FromCity? _fromCity;
   ToCity? _toCity;
+  num? _fees;
   String? _timeFrom;
   String? _timeTo;
   String? _dateFrom;
@@ -153,11 +179,13 @@ class TripOrders {
   List<Additionals>? _additionals;
   String? _taxType;
 
-  int? get count => _count;
+  num? get count => _count;
 
   FromCity? get fromCity => _fromCity;
 
   ToCity? get toCity => _toCity;
+
+  num? get fees => _fees;
 
   String? get timeFrom => _timeFrom;
 
@@ -182,6 +210,7 @@ class TripOrders {
     if (_toCity != null) {
       map['to_city'] = _toCity?.toJson();
     }
+    map['fees'] = _fees;
     map['time_from'] = _timeFrom;
     map['time_to'] = _timeTo;
     map['date_from'] = _dateFrom;
@@ -197,11 +226,16 @@ class TripOrders {
   }
 }
 
+/// id : 1
+/// fees : 10
+/// count : 2
+/// name : "tea"
+
 class Additionals {
   Additionals({
-    int? id,
-    int? fees,
-    int? count,
+    num? id,
+    num? fees,
+    num? count,
     String? name,
   }) {
     _id = id;
@@ -217,16 +251,16 @@ class Additionals {
     _name = json['name'];
   }
 
-  int? _id;
-  int? _fees;
-  int? _count;
+  num? _id;
+  num? _fees;
+  num? _count;
   String? _name;
 
-  int? get id => _id;
+  num? get id => _id;
 
-  int? get fees => _fees;
+  num? get fees => _fees;
 
-  int? get count => _count;
+  num? get count => _count;
 
   String? get name => _name;
 
@@ -240,11 +274,15 @@ class Additionals {
   }
 }
 
+/// days : 2
+/// name : {"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"}
+/// fees : 200
+
 class HotelsRooms {
   HotelsRooms({
-    int? days,
+    num? days,
     Name? name,
-    int? fees,
+    num? fees,
   }) {
     _days = days;
     _name = name;
@@ -257,15 +295,15 @@ class HotelsRooms {
     _fees = json['fees'];
   }
 
-  int? _days;
+  num? _days;
   Name? _name;
-  int? _fees;
+  num? _fees;
 
-  int? get days => _days;
+  num? get days => _days;
 
   Name? get name => _name;
 
-  int? get fees => _fees;
+  num? get fees => _fees;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -278,53 +316,9 @@ class HotelsRooms {
   }
 }
 
-class ToCity {
-  ToCity({
-    Name? name,
-  }) {
-    _name = name;
-  }
-
-  ToCity.fromJson(dynamic json) {
-    _name = json['name'] != null ? Name.fromJson(json['name']) : null;
-  }
-
-  Name? _name;
-
-  Name? get name => _name;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (_name != null) {
-      map['name'] = _name?.toJson();
-    }
-    return map;
-  }
-}
-
-class FromCity {
-  FromCity({
-    Name? name,
-  }) {
-    _name = name;
-  }
-
-  FromCity.fromJson(dynamic json) {
-    _name = json['name'] != null ? Name.fromJson(json['name']) : null;
-  }
-
-  Name? _name;
-
-  Name? get name => _name;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (_name != null) {
-      map['name'] = _name?.toJson();
-    }
-    return map;
-  }
-}
+/// en : "Mina Concorde"
+/// ar : "منى كونكورد"
+/// ur : "Mina Concorde"
 
 class Name {
   Name({
@@ -358,6 +352,58 @@ class Name {
     map['en'] = _en;
     map['ar'] = _ar;
     map['ur'] = _ur;
+    return map;
+  }
+}
+
+/// name : {"en":"Makka","ar":"مكة المكرمة","ur":"Makka"}
+
+class ToCity {
+  ToCity({
+    Name? name,
+  }) {
+    _name = name;
+  }
+
+  ToCity.fromJson(dynamic json) {
+    _name = json['name'] != null ? Name.fromJson(json['name']) : null;
+  }
+
+  Name? _name;
+
+  Name? get name => _name;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (_name != null) {
+      map['name'] = _name?.toJson();
+    }
+    return map;
+  }
+}
+
+/// name : {"en":"alahsa","ar":"الاحساء","ur":"alahsa"}
+
+class FromCity {
+  FromCity({
+    Name? name,
+  }) {
+    _name = name;
+  }
+
+  FromCity.fromJson(dynamic json) {
+    _name = json['name'] != null ? Name.fromJson(json['name']) : null;
+  }
+
+  Name? _name;
+
+  Name? get name => _name;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (_name != null) {
+      map['name'] = _name?.toJson();
+    }
     return map;
   }
 }

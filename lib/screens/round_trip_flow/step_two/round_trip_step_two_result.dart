@@ -219,9 +219,10 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
     );
   }
 
+  // Call Order Trip
   Future<void> callOrderTrip({required Trips tripId}) async {
     if (widget.isRoundTripChecked == true) {
-      await stepTwoSelectAdditionProvider.roundOrderTrip(
+      await stepTwoSelectAdditionProvider.roundOrderTripCallFromStepTwo(
         tripFirstId: widget.firstTripModel,
         passengersCount: widget.tripFirstPassengersCount,
         tripFirstAdditionalList: widget.tripFirstAdditionalList,
