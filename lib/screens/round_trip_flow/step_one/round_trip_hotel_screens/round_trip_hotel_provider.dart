@@ -110,20 +110,22 @@ class RoundTripHotelProvider with ChangeNotifier {
       _logger.i("paramPassengerBody: ${paramPassengerBody.map((e) => e)}");
       _logger.i("hotelRoomBody: ${hotelRoomBody.map((e) => e)}");
 
-      hotelRoomBody.firstWhere((element) {
-        if (element['rooms_number'] > 0 && element['days'] > 0) {
-          debugPrint("elementSelected:$element");
-          newHotelBody.add(element);
-          return true;
+      var newHotelBody = [];
+      for (int i = 0; i < hotelRoomBody.length; i++) {
+        if (hotelRoomBody[i]['rooms_number'] > 0 &&
+            hotelRoomBody[i]['days'] > 0) {
+          newHotelBody.add(hotelRoomBody[i]);
+          _logger.d("newHotelBody:$newHotelBody");
+        } else {
+          newHotelBody = [];
         }
-        return false;
-      });
+      }
 
       // API->Body
       final newBody = {
         "trip_id": tripId,
         "count": passengerCounts,
-        "code": "SALE10",
+        "code": "",
         "additional": additionalList,
         "passengers": paramPassengerBody,
         "hotel_rooms": newHotelBody, //hotelRoomBody,

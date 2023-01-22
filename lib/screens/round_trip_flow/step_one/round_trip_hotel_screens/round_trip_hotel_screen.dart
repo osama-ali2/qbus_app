@@ -9,7 +9,6 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/project_widgets/hotel_card_container_widget.dart';
-import 'package:qbus/screens/review_order_screens/review_order_screen.dart';
 import 'package:qbus/screens/round_trip_flow/step_two/round_trip_step_two_result.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
@@ -177,72 +176,16 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                             bedRoomNum: bedNum,
                             ratingNum: int.parse(rate),
                             onPlusBookingDayPress: () {
-                              setState(() {
-                                bookingDaysCounter = roundTripHotelProvider
-                                    .selectBookingDaysList[index]++;
-                                //
-                                Map<String, dynamic> selected = {
-                                  "room_id": roomId,
-                                  "rooms_number": numberOfRoomsCounter,
-                                  "days": bookingDaysCounter++
-                                };
-                                debugPrint("bookingDaysCounter:$selected");
-                                //
-                                roundTripHotelProvider.hotelRoomBody[index]
-                                    .addAll(selected);
-                              });
+                              onPlusBookingDay(index: index, roomId: roomId);
                             },
                             onMinusBookingDayPress: () {
-                              if (roundTripHotelProvider
-                                      .selectBookingDaysList[index] >
-                                  1) {
-                                setState(() {
-                                  bookingDaysCounter = roundTripHotelProvider
-                                      .selectBookingDaysList[index]--;
-                                  Map<String, dynamic> selected = {
-                                    "room_id": roomId,
-                                    "rooms_number": numberOfRoomsCounter,
-                                    "days": bookingDaysCounter--
-                                  };
-                                  debugPrint("bookingDaysCounter:$selected");
-                                  roundTripHotelProvider.hotelRoomBody[index]
-                                      .addAll(selected);
-                                });
-                              }
+                              onMinusBookingDay(index: index, roomId: roomId);
                             },
                             onPlusRoomPress: () {
-                              setState(() {
-                                numberOfRoomsCounter = roundTripHotelProvider
-                                    .selectNumberOfRoomsList[index]++;
-                                Map<String, dynamic> selected = {
-                                  "room_id": roomId,
-                                  "rooms_number": numberOfRoomsCounter++,
-                                  "days": bookingDaysCounter
-                                };
-                                debugPrint("numberOfRoomsCounter:$selected");
-
-                                roundTripHotelProvider.hotelRoomBody[index]
-                                    .addAll(selected);
-                              });
+                              onPlusRoom(index: index, roomId: roomId);
                             },
                             onMinusRoomPress: () {
-                              if (roundTripHotelProvider
-                                      .selectNumberOfRoomsList[index] >
-                                  1) {
-                                setState(() {
-                                  numberOfRoomsCounter = roundTripHotelProvider
-                                      .selectNumberOfRoomsList[index]--;
-                                  Map<String, dynamic> selected = {
-                                    "room_id": roomId,
-                                    "rooms_number": numberOfRoomsCounter--,
-                                    "days": bookingDaysCounter
-                                  };
-                                  debugPrint("numberOfRoomsCounter:$selected");
-
-                                  roundTripHotelProvider.hotelRoomBody[index]
-                                      .addAll(selected);
-                                });
-                              }
+                              onMinusRoom(index: index, roomId: roomId);
                             },
                             bookingDayCounter: roundTripHotelProvider
                                     .selectBookingDaysList.isNotEmpty
@@ -281,9 +224,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                     borderRadius: 5,
                     onTapped: () async {
                       // saveTripOrder();
-
                       stepTwoTrip();
-
                       debugPrint(
                           "hotelData:${widget.tripId}, ${widget.passengerCounts}, ${widget.paramPassengerBody}, ${widget.paramAdditionalList}, ${roundTripHotelProvider.hotelRoomBody}");
                     },
@@ -297,6 +238,71 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
     );
   }
 
+  /// On Plus Booking Day
+  void onPlusBookingDay({required int index, required int roomId}) {
+    setState(() {
+      roundTripHotelProvider.selectBookingDaysList[index]++;
+      Map<String, dynamic> selected = {
+        "room_id": roomId,
+        "rooms_number": roundTripHotelProvider.selectNumberOfRoomsList[index],
+        "days": roundTripHotelProvider.selectBookingDaysList[index],
+      };
+      debugPrint("bookingDaysCounter:$selected");
+      roundTripHotelProvider.hotelRoomBody[index].addAll(selected);
+    });
+  }
+
+  /// On Minus Booking Day
+  void onMinusBookingDay({required int index, required int roomId}) {
+    if (roundTripHotelProvider.selectBookingDaysList[index] > 0) {
+      setState(() {
+        roundTripHotelProvider.selectBookingDaysList[index]--;
+        Map<String, dynamic> selected = {
+          "room_id": roomId,
+          "rooms_number": roundTripHotelProvider.selectNumberOfRoomsList[index],
+          "days": roundTripHotelProvider.selectBookingDaysList[index],
+        };
+        debugPrint("bookingDaysCounter:$selected");
+        roundTripHotelProvider.hotelRoomBody[index].addAll(selected);
+      });
+    }
+  }
+
+  /// On Plus Room
+  void onPlusRoom({required int index, required int roomId}) {
+    setState(() {
+      roundTripHotelProvider.selectNumberOfRoomsList[index]++;
+      Map<String, dynamic> selected = {
+        "room_id": roomId,
+        "rooms_number": roundTripHotelProvider.selectNumberOfRoomsList[index],
+        //numberOfRoomsCounter,
+        "days": roundTripHotelProvider.selectBookingDaysList[index],
+        //bookingDaysCounter
+      };
+      debugPrint("numberOfRoomsCounter:$selected");
+      roundTripHotelProvider.hotelRoomBody[index].addAll(selected);
+    });
+  }
+
+  /// On Minus Room
+  void onMinusRoom({required int index, required int roomId}) {
+    if (roundTripHotelProvider.selectNumberOfRoomsList[index] > 0) {
+      setState(() {
+        roundTripHotelProvider.selectNumberOfRoomsList[index]--;
+        Map<String, dynamic> selected = {
+          "room_id": roomId,
+          "rooms_number": roundTripHotelProvider.selectNumberOfRoomsList[index],
+          //numberOfRoomsCounter,
+          "days": roundTripHotelProvider.selectBookingDaysList[index],
+          //bookingDaysCounter
+        };
+        debugPrint("numberOfRoomsCounter:$selected");
+        roundTripHotelProvider.hotelRoomBody[index].addAll(selected);
+      });
+    }
+  }
+
+  /// Step Two Trip
   void stepTwoTrip() async {
     /// TODO: Uncomment Round Trip Step Two Result;
     Navigator.push(
@@ -317,7 +323,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
     );
   }
 
-  //
+  /// Skip And Step Two Trip
   void skipAndStepTwoTrip() async {
     /// TODO: Uncomment Round Trip Step Two Result;
     Navigator.push(
@@ -337,23 +343,4 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
       ),
     );
   }
-
-// void saveTripOrder() async {
-//   await roundTripHotelProvider.oneWayOrderTrip(
-//     tripId: "${widget.tripId}",
-//     passengerCounts: widget.passengerCounts,
-//     paramPassengerBody: widget.paramPassengerBody,
-//     additionalList: widget.paramAdditionalList,
-//   );
-//
-//   if (roundTripHotelProvider.isOneWayOrderTripSaved) {
-//     if (!mounted) return;
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) => const ReviewOrderScreen(),
-//       ),
-//     );
-//   }
-// }
 }

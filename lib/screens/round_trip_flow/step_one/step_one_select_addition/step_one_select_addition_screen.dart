@@ -73,8 +73,6 @@ class _StepOneSelectAdditionScreenState
   @override
   void dispose() {
     super.dispose();
-    // stepOneSelectAdditionProvider.selectAdditionalList.clear();
-    // stepOneSelectAdditionProvider.additionalList.clear();
   }
 
   @override
@@ -86,10 +84,11 @@ class _StepOneSelectAdditionScreenState
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "Trip Select Additions",
-            textSize: sizes!.fontRatio * 18,
-            fontWeight: FontWeight.w400,
-            textColor: Colors.white),
+          text: "Trip Select Additions",
+          textSize: sizes!.fontRatio * 18,
+          fontWeight: FontWeight.w400,
+          textColor: Colors.white,
+        ),
       ),
       backgroundColor: Colors.white,
       body: (stepOneSelectAdditionProvider.isTripLoaded == true)
@@ -107,68 +106,30 @@ class _StepOneSelectAdditionScreenState
                           var name = data.name!.en.toString();
                           var additionId = data.id.toString();
                           return _itemContainer(
-                              name: name, index: index, additionId: additionId);
+                            name: name,
+                            index: index,
+                            additionId: additionId,
+                          );
                         }),
                   ),
-
                   CustomButton(
-                      name: "Save First Trip",
-                      buttonColor: appColor,
-                      height: sizes!.heightRatio * 45,
-                      width: double.infinity,
-                      textSize: sizes!.fontRatio * 14,
-                      textColor: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      borderRadius: 5,
-                      onTapped: () async {
-                        debugPrint(
-                            "firstTripModelID: ${widget.firstTripsModel!.id} passengersCount: ${widget.passengersCount}, additionalList: ${stepOneSelectAdditionProvider.additionalList}");
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RoundTripPassengerScreen(
-                              isHotelEmpty: widget.isHotelEmpty,
-                              passengerCount:
-                                  int.parse(widget.passengersCount!),
-                              tripId: int.parse(widget.tripId!),
-                              additionalList:
-                                  stepOneSelectAdditionProvider.additionalList,
-                              tripFilterModel: widget.tripFilterModel!,
-                              fromCity: widget.fromCity!,
-                              toCity: widget.toCity!,
-                              isRoundTripChecked: widget.isRoundTripChecked!,
-                              firstTripModel: widget.firstTripsModel!,
-                              tripFirstPassengersCount:
-                                  widget.passengersCount.toString(),
-                              tripFirstAdditionalList:
-                                  stepOneSelectAdditionProvider.additionalList,
-                            ),
-                          ),
-                        );
-
-                        /// TODO: Uncomment Round Trip Step Two Result;
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => RoundTripStepTwoResult(
-                        //       toCity: widget.toCity,
-                        //       fromCity: widget.fromCity,
-                        //       tripFilterModel: widget.tripFilterModel,
-                        //       isRoundTripChecked: widget.isRoundTripChecked,
-                        //       tripFirstPassengersCount: widget.passengersCount,
-                        //       firstTripModel: widget.firstTripsModel,
-                        //       tripFirstAdditionalList:
-                        //           stepOneSelectAdditionProvider.additionalList,
-                        //     ),
-                        //   ),
-                        // );
-                      },
-                      padding: 20),
+                    name: "Save First Trip",
+                    buttonColor: appColor,
+                    height: sizes!.heightRatio * 45,
+                    width: double.infinity,
+                    textSize: sizes!.fontRatio * 14,
+                    textColor: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    borderRadius: 5,
+                    onTapped: () async {
+                      // Validate Data
+                      validateData();
+                    },
+                    padding: 20,
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
-                  // PreferenceUtils.getString(Strings.loginEmail)!.isNotEmpty &&
                   (PreferenceUtils.getString(Strings.loginUserToken)!
                           .isNotEmpty)
                       ? Container()
@@ -187,14 +148,16 @@ class _StepOneSelectAdditionScreenState
                               height: sizes!.heightRatio * 45,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color: appColor)),
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: appColor),
+                              ),
                               child: Center(
                                 child: CustomText(
-                                    text: "Continue",
-                                    textSize: sizes!.fontRatio * 15,
-                                    fontWeight: FontWeight.w500,
-                                    textColor: appColor),
+                                  text: "Continue",
+                                  textSize: sizes!.fontRatio * 15,
+                                  fontWeight: FontWeight.w500,
+                                  textColor: appColor,
+                                ),
                               ),
                             ),
                           ),
@@ -209,11 +172,36 @@ class _StepOneSelectAdditionScreenState
     );
   }
 
+  void validateData() {
+    debugPrint(
+        "firstTripModelID: ${widget.firstTripsModel!.id} passengersCount: ${widget.passengersCount}, additionalList: ${stepOneSelectAdditionProvider.additionalList}");
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RoundTripPassengerScreen(
+          isHotelEmpty: widget.isHotelEmpty,
+          passengerCount: int.parse(widget.passengersCount!),
+          tripId: int.parse(widget.tripId!),
+          additionalList: stepOneSelectAdditionProvider.additionalList,
+          tripFilterModel: widget.tripFilterModel!,
+          fromCity: widget.fromCity!,
+          toCity: widget.toCity!,
+          isRoundTripChecked: widget.isRoundTripChecked!,
+          firstTripModel: widget.firstTripsModel!,
+          tripFirstPassengersCount: widget.passengersCount.toString(),
+          tripFirstAdditionalList: stepOneSelectAdditionProvider.additionalList,
+        ),
+      ),
+    );
+  }
+
   /// Item Container
-  Widget _itemContainer(
-          {required String name,
-          required int index,
-          required String additionId}) =>
+  Widget _itemContainer({
+    required String name,
+    required int index,
+    required String additionId,
+  }) =>
       Column(
         children: [
           const SizedBox(
@@ -224,53 +212,32 @@ class _StepOneSelectAdditionScreenState
                   context: context,
                   name: name,
                   add: () {
-                    // selectAdditionProvider.selectAdditionalList[index]++;
-                    setState(() {
-                      var counter = stepOneSelectAdditionProvider
-                          .selectAdditionalList[index]++;
-                      Map<String, dynamic> selected = {
-                        "id": additionId,
-                        "counter": counter + 1
-                      };
-                      stepOneSelectAdditionProvider.additionalList[index]
-                          .addAll(selected);
-                    });
+                    _tripAddCounter(index: index, additionId: additionId);
                   },
                   minus: () {
-                    if (stepOneSelectAdditionProvider
-                            .selectAdditionalList[index] >
-                        0) {
-                      // selectAdditionProvider.selectAdditionalList[index]--;
-                      setState(() {
-                        var counter = stepOneSelectAdditionProvider
-                            .selectAdditionalList[index]--;
-                        Map<String, dynamic> selected = {
-                          "id": additionId,
-                          "counter": counter - 1
-                        };
-                        stepOneSelectAdditionProvider.additionalList[index]
-                            .addAll(selected);
-                      });
-                    }
+                    _tripMinusCounter(index: index, additionId: additionId);
                   },
                   number:
-                      stepOneSelectAdditionProvider.selectAdditionalList[index])
+                      stepOneSelectAdditionProvider.selectAdditionalList[index],
+                )
               : _itemsContainer(
                   context: context,
                   name: name,
                   add: () {},
                   minus: () {},
-                  number: 0),
+                  number: 0,
+                ),
         ],
       );
 
   /// Items Container
-  Widget _itemsContainer(
-      {required BuildContext context,
-      required String name,
-      required Function add,
-      required Function minus,
-      required int number}) {
+  Widget _itemsContainer({
+    required BuildContext context,
+    required String name,
+    required Function add,
+    required Function minus,
+    required int number,
+  }) {
     return Container(
       height: sizes!.heightRatio * 60,
       width: MediaQuery.of(context).size.width,
@@ -289,10 +256,48 @@ class _StepOneSelectAdditionScreenState
                 textSize: sizes!.fontRatio * 16,
                 fontWeight: FontWeight.normal,
                 textColor: const Color(0xff747268)),
-            Counter(number: number, onAdd: () => add(), onMinus: () => minus())
+            Counter(
+              number: number,
+              onAdd: () => add(),
+              onMinus: () => minus(),
+            )
           ],
         ),
       ),
     ).get20HorizontalPadding();
+  }
+
+  // Trip Add Counter
+  void _tripAddCounter({
+    required int index,
+    required String additionId,
+  }) {
+    setState(() {
+      stepOneSelectAdditionProvider.selectAdditionalList[index]++;
+      Map<String, dynamic> selected = {
+        "id": additionId,
+        "counter": stepOneSelectAdditionProvider.selectAdditionalList[index],
+      };
+      debugPrint("tripAddCounter: $selected");
+      stepOneSelectAdditionProvider.additionalList[index].addAll(selected);
+    });
+  }
+
+  // Trip Minus Counter
+  void _tripMinusCounter({
+    required int index,
+    required String additionId,
+  }) {
+    if (stepOneSelectAdditionProvider.selectAdditionalList[index] > 0) {
+      setState(() {
+        stepOneSelectAdditionProvider.selectAdditionalList[index]--;
+        Map<String, dynamic> selected = {
+          "id": additionId,
+          "counter": stepOneSelectAdditionProvider.selectAdditionalList[index],
+        };
+        debugPrint("tripMinusCounter: $selected");
+        stepOneSelectAdditionProvider.additionalList[index].addAll(selected);
+      });
+    }
   }
 }

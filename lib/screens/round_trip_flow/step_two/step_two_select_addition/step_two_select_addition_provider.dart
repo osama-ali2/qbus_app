@@ -40,8 +40,6 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
   /// Get Additional Data
   Future<void> getAdditionalData({required String id}) async {
     try {
-      // selectAdditionalList.clear();
-
       _loader.showLoader(context: context);
       Map<String, dynamic> header = {"Content-Type": "application/json"};
 
@@ -93,19 +91,14 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
       };
 
       var newHotelBody = [];
-      if (paramHotelBody.isEmpty) {
-        paramHotelBody.firstWhere(
-          (element) {
-            if (element['rooms_number'] > 0 && element['days'] > 0) {
-              debugPrint("elementSelected:$element");
-              newHotelBody.add(element);
-              return true;
-            }
-            return false;
-          },
-        );
-      } else {
-        newHotelBody = [];
+      for (int i = 0; i < paramHotelBody.length; i++) {
+        if (paramHotelBody[i]['rooms_number'] > 0 &&
+            paramHotelBody[i]['days'] > 0) {
+          newHotelBody.add(paramHotelBody[i]);
+          _logger.d("newHotelBody:$newHotelBody");
+        } else {
+          newHotelBody = [];
+        }
       }
 
       _logger.d("paramHotelBody: $paramHotelBody");
@@ -186,22 +179,6 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
         "Content-Type": "application/json",
         "Authorization": "Bearer $userToken"
       };
-
-      // var newHotelBody = [];
-      // if (paramHotelBody.isEmpty) {
-      //   paramHotelBody.firstWhere(
-      //     (element) {
-      //       if (element['rooms_number'] > 0 && element['days'] > 0) {
-      //         debugPrint("elementSelected:$element");
-      //         newHotelBody.add(element);
-      //         return true;
-      //       }
-      //       return false;
-      //     },
-      //   );
-      // } else {
-      //   newHotelBody = [];
-      // }
 
       _logger.d("paramHotelBody: $paramHotelBody");
 

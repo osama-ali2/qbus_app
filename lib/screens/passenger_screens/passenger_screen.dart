@@ -37,17 +37,16 @@ class _PassengerScreenState extends State<PassengerScreen> {
 
   final List<TextEditingController> _controllers = [];
   final List<Widget> _fields = [];
-  final List<Map<String, dynamic>> passengerBody = [];
+
+  // Passenger Data Body
+  final List<Map<String, dynamic>> _passengerBody = [];
 
   /// Fields
   final List<TextEditingController> _fullNameControllers = [];
   final List<TextEditingController> _idNumberControllers = [];
 
-  var selectedIdentityType = "Identity proof type";
-  var selectedCountry = "Country";
-
-  final List<String> identityTypeString = [];
-  final List<String> countryString = [];
+  final _selectedIdentityType = "Identity proof type";
+  final _selectedCountry = "Country";
 
   @override
   void initState() {
@@ -63,7 +62,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
     hotelProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      addFields();
+      _addFields();
       passengerProvider.getIdentityProofTypes();
       passengerProvider.getCountriesList();
     });
@@ -77,9 +76,11 @@ class _PassengerScreenState extends State<PassengerScreen> {
     }
     _fullNameControllers.clear();
     _idNumberControllers.clear();
+    _passengerBody.clear();
   }
 
-  void addFields() {
+  // Add Passengers TextField
+  void _addFields() {
     if (widget.passengerCount > 10) {
       Toasts.getWarningToast(text: "Only 10 Passengers allowed");
     } else {
@@ -92,8 +93,8 @@ class _PassengerScreenState extends State<PassengerScreen> {
           passengerNumber: "${i + 1}",
           fullNameController: fullNameController,
           idNumberController: idNumberController,
-          selectedCountry: selectedCountry,
-          selectedIdentityType: selectedIdentityType,
+          selectedCountry: _selectedCountry,
+          selectedIdentityType: _selectedIdentityType,
           passengerProvider: passengerProvider,
         );
 
@@ -147,7 +148,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
               fontWeight: FontWeight.w500,
               borderRadius: 5,
               onTapped: () async {
-                validateData();
+                _validateData();
               },
               padding: 0,
             ),
@@ -158,58 +159,67 @@ class _PassengerScreenState extends State<PassengerScreen> {
     );
   }
 
-  void validateData() async {
+  // Validate Data Fields
+  void _validateData() async {
+    bool isDataValidate = false;
     for (int i = 0; i < widget.passengerCount; i++) {
-      var fullName = _fullNameControllers[i].value.text.toString().trim();
-      var idNumber = _idNumberControllers[i].value.text.toString().trim();
+      if (_fullNameControllers[i].value.text.isNotEmpty ||
+          _idNumberControllers[i].value.text.isNotEmpty) {
+        var fullName = _fullNameControllers[i].value.text.toString().trim();
+        var idNumber = _idNumberControllers[i].value.text.toString().trim();
 
-      var proofId = passengerProvider.userIdentityProofTypeId[i];
-      var countryId = passengerProvider.userCountryId[i];
+        var proofId = passengerProvider.userIdentityProofTypeId[i];
+        var countryId = passengerProvider.userCountryId[i];
 
-      debugPrint(
-        "fullName: $fullName"
-        "idNumber: $idNumber"
-        "\n IdentityProofId: $proofId \n Country: $countryId",
-      );
+        debugPrint(
+          "fullName: $fullName"
+          "idNumber: $idNumber"
+          "\n IdentityProofId: $proofId \n Country: $countryId",
+        );
 
-      Map<String, dynamic> paraPassengerBody = {
-        "name": fullName,
-        "id_proof_type": proofId,
-        "id_number": idNumber,
-        "country_id": countryId
-      };
-      debugPrint("paraPassengerBody: [$i] $paraPassengerBody");
-      passengerBody.add(paraPassengerBody);
-      debugPrint("passengerBody: ${passengerBody.map((e) => e)} ");
+        Map<String, dynamic> paraPassengerBody = {
+          "name": fullName,
+          "id_proof_type": proofId,
+          "id_number": idNumber,
+          "country_id": countryId
+        };
+        debugPrint("paraPassengerBody: [$i] $paraPassengerBody");
+        _passengerBody.add(paraPassengerBody);
+        debugPrint("passengerBody: ${_passengerBody.map((e) => e)} ");
+        isDataValidate = true;
+      } else {
+        Toasts.getWarningToast(text: "The fields are required");
+        isDataValidate = false;
+      }
     }
-
-    if (passengerBody.isNotEmpty) {
+    if (isDataValidate == true) {
       if (widget.isHotelEmpty == true) {
         debugPrint("isHotelEmpty: ${widget.isHotelEmpty}");
-        await saveTripOrder();
+        // Save Trip Order
+        await _saveTripOrder();
       } else {
+        // Hotel Screen
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => HotelScreen(
               tripId: widget.tripId,
               passengerCounts: widget.passengerCount.toString(),
-              paramPassengerBody: passengerBody,
+              paramPassengerBody: _passengerBody,
               paramAdditionalList: widget.additionalList,
             ),
           ),
         );
       }
-    } else {
-      Toasts.getWarningToast(text: "The fields is required");
     }
   }
 
-  Future<void> saveTripOrder() async {
+  // Save Trip Order
+  Future<void> _saveTripOrder() async {
     await hotelProvider.oneWayOrderTripCallFromPassengerScreen(
       tripId: "${widget.tripId}",
       passengerCounts: widget.passengerCount.toString(),
-      paramPassengerBody: passengerBody,
+      paramPassengerBody: _passengerBody,
       additionalList: widget.additionalList,
     );
 

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -37,9 +39,6 @@ class HotelScreen extends StatefulWidget {
 class _HotelScreenState extends State<HotelScreen> {
   late HotelProvider hotelProvider;
   int currentIndex = 0;
-
-  int bookingDaysCounter = 1;
-  int numberOfRoomsCounter = 1;
 
   @override
   void initState() {
@@ -81,7 +80,7 @@ class _HotelScreenState extends State<HotelScreen> {
             child: Padding(
                 padding: EdgeInsets.only(right: sizes!.widthRatio * 20),
                 child: GestureDetector(
-                  onTap: () async => skipAndSaveTripOrder(),
+                  onTap: () async => _skipAndSaveTripOrder(),
 
                   //     Navigator.push(
                   //   context,
@@ -177,68 +176,16 @@ class _HotelScreenState extends State<HotelScreen> {
                             bedRoomNum: bedNum,
                             ratingNum: int.parse(rate),
                             onPlusBookingDayPress: () {
-                              setState(() {
-                                bookingDaysCounter = hotelProvider
-                                    .selectBookingDaysList[index]++;
-                                Map<String, dynamic> selected = {
-                                  "room_id": roomId,
-                                  "rooms_number": numberOfRoomsCounter,
-                                  "days": bookingDaysCounter++
-                                };
-                                debugPrint("bookingDaysCounter:$selected");
-                                hotelProvider.hotelRoomBody[index]
-                                    .addAll(selected);
-                              });
+                              onPlusBookingDay(index: index, roomId: roomId);
                             },
                             onMinusBookingDayPress: () {
-                              if (hotelProvider.selectBookingDaysList[index] >
-                                  1) {
-                                setState(() {
-                                  bookingDaysCounter = hotelProvider
-                                      .selectBookingDaysList[index]--;
-                                  Map<String, dynamic> selected = {
-                                    "room_id": roomId,
-                                    "rooms_number": numberOfRoomsCounter,
-                                    "days": bookingDaysCounter--
-                                  };
-                                  debugPrint("bookingDaysCounter:$selected");
-                                  hotelProvider.hotelRoomBody[index]
-                                      .addAll(selected);
-                                });
-                              }
+                              onMinusBookingDay(index: index, roomId: roomId);
                             },
                             onPlusRoomPress: () {
-                              setState(() {
-                                numberOfRoomsCounter = hotelProvider
-                                    .selectNumberOfRoomsList[index]++;
-                                Map<String, dynamic> selected = {
-                                  "room_id": roomId,
-                                  "rooms_number": numberOfRoomsCounter++,
-                                  "days": bookingDaysCounter
-                                };
-                                debugPrint("numberOfRoomsCounter:$selected");
-
-                                hotelProvider.hotelRoomBody[index]
-                                    .addAll(selected);
-                              });
+                              onPlusRoom(index: index, roomId: roomId);
                             },
                             onMinusRoomPress: () {
-                              if (hotelProvider.selectNumberOfRoomsList[index] >
-                                  1) {
-                                setState(() {
-                                  numberOfRoomsCounter = hotelProvider
-                                      .selectNumberOfRoomsList[index]--;
-                                  Map<String, dynamic> selected = {
-                                    "room_id": roomId,
-                                    "rooms_number": numberOfRoomsCounter - 1,
-                                    "days": bookingDaysCounter
-                                  };
-                                  debugPrint("numberOfRoomsCounter:$selected");
-
-                                  hotelProvider.hotelRoomBody[index]
-                                      .addAll(selected);
-                                });
-                              }
+                              onMinusRoom(index: index, roomId: roomId);
                             },
                             bookingDayCounter:
                                 hotelProvider.selectBookingDaysList.isNotEmpty
@@ -274,7 +221,7 @@ class _HotelScreenState extends State<HotelScreen> {
                     fontWeight: FontWeight.w500,
                     borderRadius: 5,
                     onTapped: () async {
-                      await saveTripOrder();
+                      await _saveTripOrder();
                     },
                     padding: 0,
                   )
@@ -286,7 +233,81 @@ class _HotelScreenState extends State<HotelScreen> {
     );
   }
 
-  Future<void> saveTripOrder() async {
+  // On Plus Booking Day
+  void onPlusBookingDay({required int index, required int roomId}) {
+    setState(() {
+      hotelProvider.selectBookingDaysList[index]++;
+      Map<String, dynamic> selected = {
+        "room_id": roomId,
+        "rooms_number": hotelProvider.selectNumberOfRoomsList[index],
+        "days": hotelProvider.selectBookingDaysList[index],
+      };
+      debugPrint("bookingDaysCounter:$selected");
+      hotelProvider.hotelRoomBody[index].addAll(selected);
+    });
+  }
+
+  // On Minus Booking Day
+  void onMinusBookingDay({required int index, required int roomId}) {
+    if (hotelProvider.selectBookingDaysList[index] > 0) {
+      setState(() {
+        hotelProvider.selectBookingDaysList[index]--;
+        Map<String, dynamic> selected = {
+          "room_id": roomId,
+          "rooms_number": hotelProvider.selectNumberOfRoomsList[index],
+          "days": hotelProvider.selectBookingDaysList[index],
+        };
+        debugPrint("bookingDaysCounter:$selected");
+        hotelProvider.hotelRoomBody[index].addAll(selected);
+      });
+    }
+  }
+
+  // On Plus Room
+  void onPlusRoom({required int index, required int roomId}) {
+    setState(() {
+      hotelProvider.selectNumberOfRoomsList[index]++;
+      Map<String, dynamic> selected = {
+        "room_id": roomId,
+        "rooms_number": hotelProvider.selectNumberOfRoomsList[index],
+        //numberOfRoomsCounter,
+        "days": hotelProvider.selectBookingDaysList[index],
+        //bookingDaysCounter
+      };
+      debugPrint("numberOfRoomsCounter:$selected");
+      hotelProvider.hotelRoomBody[index].addAll(selected);
+    });
+  }
+
+  // On Minus Room
+  void onMinusRoom({required int index, required int roomId}) {
+    if (hotelProvider.selectNumberOfRoomsList[index] > 0) {
+      setState(() {
+        hotelProvider.selectNumberOfRoomsList[index]--;
+        Map<String, dynamic> selected = {
+          "room_id": roomId,
+          "rooms_number": hotelProvider.selectNumberOfRoomsList[index],
+          //numberOfRoomsCounter,
+          "days": hotelProvider.selectBookingDaysList[index],
+          //bookingDaysCounter
+        };
+        debugPrint("numberOfRoomsCounter:$selected");
+        hotelProvider.hotelRoomBody[index].addAll(selected);
+      });
+    }
+  }
+
+  // Save Trip Order
+  Future<void> _saveTripOrder() async {
+    if (!hotelProvider.selectNumberOfRoomsList.contains(0) &&
+        !hotelProvider.selectBookingDaysList.contains(0)) {
+      debugPrint(
+          "selectNumberOfRoomsListIf: ${!hotelProvider.selectNumberOfRoomsList.contains(0)}");
+    } else {
+      debugPrint(
+          "selectNumberOfRoomsListElse: ${!hotelProvider.selectNumberOfRoomsList.contains(0)}");
+    }
+
     await hotelProvider.oneWayOrderTrip(
       tripId: "${widget.tripId}",
       passengerCounts: widget.passengerCounts,
@@ -296,9 +317,7 @@ class _HotelScreenState extends State<HotelScreen> {
 
     if (hotelProvider.isOneWayOrderTripSaved) {
       if (!mounted) return;
-
       var tripId = hotelProvider.oneWayOrdersTripResponse.data!.tripId;
-
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -311,7 +330,7 @@ class _HotelScreenState extends State<HotelScreen> {
   }
 
   // Skip And Save Trip Order
-  Future<void> skipAndSaveTripOrder() async {
+  Future<void> _skipAndSaveTripOrder() async {
     await hotelProvider.skipAndOneWayOrderTrip(
       tripId: "${widget.tripId}",
       passengerCounts: widget.passengerCounts,

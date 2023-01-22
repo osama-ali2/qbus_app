@@ -29,22 +29,23 @@ class GetStartedScreen extends StatefulWidget {
 }
 
 class _GetStartedScreenState extends State<GetStartedScreen> {
+  late GetStartedProvider getStartedProvider;
+
   bool oneWayTrip = false;
   bool roundTrip = true;
   bool multiTrip = false;
+  bool tripType = false;
   int passengersNumber = 1;
 
-  bool tripType = false;
-
+  // Dates
   late DateTime _selectedStartDate;
   late DateTime _selectedEndDate;
   String _startDate = "Departure Date";
   String _endDate = "Arrival Date";
 
-  late TextEditingController departureFromController;
-  late TextEditingController arrivalToController;
-  late TextEditingController dateController;
-  late GetStartedProvider getStartedProvider;
+  final departureFromController = TextEditingController();
+  final arrivalToController = TextEditingController();
+  final dateController = TextEditingController();
 
   var departureFrom = "Departure from";
   var arrivalTo = "Arrival to";
@@ -59,14 +60,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     getStartedProvider =
         Provider.of<GetStartedProvider>(context, listen: false);
     getStartedProvider.init(context: context);
-    departureFromController = TextEditingController();
-    arrivalToController = TextEditingController();
-    dateController = TextEditingController();
+
     _selectedStartDate = DateTime.now();
     _selectedEndDate = DateTime.now();
 
+    // Firebase Notification
     LocalNotificationService.instance.initialize();
-
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       debugPrint('Got a message [GetStartedScreen] whilst in the foreground!');
       debugPrint('Message data: ${message.data}');
@@ -86,12 +85,22 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       }
     });
 
+    // Load Pacakges and Cities
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getStartedProvider.getPackagesData();
       getStartedProvider.getCitiesData();
     });
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    departureFromController.dispose();
+    arrivalToController.dispose();
+    dateController.dispose();
+  }
+
+  // Present Start Date
   void _presentStartDate() {
     showDatePicker(
       initialEntryMode: DatePickerEntryMode.calendarOnly,
@@ -105,7 +114,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       }
       setState(() {
         _selectedStartDate = pickedDate;
-
         _startDate =
             DateFormat('yyyy-MM-dd').format(_selectedStartDate).toString();
         debugPrint("_selectedStartDate: $_selectedStartDate");
@@ -113,6 +121,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     });
   }
 
+  // Present End Date
   void _presentEndDate() {
     showDatePicker(
       initialEntryMode: DatePickerEntryMode.calendarOnly,
@@ -137,10 +146,15 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     Provider.of<GetStartedProvider>(context, listen: true);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(child: SingleChildScrollView(child: _getUI(context))),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: _getUI(context),
+        ),
+      ),
     );
   }
 
+  // Get UI
   Widget _getUI(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 20.0),
@@ -290,19 +304,14 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           GestureDetector(
             onTap: () {
               _presentStartDate();
-              setState(() {
-                // var date = DateFormat('yyyy-MM-dd')
-                //     .format(_selectedStartDate)
-                //     .toString();
-                // _startDate = date;
-              });
             },
             child: Container(
               height: sizes!.heightRatio * 48,
               width: sizes!.widthRatio * 380,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(color: Colors.grey.shade400)),
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(color: Colors.grey.shade400),
+              ),
               child: Row(
                 children: [
                   Padding(
@@ -326,12 +335,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               ? GestureDetector(
                   onTap: () {
                     _presentEndDate();
-                    setState(() {
-                      // var date = DateFormat('yyyy-MM-dd')
-                      //     .format(_selectedEndDate)
-                      //     .toString();
-                      // _endDate = date;
-                    });
                   },
                   child: Container(
                     height: sizes!.heightRatio * 48,
@@ -395,57 +398,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               textColor: Colors.white,
               fontWeight: FontWeight.normal,
               borderRadius: 5,
-              onTapped: () {
-                debugPrint("departureFromID: $departureFromID, "
-                    "arrivalToID: $arrivalToID,"
-                    "_startDate: $_startDate, "
-                    "_endDate: $_endDate,"
-                    "departureFrom: $departureFrom, arrivalTo:$arrivalTo");
-
-                if (departureFromID != "-1" &&
-                    arrivalToID != "-1" &&
-                    _startDate != "" &&
-                    departureFrom != "" &&
-                    arrivalTo != "") {
-                  if (roundTrip == true) {
-                    debugPrint("roundTrip == $roundTrip");
-                    NavigationHelper.pushRoute(
-                        context,
-                        RoundTripStepOneResult(
-                          fromCity: departureFrom,
-                          toCity: arrivalTo,
-                          isRoundTripChecked: roundTrip,
-                          passengersCount: "$passengersNumber",
-                          tripFilterModel: TripFilterModel(
-                            from_city_id: departureFromID,
-                            to_city_id: arrivalToID,
-                            date_from: _startDate,
-                            date_to: _endDate,
-                          ),
-                        ));
-                  } else {
-                    NavigationHelper.pushRoute(
-                        context,
-                        SearchResult(
-                          fromCity: departureFrom,
-                          toCity: arrivalTo,
-                          isMultiDestinationChecked: multiTrip,
-                          isOneWayTripChecked: oneWayTrip,
-                          isRoundTripChecked: roundTrip,
-                          passengersCount: "$passengersNumber",
-                          tripFilterModel: TripFilterModel(
-                            from_city_id: departureFromID,
-                            to_city_id: arrivalToID,
-                            date_from: _startDate,
-                            // date_to: _endDate,
-                          ),
-                        ));
-                  }
-                } else {
-                  Toasts.getErrorToast(
-                      text: AppLocalizations.of(context)!.required_fields);
-                }
-              },
+              onTapped: () => validateTripData(),
               padding: 0),
           SizedBox(
             height: sizes!.heightRatio * 15,
@@ -529,11 +482,67 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                           ),
                         );
                       }))
-              : Container(),
+              : Center(
+                  child: CustomText(
+                      text: "No Package Available",
+                      textSize: sizes!.fontRatio * 14,
+                      fontWeight: FontWeight.normal,
+                      textColor: Colors.black),
+                ),
           CommonPadding.sizeBoxWithHeight(height: 20),
         ],
       ),
     );
+  }
+
+  void validateTripData() {
+    debugPrint("departureFromID: $departureFromID, "
+        "arrivalToID: $arrivalToID,"
+        "_startDate: $_startDate, "
+        "_endDate: $_endDate,"
+        "departureFrom: $departureFrom, arrivalTo:$arrivalTo");
+
+    if (departureFromID != "-1" &&
+        arrivalToID != "-1" &&
+        _startDate != "" &&
+        departureFrom != "" &&
+        arrivalTo != "") {
+      if (roundTrip == true) {
+        debugPrint("roundTrip == $roundTrip");
+        NavigationHelper.pushRoute(
+            context,
+            RoundTripStepOneResult(
+              fromCity: departureFrom,
+              toCity: arrivalTo,
+              isRoundTripChecked: roundTrip,
+              passengersCount: "$passengersNumber",
+              tripFilterModel: TripFilterModel(
+                from_city_id: departureFromID,
+                to_city_id: arrivalToID,
+                date_from: _startDate,
+                date_to: _endDate,
+              ),
+            ));
+      } else {
+        NavigationHelper.pushRoute(
+            context,
+            SearchResult(
+                fromCity: departureFrom,
+                toCity: arrivalTo,
+                isMultiDestinationChecked: multiTrip,
+                isOneWayTripChecked: oneWayTrip,
+                isRoundTripChecked: roundTrip,
+                passengersCount: "$passengersNumber",
+                tripFilterModel: TripFilterModel(
+                  from_city_id: departureFromID,
+                  to_city_id: arrivalToID,
+                  date_from: _startDate,
+                  // date_to: _endDate,
+                )));
+      }
+    } else {
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
+    }
   }
 
   /// Check Box

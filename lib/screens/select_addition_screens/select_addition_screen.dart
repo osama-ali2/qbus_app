@@ -6,8 +6,8 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/res/strings.dart';
+import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
 import 'package:qbus/screens/passenger_screens/passenger_screen.dart';
 import 'package:qbus/screens/select_addition_screens/select_addition_provider.dart';
 import 'package:qbus/utils/constant.dart';
@@ -16,16 +16,16 @@ import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 
 class SelectAdditionScreen extends StatefulWidget {
-  // final String? tripId;
   final Trips tripsModel;
+
   final bool isOneWayTripChecked;
   final bool isRoundTripChecked;
   final bool isMultiDestinationChecked;
+  final bool? isHotelEmpty;
+
   final String passengersCount;
   final String toCityId;
   final String fromCityId;
-
-  final bool? isHotelEmpty;
 
   const SelectAdditionScreen({
     Key? key,
@@ -44,16 +44,19 @@ class SelectAdditionScreen extends StatefulWidget {
 }
 
 class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
+  //Provider
+  late SelectAdditionProvider selectAdditionProvider;
+
   int hotel = 0;
   int chicken = 0;
   int water = 0;
   int currentIndex = 0;
   int isRoundTripCounter = 0;
-  late SelectAdditionProvider selectAdditionProvider;
 
   @override
   void initState() {
     super.initState();
+    // Provider
     selectAdditionProvider = SelectAdditionProvider();
     selectAdditionProvider =
         Provider.of<SelectAdditionProvider>(context, listen: false);
@@ -110,7 +113,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                               .additional![index]
                               .id
                               .toString();
-                          return itemContainer(
+                          return _itemContainer(
                             name: name,
                             index: index,
                             additionId: additionId,
@@ -120,7 +123,6 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                   CommonPadding.sizeBoxWithHeight(height: 10),
                   CustomButton(
                     name: "Next",
-                    //"Save Trip",
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,
@@ -129,21 +131,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                     fontWeight: FontWeight.w500,
                     borderRadius: 5,
                     onTapped: () async {
-                      //TODO: Uncomment this
-                      // await callOrderTrip();
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PassengerScreen(
-                            passengerCount: int.parse(widget.passengersCount),
-                            tripId: widget.tripsModel.id!,
-                            additionalList:
-                                selectAdditionProvider.additionalList,
-                            isHotelEmpty: widget.isHotelEmpty,
-                          ),
-                        ),
-                      );
+                      _navigatePassengerScreen();
                     },
                     padding: 20,
                   ),
@@ -173,10 +161,11 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                               ),
                               child: Center(
                                 child: CustomText(
-                                    text: "Continue",
-                                    textSize: sizes!.fontRatio * 15,
-                                    fontWeight: FontWeight.w500,
-                                    textColor: appColor),
+                                  text: "Continue",
+                                  textSize: sizes!.fontRatio * 15,
+                                  fontWeight: FontWeight.w500,
+                                  textColor: appColor,
+                                ),
                               ),
                             ),
                           ),
@@ -191,49 +180,28 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
     );
   }
 
-  /// Call Order Trip
-  Future<void> callOrderTrip() async {
-    if (widget.isOneWayTripChecked == true) {
-      await selectAdditionProvider.oneWayOrderTrip(
-          trips: widget.tripsModel, passengersCount: widget.passengersCount);
-      if (selectAdditionProvider.isOneWayOrderTripSaved == true) {
-        // await selectAdditionProvider.getAdditionalData(id: widget.tripId!);
-        if (!mounted) return;
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => const BottomBarScreen()),
-            (route) => false);
-      }
-    } else if (widget.isRoundTripChecked == true) {
-      setState(() {
-        isRoundTripCounter++;
-        debugPrint("isRoundTripCounter:$isRoundTripCounter");
-      });
-      await selectAdditionProvider.roundOrderTrip(
-          trips: widget.tripsModel, passengersCount: widget.passengersCount);
-      if (selectAdditionProvider.isRoundOrderTripSaved == true) {
-        if (!mounted) return;
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => const BottomBarScreen()),
-            (route) => false);
-      }
+  // Navigate Passenger Screen
+  void _navigatePassengerScreen() {
+    /// Select Additional List not contain value 0
+    if (!selectAdditionProvider.selectAdditionalList.contains(0)) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PassengerScreen(
+            passengerCount: int.parse(widget.passengersCount),
+            tripId: widget.tripsModel.id!,
+            additionalList: selectAdditionProvider.additionalList,
+            isHotelEmpty: widget.isHotelEmpty,
+          ),
+        ),
+      );
+    } else {
+      Toasts.getWarningToast(text: "Please select any additional");
     }
-    // else if (widget.isMultiDestinationChecked == true) {
-    //   await selectAdditionProvider.multiOrderTrip(
-    //       trips: widget.tripsModel!, passengersCount: widget.passengersCount!);
-    //   if (selectAdditionProvider.isMultiOrderTripSaved == true) {
-    //     if (!mounted) return;
-    //     Navigator.pushAndRemoveUntil(
-    //         context,
-    //         MaterialPageRoute(builder: (context) => const BottomBarScreen()),
-    //         (route) => false);
-    //   }
-    // }
   }
 
   /// Item Container
-  Widget itemContainer({
+  Widget _itemContainer({
     required String name,
     required int index,
     required String additionId,
@@ -248,31 +216,10 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                   context: context,
                   name: name,
                   add: () {
-                    setState(() {
-                      var counter =
-                          selectAdditionProvider.selectAdditionalList[index]++;
-                      Map<String, dynamic> selected = {
-                        "id": additionId,
-                        "counter": counter + 1
-                      };
-                      selectAdditionProvider.additionalList[index]
-                          .addAll(selected);
-                    });
+                    _tripAddCounter(index: index, additionId: additionId);
                   },
                   minus: () {
-                    if (selectAdditionProvider.selectAdditionalList[index] >
-                        0) {
-                      setState(() {
-                        var counter = selectAdditionProvider
-                            .selectAdditionalList[index]--;
-                        Map<String, dynamic> selected = {
-                          "id": additionId,
-                          "counter": counter - 1
-                        };
-                        selectAdditionProvider.additionalList[index]
-                            .addAll(selected);
-                      });
-                    }
+                    _tripMinusCounter(index: index, additionId: additionId);
                   },
                   number: selectAdditionProvider.selectAdditionalList[index],
                 )
@@ -281,9 +228,38 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                   name: name,
                   add: () {},
                   minus: () {},
-                  number: 0),
+                  number: 0,
+                ),
         ],
       );
+
+  // Trip Add Counter
+  void _tripAddCounter({required int index, required String additionId}) {
+    setState(() {
+      selectAdditionProvider.selectAdditionalList[index]++;
+      Map<String, dynamic> selected = {
+        "id": additionId,
+        "counter": selectAdditionProvider.selectAdditionalList[index],
+      };
+      debugPrint("tripAddCounter: $selected");
+      selectAdditionProvider.additionalList[index].addAll(selected);
+    });
+  }
+
+  // Trip Minus Counter
+  void _tripMinusCounter({required int index, required String additionId}) {
+    if (selectAdditionProvider.selectAdditionalList[index] > 0) {
+      setState(() {
+        selectAdditionProvider.selectAdditionalList[index]--;
+        Map<String, dynamic> selected = {
+          "id": additionId,
+          "counter": selectAdditionProvider.selectAdditionalList[index],
+        };
+        debugPrint("tripMinusCounter: $selected");
+        selectAdditionProvider.additionalList[index].addAll(selected);
+      });
+    }
+  }
 
   /// Items
   Widget _itemsCounter(
@@ -306,10 +282,11 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomText(
-                text: name,
-                textSize: sizes!.fontRatio * 16,
-                fontWeight: FontWeight.normal,
-                textColor: const Color(0xff747268)),
+              text: name,
+              textSize: sizes!.fontRatio * 16,
+              fontWeight: FontWeight.normal,
+              textColor: const Color(0xff747268),
+            ),
             Counter(number: number, onAdd: () => add(), onMinus: () => minus())
           ],
         ),
