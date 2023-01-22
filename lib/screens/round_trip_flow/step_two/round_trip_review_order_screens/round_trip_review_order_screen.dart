@@ -11,6 +11,7 @@ import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
 import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
 import 'package:qbus/screens/round_trip_flow/step_two/round_trip_review_order_screens/round_trip_review_order_provider.dart';
 import 'package:qbus/utils/constant.dart';
@@ -238,7 +239,7 @@ class _RoundTripReviewOrderScreenState
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const GetStartedScreen()),
+                              builder: (context) => const BottomBarScreen()),
                           (route) => false);
                     },
                     padding: 0,

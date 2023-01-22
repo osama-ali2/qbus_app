@@ -161,6 +161,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
 
   // Validate Data Fields
   void _validateData() async {
+    // Is user enter values
     bool isDataValidate = false;
     for (int i = 0; i < widget.passengerCount; i++) {
       if (_fullNameControllers[i].value.text.isNotEmpty ||
@@ -192,13 +193,18 @@ class _PassengerScreenState extends State<PassengerScreen> {
         isDataValidate = false;
       }
     }
+
+    /// Validate Data
     if (isDataValidate == true) {
+      /// Is Hotel Empty, save trip with hotel & additional empty data
       if (widget.isHotelEmpty == true) {
         debugPrint("isHotelEmpty: ${widget.isHotelEmpty}");
-        // Save Trip Order
-        await _saveTripOrder();
+
+        /// Save Trip Order
+        await _saveTripOrderWithEmptyHotelAndAdditional();
       } else {
-        // Hotel Screen
+        /// Hotel and Additional with data
+        debugPrint("onPassengerScreen: ${widget.additionalList.map((e) => e)}");
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -214,8 +220,11 @@ class _PassengerScreenState extends State<PassengerScreen> {
     }
   }
 
-  // Save Trip Order
-  Future<void> _saveTripOrder() async {
+  /// Save Trip Order
+  Future<void> _saveTripOrderWithEmptyHotelAndAdditional() async {
+    /// call API with Hotel and Additional Data empty
+    debugPrint(
+        "fromFunOnPassengerScreen: ${widget.additionalList.map((e) => e)}");
     await hotelProvider.oneWayOrderTripCallFromPassengerScreen(
       tripId: "${widget.tripId}",
       passengerCounts: widget.passengerCount.toString(),

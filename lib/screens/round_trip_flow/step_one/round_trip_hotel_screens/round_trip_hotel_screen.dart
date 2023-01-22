@@ -53,8 +53,8 @@ class RoundTripHotelScreen extends StatefulWidget {
 
 class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
   late RoundTripHotelProvider roundTripHotelProvider;
-  int currentIndex = 0;
 
+  int currentIndex = 0;
   int bookingDaysCounter = 1;
   int numberOfRoomsCounter = 1;
 
@@ -75,7 +75,6 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
   @override
   void dispose() {
     super.dispose();
-
     roundTripHotelProvider.selectBookingDaysList.clear();
     roundTripHotelProvider.selectNumberOfRoomsList.clear();
     roundTripHotelProvider.hotelRoomBody.clear();
@@ -97,17 +96,18 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
         actions: [
           Center(
             child: Padding(
-                padding: EdgeInsets.only(right: sizes!.widthRatio * 20),
-                child: GestureDetector(
-                  onTap: () async => skipAndStepTwoTrip(),
-                  child: TextView.getGenericText(
-                      text: "Skip",
-                      fontFamily: Assets.latoRegular,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.whiteTextColor,
-                      lines: 1),
-                )),
+              padding: EdgeInsets.only(right: sizes!.widthRatio * 20),
+              child: GestureDetector(
+                onTap: () async => _skipAndStepTwoTrip(),
+                child: TextView.getGenericText(
+                    text: "Skip",
+                    fontFamily: Assets.latoRegular,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.whiteTextColor,
+                    lines: 1),
+              ),
+            ),
           ),
         ],
       ),
@@ -176,16 +176,16 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                             bedRoomNum: bedNum,
                             ratingNum: int.parse(rate),
                             onPlusBookingDayPress: () {
-                              onPlusBookingDay(index: index, roomId: roomId);
+                              _onPlusBookingDay(index: index, roomId: roomId);
                             },
                             onMinusBookingDayPress: () {
-                              onMinusBookingDay(index: index, roomId: roomId);
+                              _onMinusBookingDay(index: index, roomId: roomId);
                             },
                             onPlusRoomPress: () {
-                              onPlusRoom(index: index, roomId: roomId);
+                              _onPlusRoom(index: index, roomId: roomId);
                             },
                             onMinusRoomPress: () {
-                              onMinusRoom(index: index, roomId: roomId);
+                              _onMinusRoom(index: index, roomId: roomId);
                             },
                             bookingDayCounter: roundTripHotelProvider
                                     .selectBookingDaysList.isNotEmpty
@@ -224,7 +224,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                     borderRadius: 5,
                     onTapped: () async {
                       // saveTripOrder();
-                      stepTwoTrip();
+                      _stepTwoTrip();
                       debugPrint(
                           "hotelData:${widget.tripId}, ${widget.passengerCounts}, ${widget.paramPassengerBody}, ${widget.paramAdditionalList}, ${roundTripHotelProvider.hotelRoomBody}");
                     },
@@ -239,7 +239,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
   }
 
   /// On Plus Booking Day
-  void onPlusBookingDay({required int index, required int roomId}) {
+  void _onPlusBookingDay({required int index, required int roomId}) {
     setState(() {
       roundTripHotelProvider.selectBookingDaysList[index]++;
       Map<String, dynamic> selected = {
@@ -253,7 +253,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
   }
 
   /// On Minus Booking Day
-  void onMinusBookingDay({required int index, required int roomId}) {
+  void _onMinusBookingDay({required int index, required int roomId}) {
     if (roundTripHotelProvider.selectBookingDaysList[index] > 0) {
       setState(() {
         roundTripHotelProvider.selectBookingDaysList[index]--;
@@ -269,7 +269,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
   }
 
   /// On Plus Room
-  void onPlusRoom({required int index, required int roomId}) {
+  void _onPlusRoom({required int index, required int roomId}) {
     setState(() {
       roundTripHotelProvider.selectNumberOfRoomsList[index]++;
       Map<String, dynamic> selected = {
@@ -285,7 +285,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
   }
 
   /// On Minus Room
-  void onMinusRoom({required int index, required int roomId}) {
+  void _onMinusRoom({required int index, required int roomId}) {
     if (roundTripHotelProvider.selectNumberOfRoomsList[index] > 0) {
       setState(() {
         roundTripHotelProvider.selectNumberOfRoomsList[index]--;
@@ -303,7 +303,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
   }
 
   /// Step Two Trip
-  void stepTwoTrip() async {
+  void _stepTwoTrip() async {
     /// TODO: Uncomment Round Trip Step Two Result;
     Navigator.push(
       context,
@@ -324,7 +324,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
   }
 
   /// Skip And Step Two Trip
-  void skipAndStepTwoTrip() async {
+  void _skipAndStepTwoTrip() async {
     /// TODO: Uncomment Round Trip Step Two Result;
     Navigator.push(
       context,

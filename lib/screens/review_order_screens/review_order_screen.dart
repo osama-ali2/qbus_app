@@ -10,6 +10,7 @@ import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
 import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
 import 'package:qbus/screens/review_order_screens/review_order_provider.dart';
 import 'package:qbus/widgets/custom_button.dart';
@@ -128,15 +129,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                             },
                           ),
                         )
-                      : Center(
-                          child: TextView.getGenericText(
-                              text: "No Hotel Rooms",
-                              fontFamily: Assets.latoRegular,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.black900,
-                              lines: 1),
-                        ),
+                      : Container(),
                   reviewOrderProvider.oneWayOrderReviewResponse.data!
                           .additionals!.isNotEmpty
                       ? Expanded(
@@ -163,15 +156,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                             },
                           ),
                         )
-                      : Center(
-                          child: TextView.getGenericText(
-                              text: "No Additionals",
-                              fontFamily: Assets.latoRegular,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.black900,
-                              lines: 1),
-                        ),
+                      : Container(),
                   CommonPadding.sizeBoxWithHeight(height: 20),
                   Align(
                     alignment: Alignment.topLeft,
@@ -228,7 +213,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const GetStartedScreen()),
+                              builder: (context) => const BottomBarScreen()),
                           (route) => false);
                     },
                     padding: 0,

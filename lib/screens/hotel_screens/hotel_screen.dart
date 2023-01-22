@@ -7,6 +7,7 @@ import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
+import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/hotel_screens/hotel_filter_screens/hotel_filter_screen.dart';
 import 'package:qbus/screens/hotel_screens/hotel_provider.dart';
 import 'package:qbus/screens/project_widgets/hotel_card_container_widget.dart';
@@ -297,17 +298,8 @@ class _HotelScreenState extends State<HotelScreen> {
     }
   }
 
-  // Save Trip Order
+  /// Save Trip Order
   Future<void> _saveTripOrder() async {
-    if (!hotelProvider.selectNumberOfRoomsList.contains(0) &&
-        !hotelProvider.selectBookingDaysList.contains(0)) {
-      debugPrint(
-          "selectNumberOfRoomsListIf: ${!hotelProvider.selectNumberOfRoomsList.contains(0)}");
-    } else {
-      debugPrint(
-          "selectNumberOfRoomsListElse: ${!hotelProvider.selectNumberOfRoomsList.contains(0)}");
-    }
-
     await hotelProvider.oneWayOrderTrip(
       tripId: "${widget.tripId}",
       passengerCounts: widget.passengerCounts,
@@ -315,6 +307,7 @@ class _HotelScreenState extends State<HotelScreen> {
       additionalList: widget.paramAdditionalList,
     );
 
+    /// One way order Trip save successfully
     if (hotelProvider.isOneWayOrderTripSaved) {
       if (!mounted) return;
       var tripId = hotelProvider.oneWayOrdersTripResponse.data!.tripId;
@@ -326,12 +319,17 @@ class _HotelScreenState extends State<HotelScreen> {
           ),
         ),
       );
+    } else {
+      Toasts.getErrorToast(text: "Server Error");
     }
   }
 
-  // Skip And Save Trip Order
+  /// Skip And Save Trip Order
   Future<void> _skipAndSaveTripOrder() async {
-    await hotelProvider.skipAndOneWayOrderTrip(
+    /// Skipping the hotels
+    debugPrint(
+        "SkippingHotelAdditional: ${widget.paramAdditionalList.map((e) => e)}");
+    await hotelProvider.skipHotelOneWayOrderTrip(
       tripId: "${widget.tripId}",
       passengerCounts: widget.passengerCounts,
       paramPassengerBody: widget.paramPassengerBody,
@@ -340,9 +338,7 @@ class _HotelScreenState extends State<HotelScreen> {
 
     if (hotelProvider.isOneWayOrderTripSaved) {
       if (!mounted) return;
-
       var tripId = hotelProvider.oneWayOrdersTripResponse.data!.tripId;
-
       Navigator.push(
         context,
         MaterialPageRoute(

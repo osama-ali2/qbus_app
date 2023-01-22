@@ -45,10 +45,9 @@ class PassengerProvider with ChangeNotifier {
     this.context = context;
   }
 
+  /// Get Identity Proof Types
   Future<void> getIdentityProofTypes() async {
     try {
-      // _loader.showLoader(context: context);
-
       // Clear the list
       identityProofTypeNameList.clear();
       identityProofTypeIdList.clear();
@@ -60,7 +59,6 @@ class PassengerProvider with ChangeNotifier {
       };
       var url = identityProofTypesApiUrl;
       debugPrint("URL: $url");
-      debugPrint("Header: $header");
 
       identityProofTypesResponse = await MyApi.callGetApi(
         url: url,
@@ -69,7 +67,7 @@ class PassengerProvider with ChangeNotifier {
       );
 
       if (identityProofTypesResponse.code == 1) {
-        _logger.d(
+        _logger.i(
             "identityProofTypesResponse: ${identityProofTypesResponse.toJson()}");
 
         var l = identityProofTypesResponse.data!.identityProofTypes!.length;
@@ -91,17 +89,13 @@ class PassengerProvider with ChangeNotifier {
           identityProofTypeIdList.add(id);
           identityProofTypesMapList.add(map);
         }
-
-        // _loader.hideLoader(context!);
         isIdentityTypesLoaded = true;
         notifyListeners();
       } else {
         _logger.i("identityProofTypesResponse: Something wrong");
-        // _loader.hideLoader(context!);
       }
     } catch (e) {
       _logger.e("onErrorIdentityProofTypesResponse:${e.toString()}");
-      // _loader.hideLoader(context!);
     }
   }
 
@@ -120,7 +114,7 @@ class PassengerProvider with ChangeNotifier {
       };
       var url = getCountriesApiUrl;
       _logger.i("URL: $url");
-      _logger.i("Header: $header");
+      // _logger.i("Header: $header");
 
       getCountriesResponse = await MyApi.callGetApi(
         url: url,
@@ -130,7 +124,7 @@ class PassengerProvider with ChangeNotifier {
 
       if (identityProofTypesResponse.code == 1) {
         _logger
-            .d("getCountriesResponse: ${identityProofTypesResponse.toJson()}");
+            .i("getCountriesResponse: ${identityProofTypesResponse.toJson()}");
 
         var l = getCountriesResponse.data!.countries!.length;
         debugPrint("l:$l");

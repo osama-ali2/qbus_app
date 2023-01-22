@@ -154,7 +154,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     );
   }
 
-  // Get UI
+  /// Get UI
   Widget _getUI(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 20.0),
@@ -510,35 +510,39 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       if (roundTrip == true) {
         debugPrint("roundTrip == $roundTrip");
         NavigationHelper.pushRoute(
-            context,
-            RoundTripStepOneResult(
-              fromCity: departureFrom,
-              toCity: arrivalTo,
-              isRoundTripChecked: roundTrip,
-              passengersCount: "$passengersNumber",
-              tripFilterModel: TripFilterModel(
-                from_city_id: departureFromID,
-                to_city_id: arrivalToID,
-                date_from: _startDate,
-                date_to: _endDate,
-              ),
-            ));
+          context,
+          RoundTripStepOneResult(
+            fromCity: departureFrom,
+            toCity: arrivalTo,
+            isRoundTripChecked: roundTrip,
+            passengersCount: "$passengersNumber",
+            tripFilterModel: TripFilterModel(
+              from_city_id: departureFromID,
+              to_city_id: arrivalToID,
+              date_from: _startDate,
+              date_to: _endDate,
+            ),
+          ),
+        );
       } else {
+        // One Way Trip Search Result Screen
         NavigationHelper.pushRoute(
-            context,
-            SearchResult(
-                fromCity: departureFrom,
-                toCity: arrivalTo,
-                isMultiDestinationChecked: multiTrip,
-                isOneWayTripChecked: oneWayTrip,
-                isRoundTripChecked: roundTrip,
-                passengersCount: "$passengersNumber",
-                tripFilterModel: TripFilterModel(
-                  from_city_id: departureFromID,
-                  to_city_id: arrivalToID,
-                  date_from: _startDate,
-                  // date_to: _endDate,
-                )));
+          context,
+          SearchResult(
+            fromCity: departureFrom,
+            toCity: arrivalTo,
+            isMultiDestinationChecked: multiTrip,
+            isOneWayTripChecked: oneWayTrip,
+            isRoundTripChecked: roundTrip,
+            passengersCount: "$passengersNumber",
+            tripFilterModel: TripFilterModel(
+              from_city_id: departureFromID,
+              to_city_id: arrivalToID,
+              date_from: _startDate,
+              // date_to: _endDate,
+            ),
+          ),
+        );
       }
     } else {
       Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);

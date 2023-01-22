@@ -45,10 +45,9 @@ class RoundTripPassengerProvider with ChangeNotifier {
     this.context = context;
   }
 
+  /// Get Identity Proof Types
   Future<void> getIdentityProofTypes() async {
     try {
-      // _loader.showLoader(context: context);
-
       // Clear the list
       identityProofTypeNameList.clear();
       identityProofTypeIdList.clear();
@@ -69,9 +68,8 @@ class RoundTripPassengerProvider with ChangeNotifier {
       );
 
       if (identityProofTypesResponse.code == 1) {
-        _logger.d(
+        _logger.i(
             "identityProofTypesResponse: ${identityProofTypesResponse.toJson()}");
-
         var l = identityProofTypesResponse.data!.identityProofTypes!.length;
         debugPrint("l:$l");
         for (int i = 0; i < l; i++) {
@@ -92,19 +90,17 @@ class RoundTripPassengerProvider with ChangeNotifier {
           identityProofTypesMapList.add(map);
         }
 
-        // _loader.hideLoader(context!);
         isIdentityTypesLoaded = true;
         notifyListeners();
       } else {
         _logger.i("identityProofTypesResponse: Something wrong");
-        // _loader.hideLoader(context!);
       }
     } catch (e) {
       _logger.e("onErrorIdentityProofTypesResponse:${e.toString()}");
-      // _loader.hideLoader(context!);
     }
   }
 
+  /// Get Countries List
   Future<void> getCountriesList() async {
     try {
       _loader.showLoader(context: context);
@@ -119,7 +115,6 @@ class RoundTripPassengerProvider with ChangeNotifier {
       };
       var url = getCountriesApiUrl;
       _logger.i("URL: $url");
-      _logger.i("Header: $header");
 
       getCountriesResponse = await MyApi.callGetApi(
         url: url,
@@ -129,7 +124,7 @@ class RoundTripPassengerProvider with ChangeNotifier {
 
       if (identityProofTypesResponse.code == 1) {
         _logger
-            .d("getCountriesResponse: ${identityProofTypesResponse.toJson()}");
+            .i("getCountriesResponse: ${identityProofTypesResponse.toJson()}");
 
         var l = getCountriesResponse.data!.countries!.length;
         debugPrint("l:$l");
@@ -153,7 +148,7 @@ class RoundTripPassengerProvider with ChangeNotifier {
         isCountriesLoaded = true;
         notifyListeners();
       } else {
-        _logger.i("getCountriesResponse: Something wrong");
+        _logger.e("getCountriesResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {

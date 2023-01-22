@@ -52,9 +52,10 @@ class StepOneSelectAdditionScreen extends StatefulWidget {
 
 class _StepOneSelectAdditionScreenState
     extends State<StepOneSelectAdditionScreen> {
+  late StepOneSelectAdditionProvider stepOneSelectAdditionProvider;
+
   int currentIndex = 0;
   int isRoundTripCounter = 0;
-  late StepOneSelectAdditionProvider stepOneSelectAdditionProvider;
 
   @override
   void initState() {
@@ -123,7 +124,7 @@ class _StepOneSelectAdditionScreenState
                     borderRadius: 5,
                     onTapped: () async {
                       // Validate Data
-                      validateData();
+                      _validateData();
                     },
                     padding: 20,
                   ),
@@ -172,7 +173,7 @@ class _StepOneSelectAdditionScreenState
     );
   }
 
-  void validateData() {
+  void _validateData() {
     debugPrint(
         "firstTripModelID: ${widget.firstTripsModel!.id} passengersCount: ${widget.passengersCount}, additionalList: ${stepOneSelectAdditionProvider.additionalList}");
 

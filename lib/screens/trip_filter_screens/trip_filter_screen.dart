@@ -395,7 +395,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    checkBox(context, internet, "Hostel 5 Stars", () {
+                    _checkBoxContainer(context, internet, "Hostel 5 Stars", () {
                       hotel5stars = false;
                       meal = false;
                       internet = true;
@@ -404,7 +404,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                       });
                     }),
                     CommonPadding.sizeBoxWithHeight(height: 15),
-                    checkBox(context, meal, "Meal", () {
+                    _checkBoxContainer(context, meal, "Meal", () {
                       hotel5stars = false;
                       meal = true;
                       internet = false;
@@ -413,7 +413,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                       });
                     }),
                     CommonPadding.sizeBoxWithHeight(height: 15),
-                    checkBox(context, hotel5stars, "Internet", () {
+                    _checkBoxContainer(context, hotel5stars, "Internet", () {
                       hotel5stars = true;
                       meal = false;
                       internet = false;
@@ -426,47 +426,39 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                 ).get20HorizontalPadding(),
                 CommonPadding.sizeBoxWithHeight(height: 20),
                 CustomButton(
-                        name: "Filter Result",
-                        buttonColor: appColor,
-                        height: sizes!.heightRatio * 45,
-                        width: double.infinity,
-                        textSize: sizes!.fontRatio * 16,
-                        textColor: Colors.white,
-                        fontWeight: FontWeight.normal,
-                        borderRadius: 5,
-                        onTapped: () {
-                          var couponCode =
-                              couponController.text.toString().trim();
-                          // "code": code,
-                          // "date_from": date_from,
-                          // "date_to": date_to,
-                          // "time_from": time_from,
-                          // "from_city_id": from_city_id,
-                          // "to_city_id": to_city_id,
-                          // "additional": additional,
-                          // "offset": offset
+                  name: "Filter Result",
+                  buttonColor: appColor,
+                  height: sizes!.heightRatio * 45,
+                  width: double.infinity,
+                  textSize: sizes!.fontRatio * 16,
+                  textColor: Colors.white,
+                  fontWeight: FontWeight.normal,
+                  borderRadius: 5,
+                  onTapped: () {
+                    var couponCode = couponController.text.toString().trim();
+                    var filterData = TripFilterModel(
+                        code: couponCode,
+                        date_to: _endDate,
+                        date_from: _startDate,
+                        time_from: _startTime,
+                        from_city_id: selectedFromCityId,
+                        to_city_id: selectedToCityId,
+                        additional: [],
+                        offset: 0);
 
-                          var filterData = TripFilterModel(
-                              code: couponCode,
-                              date_to: _endDate,
-                              date_from: _startDate,
-                              time_from: _startTime,
-                              from_city_id: selectedFromCityId,
-                              to_city_id: selectedToCityId,
-                              additional: [],
-                              offset: 0);
-
-                          debugPrint("filterData: ${filterData.toJson()}");
-                          Navigator.pop(context);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SearchResult(
-                                        tripFilterModel: filterData,
-                                      )));
-                        },
-                        padding: 0)
-                    .get20HorizontalPadding(),
+                    debugPrint("filterData: ${filterData.toJson()}");
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SearchResult(
+                          tripFilterModel: filterData,
+                        ),
+                      ),
+                    );
+                  },
+                  padding: 0,
+                ).get20HorizontalPadding(),
                 CommonPadding.sizeBoxWithHeight(height: 20),
               ],
             ),
@@ -476,7 +468,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
     );
   }
 
-  Widget checkBox(
+  Widget _checkBoxContainer(
       BuildContext context, bool isSelected, String name, Function onTap) {
     return InkWell(
       onTap: () => onTap(),

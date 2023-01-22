@@ -55,7 +55,7 @@ class SelectAdditionProvider with ChangeNotifier {
           url: url, myHeaders: header, modelName: Models.tripAdditionalsModel);
       if (tripAdditionalsResponse.code == 1) {
         _logger
-            .d("tripAdditionalsResponse: ${tripAdditionalsResponse.toJson()}");
+            .i("tripAdditionalsResponse: ${tripAdditionalsResponse.toJson()}");
 
         var length = tripAdditionalsResponse.data!.additional!.length;
         for (int i = 0; i < length; i++) {
@@ -65,17 +65,17 @@ class SelectAdditionProvider with ChangeNotifier {
           };
           additionalList.add(demoData);
           selectAdditionalList.add(0);
-          debugPrint("selectAdditionalList: ${selectAdditionalList.length}");
+          _logger.i("selectAdditionalList: ${selectAdditionalList.length}");
         }
         isTripLoaded = true;
         _loader.hideLoader(context!);
         notifyListeners();
       } else {
-        debugPrint("tripAdditionalsResponse: Something wrong");
+        _logger.e("tripAdditionalsResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      debugPrint("tripAdditionalsResponseError: ${e.toString()}");
+      _logger.e("tripAdditionalsResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }
@@ -91,9 +91,8 @@ class SelectAdditionProvider with ChangeNotifier {
         "Authorization": "Bearer $userToken"
       };
 
-      debugPrint("trips.id: ${trips.id}");
-
-      debugPrint("additionalList: ${additionalList.map((e) => e)}");
+      debugPrint(
+          "trips.id: ${trips.id} \n additionalList: ${additionalList.map((e) => e)}");
 
       Map<String, dynamic> body = {
         "trip_id": trips.id,
@@ -104,9 +103,7 @@ class SelectAdditionProvider with ChangeNotifier {
       };
 
       var url = oneWayOrderTripApiUrl;
-      debugPrint("URL: $url");
-      // debugPrint("Header: $header");
-      debugPrint("Body: $body");
+      debugPrint("URL: $url\n Body: $body");
 
       oneWayOrdersTripResponse = await MyApi.callPostApi(
           url: url,
@@ -116,123 +113,18 @@ class SelectAdditionProvider with ChangeNotifier {
       debugPrint("Body: $body");
 
       if (oneWayOrdersTripResponse.code == 1) {
-        _logger.d(
+        _logger.i(
             "oneWayOrdersTripResponse: ${oneWayOrdersTripResponse.toJson()}, ${oneWayOrdersTripResponse.message.toString()}");
         _loader.hideLoader(context!);
         isOneWayOrderTripSaved = true;
         additionalList.clear();
         notifyListeners();
       } else {
-        debugPrint("oneWayOrdersTripResponse: Something wrong");
+        _logger.e("oneWayOrdersTripResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      _logger.d("oneWayOrdersTripResponseError: ${e.toString()}");
-      _loader.hideLoader(context!);
-    }
-  }
-
-  /// Round Order Trip
-  Future<void> roundOrderTrip(
-      {required Trips trips, required String passengersCount}) async {
-    try {
-      _loader.showLoader(context: context);
-
-      Map<String, dynamic> header = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $userToken"
-      };
-
-      Map<String, dynamic> tripBody = {
-        "trip_id": trips.id,
-        "count": passengersCount,
-        "code": "",
-        "additional": additionalList,
-        "user_notes": ""
-      };
-
-      Map<String, dynamic> body = {
-        "trips": [tripBody]
-      };
-
-      var url = roundOrderTripApiUrl;
-
-      debugPrint("URL: $url");
-      debugPrint("Header: $header");
-      debugPrint("Body: $body");
-
-      roundOrderTripResponse = await MyApi.callPostApi(
-          url: url,
-          myHeaders: header,
-          body: body,
-          modelName: Models.roundOrderTripModel);
-      debugPrint("Body: $body");
-
-      if (roundOrderTripResponse.code == 1) {
-        _logger.d(
-            "roundOrderTripResponse: ${roundOrderTripResponse.toJson()}, ${roundOrderTripResponse.toString()}");
-        _loader.hideLoader(context!);
-        isRoundOrderTripSaved = true;
-        additionalList.clear();
-        notifyListeners();
-      } else {
-        debugPrint("roundOrderTripResponse: Something wrong");
-        _loader.hideLoader(context!);
-      }
-    } catch (e) {
-      _logger.d("roundOrderTripResponseError: ${e.toString()}");
-      _loader.hideLoader(context!);
-    }
-  }
-
-  /// Multi-Order Trip
-  Future<void> multiOrderTrip(
-      {required Trips trips, required String passengersCount}) async {
-    try {
-      _loader.showLoader(context: context);
-
-      Map<String, dynamic> header = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $userToken"
-      };
-
-      Map<String, dynamic> tripBody = {
-        "trip_id": trips.id,
-        "count": passengersCount,
-        "code": "",
-        "additional": additionalList,
-        "user_notes": ""
-      };
-
-      Map<String, dynamic> body = {
-        "trips": [tripBody]
-      };
-
-      var url = multiOrderTripApiUrl;
-
-      debugPrint("URL: $url");
-      // debugPrint("Header: $header");
-      debugPrint("Body: $body");
-
-      multiOrdersTripResponse = await MyApi.callPostApi(
-          url: url,
-          myHeaders: header,
-          body: body,
-          modelName: Models.multiOrderTripModel);
-      debugPrint("Body: $body");
-
-      if (multiOrdersTripResponse.code == 1) {
-        _logger.d(
-            "multiOrdersTripResponse: ${multiOrdersTripResponse.toJson()}, ${multiOrdersTripResponse.data!.message.toString()}");
-        _loader.hideLoader(context!);
-        isMultiOrderTripSaved = true;
-        notifyListeners();
-      } else {
-        debugPrint("multiOrdersTripResponse: Something wrong");
-        _loader.hideLoader(context!);
-      }
-    } catch (e) {
-      _logger.d("multiOrdersTripResponseError: ${e.toString()}");
+      _logger.e("oneWayOrdersTripResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

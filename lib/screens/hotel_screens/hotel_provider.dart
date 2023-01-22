@@ -60,7 +60,7 @@ class HotelProvider with ChangeNotifier {
       );
 
       if (hotelRoomResponse.code == 1) {
-        _logger.d("hotelRoomResponse: ${hotelRoomResponse.toJson()}");
+        _logger.i("onHotelRoomResponse: ${hotelRoomResponse.toJson()}");
 
         var length = hotelRoomResponse.data!.rooms!.length;
         for (int i = 0; i < length; i++) {
@@ -102,37 +102,37 @@ class HotelProvider with ChangeNotifier {
         "Content-Type": "application/json",
         "Authorization": "Bearer $userToken"
       };
-
       _logger.i("trips.id: $tripId");
-      _logger.i("additionalList: ${additionalList.map((e) => e)}");
-      _logger.i("paramPassengerBody: ${paramPassengerBody.map((e) => e)}");
-      _logger.i("hotelRoomBody: ${hotelRoomBody.map((e) => e)}");
 
+      //TODO: Checkout hotel issue,
       var newHotelBody = [];
       for (int i = 0; i < hotelRoomBody.length; i++) {
         if (hotelRoomBody[i]['rooms_number'] > 0 &&
             hotelRoomBody[i]['days'] > 0) {
           newHotelBody.add(hotelRoomBody[i]);
-          _logger.d("newHotelBody:$newHotelBody");
-        } else {
-          newHotelBody = [];
+          _logger.i("newHotelBodyFor:$newHotelBody");
         }
+        // else {
+        //   newHotelBody = [];
+        //   _logger.d("newHotelBodyElse:$newHotelBody");
+        // }
       }
 
+      //TODO: Checkout newHotelBody issue,
       // API->Body
       final newBody = {
         "trip_id": tripId,
         "count": passengerCounts,
-        "code": "SALE10",
+        "code": "",
         "additional": additionalList,
         "passengers": paramPassengerBody,
         "hotel_rooms": newHotelBody, //hotelRoomBody,
         "user_notes": ""
       };
+      _logger.i("newBody: $newBody");
 
       var url = oneWayOrderTripApiUrl;
       debugPrint("URL: $url");
-      _logger.i("newBody: $newBody");
       oneWayOrdersTripResponse = await MyApi.callPostApi(
         url: url,
         myHeaders: header,
@@ -235,7 +235,7 @@ class HotelProvider with ChangeNotifier {
   }
 
   // One Way Order Trip
-  Future<void> skipAndOneWayOrderTrip({
+  Future<void> skipHotelOneWayOrderTrip({
     required String tripId,
     required String passengerCounts,
     required List<Map<String, dynamic>> paramPassengerBody,
@@ -259,7 +259,7 @@ class HotelProvider with ChangeNotifier {
       final newBody = {
         "trip_id": tripId,
         "count": passengerCounts,
-        "code": "SALE10",
+        "code": "",
         "additional": additionalList,
         "passengers": paramPassengerBody,
         "hotel_rooms": [], //hotelRoomBody,

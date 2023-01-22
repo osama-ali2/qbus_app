@@ -20,16 +20,16 @@ class ReviewOrderProvider with ChangeNotifier {
   final _logger = Logger();
   final _loader = Loader();
 
+  bool isOrderReviewLoaded = false;
+
   OneWayOrderReviewResponse oneWayOrderReviewResponse =
       OneWayOrderReviewResponse();
-
-  bool isOrderReviewLoaded = false;
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
   }
 
-  // orderReview
+  /// orderReview
   Future<void> orderReview({
     required int tripId,
   }) async {
@@ -43,20 +43,19 @@ class ReviewOrderProvider with ChangeNotifier {
       };
 
       final body = {"orders_id": tripId};
-
-      // var url = ordersReviewApiUrl;
       var url = oneWayOrderOrderApiUrl;
       debugPrint("URL: $url");
-      _logger.d("newBody: $body");
+      _logger.i("newBody: $body");
+
       oneWayOrderReviewResponse = await MyApi.callPostApi(
         url: url,
         myHeaders: header,
         body: body,
-        modelName: Models.oneWayOrderReviewModel, //Models.ordersReviewModel,
+        modelName: Models.oneWayOrderReviewModel,
       );
 
       if (oneWayOrderReviewResponse.code == 1) {
-        _logger.d(
+        _logger.i(
             "oneWayOrderReviewResponse: ${oneWayOrderReviewResponse.toJson()}, ${oneWayOrderReviewResponse.message.toString()}");
 
         Toasts.getSuccessToast(

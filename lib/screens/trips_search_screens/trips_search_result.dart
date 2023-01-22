@@ -101,15 +101,21 @@ class _SearchResultState extends State<SearchResult> {
                 child: Column(
                   children: [
                     CommonPadding.sizeBoxWithHeight(height: 10),
-                    FilterContainerWidget(onPress: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const TripFilterScreen(),
-                        ),
-                      );
-                    }),
+
+                    /// Filter Container Widget
+                    FilterContainerWidget(
+                      onPress: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const TripFilterScreen(),
+                          ),
+                        );
+                      },
+                    ),
                     CommonPadding.sizeBoxWithHeight(height: 5),
+
+                    /// ListView
                     Expanded(
                       child: searchProvider
                               .tripsResponse.data!.trips!.isNotEmpty
@@ -135,34 +141,35 @@ class _SearchResultState extends State<SearchResult> {
                                 var stops = tripData.stops.toString();
                                 var providerName =
                                     tripData.providerName.toString();
-
-                                //var tripId = tripData.id.toString();
-
                                 return InkWell(
                                   onTap: () {
+                                    /// if Additionals are empty navigator to Passenger Screen
                                     if (tripData.additionals!.isEmpty) {
                                       debugPrint(
                                           "tripData.additionals!.isEmpty:${tripData.additionals!.isEmpty}");
                                       debugPrint(
                                           "tripData.hotels!.isEmpty:${tripData.hotels!.isEmpty}");
-
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => PassengerScreen(
                                             passengerCount: int.parse(
-                                                widget.passengersCount!),
+                                              widget.passengersCount!,
+                                            ),
                                             tripId: tripData.id!,
                                             additionalList: [],
-                                            isHotelEmpty: tripData.hotels!.isEmpty,
+                                            isHotelEmpty:
+                                                tripData.hotels!.isEmpty,
                                           ),
                                         ),
                                       );
                                     } else {
+                                      /// Else Select Addition Screen
                                       NavigationHelper.pushRoute(
                                         context,
                                         SelectAdditionScreen(
-                                          isHotelEmpty: tripData.hotels!.isEmpty,
+                                          isHotelEmpty:
+                                              tripData.hotels!.isEmpty,
                                           tripsModel: tripData,
                                           isOneWayTripChecked:
                                               widget.isOneWayTripChecked!,
@@ -213,10 +220,12 @@ class _SearchResultState extends State<SearchResult> {
               )
             : Center(
                 child: TextView.getSubHeadingTextWith15(
-                    "No Trip Available", Assets.latoBold,
-                    color: AppColors.blueHomeColor,
-                    lines: 1,
-                    fontWeight: FontWeight.normal),
+                  "No Trip Available",
+                  Assets.latoBold,
+                  color: AppColors.blueHomeColor,
+                  lines: 1,
+                  fontWeight: FontWeight.normal,
+                ),
               ),
       ),
     );

@@ -92,58 +92,45 @@ class _StepTwoSelectAdditionScreenState
                 children: [
                   Expanded(
                     child: ListView.builder(
-                        itemCount: stepTwoSelectAdditionProvider
-                            .tripAdditionalsResponse.data!.additional!.length,
-                        itemBuilder: (context, index) {
-                          currentIndex = index;
-                          var name = stepTwoSelectAdditionProvider
-                              .tripAdditionalsResponse
-                              .data!
-                              .additional![index]
-                              .name!
-                              .en
-                              .toString();
-                          var additionId = stepTwoSelectAdditionProvider
-                              .tripAdditionalsResponse
-                              .data!
-                              .additional![index]
-                              .id
-                              .toString();
-                          return itemContainer(
-                              name: name, index: index, additionId: additionId);
-                        }),
+                      itemCount: stepTwoSelectAdditionProvider
+                          .tripAdditionalsResponse.data!.additional!.length,
+                      itemBuilder: (context, index) {
+                        currentIndex = index;
+                        var name = stepTwoSelectAdditionProvider
+                            .tripAdditionalsResponse
+                            .data!
+                            .additional![index]
+                            .name!
+                            .en
+                            .toString();
+                        var additionId = stepTwoSelectAdditionProvider
+                            .tripAdditionalsResponse.data!.additional![index].id
+                            .toString();
+                        return _itemContainer(
+                          name: name,
+                          index: index,
+                          additionId: additionId,
+                        );
+                      },
+                    ),
                   ),
                   CustomButton(
-                      name: "Save Second Trip & Review Order",
-                      buttonColor: appColor,
-                      height: sizes!.heightRatio * 45,
-                      width: double.infinity,
-                      textSize: sizes!.fontRatio * 14,
-                      textColor: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      borderRadius: 5,
-                      onTapped: () async {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => PassengerScreen(
-                        //       passengerCount:
-                        //           int.parse("${widget.passengersCount}"),
-                        //       tripId: int.parse("${widget.tripSecondId}"),
-                        //       additionalList:
-                        //           stepTwoSelectAdditionProvider.additionalList,
-                        //     ),
-                        //   ),
-                        // );
-
-                        ///Uncomment ->
-                        await callOrderTrip();
-                      },
-                      padding: 20),
+                    name: "Save Second Trip & Review Order",
+                    buttonColor: appColor,
+                    height: sizes!.heightRatio * 45,
+                    width: double.infinity,
+                    textSize: sizes!.fontRatio * 14,
+                    textColor: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    borderRadius: 5,
+                    onTapped: () async {
+                      await _callOrderTrip();
+                    },
+                    padding: 20,
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
-                  //PreferenceUtils.getString(Strings.loginEmail)!.isNotEmpty &&
                   (PreferenceUtils.getString(Strings.loginUserToken)!
                           .isNotEmpty)
                       ? Container()
@@ -162,8 +149,9 @@ class _StepTwoSelectAdditionScreenState
                               height: sizes!.heightRatio * 45,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color: appColor)),
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: appColor),
+                              ),
                               child: Center(
                                 child: CustomText(
                                     text: "Continue",
@@ -183,7 +171,8 @@ class _StepTwoSelectAdditionScreenState
     );
   }
 
-  Future<void> callOrderTrip() async {
+  /// Call Order Trip
+  Future<void> _callOrderTrip() async {
     if (widget.isRoundTripChecked == true) {
       setState(() {
         isRoundTripCounter++;
@@ -204,28 +193,24 @@ class _StepTwoSelectAdditionScreenState
 
       if (stepTwoSelectAdditionProvider.isRoundOrderTripSaved == true) {
         if (!mounted) return;
-        // Navigator.pushAndRemoveUntil(
-        //     context,
-        //     MaterialPageRoute(builder: (context) => const BottomBarScreen()),
-        //     (route) => false);
-
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => RoundTripReviewOrderScreen(
-              orderId: stepTwoSelectAdditionProvider
-                  .roundOrderTripResponse.data!.tripId!,
-            ),
-          ),
+              builder: (context) => RoundTripReviewOrderScreen(
+                    orderId: stepTwoSelectAdditionProvider
+                        .roundOrderTripResponse.data!.tripId!,
+                  )),
         );
       }
     }
   }
 
-  Widget itemContainer(
-          {required String name,
-          required int index,
-          required String additionId}) =>
+  /// Item Counter
+  Widget _itemContainer({
+    required String name,
+    required int index,
+    required String additionId,
+  }) =>
       Column(
         children: [
           const SizedBox(
@@ -276,12 +261,14 @@ class _StepTwoSelectAdditionScreenState
         ],
       );
 
-  Widget _itemsCounter(
-      {required BuildContext context,
-      required String name,
-      required Function add,
-      required Function minus,
-      required int number}) {
+  /// items Counter
+  Widget _itemsCounter({
+    required BuildContext context,
+    required String name,
+    required Function add,
+    required Function minus,
+    required int number,
+  }) {
     return Container(
       height: sizes!.heightRatio * 60,
       width: MediaQuery.of(context).size.width,

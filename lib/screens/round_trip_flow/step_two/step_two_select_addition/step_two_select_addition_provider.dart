@@ -19,6 +19,7 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
   final _loader = Loader();
 
   var userToken = PreferenceUtils.getString(Strings.loginUserToken);
+
   bool isTripLoaded = false;
   bool isRoundOrderTripSaved = false;
 
@@ -45,6 +46,7 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
 
       var url = "$tripAdditionalApiUrl$id";
       debugPrint("URL: $url");
+
       tripAdditionalsResponse = await MyApi.callGetApi(
           url: url, myHeaders: header, modelName: Models.tripAdditionalsModel);
       if (tripAdditionalsResponse.code == 1) {
@@ -85,10 +87,12 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
   }) async {
     try {
       _loader.showLoader(context: context);
+
       Map<String, dynamic> header = {
         "Content-Type": "application/json",
         "Authorization": "Bearer $userToken"
       };
+      var url = roundOrderTripApiUrl;
 
       var newHotelBody = [];
       for (int i = 0; i < paramHotelBody.length; i++) {
@@ -100,7 +104,6 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
           newHotelBody = [];
         }
       }
-
       _logger.d("paramHotelBody: $paramHotelBody");
 
       // First Trip Body
@@ -130,11 +133,9 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
       Map<String, dynamic> body = {
         "trips": [tripFirstBody, tripSecondBody]
       };
-      _logger.d("body: $body");
+      _logger.i("body: $body");
 
-      var url = roundOrderTripApiUrl;
       debugPrint("URL: $url");
-      debugPrint("Header: $header");
 
       roundOrderTripResponse = await MyApi.callPostApi(
           url: url,
@@ -175,6 +176,9 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
   }) async {
     try {
       _loader.showLoader(context: context);
+      var url = roundOrderTripApiUrl;
+      debugPrint("URL: $url");
+
       Map<String, dynamic> header = {
         "Content-Type": "application/json",
         "Authorization": "Bearer $userToken"
@@ -210,10 +214,6 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
         "trips": [tripFirstBody, tripSecondBody]
       };
       _logger.d("body: $body");
-
-      var url = roundOrderTripApiUrl;
-      debugPrint("URL: $url");
-      debugPrint("Header: $header");
 
       roundOrderTripResponse = await MyApi.callPostApi(
           url: url,

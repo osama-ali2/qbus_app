@@ -80,7 +80,7 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Create Passenger Fields
-      addFields();
+      _addFields();
       // Load Identity Proof Types
       roundTripPassengerProvider.getIdentityProofTypes();
       // Get Countries List
@@ -96,7 +96,7 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
     super.dispose();
   }
 
-  void addFields() {
+  void _addFields() {
     if (widget.passengerCount > 10) {
       Toasts.getWarningToast(text: "Only 10 Passengers allowed");
     } else {
@@ -163,7 +163,7 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
               fontWeight: FontWeight.w500,
               borderRadius: 5,
               onTapped: () async {
-                validateData();
+                _validateData();
               },
               padding: 0,
             ),
@@ -174,7 +174,7 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
     );
   }
 
-  void validateData() async {
+  void _validateData() async {
     for (int i = 0; i < widget.passengerCount; i++) {
       if (_fullNameControllers[i].value.text.isNotEmpty ||
           _idNumberControllers[i].value.text.isNotEmpty) {

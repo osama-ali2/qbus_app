@@ -85,11 +85,13 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
             tripFilterModel: widget.tripFilterModel, offset: index);
       }
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Load Trip
-      roundTripStepTwoProvider.getTripsData(
-          tripFilterModel: widget.tripFilterModel, offset: index);
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        // Load Trip
+        roundTripStepTwoProvider.getTripsData(
+            tripFilterModel: widget.tripFilterModel, offset: index);
+      },
+    );
 
     debugPrint("isRoundTripChecked: ${widget.isRoundTripChecked}");
   }
@@ -114,14 +116,16 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
         child: Column(
           children: [
             CommonPadding.sizeBoxWithHeight(height: 10),
-            FilterContainerWidget(onPress: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const TripFilterScreen(),
-                ),
-              );
-            }),
+            FilterContainerWidget(
+              onPress: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const TripFilterScreen(),
+                  ),
+                );
+              },
+            ),
             CommonPadding.sizeBoxWithHeight(height: 10),
             roundTripStepTwoProvider.isTripDataLoaded
                 ? Expanded(
@@ -153,10 +157,12 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
                                 onTap: () async {
                                   if (data.additionals!.isEmpty) {
                                     debugPrint(
-                                        "roundTripAdditional:${data.additionals!.isEmpty}");
+                                      "roundTripAdditional:${data.additionals!.isEmpty}",
+                                    );
                                     debugPrint(
-                                        "roundTripHotels:${data.hotels!.isEmpty}");
-                                    await callOrderTrip(tripId: data);
+                                      "roundTripHotels:${data.hotels!.isEmpty}",
+                                    );
+                                    await _callOrderTrip(tripId: data);
                                   } else {
                                     NavigationHelper.pushRoute(
                                       context,
@@ -187,18 +193,19 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
                                   padding: EdgeInsets.symmetric(
                                       vertical: sizes!.heightRatio * 5),
                                   child: TripCardContainerWidget(
-                                      // context: context,
-                                      stationA: stationA,
-                                      stationB: stationB,
-                                      fees: fees,
-                                      rate: rate,
-                                      fromCityName: fromCityName,
-                                      toCityName: toCityName,
-                                      timeFrom: timeFrom,
-                                      timeTo: timeTo,
-                                      stops: stops,
-                                      providerName: providerName,
-                                      additionals: data.additionals!),
+                                    // context: context,
+                                    stationA: stationA,
+                                    stationB: stationB,
+                                    fees: fees,
+                                    rate: rate,
+                                    fromCityName: fromCityName,
+                                    toCityName: toCityName,
+                                    timeFrom: timeFrom,
+                                    timeTo: timeTo,
+                                    stops: stops,
+                                    providerName: providerName,
+                                    additionals: data.additionals!,
+                                  ),
                                 ),
                               );
                             },
@@ -219,8 +226,8 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
     );
   }
 
-  // Call Order Trip
-  Future<void> callOrderTrip({required Trips tripId}) async {
+  /// Call Order Trip
+  Future<void> _callOrderTrip({required Trips tripId}) async {
     if (widget.isRoundTripChecked == true) {
       await stepTwoSelectAdditionProvider.roundOrderTripCallFromStepTwo(
         tripFirstId: widget.firstTripModel,

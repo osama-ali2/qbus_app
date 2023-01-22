@@ -11,8 +11,8 @@ class RoundTripStepOneProvider with ChangeNotifier {
   BuildContext? context;
   final Logger _logger = Logger();
   final Loader _loader = Loader();
-  bool isTripDataLoaded = false;
 
+  bool isTripDataLoaded = false;
   TripsResponse tripsResponse = TripsResponse();
 
   Future<void> init({@required BuildContext? context}) async {
@@ -20,12 +20,11 @@ class RoundTripStepOneProvider with ChangeNotifier {
     isTripDataLoaded = false;
   }
 
+  /// Get Trips Data
   Future<void> getTripsData(
       {required TripFilterModel tripFilterModel, required int offset}) async {
     try {
       _loader.showLoader(context: context);
-      // tripsResponse.data!.trips!.clear();
-
       Map<String, dynamic> header = {"Content-Type": "application/json"};
       Map<String, dynamic> body = {
         "code": tripFilterModel.code,
@@ -38,8 +37,6 @@ class RoundTripStepOneProvider with ChangeNotifier {
         "offset": offset
       };
 
-      // var body = tripFilterModel.toJson();
-
       debugPrint("URL: $tripsApiUrl");
       debugPrint("tripsBody: $body");
 
@@ -48,7 +45,6 @@ class RoundTripStepOneProvider with ChangeNotifier {
           body: body,
           myHeaders: header,
           modelName: Models.tripsModel);
-      debugPrint("tripsBody: $body");
 
       if (tripsResponse.code == 1) {
         _logger.i("tripsResponse: ${tripsResponse.toJson()}");
@@ -56,33 +52,21 @@ class RoundTripStepOneProvider with ChangeNotifier {
         isTripDataLoaded = true;
         notifyListeners();
       } else {
-        debugPrint("tripsResponse: Something wrong");
-        _logger.i("tripsResponse: Something wrong");
+        _logger.e("tripsResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      debugPrint("tripsResponseError: ${e.toString()}");
-      _logger.i("tripsResponseError: ${e.toString()}");
+      _logger.e("tripsResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }
 
+  /// Get Trips Data by Filter
   Future<void> getTripsDataByFilter(
       {required TripFilterModel tripFilterModel}) async {
     try {
       _loader.showLoader(context: context);
-
       Map<String, dynamic> header = {"Content-Type": "application/json"};
-      // Map<String, dynamic> body = {
-      //   "code": "",
-      //   "date_from": "",
-      //   "date_to": "",
-      //   "time_from": "",
-      //   "from_city_id": 4,
-      //   "to_city_id": 3,
-      //   "additional": []
-      // };
-
       var body = tripFilterModel.toJson();
       debugPrint("URL: $tripsApiUrl");
 
@@ -99,13 +83,11 @@ class RoundTripStepOneProvider with ChangeNotifier {
         isTripDataLoaded = true;
         notifyListeners();
       } else {
-        debugPrint("tripsResponse: Something wrong");
-        _logger.i("tripsResponse: Something wrong");
+        _logger.e("tripsResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      debugPrint("tripsResponseError: ${e.toString()}");
-      _logger.i("tripsResponseError: ${e.toString()}");
+      _logger.e("tripsResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }
