@@ -11,15 +11,14 @@ import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
-import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
-import 'package:qbus/screens/round_trip_flow/step_two/round_trip_review_order_screens/round_trip_review_order_provider.dart';
+import 'package:qbus/screens/thank_you_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
 
 import '../../../../models/order_reviews/RoundOrderReviewResponse.dart';
+import 'round_trip_review_order_provider.dart';
 
 class RoundTripReviewOrderScreen extends StatefulWidget {
   final List<int> orderId;
@@ -236,11 +235,14 @@ class _RoundTripReviewOrderScreenState
                     fontWeight: FontWeight.w500,
                     borderRadius: 5,
                     onTapped: () async {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const BottomBarScreen()),
-                          (route) => false);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ThankYouScreen(
+                            tripId: widget.orderId[0],
+                          ),
+                        ),
+                      );
                     },
                     padding: 0,
                   ),

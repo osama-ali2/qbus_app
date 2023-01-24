@@ -10,9 +10,8 @@ import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
-import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
 import 'package:qbus/screens/review_order_screens/review_order_provider.dart';
+import 'package:qbus/screens/thank_you_screen.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/text_views.dart';
 import '../../res/colors.dart';
@@ -210,11 +209,13 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                     fontWeight: FontWeight.w500,
                     borderRadius: 5,
                     onTapped: () async {
-                      Navigator.pushAndRemoveUntil(
+                      Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const BottomBarScreen()),
-                          (route) => false);
+                            builder: (context) => ThankYouScreen(
+                              tripId: widget.tripId,
+                            ),
+                          ));
                     },
                     padding: 0,
                   ),
@@ -234,6 +235,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
     );
   }
 
+  // Total Calculation Container
   Widget totalCalculationContainer(
           {required String title, required String value}) =>
       Row(
