@@ -340,7 +340,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
           firstTripModel: widget.firstTripModel,
           tripFirstAdditionalList: widget.paramAdditionalList,
           paramPassengerBody: widget.paramPassengerBody,
-          paramHotelBody: const [],
+          paramHotelBody: [],
         ),
       ),
     );
