@@ -182,22 +182,23 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
 
   // Navigate Passenger Screen
   void _navigatePassengerScreen() {
-    /// Select Additional List not contain value 0
-    if (!selectAdditionProvider.selectAdditionalList.contains(0)) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => PassengerScreen(
-            passengerCount: int.parse(widget.passengersCount),
-            tripId: widget.tripsModel.id!,
-            additionalList: selectAdditionProvider.additionalList,
-            isHotelEmpty: widget.isHotelEmpty,
-          ),
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PassengerScreen(
+          passengerCount: int.parse(widget.passengersCount),
+          tripId: widget.tripsModel.id!,
+          additionalList: selectAdditionProvider.additionalList,
+          isHotelEmpty: widget.isHotelEmpty,
         ),
-      );
-    } else {
-      Toasts.getWarningToast(text: "Please select any additional");
-    }
+      ),
+    );
+
+    /// Select Additional List not contain value 0
+    // if (!selectAdditionProvider.selectAdditionalList.contains(0)) {
+    // } else {
+    //   Toasts.getWarningToast(text: "Please select any additional");
+    // }
   }
 
   /// Item Container

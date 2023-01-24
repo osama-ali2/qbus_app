@@ -169,7 +169,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                             key: Key("$index"),
                             hotelTitle: hotelName ?? "First Class Hotel",
                             cityName: city,
-                            rent: "100",
+                            rent: "",
                             roomType: "Room Type",
                             hotelImage: thumbnailUrl,
                             houseNum: roomNum,
@@ -305,6 +305,8 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
   /// Step Two Trip
   void _stepTwoTrip() async {
     /// TODO: Uncomment Round Trip Step Two Result;
+    debugPrint(
+        "fromNewHotelBody:${roundTripHotelProvider.hotelRoomBody.map((e) => e)}");
     Navigator.push(
       context,
       MaterialPageRoute(

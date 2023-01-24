@@ -32,7 +32,7 @@ class RoundTripHotelProvider with ChangeNotifier {
   List<int> selectBookingDaysList = [];
   List<int> selectNumberOfRoomsList = [];
   List<Map<String, dynamic>> hotelRoomBody = [];
-  List<Map<String, dynamic>> newHotelBody = [];
+  // List<Map<String, dynamic>> newHotelBody = [];
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;

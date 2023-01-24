@@ -71,6 +71,8 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
         Provider.of<StepTwoSelectAdditionProvider>(context, listen: false);
     stepTwoSelectAdditionProvider.init(context: context);
 
+    debugPrint("stepTwoResult: ${widget.paramHotelBody.map((e) => e)}");
+
     // Pagination
     _scrollController = ScrollController();
     _scrollController.addListener(() {
@@ -228,6 +230,8 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
 
   /// Call Order Trip
   Future<void> _callOrderTrip({required Trips tripId}) async {
+    debugPrint("stepTwoResult: ${widget.paramHotelBody.map((e) => e)}");
+
     if (widget.isRoundTripChecked == true) {
       await stepTwoSelectAdditionProvider.roundOrderTripCallFromStepTwo(
         tripFirstId: widget.firstTripModel,

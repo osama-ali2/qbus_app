@@ -100,9 +100,10 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
             paramHotelBody[i]['days'] > 0) {
           newHotelBody.add(paramHotelBody[i]);
           _logger.d("newHotelBody:$newHotelBody");
-        } else {
-          newHotelBody = [];
         }
+        // else {
+        //   newHotelBody = [];
+        // }
       }
       _logger.d("paramHotelBody: $paramHotelBody");
 
@@ -129,13 +130,12 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
         "user_notes": ""
       };
       _logger.d("tripSecondBody: $tripSecondBody");
+      debugPrint("URL: $url");
 
       Map<String, dynamic> body = {
         "trips": [tripFirstBody, tripSecondBody]
       };
       _logger.i("body: $body");
-
-      debugPrint("URL: $url");
 
       roundOrderTripResponse = await MyApi.callPostApi(
           url: url,
@@ -186,6 +186,20 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
 
       _logger.d("paramHotelBody: $paramHotelBody");
 
+      //TODO: Checkout hotel issue,
+      var newHotelBody = [];
+      for (int i = 0; i < paramHotelBody.length; i++) {
+        if (paramHotelBody[i]['rooms_number'] > 0 &&
+            paramHotelBody[i]['days'] > 0) {
+          newHotelBody.add(paramHotelBody[i]);
+          _logger.i("newHotelBodyFor:$newHotelBody");
+        }
+        // else {
+        //   newHotelBody = [];
+        //   _logger.d("newHotelBodyElse:$newHotelBody");
+        // }
+      }
+
       // First Trip Body
       Map<String, dynamic> tripFirstBody = {
         "trip_id": tripFirstId.id,
@@ -193,7 +207,7 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
         "code": "",
         "additional": tripFirstAdditionalList,
         "passengers": paramPassengerBody,
-        "hotel_rooms": [],
+        "hotel_rooms": newHotelBody,
         "user_notes": ""
       };
       _logger.i("tripFirstBody: $tripFirstBody");
@@ -205,7 +219,7 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
         "code": "",
         "additional": additionalList,
         "passengers": paramPassengerBody,
-        "hotel_rooms": [],
+        "hotel_rooms": newHotelBody,
         "user_notes": ""
       };
       _logger.d("tripSecondBody: $tripSecondBody");
