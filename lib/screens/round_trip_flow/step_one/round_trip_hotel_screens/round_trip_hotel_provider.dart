@@ -6,7 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/local_cache/utils.dart';
-import 'package:qbus/models/hotel/hotel_room_response.dart';
+import 'package:qbus/models/hotel/HotelRoomResponse.dart';
 import 'package:qbus/models/trips/OneWayOrdersTripResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
 import 'package:qbus/network_manager/models.dart';

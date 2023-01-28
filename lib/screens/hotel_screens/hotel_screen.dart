@@ -162,6 +162,8 @@ class _HotelScreenState extends State<HotelScreen> {
                         var thumbnailUrl = "$imageUrl/$image";
                         var roomId = int.parse("${data.id}");
 
+                        var rent = data.fees.toString();
+
                         return Padding(
                           padding: EdgeInsets.symmetric(
                             vertical: sizes!.heightRatio * 5,
@@ -170,7 +172,7 @@ class _HotelScreenState extends State<HotelScreen> {
                             key: Key("$index"),
                             hotelTitle: hotelName ?? "First Class Hotel",
                             cityName: city,
-                            rent: "100",
+                            rent: rent,
                             roomType: "Room Type",
                             hotelImage: thumbnailUrl,
                             houseNum: roomNum,

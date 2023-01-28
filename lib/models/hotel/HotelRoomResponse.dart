@@ -1,6 +1,10 @@
+/// code : 1
+/// message : "success"
+/// data : {"rooms":[{"id":"1","name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"city":"Makka","fees":"100","rate":"4","type":{"ar":"مزدوج","en":"Double","ur":"Double"},"room_quantity":"1","bed_quantity":"1","max_adult":"2","image":"default.png"},{"id":"2","name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"city":"Makka","fees":"100","rate":"4","type":{"ar":"ثنائي","en":"Twin","ur":"Twin"},"room_quantity":"1","bed_quantity":"2","max_adult":"2","image":"default.png"},{"id":"3","name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"city":"Makka","fees":"100","rate":"4","type":{"ar":"ثلاثي","en":"Triple","ur":"Triple"},"room_quantity":"1","bed_quantity":"3","max_adult":"3","image":"default.png"},{"id":"4","name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"city":"Makka","fees":"100","rate":"4","type":{"ar":"رباعي","en":"Quad","ur":"Quad"},"room_quantity":"1","bed_quantity":"4","max_adult":"4","image":"default.png"},{"id":"5","name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"city":"Makka","fees":"100","rate":"4","type":{"ar":"خماسي","en":"Quintuple","ur":"Quintuple"},"room_quantity":"1","bed_quantity":"5","max_adult":"5","image":"default.png"},{"id":"6","name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"city":"Makka","fees":"30","rate":"4","type":{"ar":"مشترك","en":"Share","ur":"Share"},"room_quantity":"1","bed_quantity":"1","max_adult":"1","image":"default.png"}],"image_base":"https://qbus-sa.com/public/images/hotels"}
+
 class HotelRoomResponse {
   HotelRoomResponse({
-    int? code,
+    num? code,
     String? message,
     Data? data,
   }) {
@@ -15,11 +19,11 @@ class HotelRoomResponse {
     _data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
-  int? _code;
+  num? _code;
   String? _message;
   Data? _data;
 
-  int? get code => _code;
+  num? get code => _code;
 
   String? get message => _message;
 
@@ -35,6 +39,9 @@ class HotelRoomResponse {
     return map;
   }
 }
+
+/// rooms : [{"id":"1","name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"city":"Makka","fees":"100","rate":"4","type":{"ar":"مزدوج","en":"Double","ur":"Double"},"room_quantity":"1","bed_quantity":"1","max_adult":"2","image":"default.png"},{"id":"2","name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"city":"Makka","fees":"100","rate":"4","type":{"ar":"ثنائي","en":"Twin","ur":"Twin"},"room_quantity":"1","bed_quantity":"2","max_adult":"2","image":"default.png"},{"id":"3","name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"city":"Makka","fees":"100","rate":"4","type":{"ar":"ثلاثي","en":"Triple","ur":"Triple"},"room_quantity":"1","bed_quantity":"3","max_adult":"3","image":"default.png"},{"id":"4","name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"city":"Makka","fees":"100","rate":"4","type":{"ar":"رباعي","en":"Quad","ur":"Quad"},"room_quantity":"1","bed_quantity":"4","max_adult":"4","image":"default.png"},{"id":"5","name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"city":"Makka","fees":"100","rate":"4","type":{"ar":"خماسي","en":"Quintuple","ur":"Quintuple"},"room_quantity":"1","bed_quantity":"5","max_adult":"5","image":"default.png"},{"id":"6","name":{"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"},"city":"Makka","fees":"30","rate":"4","type":{"ar":"مشترك","en":"Share","ur":"Share"},"room_quantity":"1","bed_quantity":"1","max_adult":"1","image":"default.png"}]
+/// image_base : "https://qbus-sa.com/public/images/hotels"
 
 class Data {
   Data({
@@ -72,11 +79,23 @@ class Data {
   }
 }
 
+/// id : "1"
+/// name : {"en":"Mina Concorde","ar":"منى كونكورد","ur":"Mina Concorde"}
+/// city : "Makka"
+/// fees : "100"
+/// rate : "4"
+/// type : {"ar":"مزدوج","en":"Double","ur":"Double"}
+/// room_quantity : "1"
+/// bed_quantity : "1"
+/// max_adult : "2"
+/// image : "default.png"
+
 class Rooms {
   Rooms({
     String? id,
     Name? name,
     String? city,
+    String? fees,
     String? rate,
     Type? type,
     String? roomQuantity,
@@ -87,6 +106,7 @@ class Rooms {
     _id = id;
     _name = name;
     _city = city;
+    _fees = fees;
     _rate = rate;
     _type = type;
     _roomQuantity = roomQuantity;
@@ -99,6 +119,7 @@ class Rooms {
     _id = json['id'];
     _name = json['name'] != null ? Name.fromJson(json['name']) : null;
     _city = json['city'];
+    _fees = json['fees'];
     _rate = json['rate'];
     _type = json['type'] != null ? Type.fromJson(json['type']) : null;
     _roomQuantity = json['room_quantity'];
@@ -110,6 +131,7 @@ class Rooms {
   String? _id;
   Name? _name;
   String? _city;
+  String? _fees;
   String? _rate;
   Type? _type;
   String? _roomQuantity;
@@ -122,6 +144,8 @@ class Rooms {
   Name? get name => _name;
 
   String? get city => _city;
+
+  String? get fees => _fees;
 
   String? get rate => _rate;
 
@@ -142,6 +166,7 @@ class Rooms {
       map['name'] = _name?.toJson();
     }
     map['city'] = _city;
+    map['fees'] = _fees;
     map['rate'] = _rate;
     if (_type != null) {
       map['type'] = _type?.toJson();
@@ -153,6 +178,10 @@ class Rooms {
     return map;
   }
 }
+
+/// ar : "مزدوج"
+/// en : "Double"
+/// ur : "Double"
 
 class Type {
   Type({
@@ -189,6 +218,10 @@ class Type {
     return map;
   }
 }
+
+/// en : "Mina Concorde"
+/// ar : "منى كونكورد"
+/// ur : "Mina Concorde"
 
 class Name {
   Name({

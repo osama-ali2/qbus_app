@@ -189,7 +189,8 @@ class _SearchResultState extends State<SearchResult> {
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
-                                        vertical: sizes!.heightRatio * 4),
+                                      vertical: sizes!.heightRatio * 4,
+                                    ),
                                     child: TripCardContainerWidget(
                                       stationA: stationA,
                                       stationB: stationB,

@@ -14,7 +14,7 @@ import 'package:qbus/models/cities/GetCitiesResponse.dart';
 import 'package:qbus/models/contact_us/GetContactUsResponse.dart';
 import 'package:qbus/models/error_model/ErrorResponse.dart';
 import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
-import 'package:qbus/models/hotel/hotel_room_response.dart';
+import 'package:qbus/models/hotel/HotelRoomResponse.dart';
 import 'package:qbus/models/order_reviews/OneWayOrderReviewResponse.dart';
 import 'package:qbus/models/order_reviews/RoundOrderReviewResponse.dart';
 import 'package:qbus/models/packages/PackageDetailResponse.dart';
