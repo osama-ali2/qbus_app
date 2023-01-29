@@ -161,6 +161,8 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                         var thumbnailUrl = "$imageUrl/$image";
                         var roomId = int.parse("${data.id}");
 
+                        var rent = data.fees.toString();
+
                         return Padding(
                           padding: EdgeInsets.symmetric(
                             vertical: sizes!.heightRatio * 5,
@@ -169,7 +171,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                             key: Key("$index"),
                             hotelTitle: hotelName ?? "First Class Hotel",
                             cityName: city,
-                            rent: "",
+                            rent: rent,
                             roomType: "Room Type",
                             hotelImage: thumbnailUrl,
                             houseNum: roomNum,
