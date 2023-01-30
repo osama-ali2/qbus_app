@@ -100,7 +100,9 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
                               isUserAllowReview: isUserAllowReview,
                               onReviewIt: () {
                                 showAlertDialog(
-                                    context: context, packageId: packageId!);
+                                  context: context,
+                                  packageId: packageId!,
+                                );
                               },
                             ),
                           );
@@ -112,18 +114,19 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
                     ),
               CommonPadding.sizeBoxWithHeight(height: 10),
               CustomButton(
-                  name: "Trip History",
-                  buttonColor: appColor,
-                  height: sizes!.heightRatio * 45,
-                  width: double.infinity,
-                  textSize: sizes!.fontRatio * 14,
-                  textColor: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  borderRadius: 5,
-                  onTapped: () {
-                    Navigator.pop(context);
-                  },
-                  padding: 20),
+                name: "Trip History",
+                buttonColor: appColor,
+                height: sizes!.heightRatio * 45,
+                width: double.infinity,
+                textSize: sizes!.fontRatio * 14,
+                textColor: Colors.white,
+                fontWeight: FontWeight.bold,
+                borderRadius: 5,
+                onTapped: () {
+                  Navigator.pop(context);
+                },
+                padding: 20,
+              ),
               CommonPadding.sizeBoxWithHeight(height: 10),
             ],
           ),

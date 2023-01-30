@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/res/colors.dart';
+import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
-
-import '../../../../../res/colors.dart';
-import '../../../../../res/common_padding.dart';
-import '../../../../../res/res.dart';
-import '../../../../../utils/constant.dart';
-import '../../../../../widgets/custom_button.dart';
-import '../../../../../widgets/custom_text.dart';
-import '../../../../../widgets/custom_textField.dart';
+import 'package:qbus/res/res.dart';
+import 'package:qbus/res/toasts.dart';
+import 'package:qbus/utils/constant.dart';
+import 'package:qbus/widgets/custom_button.dart';
+import 'package:qbus/widgets/custom_text.dart';
+import 'package:qbus/widgets/custom_textField.dart';
 import 'change_password_provider.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -20,19 +20,26 @@ class ChangePasswordScreen extends StatefulWidget {
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   late ChangePasswordProvider changePasswordProvider;
-  late TextEditingController oldPasswordController;
-  late TextEditingController newPasswordController;
+
+  final oldPasswordController = TextEditingController();
+  final newPasswordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+
     changePasswordProvider = ChangePasswordProvider();
     changePasswordProvider =
         Provider.of<ChangePasswordProvider>(context, listen: false); //Read
     changePasswordProvider.init(context: context);
+  }
 
-    oldPasswordController = TextEditingController();
-    newPasswordController = TextEditingController();
+  @override
+  void dispose() {
+    super.dispose();
+
+    oldPasswordController.dispose();
+    newPasswordController.dispose();
   }
 
   @override
@@ -83,7 +90,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       fontWeight: FontWeight.normal,
                       borderRadius: 5,
                       onTapped: () {
-                        Navigator.pop(context);
+                        validateData();
                       },
                       padding: 0)
                   .get20HorizontalPadding(),
@@ -93,5 +100,16 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> validateData() async {
+    var fullName = oldPasswordController.text.toString().trim();
+    var password = newPasswordController.text.toString().trim();
+    if (fullName.isNotEmpty && password.isNotEmpty) {
+    } else if (fullName.isEmpty) {
+      Toasts.getErrorToast(text: "Old password is required");
+    } else if (password.isEmpty) {
+      Toasts.getErrorToast(text: "New password is required");
+    }
   }
 }

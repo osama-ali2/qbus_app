@@ -22,11 +22,11 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController _fullNameController = TextEditingController();
-  final TextEditingController _phoneNumberController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _yourAddressController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final _fullNameController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _yourAddressController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   var selectedCity = "Riyadh";
   var selectedCityId = "-1";
@@ -45,6 +45,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       signUpProvider.getCitiesData();
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _fullNameController.dispose();
+    _phoneNumberController.dispose();
+    _emailController.dispose();
+    _yourAddressController.dispose();
+    _passwordController.dispose();
   }
 
   @override

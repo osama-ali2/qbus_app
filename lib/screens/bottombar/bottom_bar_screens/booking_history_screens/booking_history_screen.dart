@@ -105,25 +105,26 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                       child: Text("No Data Available"),
                     ),
               CommonPadding.sizeBoxWithHeight(height: 10),
-              CustomButton(
-                  name: "Package History",
-                  buttonColor: appColor,
-                  height: sizes!.heightRatio * 45,
-                  width: double.infinity,
-                  textSize: sizes!.fontRatio * 14,
-                  textColor: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  borderRadius: 5,
-                  onTapped: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const PackageHistoryScreen(),
-                      ),
-                    );
-                  },
-                  padding: 20),
-              CommonPadding.sizeBoxWithHeight(height: 10),
+              //TODO: Uncomment Package History Screen later when needed
+              // CustomButton(
+              //     name: "Package History",
+              //     buttonColor: appColor,
+              //     height: sizes!.heightRatio * 45,
+              //     width: double.infinity,
+              //     textSize: sizes!.fontRatio * 14,
+              //     textColor: Colors.white,
+              //     fontWeight: FontWeight.bold,
+              //     borderRadius: 5,
+              //     onTapped: () {
+              //       Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //           builder: (context) => const PackageHistoryScreen(),
+              //         ),
+              //       );
+              //     },
+              //     padding: 20),
+              // CommonPadding.sizeBoxWithHeight(height: 10),
             ],
           ),
         ),
