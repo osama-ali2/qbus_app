@@ -80,10 +80,11 @@ class PackageCardContainerWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomText(
-                  text: title,
-                  textSize: sizes!.fontRatio * 14,
-                  fontWeight: FontWeight.w700,
-                  textColor: Colors.black),
+                text: title,
+                textSize: sizes!.fontRatio * 14,
+                fontWeight: FontWeight.w700,
+                textColor: Colors.black,
+              ),
               SizedBox(
                 height: sizes!.heightRatio * 5,
               ),

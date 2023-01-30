@@ -41,16 +41,16 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   late DateTime _selectedStartDate;
   late DateTime _selectedEndDate;
   String _startDate = "Departure Date";
-  String _endDate = "Arrival Date";
+  String _endDate = "Return Date";
 
   final departureFromController = TextEditingController();
   final arrivalToController = TextEditingController();
   final dateController = TextEditingController();
 
   var departureFrom = "Departure from";
-  var arrivalTo = "Arrival to";
+  var returnTo = "Return to";
 
-  var arrivalToID = "-1";
+  var returnToID = "-1";
   var departureFromID = "-1";
 
   @override
@@ -106,7 +106,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       initialEntryMode: DatePickerEntryMode.calendarOnly,
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2022),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2050),
     ).then((pickedDate) {
       if (pickedDate == null) {
@@ -127,7 +127,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       initialEntryMode: DatePickerEntryMode.calendarOnly,
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2022),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2050),
     ).then((pickedDate) {
       if (pickedDate == null) {
@@ -265,7 +265,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   padding:
                       EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 10),
                   child: CustomText(
-                      text: arrivalTo,
+                      text: returnTo,
                       textSize: 12,
                       fontWeight: FontWeight.normal,
                       textColor: Colors.black),
@@ -280,17 +280,17 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 }).toList(),
                 onChanged: (value) {
                   setState(() {
-                    arrivalTo = value!;
-                    debugPrint("selectedCity: $arrivalTo");
+                    returnTo = value!;
+                    debugPrint("selectedCity: $returnTo");
 
                     var l = getStartedProvider.citiesList.length;
                     for (int i = 0; i < l; i++) {
                       String name = getStartedProvider.citiesList[i]['city'];
                       String id = getStartedProvider.citiesList[i]['id'];
                       debugPrint("city: $name, id: $id");
-                      if (name.contains(arrivalTo)) {
-                        arrivalToID = id;
-                        debugPrint("MatchedCity&Id: $name, $arrivalToID");
+                      if (name.contains(returnTo)) {
+                        returnToID = id;
+                        debugPrint("MatchedCity&Id: $name, $returnToID");
                       }
                     }
                   });
@@ -497,28 +497,28 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
 
   void validateTripData() {
     debugPrint("departureFromID: $departureFromID, "
-        "arrivalToID: $arrivalToID,"
+        "arrivalToID: $returnToID,"
         "_startDate: $_startDate, "
         "_endDate: $_endDate,"
-        "departureFrom: $departureFrom, arrivalTo:$arrivalTo");
+        "departureFrom: $departureFrom, arrivalTo:$returnTo");
 
     if (departureFromID != "-1" &&
-        arrivalToID != "-1" &&
+        returnToID != "-1" &&
         _startDate != "" &&
         departureFrom != "" &&
-        arrivalTo != "") {
+        returnTo != "") {
       if (roundTrip == true) {
         debugPrint("roundTrip == $roundTrip");
         NavigationHelper.pushRoute(
           context,
           RoundTripStepOneResult(
             fromCity: departureFrom,
-            toCity: arrivalTo,
+            toCity: returnTo,
             isRoundTripChecked: roundTrip,
             passengersCount: "$passengersNumber",
             tripFilterModel: TripFilterModel(
               from_city_id: departureFromID,
-              to_city_id: arrivalToID,
+              to_city_id: returnToID,
               date_from: _startDate,
               date_to: _endDate,
             ),
@@ -530,14 +530,14 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           context,
           SearchResult(
             fromCity: departureFrom,
-            toCity: arrivalTo,
+            toCity: returnTo,
             isMultiDestinationChecked: multiTrip,
             isOneWayTripChecked: oneWayTrip,
             isRoundTripChecked: roundTrip,
             passengersCount: "$passengersNumber",
             tripFilterModel: TripFilterModel(
               from_city_id: departureFromID,
-              to_city_id: arrivalToID,
+              to_city_id: returnToID,
               date_from: _startDate,
               // date_to: _endDate,
             ),

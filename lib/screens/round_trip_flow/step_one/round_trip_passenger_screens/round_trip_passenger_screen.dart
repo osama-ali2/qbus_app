@@ -174,6 +174,7 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
     );
   }
 
+  /// Validate The data
   void _validateData() async {
     for (int i = 0; i < widget.passengerCount; i++) {
       if (_fullNameControllers[i].value.text.isNotEmpty ||
@@ -231,7 +232,7 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
     }
   }
 
-  // Step Two Trip
+  /// Step Two Trip
   void _stepTwoTrip() async {
     /// TODO: Uncomment Round Trip Step Two Result;
     Navigator.push(

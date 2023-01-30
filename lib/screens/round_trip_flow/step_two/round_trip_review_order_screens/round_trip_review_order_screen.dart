@@ -35,6 +35,18 @@ class _RoundTripReviewOrderScreenState
     extends State<RoundTripReviewOrderScreen> {
   late RoundTripReviewOrderProvider roundTripReviewOrderProvider;
 
+  /// App Bar
+  final appBar = AppBar(
+    backgroundColor: appColor,
+    elevation: 0,
+    centerTitle: false,
+    title: CustomText(
+        text: "Review The Order",
+        textSize: sizes!.fontRatio * 18,
+        fontWeight: FontWeight.w400,
+        textColor: Colors.white),
+  );
+
   @override
   void initState() {
     super.initState();
@@ -53,16 +65,7 @@ class _RoundTripReviewOrderScreenState
   Widget build(BuildContext context) {
     Provider.of<RoundTripReviewOrderProvider>(context, listen: true);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: appColor,
-        elevation: 0,
-        centerTitle: false,
-        title: CustomText(
-            text: "Review The Order",
-            textSize: sizes!.fontRatio * 18,
-            fontWeight: FontWeight.w400,
-            textColor: Colors.white),
-      ),
+      appBar: appBar,
       body: SafeArea(
         child: roundTripReviewOrderProvider.isRoundOrderReviewLoaded == true
             ? Column(
@@ -262,6 +265,7 @@ class _RoundTripReviewOrderScreenState
     );
   }
 
+  /// Return Order Review
   Widget _returnOrderReview({
     required String discount,
     required String taxValue,
@@ -304,6 +308,7 @@ class _RoundTripReviewOrderScreenState
         ],
       );
 
+  /// Hotel Room Container
   Widget _hotelRoomContainer({
     required String days,
     required String title,
@@ -319,7 +324,7 @@ class _RoundTripReviewOrderScreenState
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextView.getGenericText(
-                    text: "$days Days",
+                    text: "X$days Days",
                     fontFamily: Assets.latoRegular,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
@@ -357,6 +362,7 @@ class _RoundTripReviewOrderScreenState
         ],
       );
 
+  /// Additional Container
   Widget _additionalContainer({
     required String counts,
     required String title,
@@ -410,6 +416,7 @@ class _RoundTripReviewOrderScreenState
         ],
       );
 
+  /// Trip Order Container
   Widget _tripOrderContainer({
     required String quantity,
     required String fromTime,

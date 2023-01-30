@@ -131,6 +131,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
     );
   }
 
+  /// Booking Container
   Widget _bookingContainer({
     required String timeFromCity,
     required String fromCity,
@@ -220,14 +221,14 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                       text: "$timeFromCity $fromCity",
                       fontFamily: Assets.latoRegular,
                       fontSize: 16,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.textColor,
                       lines: 1),
                   TextView.getGenericText(
                       text: "$timeToCity $toCity",
                       fontFamily: Assets.latoRegular,
                       fontSize: 16,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.textColor,
                       lines: 1),
                 ],

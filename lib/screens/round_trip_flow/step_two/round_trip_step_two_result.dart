@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
+import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
+import 'package:qbus/screens/project_widgets/filter_container_widget.dart';
 import 'package:qbus/screens/project_widgets/trip_card_container_widget.dart';
-import 'package:qbus/screens/round_trip_flow/step_two/step_two_select_addition/step_two_select_addition_provider.dart';
-import 'package:qbus/screens/round_trip_flow/step_two/step_two_select_addition/step_two_select_addition_screen.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';
+import 'package:qbus/utils/constant.dart';
+import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
-import '../../../../navigation/navigation_helper.dart';
-import '../../../../utils/constant.dart';
-import '../../../../widgets/custom_text.dart';
-import '../../project_widgets/filter_container_widget.dart';
 import 'round_trip_review_order_screens/round_trip_review_order_screen.dart';
 import 'round_trip_step_two_provider.dart';
+import 'step_two_select_addition/step_two_select_addition_provider.dart';
+import 'step_two_select_addition/step_two_select_addition_screen.dart';
 
 class RoundTripStepTwoResult extends StatefulWidget {
   final TripFilterModel tripFilterModel;
@@ -104,11 +104,11 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
     Provider.of<StepTwoSelectAdditionProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: appColor,
+        backgroundColor: appColorTwo,
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-          text: "${widget.fromCity} - ${widget.toCity}",
+          text: "${widget.toCity} - ${widget.fromCity}",
           textSize: 18,
           fontWeight: FontWeight.w400,
           textColor: Colors.white,
@@ -193,7 +193,8 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
                                 },
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
-                                      vertical: sizes!.heightRatio * 5),
+                                    vertical: sizes!.heightRatio * 5,
+                                  ),
                                   child: TripCardContainerWidget(
                                     // context: context,
                                     stationA: stationA,
