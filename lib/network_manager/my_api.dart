@@ -4,6 +4,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
 
 import '../models/error_model/ErrorResponse.dart';
@@ -12,6 +13,8 @@ import '../res/toasts.dart';
 import 'models.dart';
 
 class MyApi {
+  static final _logger = Logger();
+
   /// Call Post API
   /// Params: url, body, Map params, Map headers
   /// [callPostApi]
@@ -65,6 +68,8 @@ class MyApi {
                     Models.validateErrorModel, response.data);
             debugPrint(
                 "ValidatingErrorResponse: ${validatingErrorResponse.toJson()}");
+            _logger.e(
+                "ValidatingErrorResponse: ${validatingErrorResponse.toJson()}");
             validatingErrorResponse.data!.validateErrors!.map((res) {
               Toasts.getErrorToast(text: res.toString());
             });
@@ -88,6 +93,7 @@ class MyApi {
             if (errorResponse.code == 0) {
               Toasts.getErrorToast(text: errorResponse.message);
               debugPrint("errorResponse: ${errorResponse.toJson()}");
+              _logger.e("errorResponse: ${errorResponse.toJson()}");
               return errorResponse;
             } else {
               Toasts.getErrorToast(text: errorResponse.message);
@@ -121,12 +127,55 @@ class MyApi {
             ValidatingErrorResponse validatingErrorResponse =
                 await Models.getModelObject(
                     Models.validateErrorModel, ex.response?.data);
-            debugPrint(
+            _logger.e(
                 "ValidatingErrorResponse: ${validatingErrorResponse.toJson()}");
-            validatingErrorResponse.data!.validateErrors!.map((res) {
-              Toasts.getErrorToast(text: res.toString());
-            });
+
+            ///map['name'] = _name;
+            //     map['phone'] = _phone;
+            //     map['email'] = _email;
+            //     map['address'] = _address;
+            //     map['date_of_birth'] = _date_of_birth;
+            //     map['marital_status'] = _marital_status;
+            //     map['password'] = _password;
+            //     map['code'] = _code;
+
+            /// Added Validation Loop
+            var err = validatingErrorResponse.data!.validateErrors?.length;
+            for (int i = 0; i < err!; i++) {
+              var data = validatingErrorResponse.data?.validateErrors![i];
+              if (data?.name != null) {
+                Toasts.getErrorToast(
+                    text: "Validation Error: ${data!.name.toString()}");
+              } else if (data?.phone != null) {
+                Toasts.getErrorToast(
+                    text: "Validation Error: ${data!.phone.toString()}");
+              } else if (data?.email != null) {
+                Toasts.getErrorToast(
+                    text: "Validation Error: ${data!.email.toString()}");
+              } else if (data?.address != null) {
+                Toasts.getErrorToast(
+                    text: "Validation Error: ${data!.address.toString()}");
+              } else if (data?.date_of_birth != null) {
+                Toasts.getErrorToast(
+                    text:
+                        "Validation Error: ${data!.date_of_birth.toString()}");
+              } else if (data?.marital_status != null) {
+                Toasts.getErrorToast(
+                    text:
+                        "Validation Error: ${data!.marital_status.toString()}");
+              } else if (data?.password != null) {
+                Toasts.getErrorToast(
+                    text: "Validation Error: ${data!.password.toString()}");
+              } else if (data?.code != null) {
+                Toasts.getErrorToast(
+                    text: "Validation Error: ${data!.code.toString()}");
+              }
+            }
+
             if (validatingErrorResponse.code == 0) {
+              validatingErrorResponse.data!.validateErrors!.map((res) {
+                Toasts.getErrorToast(text: res.toString());
+              });
               return validatingErrorResponse;
             } else {
               Toasts.getErrorToast(text: validatingErrorResponse.message);

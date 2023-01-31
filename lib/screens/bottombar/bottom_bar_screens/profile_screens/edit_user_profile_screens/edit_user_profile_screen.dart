@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/models/auth/UserResponse.dart';
 import 'package:qbus/res/extensions.dart';
+import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/change_password_screens/change_password_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/edit_user_profile_screens/edit_user_profile_provider.dart';
 import 'package:qbus/widgets/custom_outline_button.dart';
@@ -15,7 +17,12 @@ import '../../../../../widgets/custom_text.dart';
 import '../../../../../widgets/custom_textField.dart';
 
 class EditUserProfileScreen extends StatefulWidget {
-  const EditUserProfileScreen({Key? key}) : super(key: key);
+  final UserResponse userResponse;
+
+  const EditUserProfileScreen({
+    Key? key,
+    required this.userResponse,
+  }) : super(key: key);
 
   @override
   State<EditUserProfileScreen> createState() => _EditUserProfileScreenState();
@@ -23,11 +30,11 @@ class EditUserProfileScreen extends StatefulWidget {
 
 class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
   late EditUserProfileProvider editUserProfileProvider;
+
   late TextEditingController userNameController;
   late TextEditingController emailController;
 
   var selectMaritalStatus = "Select Marital Status";
-
   var updateCity = "City";
   var updateCityID = "-1";
 
@@ -39,8 +46,13 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
         Provider.of<EditUserProfileProvider>(context, listen: false); //Read
     editUserProfileProvider.init(context: context);
 
-    userNameController = TextEditingController();
-    emailController = TextEditingController();
+    debugPrint(
+        "fullName: ${widget.userResponse.data!.user!.name.toString()}, email: ${widget.userResponse.data!.user!.email.toString()}");
+
+    userNameController = TextEditingController(
+        text: widget.userResponse.data!.user!.name.toString());
+    emailController = TextEditingController(
+        text: widget.userResponse.data!.user!.email.toString());
   }
 
   @override
@@ -242,6 +254,9 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
         Navigator.pop(context);
       }
     } else if (name.isEmpty) {
-    } else if (userEmail.isEmpty) {}
+      Toasts.getErrorToast(text: "Name is required");
+    } else if (userEmail.isEmpty) {
+      Toasts.getErrorToast(text: "Email is required");
+    }
   }
 }
