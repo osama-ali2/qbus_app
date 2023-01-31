@@ -20,6 +20,7 @@ class SearchProvider with ChangeNotifier {
     isTripDataLoaded = false;
   }
 
+  /// Get Trips Data
   Future<void> getTripsData(
       {required TripFilterModel tripFilterModel, required int offset}) async {
     try {
@@ -39,6 +40,7 @@ class SearchProvider with ChangeNotifier {
 
       debugPrint("URL: $tripsApiUrl");
       debugPrint("tripsBody: $body");
+
       tripsResponse = await MyApi.callPostApi(
           url: tripsApiUrl,
           body: body,
@@ -47,7 +49,7 @@ class SearchProvider with ChangeNotifier {
       _logger.i("tripsBody: $body");
 
       if (tripsResponse.code == 1) {
-        _logger.d("tripsResponse: ${tripsResponse.toJson()}");
+        _logger.i("tripsResponse: ${tripsResponse.toJson()}");
         _loader.hideLoader(context!);
         isTripDataLoaded = true;
         notifyListeners();
@@ -61,23 +63,15 @@ class SearchProvider with ChangeNotifier {
     }
   }
 
+  /// Get Data by Filter
   Future<void> getTripsDataByFilter(
       {required TripFilterModel tripFilterModel}) async {
     try {
       _loader.showLoader(context: context);
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
-      // Map<String, dynamic> body = {
-      //   "code": "",
-      //   "date_from": "",
-      //   "date_to": "",
-      //   "time_from": "",
-      //   "from_city_id": 4,
-      //   "to_city_id": 3,
-      //   "additional": []
-      // };
-
       var body = tripFilterModel.toJson();
+      debugPrint("tripsBody: $body");
       debugPrint("URL: $tripsApiUrl");
 
       tripsResponse = await MyApi.callPostApi(
@@ -85,7 +79,6 @@ class SearchProvider with ChangeNotifier {
           body: body,
           myHeaders: header,
           modelName: Models.tripsModel);
-      debugPrint("tripsBody: $body");
 
       if (tripsResponse.code == 1) {
         _logger.d("tripsResponseByFilter: ${tripsResponse.toJson()}");
@@ -93,12 +86,10 @@ class SearchProvider with ChangeNotifier {
         isTripDataLoaded = true;
         notifyListeners();
       } else {
-        debugPrint("tripsResponse: Something wrong");
         _logger.e("tripsResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      debugPrint("tripsResponseError: ${e.toString()}");
       _logger.e("tripsResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }

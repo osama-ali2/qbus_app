@@ -11,8 +11,8 @@ class RoundTripStepTwoProvider with ChangeNotifier {
   BuildContext? context;
   final Logger _logger = Logger();
   final Loader _loader = Loader();
-  bool isTripDataLoaded = false;
 
+  bool isTripDataLoaded = false;
   TripsResponse tripsResponse = TripsResponse();
 
   Future<void> init({@required BuildContext? context}) async {
@@ -20,11 +20,11 @@ class RoundTripStepTwoProvider with ChangeNotifier {
     isTripDataLoaded = false;
   }
 
+  /// Get Trips Data
   Future<void> getTripsData(
       {required TripFilterModel tripFilterModel, required int offset}) async {
     try {
       _loader.showLoader(context: context);
-      // tripsResponse.data!.trips!.clear();
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
       Map<String, dynamic> body = {
@@ -37,9 +37,6 @@ class RoundTripStepTwoProvider with ChangeNotifier {
         "additional": tripFilterModel.additional,
         "offset": offset
       };
-
-      // var body = tripFilterModel.toJson();
-
       debugPrint("URL: $tripsApiUrl");
       debugPrint("tripsBody: $body");
 
@@ -48,7 +45,6 @@ class RoundTripStepTwoProvider with ChangeNotifier {
           body: body,
           myHeaders: header,
           modelName: Models.tripsModel);
-      debugPrint("tripsBody: $body");
 
       if (tripsResponse.code == 1) {
         _logger.d("tripsResponse: ${tripsResponse.toJson()}");
@@ -56,40 +52,31 @@ class RoundTripStepTwoProvider with ChangeNotifier {
         isTripDataLoaded = true;
         notifyListeners();
       } else {
-        debugPrint("tripsResponse: Something wrong");
+        _logger.e("tripsResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      debugPrint("tripsResponseError: ${e.toString()}");
+      _logger.e("tripsResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }
 
+  /// Get Trips Data By Filter
   Future<void> getTripsDataByFilter(
       {required TripFilterModel tripFilterModel}) async {
     try {
       _loader.showLoader(context: context);
 
       Map<String, dynamic> header = {"Content-Type": "application/json"};
-      // Map<String, dynamic> body = {
-      //   "code": "",
-      //   "date_from": "",
-      //   "date_to": "",
-      //   "time_from": "",
-      //   "from_city_id": 4,
-      //   "to_city_id": 3,
-      //   "additional": []
-      // };
-
       var body = tripFilterModel.toJson();
       debugPrint("URL: $tripsApiUrl");
+      debugPrint("tripsBody: $body");
 
       tripsResponse = await MyApi.callPostApi(
           url: tripsApiUrl,
           body: body,
           myHeaders: header,
           modelName: Models.tripsModel);
-      debugPrint("tripsBody: $body");
 
       if (tripsResponse.code == 1) {
         _logger.d("tripsResponseByFilter: ${tripsResponse.toJson()}");
@@ -97,11 +84,11 @@ class RoundTripStepTwoProvider with ChangeNotifier {
         isTripDataLoaded = true;
         notifyListeners();
       } else {
-        debugPrint("tripsResponse: Something wrong");
+        _logger.e("tripsResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      debugPrint("tripsResponseError: ${e.toString()}");
+      _logger.e("tripsResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

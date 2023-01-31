@@ -91,20 +91,23 @@ class TripCardContainerWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                CommonPadding.sizeBoxWithWidth(width: 6),
-                Container(
-                  height: sizes!.heightRatio * 20,
-                  width: sizes!.widthRatio * 55,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5), color: appColor),
-                  child: Center(
-                    child: CustomText(
-                        text: "SAR $fees",
-                        textSize: sizes!.fontRatio * 10,
-                        fontWeight: FontWeight.normal,
-                        textColor: Colors.white),
-                  ),
-                ),
+
+                /// Price Container
+                // CommonPadding.sizeBoxWithWidth(width: 6),
+                // Container(
+                //   height: sizes!.heightRatio * 20,
+                //   width: sizes!.widthRatio * 55,
+                //   decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(5), color: appColor),
+                //   child: Center(
+                //     child: CustomText(
+                //       text: "SAR $fees",
+                //       textSize: sizes!.fontRatio * 10,
+                //       fontWeight: FontWeight.normal,
+                //       textColor: Colors.white,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             CommonPadding.sizeBoxWithHeight(height: 16),
@@ -178,22 +181,52 @@ class TripCardContainerWidget extends StatelessWidget {
               ],
             ),
             CommonPadding.sizeBoxWithHeight(height: 15),
-            SizedBox(
-              height: sizes!.heightRatio * 20,
-              // width: sizes!.widthRatio * 40,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: additionals.length,
-                itemBuilder: (context, index) {
-                  var data = additionals[index].en;
-                  return CustomText(
-                    text: "$data, ",
-                    textSize: sizes!.fontRatio * 14,
-                    fontWeight: FontWeight.w500,
-                    textColor: AppColors.black900,
-                  );
-                },
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  height: sizes!.heightRatio * 20,
+                  width: sizes!.widthRatio * 230,
+                  child: additionals.isNotEmpty
+                      ? ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: additionals.length,
+                          itemBuilder: (context, index) {
+                            var data = additionals[index].en;
+                            return CustomText(
+                              text: "$data, ",
+                              textSize: sizes!.fontRatio * 14,
+                              fontWeight: FontWeight.w500,
+                              textColor: AppColors.black900,
+                            );
+                          },
+                        )
+                      : Align(
+                    alignment: Alignment.topLeft,
+                        child: CustomText(
+                            text: "No Additional",
+                            textSize: sizes!.fontRatio * 14,
+                            fontWeight: FontWeight.w500,
+                            textColor: AppColors.black900,
+                          ),
+                      ),
+                ),
+                CommonPadding.sizeBoxWithWidth(width: 4),
+                Container(
+                  height: sizes!.heightRatio * 20,
+                  width: sizes!.widthRatio * 55,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5), color: appColor),
+                  child: Center(
+                    child: CustomText(
+                      text: "SAR $fees",
+                      textSize: sizes!.fontRatio * 10,
+                      fontWeight: FontWeight.normal,
+                      textColor: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

@@ -69,9 +69,14 @@ class MyApi {
               Toasts.getErrorToast(text: res.toString());
             });
             if (validatingErrorResponse.code == 0) {
+              Toasts.getErrorToast(
+                  text:
+                      "${validatingErrorResponse.data?.validateErrors?.map((e) => e.name)}");
               return validatingErrorResponse;
             } else {
-              Toasts.getErrorToast(text: validatingErrorResponse.message);
+              Toasts.getErrorToast(
+                  text:
+                      "${validatingErrorResponse.data?.validateErrors?.map((e) => e.name)}");
             }
 
             return null;

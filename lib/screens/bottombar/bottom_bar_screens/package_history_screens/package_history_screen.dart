@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/res/assets.dart';
+import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screens/package_history_screens/package_history_provider.dart';
+import 'package:qbus/res/res.dart';
+import 'package:qbus/utils/constant.dart';
+import 'package:qbus/widgets/custom_button.dart';
+import 'package:qbus/widgets/custom_text.dart';
+import 'package:qbus/widgets/text_views.dart';
 
-import '../../../../res/assets.dart';
-import '../../../../res/colors.dart';
-import '../../../../res/res.dart';
-import '../../../../utils/constant.dart';
-import '../../../../widgets/custom_button.dart';
-import '../../../../widgets/custom_text.dart';
-import '../../../../widgets/text_views.dart';
+import 'package_history_provider.dart';
 
 class PackageHistoryScreen extends StatefulWidget {
   const PackageHistoryScreen({Key? key}) : super(key: key);
@@ -22,7 +22,6 @@ class PackageHistoryScreen extends StatefulWidget {
 
 class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
   late PackageHistoryProvider packageHistoryProvider;
-
   int userRating = 0;
 
   @override
@@ -101,7 +100,9 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
                               isUserAllowReview: isUserAllowReview,
                               onReviewIt: () {
                                 showAlertDialog(
-                                    context: context, packageId: packageId!);
+                                  context: context,
+                                  packageId: packageId!,
+                                );
                               },
                             ),
                           );
@@ -113,18 +114,19 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
                     ),
               CommonPadding.sizeBoxWithHeight(height: 10),
               CustomButton(
-                  name: "Trip History",
-                  buttonColor: appColor,
-                  height: sizes!.heightRatio * 45,
-                  width: double.infinity,
-                  textSize: sizes!.fontRatio * 14,
-                  textColor: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  borderRadius: 5,
-                  onTapped: () {
-                    Navigator.pop(context);
-                  },
-                  padding: 20),
+                name: "Trip History",
+                buttonColor: appColor,
+                height: sizes!.heightRatio * 45,
+                width: double.infinity,
+                textSize: sizes!.fontRatio * 14,
+                textColor: Colors.white,
+                fontWeight: FontWeight.bold,
+                borderRadius: 5,
+                onTapped: () {
+                  Navigator.pop(context);
+                },
+                padding: 20,
+              ),
               CommonPadding.sizeBoxWithHeight(height: 10),
             ],
           ),
@@ -133,6 +135,7 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
     );
   }
 
+  /// Booking Container
   Widget _bookingContainer(
           {required String from,
           required String to,
@@ -270,6 +273,7 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
         ),
       );
 
+  /// Show Alert Dialog
   Future<void> showAlertDialog(
       {required BuildContext context, required int packageId}) async {
     // set up the buttons
@@ -298,7 +302,7 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
       ),
     );
 
-    // set up the AlertDialog
+    /// set up the AlertDialog
     AlertDialog alert = AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       title: TextView.getRegularS17W400Text(

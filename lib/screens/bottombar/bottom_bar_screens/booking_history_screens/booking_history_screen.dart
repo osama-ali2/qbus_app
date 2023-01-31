@@ -105,25 +105,26 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                       child: Text("No Data Available"),
                     ),
               CommonPadding.sizeBoxWithHeight(height: 10),
-              CustomButton(
-                  name: "Package History",
-                  buttonColor: appColor,
-                  height: sizes!.heightRatio * 45,
-                  width: double.infinity,
-                  textSize: sizes!.fontRatio * 14,
-                  textColor: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  borderRadius: 5,
-                  onTapped: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const PackageHistoryScreen(),
-                      ),
-                    );
-                  },
-                  padding: 20),
-              CommonPadding.sizeBoxWithHeight(height: 10),
+              //TODO: Uncomment Package History Screen later when needed
+              // CustomButton(
+              //     name: "Package History",
+              //     buttonColor: appColor,
+              //     height: sizes!.heightRatio * 45,
+              //     width: double.infinity,
+              //     textSize: sizes!.fontRatio * 14,
+              //     textColor: Colors.white,
+              //     fontWeight: FontWeight.bold,
+              //     borderRadius: 5,
+              //     onTapped: () {
+              //       Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //           builder: (context) => const PackageHistoryScreen(),
+              //         ),
+              //       );
+              //     },
+              //     padding: 20),
+              // CommonPadding.sizeBoxWithHeight(height: 10),
             ],
           ),
         ),
@@ -131,6 +132,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
     );
   }
 
+  /// Booking Container
   Widget _bookingContainer({
     required String timeFromCity,
     required String fromCity,
@@ -220,14 +222,14 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                       text: "$timeFromCity $fromCity",
                       fontFamily: Assets.latoRegular,
                       fontSize: 16,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.textColor,
                       lines: 1),
                   TextView.getGenericText(
                       text: "$timeToCity $toCity",
                       fontFamily: Assets.latoRegular,
                       fontSize: 16,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.textColor,
                       lines: 1),
                 ],

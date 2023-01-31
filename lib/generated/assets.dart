@@ -2,13 +2,23 @@
 class Assets {
   Assets._();
 
+  static const String assetsImagesAppicon = 'assets/images/appicon.png';
+  static const String assetsImagesAsste = 'assets/images/asste.png';
+  static const String assetsImagesList = 'assets/images/list.png';
+  static const String assetsJsonBlueSimple = 'assets/json/blueSimple.json';
+  static const String assetsPngMainLogo = 'assets/png/main_logo.png';
+  static const String assetsPngThumbnail = 'assets/png/thumbnail.png';
+  static const String assetsSvgForwardIcon = 'assets/svg/forward_icon.svg';
+  static const String assetsSvgSkipIcon = 'assets/svg/skip_icon.svg';
+  static const String assetsSvgStarIcon = 'assets/svg/star_icon.svg';
+  static const String assetsSvgUserIcon = 'assets/svg/user_icon.svg';
   static const String imagesAppicon = 'assets/images/appicon.png';
   static const String imagesAsste = 'assets/images/asste.png';
   static const String imagesList = 'assets/images/list.png';
   static const String jsonBlueSimple = 'assets/json/blueSimple.json';
   static const String pngMainLogo = 'assets/png/main_logo.png';
-  static const String pngRectangle = 'assets/png/wallet_bg.png';
   static const String pngThumbnail = 'assets/png/thumbnail.png';
+  static const String pngWalletBg = 'assets/png/wallet_bg.png';
   static const String svgBedroomIcon = 'assets/svg/bedroom_icon.svg';
   static const String svgBottomHistoryIcon = 'assets/svg/bottom_history_icon.svg';
   static const String svgBottomHomeIcon = 'assets/svg/bottom_home_icon.svg';
@@ -21,7 +31,8 @@ class Assets {
   static const String svgLocationIcon = 'assets/svg/location_icon.svg';
   static const String svgSkipIcon = 'assets/svg/skip_icon.svg';
   static const String svgStarIcon = 'assets/svg/star_icon.svg';
+  static const String svgTripDoneIcon = 'assets/svg/trip_done_icon.svg';
   static const String svgUserIcon = 'assets/svg/user_icon.svg';
-  static const String svgWalletBg = 'assets/svg/wallet_bg.png.svg';
+  static const String svgWalletBg = 'assets/svg/wallet_bg.svg';
 
 }

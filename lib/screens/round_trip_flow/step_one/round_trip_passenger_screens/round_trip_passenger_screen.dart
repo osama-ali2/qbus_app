@@ -80,7 +80,7 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Create Passenger Fields
-      addFields();
+      _addFields();
       // Load Identity Proof Types
       roundTripPassengerProvider.getIdentityProofTypes();
       // Get Countries List
@@ -96,7 +96,7 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
     super.dispose();
   }
 
-  void addFields() {
+  void _addFields() {
     if (widget.passengerCount > 10) {
       Toasts.getWarningToast(text: "Only 10 Passengers allowed");
     } else {
@@ -163,7 +163,7 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
               fontWeight: FontWeight.w500,
               borderRadius: 5,
               onTapped: () async {
-                validateData();
+                _validateData();
               },
               padding: 0,
             ),
@@ -174,61 +174,66 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
     );
   }
 
-  void validateData() async {
+  /// Validate The data
+  void _validateData() async {
     for (int i = 0; i < widget.passengerCount; i++) {
-      var fullName = _fullNameControllers[i].value.text.toString().trim();
-      var idNumber = _idNumberControllers[i].value.text.toString().trim();
+      if (_fullNameControllers[i].value.text.isNotEmpty ||
+          _idNumberControllers[i].value.text.isNotEmpty) {
+        var fullName = _fullNameControllers[i].value.text.toString().trim();
+        var idNumber = _idNumberControllers[i].value.text.toString().trim();
 
-      var proofId = roundTripPassengerProvider.userIdentityProofTypeId[i];
-      var countryId = roundTripPassengerProvider.userCountryId[i];
+        var proofId = roundTripPassengerProvider.userIdentityProofTypeId[i];
+        var countryId = roundTripPassengerProvider.userCountryId[i];
 
-      debugPrint(
-        "fullName: $fullName"
-        "idNumber: $idNumber"
-        "\n IdentityProofId: $proofId \n Country: $countryId",
-      );
+        debugPrint(
+          "fullName: $fullName"
+          "idNumber: $idNumber"
+          "\n IdentityProofId: $proofId \n Country: $countryId",
+        );
 
-      Map<String, dynamic> paraPassengerBody = {
-        "name": fullName,
-        "id_proof_type": proofId,
-        "id_number": idNumber,
-        "country_id": countryId
-      };
-      debugPrint("paraPassengerBody: [$i] $paraPassengerBody");
-      passengerBody.add(paraPassengerBody);
-      debugPrint("passengerBody: ${passengerBody.map((e) => e)} ");
+        Map<String, dynamic> paraPassengerBody = {
+          "name": fullName,
+          "id_proof_type": proofId,
+          "id_number": idNumber,
+          "country_id": countryId
+        };
+        debugPrint("paraPassengerBody: [$i] $paraPassengerBody");
+        passengerBody.add(paraPassengerBody);
+        debugPrint("passengerBody: ${passengerBody.map((e) => e)} ");
+      } else {
+        Toasts.getWarningToast(text: "The fields are required");
+      }
     }
 
-    if (passengerBody.isNotEmpty) {
-      if (widget.isHotelEmpty == true) {
-        debugPrint("isHotelEmpty: ${widget.isHotelEmpty}");
-        stepTwoTrip();
-      } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => RoundTripHotelScreen(
-              tripId: widget.tripId,
-              passengerCounts: widget.passengerCount.toString(),
-              paramPassengerBody: passengerBody,
-              paramAdditionalList: widget.additionalList,
-              tripFilterModel: widget.tripFilterModel,
-              fromCity: widget.fromCity,
-              toCity: widget.toCity,
-              isRoundTripChecked: widget.isRoundTripChecked,
-              firstTripModel: widget.firstTripModel,
-              tripFirstPassengersCount: widget.passengerCount.toString(),
-              tripFirstAdditionalList: widget.tripFirstAdditionalList,
-            ),
-          ),
-        );
-      }
+    if (widget.isHotelEmpty == true) {
+      debugPrint("isHotelEmpty: ${widget.isHotelEmpty}");
+      // Step Two Trip
+      _stepTwoTrip();
     } else {
-      Toasts.getWarningToast(text: "The fields is required");
+      // Round Trip Hotel Screen
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => RoundTripHotelScreen(
+            tripId: widget.tripId,
+            passengerCounts: widget.passengerCount.toString(),
+            paramPassengerBody: passengerBody,
+            paramAdditionalList: widget.additionalList,
+            tripFilterModel: widget.tripFilterModel,
+            fromCity: widget.fromCity,
+            toCity: widget.toCity,
+            isRoundTripChecked: widget.isRoundTripChecked,
+            firstTripModel: widget.firstTripModel,
+            tripFirstPassengersCount: widget.passengerCount.toString(),
+            tripFirstAdditionalList: widget.tripFirstAdditionalList,
+          ),
+        ),
+      );
     }
   }
 
-  void stepTwoTrip() async {
+  /// Step Two Trip
+  void _stepTwoTrip() async {
     /// TODO: Uncomment Round Trip Step Two Result;
     Navigator.push(
       context,

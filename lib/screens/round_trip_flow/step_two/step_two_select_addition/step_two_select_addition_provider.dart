@@ -19,6 +19,7 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
   final _loader = Loader();
 
   var userToken = PreferenceUtils.getString(Strings.loginUserToken);
+
   bool isTripLoaded = false;
   bool isRoundOrderTripSaved = false;
 
@@ -40,13 +41,12 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
   /// Get Additional Data
   Future<void> getAdditionalData({required String id}) async {
     try {
-      // selectAdditionalList.clear();
-
       _loader.showLoader(context: context);
       Map<String, dynamic> header = {"Content-Type": "application/json"};
 
       var url = "$tripAdditionalApiUrl$id";
       debugPrint("URL: $url");
+
       tripAdditionalsResponse = await MyApi.callGetApi(
           url: url, myHeaders: header, modelName: Models.tripAdditionalsModel);
       if (tripAdditionalsResponse.code == 1) {
@@ -87,28 +87,118 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
   }) async {
     try {
       _loader.showLoader(context: context);
+
+      Map<String, dynamic> header = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $userToken"
+      };
+      var url = roundOrderTripApiUrl;
+
+      var newHotelBody = [];
+      for (int i = 0; i < paramHotelBody.length; i++) {
+        if (paramHotelBody[i]['rooms_number'] > 0 &&
+            paramHotelBody[i]['days'] > 0) {
+          newHotelBody.add(paramHotelBody[i]);
+          _logger.d("newHotelBody:$newHotelBody");
+        }
+        // else {
+        //   newHotelBody = [];
+        // }
+      }
+      _logger.d("paramHotelBody: $paramHotelBody");
+
+      // First Trip Body
+      Map<String, dynamic> tripFirstBody = {
+        "trip_id": tripFirstId.id,
+        "count": passengersCount,
+        "code": "",
+        "additional": tripFirstAdditionalList,
+        "passengers": paramPassengerBody,
+        "hotel_rooms": newHotelBody,
+        "user_notes": ""
+      };
+      _logger.i("tripFirstBody: $tripFirstBody");
+
+      // Second Trip Body
+      Map<String, dynamic> tripSecondBody = {
+        "trip_id": tripSecondId.id,
+        "count": passengersCount,
+        "code": "",
+        "additional": additionalList,
+        "passengers": paramPassengerBody,
+        "hotel_rooms": newHotelBody,
+        "user_notes": ""
+      };
+      _logger.d("tripSecondBody: $tripSecondBody");
+      debugPrint("URL: $url");
+
+      Map<String, dynamic> body = {
+        "trips": [tripFirstBody, tripSecondBody]
+      };
+      _logger.i("body: $body");
+
+      roundOrderTripResponse = await MyApi.callPostApi(
+          url: url,
+          myHeaders: header,
+          body: body,
+          modelName: Models.roundOrderTripModel);
+
+      if (roundOrderTripResponse.code == 1) {
+        _logger.i(
+            "roundOrderTripResponse: ${roundOrderTripResponse.toJson()}, ${roundOrderTripResponse.toString()}");
+        _loader.hideLoader(context!);
+        isRoundOrderTripSaved = true;
+
+        //clear the data lists
+        additionalList.clear();
+        paramPassengerBody.clear();
+        paramHotelBody.clear();
+
+        notifyListeners();
+      } else {
+        _logger.e("roundOrderTripResponse: Something wrong");
+        _loader.hideLoader(context!);
+      }
+    } catch (e) {
+      _logger.e("roundOrderTripResponseError: ${e.toString()}");
+      _loader.hideLoader(context!);
+    }
+  }
+
+  /// Round Order Trip
+  Future<void> roundOrderTripCallFromStepTwo({
+    required Trips tripFirstId,
+    required List<Map<String, dynamic>> tripFirstAdditionalList,
+    required List<Map<String, dynamic>> paramPassengerBody,
+    required List<Map<String, dynamic>> paramHotelBody,
+    required Trips tripSecondId,
+    required String passengersCount,
+  }) async {
+    try {
+      _loader.showLoader(context: context);
+      var url = roundOrderTripApiUrl;
+      debugPrint("URL: $url");
+
       Map<String, dynamic> header = {
         "Content-Type": "application/json",
         "Authorization": "Bearer $userToken"
       };
 
-      var newHotelBody = [];
-      if (paramHotelBody.isEmpty) {
-        paramHotelBody.firstWhere(
-          (element) {
-            if (element['rooms_number'] > 0 && element['days'] > 0) {
-              debugPrint("elementSelected:$element");
-              newHotelBody.add(element);
-              return true;
-            }
-            return false;
-          },
-        );
-      } else {
-        newHotelBody = [];
-      }
-
       _logger.d("paramHotelBody: $paramHotelBody");
+
+      //TODO: Checkout hotel issue,
+      var newHotelBody = [];
+      for (int i = 0; i < paramHotelBody.length; i++) {
+        if (paramHotelBody[i]['rooms_number'] > 0 &&
+            paramHotelBody[i]['days'] > 0) {
+          newHotelBody.add(paramHotelBody[i]);
+          _logger.i("newHotelBodyFor:$newHotelBody");
+        }
+        // else {
+        //   newHotelBody = [];
+        //   _logger.d("newHotelBodyElse:$newHotelBody");
+        // }
+      }
 
       // First Trip Body
       Map<String, dynamic> tripFirstBody = {
@@ -138,10 +228,6 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
         "trips": [tripFirstBody, tripSecondBody]
       };
       _logger.d("body: $body");
-
-      var url = roundOrderTripApiUrl;
-      debugPrint("URL: $url");
-      debugPrint("Header: $header");
 
       roundOrderTripResponse = await MyApi.callPostApi(
           url: url,

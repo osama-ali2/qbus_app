@@ -46,12 +46,13 @@ class GetStartedProvider with ChangeNotifier {
         "offset": 0
       };
       debugPrint("URL: $packagesApiUrl");
+      debugPrint("packageBody: $body");
+
       packagesResponse = await MyApi.callPostApi(
           url: packagesApiUrl,
           body: body,
           myHeaders: header,
           modelName: Models.packagesModel);
-      debugPrint("packageBody: $body");
 
       if (packagesResponse.code == 1) {
         _logger.d("packagesResponse: ${packagesResponse.toJson()}");
@@ -59,17 +60,16 @@ class GetStartedProvider with ChangeNotifier {
         isDataLoaded = true;
         notifyListeners();
       } else {
-        debugPrint("packagesResponse: Something wrong");
         _logger.e("packagesResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      debugPrint("packagesResponseError: ${e.toString()}");
       _logger.e("packagesResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }
 
+  /// Get Cities Data
   Future<void> getCitiesData() async {
     try {
       Map<String, dynamic> header = {"Content-Type": "application/json"};
@@ -104,7 +104,6 @@ class GetStartedProvider with ChangeNotifier {
         debugPrint("getCitiesResponse: Something wrong");
       }
     } catch (e) {
-      debugPrint("getCitiesResponseError: ${e.toString()}");
       _logger.e("getCitiesResponseError: ${e.toString()}");
     }
   }

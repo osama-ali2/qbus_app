@@ -10,11 +10,11 @@ import '../../../network_manager/my_api.dart';
 
 class ForgotProvider with ChangeNotifier {
   BuildContext? context;
+
   final Logger _logger = Logger();
   final Loader _loader = Loader();
 
   ForgotPasswordResponse forgotPasswordResponse = ForgotPasswordResponse();
-
   bool isSuccessful = false;
 
   Future<void> init({@required BuildContext? context}) async {

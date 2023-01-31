@@ -26,18 +26,21 @@ class PhoneActivationScreen extends StatefulWidget {
   State<PhoneActivationScreen> createState() => _PhoneActivationScreenState();
 }
 
-class _PhoneActivationScreenState extends State<PhoneActivationScreen> {
+class _PhoneActivationScreenState extends State<PhoneActivationScreen>
+    with SingleTickerProviderStateMixin {
   late TextEditingController codeController;
   final formKey = GlobalKey<FormState>();
   final focusNode = FocusNode();
   bool showError = false;
 
-  final CustomTimerController _timerController = CustomTimerController();
+  // CustomTimerController _timerController = CustomTimerController();
   bool isTimerEnded = false;
   int beginMinute = 1;
   int beginSecond = 30;
   int endMinute = 0;
   int endSecond = 0;
+
+  late CustomTimerController _timerController;
 
   late PhoneActivationProvider phoneActivationProvider;
 
@@ -45,12 +48,21 @@ class _PhoneActivationScreenState extends State<PhoneActivationScreen> {
   void initState() {
     super.initState();
     codeController = TextEditingController();
-    _timerController.start();
 
     phoneActivationProvider = PhoneActivationProvider();
     phoneActivationProvider =
         Provider.of<PhoneActivationProvider>(context, listen: false);
     phoneActivationProvider.init(context: context);
+
+    _timerController = CustomTimerController(
+      begin: Duration(minutes: beginMinute, seconds: beginSecond),
+      end: Duration(minutes: endMinute, seconds: endSecond),
+      initialState: CustomTimerState.counting,
+      interval: CustomTimerInterval.milliseconds,
+      vsync: this,
+    );
+
+    // _timerController.start();
   }
 
   @override
@@ -200,28 +212,46 @@ class _PhoneActivationScreenState extends State<PhoneActivationScreen> {
 
   Widget _getTimerText() {
     return CustomTimer(
-        controller: _timerController,
-        begin: Duration(minutes: beginMinute, seconds: beginSecond),
-        end: Duration(minutes: endMinute, seconds: endSecond),
-        onChangeState: (state) {
-          if (state == CustomTimerState.finished) {
-            debugPrint("isTimerEnded: $isTimerEnded");
-            isTimerEnded = true;
-          }
+      controller: _timerController,
+      builder: (CustomTimerState state, CustomTimerRemainingTime time) {
+        if (state == CustomTimerState.finished) {
+          debugPrint("isTimerEnded: $isTimerEnded");
+          isTimerEnded = true;
+        }
+        if (state == CustomTimerState.finished) {
+          Toasts.getSuccessToast(text: "Timer End");
+          isTimerEnded = true;
           debugPrint("Current state: $state");
-        },
-        stateBuilder: (time, state) {
-          if (state == CustomTimerState.finished) {
-            Toasts.getSuccessToast(text: "Timer End");
-            isTimerEnded = true;
-          }
-          // return null;
-        },
-        builder: (time) {
-          return TextView.getMediumText14(
-              "${time.minutes}:${time.seconds}", Assets.latoBold,
-              color: AppColors.primary, lines: 1, fontWeight: FontWeight.w500);
-        });
+        }
+        return TextView.getMediumText14(
+            "${time.minutes}:${time.seconds}", Assets.latoBold,
+            color: AppColors.primary, lines: 1, fontWeight: FontWeight.w500);
+      },
+    );
+
+    // return CustomTimer(
+    //     controller: _timerController,
+    //     begin: Duration(minutes: beginMinute, seconds: beginSecond),
+    //     end: Duration(minutes: endMinute, seconds: endSecond),
+    //     onChangeState: (state) {
+    //       if (state == CustomTimerState.finished) {
+    //         debugPrint("isTimerEnded: $isTimerEnded");
+    //         isTimerEnded = true;
+    //       }
+    //       debugPrint("Current state: $state");
+    //     },
+    //     stateBuilder: (time, state) {
+    //       if (state == CustomTimerState.finished) {
+    //         Toasts.getSuccessToast(text: "Timer End");
+    //         isTimerEnded = true;
+    //       }
+    //       // return null;
+    //     },
+    //     builder: (time) {
+    //       return TextView.getMediumText14(
+    //           "${time.minutes}:${time.seconds}", Assets.latoBold,
+    //           color: AppColors.primary, lines: 1, fontWeight: FontWeight.w500);
+    //     });
   }
 
   Future<void> validateData() async {

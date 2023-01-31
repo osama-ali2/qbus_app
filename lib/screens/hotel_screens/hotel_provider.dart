@@ -6,7 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/local_cache/utils.dart';
-import 'package:qbus/models/hotel/hotel_room_response.dart';
+import 'package:qbus/models/hotel/HotelRoomResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
 import 'package:qbus/res/strings.dart';
 import 'package:qbus/res/toasts.dart';
@@ -60,7 +60,7 @@ class HotelProvider with ChangeNotifier {
       );
 
       if (hotelRoomResponse.code == 1) {
-        _logger.d("hotelRoomResponse: ${hotelRoomResponse.toJson()}");
+        _logger.i("onHotelRoomResponse: ${hotelRoomResponse.toJson()}");
 
         var length = hotelRoomResponse.data!.rooms!.length;
         for (int i = 0; i < length; i++) {
@@ -102,38 +102,37 @@ class HotelProvider with ChangeNotifier {
         "Content-Type": "application/json",
         "Authorization": "Bearer $userToken"
       };
-
       _logger.i("trips.id: $tripId");
-      _logger.i("additionalList: ${additionalList.map((e) => e)}");
-      _logger.i("paramPassengerBody: ${paramPassengerBody.map((e) => e)}");
-      _logger.i("hotelRoomBody: ${hotelRoomBody.map((e) => e)}");
 
-      final newHotelBody = [];
-      hotelRoomBody.firstWhere((element) {
-        if (element['rooms_number'] > 0 && element['days'] > 0) {
-          debugPrint("elementSelected:$element");
-          newHotelBody.add(element);
-          return true;
+      //TODO: Checkout hotel issue,
+      var newHotelBody = [];
+      for (int i = 0; i < hotelRoomBody.length; i++) {
+        if (hotelRoomBody[i]['rooms_number'] > 0 &&
+            hotelRoomBody[i]['days'] > 0) {
+          newHotelBody.add(hotelRoomBody[i]);
+          _logger.i("newHotelBodyFor:$newHotelBody");
         }
-        return false;
-      });
+        // else {
+        //   newHotelBody = [];
+        //   _logger.d("newHotelBodyElse:$newHotelBody");
+        // }
+      }
 
-      _logger.d("newHotelBody: $newHotelBody");
-
+      //TODO: Checkout newHotelBody issue,
       // API->Body
       final newBody = {
         "trip_id": tripId,
         "count": passengerCounts,
-        "code": "SALE10",
+        "code": "",
         "additional": additionalList,
         "passengers": paramPassengerBody,
         "hotel_rooms": newHotelBody, //hotelRoomBody,
         "user_notes": ""
       };
+      _logger.i("newBody: $newBody");
 
       var url = oneWayOrderTripApiUrl;
       debugPrint("URL: $url");
-      _logger.i("newBody: $newBody");
       oneWayOrdersTripResponse = await MyApi.callPostApi(
         url: url,
         myHeaders: header,
@@ -188,19 +187,6 @@ class HotelProvider with ChangeNotifier {
       _logger.i("paramPassengerBody: ${paramPassengerBody.map((e) => e)}");
       _logger.i("hotelRoomBody: ${hotelRoomBody.map((e) => e)}");
 
-      // final newHotelBody = [];
-      // hotelRoomBody.firstWhere(
-      //   (element) {
-      //     if (element['rooms_number'] > 0 && element['days'] > 0) {
-      //       debugPrint("elementSelected:$element");
-      //       newHotelBody.add(element);
-      //       return true;
-      //     }
-      //     return false;
-      //   },
-      //   // orElse:
-      // );
-
       // API->Body
       final newBody = {
         "trip_id": tripId,
@@ -249,7 +235,7 @@ class HotelProvider with ChangeNotifier {
   }
 
   // One Way Order Trip
-  Future<void> skipAndOneWayOrderTrip({
+  Future<void> skipHotelOneWayOrderTrip({
     required String tripId,
     required String passengerCounts,
     required List<Map<String, dynamic>> paramPassengerBody,
@@ -269,23 +255,11 @@ class HotelProvider with ChangeNotifier {
       _logger.i("paramPassengerBody: ${paramPassengerBody.map((e) => e)}");
       _logger.i("hotelRoomBody: ${hotelRoomBody.map((e) => e)}");
 
-      // final newHotelBody = [];
-      // hotelRoomBody.firstWhere((element) {
-      //   if (element['rooms_number'] > 0 && element['days'] > 0) {
-      //     debugPrint("elementSelected:$element");
-      //     newHotelBody.add(element);
-      //     return true;
-      //   }
-      //   return false;
-      // });
-      //
-      // _logger.d("newHotelBody: $newHotelBody");
-
       // API->Body
       final newBody = {
         "trip_id": tripId,
         "count": passengerCounts,
-        "code": "SALE10",
+        "code": "",
         "additional": additionalList,
         "passengers": paramPassengerBody,
         "hotel_rooms": [], //hotelRoomBody,
@@ -313,7 +287,6 @@ class HotelProvider with ChangeNotifier {
         //clear the data lists
         additionalList.clear();
         paramPassengerBody.clear();
-        // hotelRoomBody.clear();
 
         isOneWayOrderTripSaved = true;
         _loader.hideLoader(context!);

@@ -9,7 +9,6 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/project_widgets/hotel_card_container_widget.dart';
-import 'package:qbus/screens/review_order_screens/review_order_screen.dart';
 import 'package:qbus/screens/round_trip_flow/step_two/round_trip_step_two_result.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
@@ -54,8 +53,8 @@ class RoundTripHotelScreen extends StatefulWidget {
 
 class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
   late RoundTripHotelProvider roundTripHotelProvider;
-  int currentIndex = 0;
 
+  int currentIndex = 0;
   int bookingDaysCounter = 1;
   int numberOfRoomsCounter = 1;
 
@@ -76,7 +75,6 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
   @override
   void dispose() {
     super.dispose();
-
     roundTripHotelProvider.selectBookingDaysList.clear();
     roundTripHotelProvider.selectNumberOfRoomsList.clear();
     roundTripHotelProvider.hotelRoomBody.clear();
@@ -98,17 +96,18 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
         actions: [
           Center(
             child: Padding(
-                padding: EdgeInsets.only(right: sizes!.widthRatio * 20),
-                child: GestureDetector(
-                  onTap: () async => skipAndStepTwoTrip(),
-                  child: TextView.getGenericText(
-                      text: "Skip",
-                      fontFamily: Assets.latoRegular,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.whiteTextColor,
-                      lines: 1),
-                )),
+              padding: EdgeInsets.only(right: sizes!.widthRatio * 20),
+              child: GestureDetector(
+                onTap: () async => _skipAndStepTwoTrip(),
+                child: TextView.getGenericText(
+                    text: "Skip",
+                    fontFamily: Assets.latoRegular,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.whiteTextColor,
+                    lines: 1),
+              ),
+            ),
           ),
         ],
       ),
@@ -162,6 +161,8 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                         var thumbnailUrl = "$imageUrl/$image";
                         var roomId = int.parse("${data.id}");
 
+                        var rent = data.fees.toString();
+
                         return Padding(
                           padding: EdgeInsets.symmetric(
                             vertical: sizes!.heightRatio * 5,
@@ -170,79 +171,23 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                             key: Key("$index"),
                             hotelTitle: hotelName ?? "First Class Hotel",
                             cityName: city,
-                            rent: "100",
+                            rent: rent,
                             roomType: "Room Type",
                             hotelImage: thumbnailUrl,
                             houseNum: roomNum,
                             bedRoomNum: bedNum,
                             ratingNum: int.parse(rate),
                             onPlusBookingDayPress: () {
-                              setState(() {
-                                bookingDaysCounter = roundTripHotelProvider
-                                    .selectBookingDaysList[index]++;
-                                //
-                                Map<String, dynamic> selected = {
-                                  "room_id": roomId,
-                                  "rooms_number": numberOfRoomsCounter,
-                                  "days": bookingDaysCounter++
-                                };
-                                debugPrint("bookingDaysCounter:$selected");
-                                //
-                                roundTripHotelProvider.hotelRoomBody[index]
-                                    .addAll(selected);
-                              });
+                              _onPlusBookingDay(index: index, roomId: roomId);
                             },
                             onMinusBookingDayPress: () {
-                              if (roundTripHotelProvider
-                                      .selectBookingDaysList[index] >
-                                  1) {
-                                setState(() {
-                                  bookingDaysCounter = roundTripHotelProvider
-                                      .selectBookingDaysList[index]--;
-                                  Map<String, dynamic> selected = {
-                                    "room_id": roomId,
-                                    "rooms_number": numberOfRoomsCounter,
-                                    "days": bookingDaysCounter--
-                                  };
-                                  debugPrint("bookingDaysCounter:$selected");
-                                  roundTripHotelProvider.hotelRoomBody[index]
-                                      .addAll(selected);
-                                });
-                              }
+                              _onMinusBookingDay(index: index, roomId: roomId);
                             },
                             onPlusRoomPress: () {
-                              setState(() {
-                                numberOfRoomsCounter = roundTripHotelProvider
-                                    .selectNumberOfRoomsList[index]++;
-                                Map<String, dynamic> selected = {
-                                  "room_id": roomId,
-                                  "rooms_number": numberOfRoomsCounter++,
-                                  "days": bookingDaysCounter
-                                };
-                                debugPrint("numberOfRoomsCounter:$selected");
-
-                                roundTripHotelProvider.hotelRoomBody[index]
-                                    .addAll(selected);
-                              });
+                              _onPlusRoom(index: index, roomId: roomId);
                             },
                             onMinusRoomPress: () {
-                              if (roundTripHotelProvider
-                                      .selectNumberOfRoomsList[index] >
-                                  1) {
-                                setState(() {
-                                  numberOfRoomsCounter = roundTripHotelProvider
-                                      .selectNumberOfRoomsList[index]--;
-                                  Map<String, dynamic> selected = {
-                                    "room_id": roomId,
-                                    "rooms_number": numberOfRoomsCounter--,
-                                    "days": bookingDaysCounter
-                                  };
-                                  debugPrint("numberOfRoomsCounter:$selected");
-
-                                  roundTripHotelProvider.hotelRoomBody[index]
-                                      .addAll(selected);
-                                });
-                              }
+                              _onMinusRoom(index: index, roomId: roomId);
                             },
                             bookingDayCounter: roundTripHotelProvider
                                     .selectBookingDaysList.isNotEmpty
@@ -281,9 +226,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                     borderRadius: 5,
                     onTapped: () async {
                       // saveTripOrder();
-
-                      stepTwoTrip();
-
+                      _stepTwoTrip();
                       debugPrint(
                           "hotelData:${widget.tripId}, ${widget.passengerCounts}, ${widget.paramPassengerBody}, ${widget.paramAdditionalList}, ${roundTripHotelProvider.hotelRoomBody}");
                     },
@@ -297,8 +240,75 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
     );
   }
 
-  void stepTwoTrip() async {
+  /// On Plus Booking Day
+  void _onPlusBookingDay({required int index, required int roomId}) {
+    setState(() {
+      roundTripHotelProvider.selectBookingDaysList[index]++;
+      Map<String, dynamic> selected = {
+        "room_id": roomId,
+        "rooms_number": roundTripHotelProvider.selectNumberOfRoomsList[index],
+        "days": roundTripHotelProvider.selectBookingDaysList[index],
+      };
+      debugPrint("bookingDaysCounter:$selected");
+      roundTripHotelProvider.hotelRoomBody[index].addAll(selected);
+    });
+  }
+
+  /// On Minus Booking Day
+  void _onMinusBookingDay({required int index, required int roomId}) {
+    if (roundTripHotelProvider.selectBookingDaysList[index] > 0) {
+      setState(() {
+        roundTripHotelProvider.selectBookingDaysList[index]--;
+        Map<String, dynamic> selected = {
+          "room_id": roomId,
+          "rooms_number": roundTripHotelProvider.selectNumberOfRoomsList[index],
+          "days": roundTripHotelProvider.selectBookingDaysList[index],
+        };
+        debugPrint("bookingDaysCounter:$selected");
+        roundTripHotelProvider.hotelRoomBody[index].addAll(selected);
+      });
+    }
+  }
+
+  /// On Plus Room
+  void _onPlusRoom({required int index, required int roomId}) {
+    setState(() {
+      roundTripHotelProvider.selectNumberOfRoomsList[index]++;
+      Map<String, dynamic> selected = {
+        "room_id": roomId,
+        "rooms_number": roundTripHotelProvider.selectNumberOfRoomsList[index],
+        //numberOfRoomsCounter,
+        "days": roundTripHotelProvider.selectBookingDaysList[index],
+        //bookingDaysCounter
+      };
+      debugPrint("numberOfRoomsCounter:$selected");
+      roundTripHotelProvider.hotelRoomBody[index].addAll(selected);
+    });
+  }
+
+  /// On Minus Room
+  void _onMinusRoom({required int index, required int roomId}) {
+    if (roundTripHotelProvider.selectNumberOfRoomsList[index] > 0) {
+      setState(() {
+        roundTripHotelProvider.selectNumberOfRoomsList[index]--;
+        Map<String, dynamic> selected = {
+          "room_id": roomId,
+          "rooms_number": roundTripHotelProvider.selectNumberOfRoomsList[index],
+          //numberOfRoomsCounter,
+          "days": roundTripHotelProvider.selectBookingDaysList[index],
+          //bookingDaysCounter
+        };
+        debugPrint("numberOfRoomsCounter:$selected");
+        roundTripHotelProvider.hotelRoomBody[index].addAll(selected);
+      });
+    }
+  }
+
+  /// Step Two Trip
+  void _stepTwoTrip() async {
     /// TODO: Uncomment Round Trip Step Two Result;
+    debugPrint(
+        "fromNewHotelBody:${roundTripHotelProvider.hotelRoomBody.map((e) => e)}");
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -317,8 +327,8 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
     );
   }
 
-  //
-  void skipAndStepTwoTrip() async {
+  /// Skip And Step Two Trip
+  void _skipAndStepTwoTrip() async {
     /// TODO: Uncomment Round Trip Step Two Result;
     Navigator.push(
       context,
@@ -332,28 +342,9 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
           firstTripModel: widget.firstTripModel,
           tripFirstAdditionalList: widget.paramAdditionalList,
           paramPassengerBody: widget.paramPassengerBody,
-          paramHotelBody: const [],
+          paramHotelBody: [],
         ),
       ),
     );
   }
-
-// void saveTripOrder() async {
-//   await roundTripHotelProvider.oneWayOrderTrip(
-//     tripId: "${widget.tripId}",
-//     passengerCounts: widget.passengerCounts,
-//     paramPassengerBody: widget.paramPassengerBody,
-//     additionalList: widget.paramAdditionalList,
-//   );
-//
-//   if (roundTripHotelProvider.isOneWayOrderTripSaved) {
-//     if (!mounted) return;
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) => const ReviewOrderScreen(),
-//       ),
-//     );
-//   }
-// }
 }

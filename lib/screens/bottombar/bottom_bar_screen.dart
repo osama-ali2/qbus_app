@@ -43,7 +43,6 @@ class BottomBarScreenState extends State<BottomBarScreen> {
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           items: [
-            
             BottomNavigationBarItem(
               icon: const Icon(
                 Icons.home_outlined,
@@ -51,7 +50,6 @@ class BottomBarScreenState extends State<BottomBarScreen> {
               ),
               label: AppLocalizations.of(context)!.home,
             ),
-
             BottomNavigationBarItem(
               icon: const Icon(
                 Icons.list,

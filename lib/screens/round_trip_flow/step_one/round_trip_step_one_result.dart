@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
+import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/res/assets.dart';
 import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
-import 'package:qbus/screens/round_trip_flow/step_one/step_one_select_addition/step_one_select_addition_screen.dart';
+import 'package:qbus/screens/project_widgets/filter_container_widget.dart';
+import 'package:qbus/screens/project_widgets/trip_card_container_widget.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';
+import 'package:qbus/utils/constant.dart';
+import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
-import '../../../../navigation/navigation_helper.dart';
-import '../../../../utils/constant.dart';
-import '../../../../widgets/custom_text.dart';
-import '../../project_widgets/filter_container_widget.dart';
-import '../../project_widgets/trip_card_container_widget.dart';
 import 'round_trip_passenger_screens/round_trip_passenger_screen.dart';
 import 'round_trip_step_one_provider.dart';
+import 'step_one_select_addition/step_one_select_addition_screen.dart';
 
 class RoundTripStepOneResult extends StatefulWidget {
   final TripFilterModel? tripFilterModel;
@@ -126,78 +126,77 @@ class _RoundTripStepOneResultState extends State<RoundTripStepOneResult> {
                               var tripId = data.id.toString();
 
                               return GestureDetector(
-                                  onTap: () {
-                                    if (data.additionals!.isEmpty) {
-                                      debugPrint(
-                                          "roundTripAdditional:${data.additionals!.isEmpty}");
-                                      debugPrint(
-                                          "roundTripHotels:${data.hotels!.isEmpty}");
+                                onTap: () {
+                                  if (data.additionals!.isEmpty) {
+                                    debugPrint(
+                                        "roundTripAdditional:${data.additionals!.isEmpty}");
+                                    debugPrint(
+                                        "roundTripHotels:${data.hotels!.isEmpty}");
 
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              RoundTripPassengerScreen(
-                                            isHotelEmpty: data.hotels!.isEmpty,
-                                            passengerCount: int.parse(
-                                                widget.passengersCount!),
-                                            tripId: int.parse(tripId),
-                                            additionalList: const [],
-                                            tripFilterModel:
-                                                widget.tripFilterModel!,
-                                            fromCity: widget.fromCity!,
-                                            toCity: widget.toCity!,
-                                            isRoundTripChecked:
-                                                widget.isRoundTripChecked!,
-                                            firstTripModel: data,
-                                            tripFirstPassengersCount: widget
-                                                .passengersCount
-                                                .toString(),
-                                            tripFirstAdditionalList: const [],
-                                          ),
-                                        ),
-                                      );
-                                    } else {
-                                      NavigationHelper.pushRoute(
-                                        context,
-                                        StepOneSelectAdditionScreen(
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            RoundTripPassengerScreen(
                                           isHotelEmpty: data.hotels!.isEmpty,
-                                          tripId: tripId,
-                                          firstTripsModel: data,
-                                          isRoundTripChecked:
-                                              widget.isRoundTripChecked,
-                                          passengersCount:
-                                              widget.passengersCount,
-                                          toCityId: widget
-                                              .tripFilterModel!.to_city_id,
-                                          fromCityId: widget
-                                              .tripFilterModel!.from_city_id,
+                                          passengerCount: int.parse(
+                                              widget.passengersCount!),
+                                          tripId: int.parse(tripId),
+                                          additionalList: const [],
                                           tripFilterModel:
-                                              widget.tripFilterModel,
-                                          fromCity: widget.fromCity,
-                                          toCity: widget.toCity,
+                                              widget.tripFilterModel!,
+                                          fromCity: widget.fromCity!,
+                                          toCity: widget.toCity!,
+                                          isRoundTripChecked:
+                                              widget.isRoundTripChecked!,
+                                          firstTripModel: data,
+                                          tripFirstPassengersCount:
+                                              widget.passengersCount.toString(),
+                                          tripFirstAdditionalList: const [],
                                         ),
-                                      );
-                                    }
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: sizes!.heightRatio * 5),
-                                    child: TripCardContainerWidget(
-                                      // context: context,
-                                      stationA: stationA,
-                                      stationB: stationB,
-                                      fees: fees,
-                                      rate: rate,
-                                      fromCityName: fromCityName,
-                                      toCityName: toCityName,
-                                      timeFrom: timeFrom,
-                                      timeTo: timeTo,
-                                      stops: stops,
-                                      providerName: providerName,
-                                      additionals: data.additionals!,
-                                    ),
-                                  ));
+                                      ),
+                                    );
+                                  } else {
+                                    NavigationHelper.pushRoute(
+                                      context,
+                                      StepOneSelectAdditionScreen(
+                                        isHotelEmpty: data.hotels!.isEmpty,
+                                        tripId: tripId,
+                                        firstTripsModel: data,
+                                        isRoundTripChecked:
+                                            widget.isRoundTripChecked,
+                                        passengersCount: widget.passengersCount,
+                                        toCityId:
+                                            widget.tripFilterModel!.to_city_id,
+                                        fromCityId: widget
+                                            .tripFilterModel!.from_city_id,
+                                        tripFilterModel: widget.tripFilterModel,
+                                        fromCity: widget.fromCity,
+                                        toCity: widget.toCity,
+                                      ),
+                                    );
+                                  }
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: sizes!.heightRatio * 5,
+                                  ),
+                                  child: TripCardContainerWidget(
+                                    // context: context,
+                                    stationA: stationA,
+                                    stationB: stationB,
+                                    fees: fees,
+                                    rate: rate,
+                                    fromCityName: fromCityName,
+                                    toCityName: toCityName,
+                                    timeFrom: timeFrom,
+                                    timeTo: timeTo,
+                                    stops: stops,
+                                    providerName: providerName,
+                                    additionals: data.additionals!,
+                                  ),
+                                ),
+                              );
                             })
                         : Center(
                             child: TextView.getSubHeadingTextWith15(

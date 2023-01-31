@@ -11,14 +11,14 @@ import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
-import 'package:qbus/screens/get_started_screens/get_started_screen.dart';
-import 'package:qbus/screens/round_trip_flow/step_two/round_trip_review_order_screens/round_trip_review_order_provider.dart';
+import 'package:qbus/screens/thank_you_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
 
 import '../../../../models/order_reviews/RoundOrderReviewResponse.dart';
+import 'round_trip_review_order_provider.dart';
 
 class RoundTripReviewOrderScreen extends StatefulWidget {
   final List<int> orderId;
@@ -34,6 +34,18 @@ class RoundTripReviewOrderScreen extends StatefulWidget {
 class _RoundTripReviewOrderScreenState
     extends State<RoundTripReviewOrderScreen> {
   late RoundTripReviewOrderProvider roundTripReviewOrderProvider;
+
+  /// App Bar
+  final appBar = AppBar(
+    backgroundColor: appColor,
+    elevation: 0,
+    centerTitle: false,
+    title: CustomText(
+        text: "Review The Order",
+        textSize: sizes!.fontRatio * 18,
+        fontWeight: FontWeight.w400,
+        textColor: Colors.white),
+  );
 
   @override
   void initState() {
@@ -53,16 +65,7 @@ class _RoundTripReviewOrderScreenState
   Widget build(BuildContext context) {
     Provider.of<RoundTripReviewOrderProvider>(context, listen: true);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: appColor,
-        elevation: 0,
-        centerTitle: false,
-        title: CustomText(
-            text: "Review The Order",
-            textSize: sizes!.fontRatio * 18,
-            fontWeight: FontWeight.w400,
-            textColor: Colors.white),
-      ),
+      appBar: appBar,
       body: SafeArea(
         child: roundTripReviewOrderProvider.isRoundOrderReviewLoaded == true
             ? Column(
@@ -81,8 +84,9 @@ class _RoundTripReviewOrderScreenState
                         var discount = data.discount.toString();
                         var taxValue = data.tax.toString();
                         var total = data.total.toString();
-                        var fees = data.fees.toString();
+                        //var finalFrees = data.fees.toString();
 
+                        // Data Trip
                         var timeFrom = dataTrip.timeFrom.toString();
                         var timeTo = dataTrip.timeTo.toString();
                         var dateFrom = dataTrip.dateFrom.toString();
@@ -90,6 +94,7 @@ class _RoundTripReviewOrderScreenState
                         var fromCity = dataTrip.fromCity!.name!.en.toString();
                         var toCity = dataTrip.toCity!.name!.en.toString();
                         var count = dataTrip.count.toString();
+                        var tripFee = dataTrip.fees.toString();
 
                         var hotelRoomsLength = dataTrip.hotelsRooms!.length;
                         var additionalLength = dataTrip.additionals!.length;
@@ -97,25 +102,27 @@ class _RoundTripReviewOrderScreenState
                         var additionalData = dataTrip.additionals;
 
                         return Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: sizes!.heightRatio * 10,
-                            ),
-                            child: _returnOrderReview(
-                                discount: discount,
-                                taxValue: taxValue,
-                                total: total,
-                                fees: fees,
-                                timeFrom: timeFrom,
-                                timeTo: timeTo,
-                                dateFrom: dateFrom,
-                                dateTo: dateTo,
-                                fromCity: fromCity,
-                                toCity: toCity,
-                                count: count,
-                                hotelRoomsLength: hotelRoomsLength,
-                                additionalLength: additionalLength,
-                                additionalData: additionalData!,
-                                hotelsRoomsData: hotelRoomsData!));
+                          padding: EdgeInsets.symmetric(
+                            vertical: sizes!.heightRatio * 10,
+                          ),
+                          child: _returnOrderReview(
+                            discount: discount,
+                            taxValue: taxValue,
+                            total: total,
+                            fees: tripFee,
+                            timeFrom: timeFrom,
+                            timeTo: timeTo,
+                            dateFrom: dateFrom,
+                            dateTo: dateTo,
+                            fromCity: fromCity,
+                            toCity: toCity,
+                            count: count,
+                            hotelRoomsLength: hotelRoomsLength,
+                            additionalLength: additionalLength,
+                            additionalData: additionalData!,
+                            hotelsRoomsData: hotelRoomsData!,
+                          ),
+                        );
                       },
                     ),
                   ),
@@ -231,11 +238,14 @@ class _RoundTripReviewOrderScreenState
                     fontWeight: FontWeight.w500,
                     borderRadius: 5,
                     onTapped: () async {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const GetStartedScreen()),
-                          (route) => false);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ThankYouScreen(
+                            tripId: widget.orderId[0],
+                          ),
+                        ),
+                      );
                     },
                     padding: 0,
                   ),
@@ -255,6 +265,7 @@ class _RoundTripReviewOrderScreenState
     );
   }
 
+  /// Return Order Review
   Widget _returnOrderReview({
     required String discount,
     required String taxValue,
@@ -297,6 +308,7 @@ class _RoundTripReviewOrderScreenState
         ],
       );
 
+  /// Hotel Room Container
   Widget _hotelRoomContainer({
     required String days,
     required String title,
@@ -312,7 +324,7 @@ class _RoundTripReviewOrderScreenState
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextView.getGenericText(
-                    text: "$days Days",
+                    text: "X$days Days",
                     fontFamily: Assets.latoRegular,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
@@ -350,6 +362,7 @@ class _RoundTripReviewOrderScreenState
         ],
       );
 
+  /// Additional Container
   Widget _additionalContainer({
     required String counts,
     required String title,
@@ -403,6 +416,7 @@ class _RoundTripReviewOrderScreenState
         ],
       );
 
+  /// Trip Order Container
   Widget _tripOrderContainer({
     required String quantity,
     required String fromTime,
