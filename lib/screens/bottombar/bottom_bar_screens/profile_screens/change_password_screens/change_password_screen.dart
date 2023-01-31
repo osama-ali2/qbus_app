@@ -89,8 +89,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       textColor: Colors.white,
                       fontWeight: FontWeight.normal,
                       borderRadius: 5,
-                      onTapped: () {
-                        validateData();
+                      onTapped: () async {
+                        await validateData();
                       },
                       padding: 0)
                   .get20HorizontalPadding(),
@@ -102,13 +102,25 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
   }
 
+  /// Validating Data
   Future<void> validateData() async {
-    var fullName = oldPasswordController.text.toString().trim();
-    var password = newPasswordController.text.toString().trim();
-    if (fullName.isNotEmpty && password.isNotEmpty) {
-    } else if (fullName.isEmpty) {
+    var currentPassword = oldPasswordController.text.toString().trim();
+    var newPassword = newPasswordController.text.toString().trim();
+    if (currentPassword.isNotEmpty && newPassword.isNotEmpty) {
+      // Call API
+      await changePasswordProvider.updateUserPassword(
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      );
+
+      /// If password Updated
+      if (changePasswordProvider.isPasswordUpdated == true) {
+        if (!mounted) return;
+        Navigator.pop(context);
+      }
+    } else if (currentPassword.isEmpty) {
       Toasts.getErrorToast(text: "Old password is required");
-    } else if (password.isEmpty) {
+    } else if (newPassword.isEmpty) {
       Toasts.getErrorToast(text: "New password is required");
     }
   }
