@@ -42,30 +42,31 @@ class ChangePasswordProvider with ChangeNotifier {
         "current_password": currentPassword,
         "new_password": newPassword
       };
+      _logger.d("body: $body");
+      _logger.d("URL: $profileResetPassword");
 
-      debugPrint("URL: $profileResetPassword");
       updateProfilePasswordResponse = await MyApi.callPostApi(
         url: profileResetPassword,
         myHeaders: header,
         body: body,
         modelName: Models.updateProfilePasswordModel,
       );
-      _logger.d("body: $body");
 
       if (updateProfilePasswordResponse.code == 1) {
         _logger.d(
             "updateProfilePasswordResponse: ${updateProfilePasswordResponse.toJson()}");
         Toasts.getSuccessToast(
             text: updateProfilePasswordResponse.data!.message);
-        _loader.hideLoader(context!);
         isPasswordUpdated = true;
+
+        _loader.hideLoader(context!);
         notifyListeners();
       } else {
-        debugPrint("updateProfilePasswordResponse: Something wrong");
+        _logger.e("updateProfilePasswordResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      debugPrint("updateProfilePasswordResponseError: ${e.toString()}");
+      _logger.e("updateProfilePasswordResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

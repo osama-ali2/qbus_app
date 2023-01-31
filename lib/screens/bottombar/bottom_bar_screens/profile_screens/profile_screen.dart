@@ -10,17 +10,17 @@ import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/res/res.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/about_us_screens/about_us_screen.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/edit_user_profile_screens/edit_user_profile_screen.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/privacy_policy_screens/privacy_policy_screen.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/profile_provider.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/return_policy_screens/return_policy_screen.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/wallet_screens/wallet_screen.dart';
+import 'package:qbus/utils/constant.dart';
+import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
 
-import '../../../../utils/constant.dart';
-import '../../../../widgets/custom_text.dart';
 import '../contact_us_screens/contact_us_screen.dart';
+import 'about_us_screens/about_us_screen.dart';
+import 'edit_user_profile_screens/edit_user_profile_screen.dart';
+import 'privacy_policy_screens/privacy_policy_screen.dart';
+import 'profile_provider.dart';
+import 'return_policy_screens/return_policy_screen.dart';
+import 'wallet_screens/wallet_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -69,10 +69,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ? GestureDetector(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const EditUserProfileScreen()));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditUserProfileScreen(
+                            userResponse: profileProvider.userResponse,
+                          ),
+                        ),
+                      );
                     },
                     child: Container(
                       height: sizes!.heightRatio * 80,
@@ -184,6 +187,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  /// Logout Function
   Future<void> _lagOut() async {
     await profileProvider.logoutUser();
     await PreferenceUtils.clearPreferences();
@@ -196,7 +200,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  Widget getRow({required String title, required Function? onPress}) =>
+  /// Get Row
+  Widget getRow({
+    required String title,
+    required Function? onPress,
+  }) =>
       GestureDetector(
         onTap: () {
           if (onPress != null) {

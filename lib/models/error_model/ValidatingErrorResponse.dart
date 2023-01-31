@@ -72,6 +72,15 @@ class Data {
 }
 
 /// name : "The name field is required."
+///
+/// {"name":"The name field is required."},
+/// {"phone":"The phone field is required."},
+/// {"email":"The email must be a valid email address."},
+/// {"address":"The address field is required."},
+/// {"date_of_birth":"The date of birth field is required."},
+/// {"marital_status":"The marital status field is required."},
+/// {"password":"The password field is required."},
+/// {"code":"The selected code is invalid."}
 
 class ValidateErrors {
   ValidateErrors({
@@ -80,17 +89,59 @@ class ValidateErrors {
     _name = name;
   }
 
-  ValidateErrors.fromJson(dynamic json) {
-    _name = json['name'];
-  }
-
   String? _name;
 
   String? get name => _name;
 
+  String? _phone;
+
+  String? get phone => _phone;
+
+  String? _email;
+
+  String? get email => _email;
+
+  String? _address;
+
+  String? get address => _address;
+
+  String? _date_of_birth;
+
+  String? get date_of_birth => _date_of_birth;
+
+  String? _marital_status;
+
+  String? get marital_status => _marital_status;
+
+  String? _password;
+
+  String? get password => _password;
+
+  String? _code;
+
+  String? get code => _code;
+
+  ValidateErrors.fromJson(dynamic json) {
+    _name = json['name'];
+    _phone = json['phone'];
+    _email = json['email'];
+    _address = json['address'];
+    _date_of_birth = json['date_of_birth'];
+    _marital_status = json['marital_status'];
+    _password = json['password'];
+    _code = json['code'];
+  }
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['name'] = _name;
+    map['phone'] = _phone;
+    map['email'] = _email;
+    map['address'] = _address;
+    map['date_of_birth'] = _date_of_birth;
+    map['marital_status'] = _marital_status;
+    map['password'] = _password;
+    map['code'] = _code;
     return map;
   }
 }

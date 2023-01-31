@@ -9,11 +9,11 @@ import 'package:qbus/widgets/loader.dart';
 
 class PhoneNumberProvider with ChangeNotifier {
   BuildContext? context;
-  final Logger _logger = Logger();
-  final Loader _loader = Loader();
+
+  final _logger = Logger();
+  final _loader = Loader();
 
   ForgotPasswordResponse forgotPasswordResponse = ForgotPasswordResponse();
-
   bool isSuccessful = false;
 
   Future<void> init({@required BuildContext? context}) async {
@@ -21,6 +21,7 @@ class PhoneNumberProvider with ChangeNotifier {
     isSuccessful = false;
   }
 
+  /// Forget Password User
   Future<void> forgetPasswordUser({
     required String phoneNumber,
   }) async {
@@ -35,24 +36,25 @@ class PhoneNumberProvider with ChangeNotifier {
       debugPrint("URL: $forgetPasswordApiUrl");
 
       forgotPasswordResponse = await MyApi.callPostApi(
-          url: forgetPasswordApiUrl,
-          body: body,
-          myHeaders: header,
-          modelName: Models.forgotPasswordModel);
+        url: forgetPasswordApiUrl,
+        body: body,
+        myHeaders: header,
+        modelName: Models.forgotPasswordModel,
+      );
       debugPrint("body: $body");
 
       if (forgotPasswordResponse.code == 1) {
+        Toasts.getSuccessToast(text: forgotPasswordResponse.message.toString());
         _logger.d("forgotPasswordResponse: ${forgotPasswordResponse.toJson()}");
         _loader.hideLoader(context!);
         isSuccessful = true;
-        Toasts.getSuccessToast(text: forgotPasswordResponse.message.toString());
         notifyListeners();
       } else {
-        debugPrint("forgotPasswordResponse: Something wrong");
+        _logger.e("forgotPasswordResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      debugPrint("forgotPasswordResponseError: ${e.toString()}");
+      _logger.e("forgotPasswordResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

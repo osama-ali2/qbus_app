@@ -123,7 +123,7 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
       Map<String, dynamic> tripSecondBody = {
         "trip_id": tripSecondId.id,
         "count": passengersCount,
-        "code": "",
+        "code": "roundTrip50",
         "additional": additionalList,
         "passengers": paramPassengerBody,
         "hotel_rooms": newHotelBody,
@@ -216,7 +216,7 @@ class StepTwoSelectAdditionProvider with ChangeNotifier {
       Map<String, dynamic> tripSecondBody = {
         "trip_id": tripSecondId.id,
         "count": passengersCount,
-        "code": "",
+        "code": "roundTrip50",
         "additional": additionalList,
         "passengers": paramPassengerBody,
         "hotel_rooms": newHotelBody,

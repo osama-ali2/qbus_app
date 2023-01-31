@@ -24,8 +24,12 @@ class SignUpProvider with ChangeNotifier {
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
+    // Clear Lists on Init
+    citiesList.clear();
+    cityList.clear();
   }
 
+  /// Sign Up New User
   Future<void> signUpNewUser({
     required String userName,
     required String phoneNumber,
@@ -63,25 +67,27 @@ class SignUpProvider with ChangeNotifier {
       if (signUpResponse.code == 1) {
         _logger.d("signUpResponse: ${signUpResponse.toJson()}");
         _loader.hideLoader(context!);
+
+        /// Navigate to Phone Activation Screen
         NavigationHelper.pushRoute(
-            context!,
-            PhoneActivationScreen(
-              phoneNumber: phoneNumber,
-            ));
+          context!,
+          PhoneActivationScreen(phoneNumber: phoneNumber),
+        );
         isDataLoaded = true;
       } else {
-        debugPrint("signUpResponse: Something wrong");
+        _logger.e("signUpResponse: Something wrong");
         _loader.hideLoader(context!);
         isDataLoaded = false;
       }
       notifyListeners();
     } catch (e) {
-      debugPrint("signUpResponseError: ${e.toString()}");
+      _logger.e("signUpResponseError: ${e.toString()}");
       isDataLoaded = false;
       _loader.hideLoader(context!);
     }
   }
 
+  /// On Init Get Cities
   Future<void> getCitiesData() async {
     try {
       _loader.showLoader(context: context);
@@ -114,11 +120,11 @@ class SignUpProvider with ChangeNotifier {
         isDataLoaded = true;
         notifyListeners();
       } else {
-        debugPrint("getCitiesResponse: Something wrong");
+        _logger.e("getCitiesResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      debugPrint("getCitiesResponseError: ${e.toString()}");
+      _logger.e("getCitiesResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

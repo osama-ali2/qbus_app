@@ -22,6 +22,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+
   final _fullNameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _emailController = TextEditingController();
@@ -309,7 +310,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     if (fullName.isNotEmpty &&
         mobilePhone.isNotEmpty &&
-        email.isNotEmpty &&
         yourAddress.isNotEmpty &&
         password.isNotEmpty &&
         selectedMartialStatus != "" &&
@@ -329,8 +329,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     } else if (fullName.isEmpty) {
       Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
     } else if (mobilePhone.isEmpty) {
-      Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
-    } else if (email.isEmpty) {
       Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
     } else if (yourAddress.isEmpty) {
       Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);

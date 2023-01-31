@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/models/auth/GetVerifyPhoneResponse.dart';
+import 'package:qbus/res/toasts.dart';
 import 'package:qbus/widgets/loader.dart';
 
 import '../../../network_manager/api_url.dart';
@@ -9,11 +10,11 @@ import '../../../network_manager/my_api.dart';
 
 class PhoneActivationProvider with ChangeNotifier {
   BuildContext? context;
-  final Logger _logger = Logger();
-  final Loader _loader = Loader();
+
+  final _logger = Logger();
+  final _loader = Loader();
 
   bool isDataLoaded = true;
-
   GetVerifyPhoneResponse getVerifyPhoneResponse = GetVerifyPhoneResponse();
 
   Future<void> init({@required BuildContext? context}) async {
@@ -21,6 +22,7 @@ class PhoneActivationProvider with ChangeNotifier {
     isDataLoaded = false;
   }
 
+  /// Verify Phone Number
   Future<void> verifyPhoneNumber({required dynamic code}) async {
     try {
       _loader.showLoader(context: context);
@@ -28,27 +30,29 @@ class PhoneActivationProvider with ChangeNotifier {
       Map<String, dynamic> header = {"Content-Type": "application/json"};
       Map<String, dynamic> body = {"code": code};
 
-      debugPrint("URL: $verifyPhoneNumberApiUrl");
-      debugPrint("verifyBody: $body");
+      _logger.d("URL: $verifyPhoneNumberApiUrl");
+      _logger.d("verifyBody: $body");
 
       getVerifyPhoneResponse = await MyApi.callPostApi(
-          url: verifyPhoneNumberApiUrl,
-          body: body,
-          myHeaders: header,
-          modelName: Models.verifyPhoneModel);
+        url: verifyPhoneNumberApiUrl,
+        body: body,
+        myHeaders: header,
+        modelName: Models.verifyPhoneModel,
+      );
       debugPrint("verifyBody: $body");
 
       if (getVerifyPhoneResponse.code == 1) {
-        _logger.d("getVerifyPhoneResponse: ${getVerifyPhoneResponse.toJson()}");
         _loader.hideLoader(context!);
+        _logger.d("getVerifyPhoneResponse: ${getVerifyPhoneResponse.toJson()}");
+        Toasts.getSuccessToast(text: "${getVerifyPhoneResponse.data!.message}");
         isDataLoaded = true;
         notifyListeners();
       } else {
-        debugPrint("getVerifyPhoneResponse: Something wrong");
+        _logger.e("getVerifyPhoneResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      debugPrint("getVerifyPhoneResponseError: ${e.toString()}");
+      _logger.e("getVerifyPhoneResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }
