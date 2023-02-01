@@ -59,8 +59,11 @@ class LoginProvider with ChangeNotifier {
           String loginWallet =
               PreferenceUtils.getString(Strings.loginWallet) ?? "";
 
+          String loginTopic =
+              PreferenceUtils.getString(Strings.loginTopic) ?? "";
+
           _logger.i(
-              "savedToken: $savedToken, name: $name, loginEmail $loginEmail, loginWallet: $loginWallet");
+              "savedToken: $savedToken, Topic: $loginTopic, name: $name, loginEmail $loginEmail, loginWallet: $loginWallet");
           _loader.hideLoader(context!);
           isDataLoaded = true;
 

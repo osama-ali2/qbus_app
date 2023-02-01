@@ -128,7 +128,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                             },
                           ),
                         )
-                      : Container(),
+                      : const Spacer(),
                   reviewOrderProvider.oneWayOrderReviewResponse.data!
                           .additionals!.isNotEmpty
                       ? Expanded(
@@ -155,7 +155,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                             },
                           ),
                         )
-                      : Container(),
+                      : const Spacer(),
                   CommonPadding.sizeBoxWithHeight(height: 20),
                   Align(
                     alignment: Alignment.topLeft,

@@ -26,6 +26,7 @@ class Strings {
   static const String loginEmail = "loginEmail";
   static const String loginEmailVerify = "loginEmailVerify";
   static const String loginWallet = "loginWallet";
+  static const String loginTopic = "loginTopic";
 
   //Privacy
   static const String isSearch = "isSearch";
