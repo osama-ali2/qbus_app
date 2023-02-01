@@ -21,8 +21,10 @@ class SearchProvider with ChangeNotifier {
   }
 
   /// Get Trips Data
-  Future<void> getTripsData(
-      {required TripFilterModel tripFilterModel, required int offset}) async {
+  Future<void> getTripsData({
+    required TripFilterModel tripFilterModel,
+    required int offset,
+  }) async {
     try {
       _loader.showLoader(context: context);
 

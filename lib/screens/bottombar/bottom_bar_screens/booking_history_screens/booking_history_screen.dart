@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import '../../../../../res/assets.dart';
-import '../../../../../res/colors.dart';
-import '../../../../../res/common_padding.dart';
-import '../../../../../res/res.dart';
-import '../../../../../utils/constant.dart';
-import '../../../../../widgets/custom_text.dart';
-import '../../../../../widgets/text_views.dart';
-import '../../../../widgets/custom_button.dart';
-import '../package_history_screens/package_history_screen.dart';
+import 'package:qbus/res/assets.dart';
+import 'package:qbus/res/colors.dart';
+import 'package:qbus/res/common_padding.dart';
+import 'package:qbus/res/res.dart';
+import 'package:qbus/utils/constant.dart';
+import 'package:qbus/widgets/custom_text.dart';
+import 'package:qbus/widgets/text_views.dart';
 import 'booking_history_provider.dart';
 
 class BookingHistoryScreen extends StatefulWidget {
@@ -23,7 +21,9 @@ class BookingHistoryScreen extends StatefulWidget {
 class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
   late BookingHistoryProvider bookingHistoryProvider;
 
+  late ScrollController _scrollController;
   int userRating = 0;
+  int offsetIndex = 1;
 
   @override
   void initState() {
@@ -33,8 +33,22 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
         Provider.of<BookingHistoryProvider>(context, listen: false);
     bookingHistoryProvider.init(context: context);
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      bookingHistoryProvider.getTripBookingHistoryData(offSet: 1);
+    _scrollController = ScrollController();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        debugPrint("Ending...");
+        setState(() {
+          offsetIndex++;
+          debugPrint("EndingIndex: $offsetIndex");
+        });
+        bookingHistoryProvider.getTripBookingHistoryData(offSet: offsetIndex);
+      }
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      bookingHistoryProvider.getTripBookingHistoryData(offSet: offsetIndex);
     });
   }
 

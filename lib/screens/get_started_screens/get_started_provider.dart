@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:qbus/local_cache/utils.dart';
+import 'package:qbus/res/strings.dart';
 import 'package:qbus/widgets/loader.dart';
 import '../../models/cities/GetCitiesResponse.dart';
 import '../../models/packages/PackagesResponse.dart';
@@ -23,14 +25,26 @@ class GetStartedProvider with ChangeNotifier {
   List<String> cityIdList = [];
   List<Map<String, dynamic>> citiesList = [];
 
+  /// Get Login Topic
+  String loginTopic = PreferenceUtils.getString(Strings.loginTopic) ?? "";
+
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
     isCityDataLoaded = false;
     isDataLoaded = false;
+
+    /// Initializing Push Notification Service
     await FirebasePushNotificationService.initializeNotification(
-        userTopic: "qbus");
+      userTopic: "qbus",
+    );
+
+    ///For Individual User
+    await FirebasePushNotificationService.initializeNotification(
+      userTopic: loginTopic,
+    );
   }
 
+  /// Get Packages Data
   Future<void> getPackagesData() async {
     try {
       _loader.showLoader(context: context);

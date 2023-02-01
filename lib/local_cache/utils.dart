@@ -59,6 +59,7 @@ class PreferenceUtils {
     return userImage;
   }
 
+  // Store User Response
   static Future setLoginResponse(LoginResponse loginResponse) async {
     await PreferenceUtils.setString(
         Strings.loginUserToken, loginResponse.data?.token ?? "");
@@ -68,6 +69,8 @@ class PreferenceUtils {
         Strings.loginEmail, loginResponse.data?.user?.email ?? "");
     await PreferenceUtils.setString(
         Strings.loginWallet, loginResponse.data?.user?.wallet.toString() ?? "");
+    await PreferenceUtils.setString(
+        Strings.loginTopic, loginResponse.data?.topic.toString() ?? "");
   }
 
   // static Future setSignUpResponse(RegisterResponse registerResponse) async {

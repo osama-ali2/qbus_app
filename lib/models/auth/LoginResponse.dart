@@ -39,27 +39,34 @@ class LoginResponse {
 class Data {
   Data({
     String? token,
+    String? topic,
     User? user,
   }) {
     _token = token;
     _user = user;
+    _topic = topic;
   }
 
   Data.fromJson(dynamic json) {
     _token = json['token'];
+    _topic = json['topic'];
     _user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 
   String? _token;
+  String? _topic;
   User? _user;
 
   String? get token => _token;
+
+  String? get topic => _topic;
 
   User? get user => _user;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['token'] = _token;
+    map['topic'] = _topic;
     if (_user != null) {
       map['user'] = _user?.toJson();
     }

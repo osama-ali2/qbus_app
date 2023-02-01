@@ -77,9 +77,10 @@ class FirebasePushNotificationService {
     debugPrint('Handling a background message ${message.messageId}');
   }
 
-  //Firebase Push Notification
-  static Future<void> initializeNotification(
-      {required String userTopic}) async {
+  ///Firebase Push Notification
+  static Future<void> initializeNotification({
+    required String userTopic,
+  }) async {
     String str = userTopic.toLowerCase();
     String topic = str.replaceAll(RegExp('[^A-Za-z0-9]'), '');
 
