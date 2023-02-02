@@ -10,6 +10,7 @@ import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
 import 'booking_history_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookingHistoryScreen extends StatefulWidget {
   const BookingHistoryScreen({Key? key}) : super(key: key);
@@ -61,7 +62,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
         elevation: 0,
         automaticallyImplyLeading: false,
         title: const CustomText(
-            text: "Trip History",
+            text: AppLocalizations.of(context)!.booking_history,
             textSize: 18,
             fontWeight: FontWeight.w700,
             textColor: Colors.white),
@@ -116,7 +117,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                       ),
                     )
                   : const Center(
-                      child: Text("No Data Available"),
+                      child: Text(AppLocalizations.of(context)!.no_data),
                     ),
               CommonPadding.sizeBoxWithHeight(height: 10),
               //TODO: Uncomment Package History Screen later when needed

@@ -8,6 +8,7 @@ import 'package:qbus/screens/passenger_screens/passenger_screen.dart';
 import 'package:qbus/screens/project_widgets/filter_container_widget.dart';
 import 'package:qbus/screens/project_widgets/trip_card_container_widget.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../navigation/navigation_helper.dart';
 import '../../../../utils/constant.dart';
@@ -209,7 +210,8 @@ class _SearchResultState extends State<SearchResult> {
                               })
                           : Center(
                               child: TextView.getSubHeadingTextWith15(
-                                  "No Data Available", Assets.latoBold,
+                                  AppLocalizations.of(context)!.no_data,
+                                  Assets.latoBold,
                                   color: AppColors.blueHomeColor,
                                   lines: 1,
                                   fontWeight: FontWeight.normal),
@@ -221,7 +223,7 @@ class _SearchResultState extends State<SearchResult> {
               )
             : Center(
                 child: TextView.getSubHeadingTextWith15(
-                  "No Trip Available",
+                  AppLocalizations.of(context)!.no_data,
                   Assets.latoBold,
                   color: AppColors.blueHomeColor,
                   lines: 1,

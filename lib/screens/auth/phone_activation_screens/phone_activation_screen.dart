@@ -120,7 +120,8 @@ class _PhoneActivationScreenState extends State<PhoneActivationScreen>
                 CommonPadding.sizeBoxWithHeight(height: 30),
                 Center(
                   child: TextView.getMediumText16(
-                      "Please Enter Verification\nCode Sent to ${widget.phoneNumber}",
+                      AppLocalizations.of(context)!.enter_verification_code +
+                          "${widget.phoneNumber}",
                       Assets.latoBold,
                       color: AppColors.black900,
                       fontWeight: FontWeight.w500,
@@ -140,7 +141,9 @@ class _PhoneActivationScreenState extends State<PhoneActivationScreen>
                   },
                   onSubmitted: (pin) {
                     debugPrint("Successful :$pin");
-                    Toasts.getSuccessToast(text: "Successful :$pin");
+                    Toasts.getSuccessToast(
+                        text:
+                            AppLocalizations.of(context)!.successful + "$pin");
                   },
                   focusedPinTheme: defaultPinTheme.copyWith(
                     height: sizes!.fontRatio * 58,
@@ -263,7 +266,7 @@ class _PhoneActivationScreenState extends State<PhoneActivationScreen>
         NavigationHelper.pushReplacement(context, const BottomBarScreen());
       }
     } else if (code.isEmpty) {
-      Toasts.getErrorToast(text: "Field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
     }
   }
 }

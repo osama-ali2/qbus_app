@@ -16,6 +16,7 @@ import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../models/order_reviews/RoundOrderReviewResponse.dart';
 import 'round_trip_review_order_provider.dart';
@@ -41,7 +42,7 @@ class _RoundTripReviewOrderScreenState
     elevation: 0,
     centerTitle: false,
     title: CustomText(
-        text: "Review The Order",
+        text: AppLocalizations.of(context)!.confirm_order,
         textSize: sizes!.fontRatio * 18,
         fontWeight: FontWeight.w400,
         textColor: Colors.white),
@@ -130,7 +131,7 @@ class _RoundTripReviewOrderScreenState
                   Align(
                     alignment: Alignment.topLeft,
                     child: TextView.getGenericText(
-                        text: "Total",
+                        text: AppLocalizations.of(context)!.total_cost,
                         fontFamily: Assets.latoRegular,
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -142,7 +143,7 @@ class _RoundTripReviewOrderScreenState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextView.getGenericText(
-                          text: "Sub Total",
+                          text: AppLocalizations.of(context)!.sub_total,
                           fontFamily: Assets.latoRegular,
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -162,7 +163,7 @@ class _RoundTripReviewOrderScreenState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextView.getGenericText(
-                          text: "Discount",
+                          text: AppLocalizations.of(context)!.discount,
                           fontFamily: Assets.latoRegular,
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -184,7 +185,7 @@ class _RoundTripReviewOrderScreenState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextView.getGenericText(
-                          text: "Tax 15%",
+                          text: AppLocalizations.of(context)!.tax,
                           fontFamily: Assets.latoRegular,
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -211,7 +212,7 @@ class _RoundTripReviewOrderScreenState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextView.getGenericText(
-                          text: "Total Cost",
+                          text: AppLocalizations.of(context)!.total_cost,
                           fontFamily: Assets.latoRegular,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -229,7 +230,7 @@ class _RoundTripReviewOrderScreenState
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 20),
                   CustomButton(
-                    name: "PROCESS TO CHECKOUT",
+                    name: AppLocalizations.of(context)!.process_to_checkout,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,
@@ -254,7 +255,7 @@ class _RoundTripReviewOrderScreenState
               ).get20HorizontalPadding()
             : Center(
                 child: TextView.getGenericText(
-                    text: "No Data Found",
+                    text: AppLocalizations.of(context)!.no_data,
                     fontFamily: Assets.latoRegular,
                     fontSize: 18,
                     fontWeight: FontWeight.w700,

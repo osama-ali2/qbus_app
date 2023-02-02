@@ -10,6 +10,7 @@ import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package_history_provider.dart';
 

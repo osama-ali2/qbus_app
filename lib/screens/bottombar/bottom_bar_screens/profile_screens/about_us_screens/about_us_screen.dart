@@ -88,7 +88,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                   ],
                 )
               : const Center(
-                  child: Text("No Data Available"),
+                  child: Text(AppLocalizations.of(context)!.no_data),
                 ),
         ),
       ),

@@ -14,6 +14,7 @@ import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'round_trip_hotel_provider.dart';
 
@@ -206,7 +207,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                   )
                 : Center(
                     child: TextView.getGenericText(
-                        text: "No Hotel Founds",
+                        text: AppLocalizations.of(context)!.no_hotel_found,
                         fontFamily: Assets.latoRegular,
                         fontSize: 18,
                         fontWeight: FontWeight.w800,
@@ -216,7 +217,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
             CommonPadding.sizeBoxWithHeight(height: 10),
             roundTripHotelProvider.isHotelLoaded == true
                 ? CustomButton(
-                    name: "Save And Start Trip Two",
+                    name: AppLocalizations.of(context)!.save_start_trip_two,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,

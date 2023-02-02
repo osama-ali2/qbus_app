@@ -18,6 +18,7 @@ import 'round_trip_review_order_screens/round_trip_review_order_screen.dart';
 import 'round_trip_step_two_provider.dart';
 import 'step_two_select_addition/step_two_select_addition_provider.dart';
 import 'step_two_select_addition/step_two_select_addition_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RoundTripStepTwoResult extends StatefulWidget {
   final TripFilterModel tripFilterModel;
@@ -215,7 +216,8 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
                           )
                         : Center(
                             child: TextView.getSubHeadingTextWith15(
-                                "No Data Available", Assets.latoBold,
+                                AppLocalizations.of(context)!.no_data,
+                                Assets.latoBold,
                                 color: AppColors.blueHomeColor,
                                 lines: 1,
                                 fontWeight: FontWeight.normal),

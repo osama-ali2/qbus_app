@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -92,7 +93,7 @@ class _HotelScreenState extends State<HotelScreen> {
                   //   ),
                   // ),
                   child: TextView.getGenericText(
-                      text: "Skip",
+                      text: AppLocalizations.of(context)!.skip,
                       fontFamily: Assets.latoRegular,
                       fontSize: 18,
                       fontWeight: FontWeight.w400,
@@ -205,7 +206,7 @@ class _HotelScreenState extends State<HotelScreen> {
                   )
                 : Center(
                     child: TextView.getGenericText(
-                        text: "No Hotel Founds",
+                        text: AppLocalizations.of(context)!.no_hotel_found,
                         fontFamily: Assets.latoRegular,
                         fontSize: 18,
                         fontWeight: FontWeight.w800,
@@ -215,7 +216,7 @@ class _HotelScreenState extends State<HotelScreen> {
             CommonPadding.sizeBoxWithHeight(height: 10),
             hotelProvider.isHotelLoaded == true
                 ? CustomButton(
-                    name: "Save And Review The Order",
+                    name: AppLocalizations.of(context)!.confirm_order,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,

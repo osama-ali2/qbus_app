@@ -10,6 +10,7 @@ import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/custom_textField.dart';
 import 'change_password_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({Key? key}) : super(key: key);
@@ -50,7 +51,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         backgroundColor: appColor,
         elevation: 0,
         title: const CustomText(
-            text: "Change Password",
+            text: AppLocalizations.of(context)!."change_password",
             textSize: 18,
             fontWeight: FontWeight.w700,
             textColor: Colors.white),
@@ -69,7 +70,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 padding: 0,
                 validator: (val) => null,
                 inputType: TextInputType.name,
-                hint: "Old Password",
+                hint: AppLocalizations.of(context)!.old_password,
               ).get20HorizontalPadding(),
               CommonPadding.sizeBoxWithHeight(height: 15),
               CustomTextField(
@@ -77,11 +78,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 padding: 0,
                 validator: (val) => null,
                 inputType: TextInputType.name,
-                hint: "New Password",
+                hint: AppLocalizations.of(context)!.new_password,
               ).get20HorizontalPadding(),
               CommonPadding.sizeBoxWithHeight(height: 20),
               CustomButton(
-                      name: "Update",
+                      name: AppLocalizations.of(context)!.update,
                       buttonColor: appColor,
                       height: sizes!.heightRatio * 45,
                       width: double.infinity,
@@ -119,9 +120,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         Navigator.pop(context);
       }
     } else if (currentPassword.isEmpty) {
-      Toasts.getErrorToast(text: "Old password is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.old_password_required);
     } else if (newPassword.isEmpty) {
-      Toasts.getErrorToast(text: "New password is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.new_password_required);
     }
   }
 }

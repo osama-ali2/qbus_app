@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/res/extensions.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../res/assets.dart';
 import '../../../../../res/colors.dart';
@@ -42,7 +43,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
         backgroundColor: appColor,
         elevation: 0,
         title: const CustomText(
-          text: "Privacy Policy",
+          text: AppLocalizations.of(context)!.privacy_policy,
           textSize: 18,
           fontWeight: FontWeight.w700,
           textColor: Colors.white,
@@ -57,8 +58,11 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CommonPadding.sizeBoxWithHeight(height: 20),
-              TextView.getMediumText18("Terms of Service", Assets.latoBold,
-                  color: AppColors.black900, lines: 1),
+              TextView.getMediumText18(
+                  AppLocalizations.of(context)!.terms_of_aervice,
+                  Assets.latoBold,
+                  color: AppColors.black900,
+                  lines: 1),
               CommonPadding.sizeBoxWithHeight(height: 10),
               TextView.getMediumText14(
                   privacyPolicyProvider

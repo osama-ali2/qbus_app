@@ -13,6 +13,7 @@ import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import '../round_trip_hotel_screens/round_trip_hotel_screen.dart';
 import 'round_trip_passenger_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RoundTripPassengerScreen extends StatefulWidget {
   final int passengerCount;
@@ -63,8 +64,8 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
   final List<TextEditingController> _fullNameControllers = [];
   final List<TextEditingController> _idNumberControllers = [];
 
-  var selectedIdentityType = "Identity proof type";
-  var selectedCountry = "Country";
+  var selectedIdentityType = AppLocalizations.of(context)!.identity_proof_type;
+  var selectedCountry = AppLocalizations.of(context)!.country;
 
   final List<String> identityTypeString = [];
   final List<String> countryString = [];
@@ -201,7 +202,8 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
         passengerBody.add(paraPassengerBody);
         debugPrint("passengerBody: ${passengerBody.map((e) => e)} ");
       } else {
-        Toasts.getWarningToast(text: "The fields are required");
+        Toasts.getWarningToast(
+            text: AppLocalizations.of(context)!.required_fields);
       }
     }
 

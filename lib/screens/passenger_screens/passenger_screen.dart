@@ -12,6 +12,7 @@ import '../../res/res.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
 import '../review_order_screens/review_order_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PassengerScreen extends StatefulWidget {
   final int passengerCount;
@@ -45,8 +46,9 @@ class _PassengerScreenState extends State<PassengerScreen> {
   final List<TextEditingController> _fullNameControllers = [];
   final List<TextEditingController> _idNumberControllers = [];
 
-  final _selectedIdentityType = "Identity proof type";
-  final _selectedCountry = "Country";
+  final _selectedIdentityType =
+      AppLocalizations.of(context)!.identity_proof_type;
+  final _selectedCountry = AppLocalizations.of(context)!.country;
 
   @override
   void initState() {
@@ -82,7 +84,8 @@ class _PassengerScreenState extends State<PassengerScreen> {
   // Add Passengers TextField
   void _addFields() {
     if (widget.passengerCount > 10) {
-      Toasts.getWarningToast(text: "Only 10 Passengers allowed");
+      Toasts.getWarningToast(
+          text: AppLocalizations.of(context)!.only_10_Passengers_allowed);
     } else {
       for (int i = 0; i < widget.passengerCount; i++) {
         final fullNameController = TextEditingController();
@@ -119,7 +122,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "Add Passengers",
+            text: AppLocalizations.of(context)!.passengers_data,
             textSize: sizes!.fontRatio * 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
@@ -189,7 +192,8 @@ class _PassengerScreenState extends State<PassengerScreen> {
         debugPrint("passengerBody: ${_passengerBody.map((e) => e)} ");
         isDataValidate = true;
       } else {
-        Toasts.getWarningToast(text: "The fields are required");
+        Toasts.getWarningToast(
+            text: AppLocalizations.of(context)!.required_fields);
         isDataValidate = false;
       }
     }

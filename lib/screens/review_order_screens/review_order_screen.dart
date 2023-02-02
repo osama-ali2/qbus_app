@@ -17,6 +17,7 @@ import 'package:qbus/widgets/text_views.dart';
 import '../../res/colors.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReviewOrderScreen extends StatefulWidget {
   final int tripId;
@@ -59,7 +60,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "Review The Order",
+            text: AppLocalizations.of(context)!.order_confirmation,
             textSize: sizes!.fontRatio * 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
@@ -100,7 +101,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                                   .toString() ??
                               "00.0")
                       : const Center(
-                          child: Text("No Data"),
+                          child: Text(AppLocalizations.of(context)!.no_data),
                         ),
                   reviewOrderProvider.oneWayOrderReviewResponse.data!
                           .hotelsRooms!.isNotEmpty
@@ -168,10 +169,12 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                         lines: 1),
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 10),
-                  totalCalculationContainer(title: "Sub Total", value: "00.0"),
+                  totalCalculationContainer(
+                      title: AppLocalizations.of(context)!.sub_total,
+                      value: "00.0"),
                   CommonPadding.sizeBoxWithHeight(height: 5),
                   totalCalculationContainer(
-                    title: "Discount",
+                    title: AppLocalizations.of(context)!.discount,
                     value: reviewOrderProvider
                             .oneWayOrderReviewResponse.data?.discount
                             .toString() ??
@@ -179,7 +182,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 5),
                   totalCalculationContainer(
-                    title: "Tax",
+                    title: AppLocalizations.of(context)!.tax,
                     value: reviewOrderProvider
                             .oneWayOrderReviewResponse.data?.tax
                             .toString() ??
@@ -192,7 +195,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 10),
                   totalCalculationContainer(
-                    title: "Total Cost",
+                    title: AppLocalizations.of(context)!.total_cost,
                     value: reviewOrderProvider
                             .oneWayOrderReviewResponse.data?.total
                             .toString() ??
@@ -200,7 +203,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 20),
                   CustomButton(
-                    name: "PROCESS TO CHECKOUT",
+                    name: AppLocalizations.of(context)!.process_to_checkout,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,
@@ -224,7 +227,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
               ).get20HorizontalPadding()
             : Center(
                 child: TextView.getGenericText(
-                    text: "No Data Found",
+                    text: AppLocalizations.of(context)!.no_data,
                     fontFamily: Assets.latoRegular,
                     fontSize: 20,
                     fontWeight: FontWeight.w700,

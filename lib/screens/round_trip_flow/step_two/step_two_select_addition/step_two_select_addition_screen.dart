@@ -10,6 +10,7 @@ import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../round_trip_review_order_screens/round_trip_review_order_screen.dart';
 import 'step_two_select_addition_provider.dart';
@@ -80,7 +81,7 @@ class _StepTwoSelectAdditionScreenState
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "Trip Select Additions",
+            text: AppLocalizations.of(context)!.trip_additions,
             textSize: sizes!.fontRatio * 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
@@ -115,7 +116,7 @@ class _StepTwoSelectAdditionScreenState
                     ),
                   ),
                   CustomButton(
-                    name: "Save Second Trip & Review Order",
+                    name: AppLocalizations.of(context)!.save_secound_trip,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,
@@ -165,7 +166,7 @@ class _StepTwoSelectAdditionScreenState
                 ],
               )
             : const Center(
-                child: Text("No Data Available"),
+                child: Text(AppLocalizations.of(context)!.no_data),
               ),
       ),
     );

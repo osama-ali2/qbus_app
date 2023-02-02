@@ -47,8 +47,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   final arrivalToController = TextEditingController();
   final dateController = TextEditingController();
 
-  var departureFrom = "Departure from";
-  var returnTo = "Return to";
+  var departureFrom = AppLocalizations.of(context)!.departure_from;
+  var returnTo = AppLocalizations.of(context)!.arrival_to;
 
   var returnToID = "-1";
   var departureFromID = "-1";
@@ -484,7 +484,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                       }))
               : Center(
                   child: CustomText(
-                      text: "No Package Available",
+                      //"No Package Available"
+                      text: AppLocalizations.of(context)!.no_package_avilable,
                       textSize: sizes!.fontRatio * 14,
                       fontWeight: FontWeight.normal,
                       textColor: Colors.black),

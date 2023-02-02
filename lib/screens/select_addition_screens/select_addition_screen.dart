@@ -14,6 +14,7 @@ import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SelectAdditionScreen extends StatefulWidget {
   final Trips tripsModel;
@@ -83,7 +84,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "Trip Select Additions",
+            text: AppLocalizations.of(context)!.trip_additions,
             textSize: sizes!.fontRatio * 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
@@ -122,7 +123,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 10),
                   CustomButton(
-                    name: "Next",
+                    name: AppLocalizations.of(context)!.next,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,
@@ -161,7 +162,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                               ),
                               child: Center(
                                 child: CustomText(
-                                  text: "Continue",
+                                  text: AppLocalizations.of(context)!.continue,
                                   textSize: sizes!.fontRatio * 15,
                                   fontWeight: FontWeight.w500,
                                   textColor: appColor,
@@ -175,7 +176,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
               ),
             )
           : const Center(
-              child: Text("No Data Available"),
+              child: Text(AppLocalizations.of(context)!.no_data),
             ),
     );
   }

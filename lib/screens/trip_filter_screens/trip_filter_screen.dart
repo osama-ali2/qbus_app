@@ -6,6 +6,7 @@ import 'package:qbus/res/colors.dart';
 import 'package:qbus/res/common_padding.dart';
 import 'package:qbus/res/extensions.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../res/res.dart';
 import '../../utils/constant.dart';
@@ -24,11 +25,11 @@ class TripFilterScreen extends StatefulWidget {
 class _TripFilterScreenState extends State<TripFilterScreen> {
   late TextEditingController couponController;
 
-  var selectedFromCity = "From City";
-  var selectedToCity = "To City";
+  var selectedFromCity = AppLocalizations.of(context)!.departure_from;
+  var selectedToCity = AppLocalizations.of(context)!.arrival_to;
   var selectedFromCityId = "-1";
   var selectedToCityId = "-1";
-  var selectedRating = "Rating";
+  var selectedRating = AppLocalizations.of(context)!.rating;
 
   bool hotel5stars = false;
   bool internet = true;
@@ -39,9 +40,9 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
   late DateTime _selectedEndDate;
   late TimeOfDay _selectedTime;
 
-  String _startDate = "Start Date";
-  String _endDate = "End Date";
-  String _startTime = "Start Time";
+  String _startDate = AppLocalizations.of(context)!.departure_date;
+  String _endDate = AppLocalizations.of(context)!.return_date;
+  String _startTime = AppLocalizations.of(context)!.start_time;
 
   late GetStartedProvider getStartedProvider;
 
@@ -85,7 +86,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
       lastDate: DateTime(2050),
     ).then((pickedDate) {
       if (pickedDate == null) {
-        return 'no date selected';
+        return AppLocalizations.of(context)!.no_data;
       }
       setState(() {
         _selectedEndDate = pickedDate;
@@ -97,7 +98,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
     showTimePicker(context: context, initialTime: TimeOfDay.now())
         .then((pickedTime) {
       if (pickedTime == null) {
-        return 'no time selected';
+        return AppLocalizations.of(context)!.no_time_selected;
       }
 
       setState(() {
@@ -115,7 +116,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
         elevation: 0,
         automaticallyImplyLeading: true,
         title: const CustomText(
-            text: "Trips",
+            text: AppLocalizations.of(context)!.trips,
             textSize: 18,
             fontWeight: FontWeight.w700,
             textColor: Colors.white),
@@ -385,7 +386,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                 ),
                 CommonPadding.sizeBoxWithHeight(height: 20),
                 CustomText(
-                  text: "Additional",
+                  text: AppLocalizations.of(context)!.additions,
                   textSize: sizes!.fontRatio * 18,
                   fontWeight: FontWeight.w500,
                   textColor: Colors.black,
@@ -426,7 +427,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                 ).get20HorizontalPadding(),
                 CommonPadding.sizeBoxWithHeight(height: 20),
                 CustomButton(
-                  name: "Filter Result",
+                  name: AppLocalizations.of(context)!.filter,
                   buttonColor: appColor,
                   height: sizes!.heightRatio * 45,
                   width: double.infinity,

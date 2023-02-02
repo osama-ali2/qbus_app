@@ -10,6 +10,7 @@ import 'package:qbus/res/strings.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
@@ -85,7 +86,7 @@ class _StepOneSelectAdditionScreenState
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-          text: "Trip Select Additions",
+          text: AppLocalizations.of(context)!.trip_additions,
           textSize: sizes!.fontRatio * 18,
           fontWeight: FontWeight.w400,
           textColor: Colors.white,
@@ -114,7 +115,7 @@ class _StepOneSelectAdditionScreenState
                         }),
                   ),
                   CustomButton(
-                    name: "Save First Trip",
+                    name: AppLocalizations.of(context)!.save_first_trip,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,
@@ -168,7 +169,7 @@ class _StepOneSelectAdditionScreenState
               ),
             )
           : const Center(
-              child: Text("No Data Available"),
+              child: Text(AppLocalizations.of(context)!.no_data),
             ),
     );
   }
