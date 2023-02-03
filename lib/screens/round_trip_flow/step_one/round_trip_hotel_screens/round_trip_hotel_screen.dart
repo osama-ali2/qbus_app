@@ -3,11 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/project_widgets/hotel_card_container_widget.dart';
 import 'package:qbus/screens/round_trip_flow/step_two/round_trip_step_two_result.dart';
 import 'package:qbus/utils/constant.dart';

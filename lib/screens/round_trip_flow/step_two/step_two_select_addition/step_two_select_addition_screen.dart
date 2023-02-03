@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/strings.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
@@ -165,7 +164,7 @@ class _StepTwoSelectAdditionScreenState
                         )
                 ],
               )
-            : const Center(
+            : Center(
                 child: Text(AppLocalizations.of(context)!.no_data),
               ),
       ),

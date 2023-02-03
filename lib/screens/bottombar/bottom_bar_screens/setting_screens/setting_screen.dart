@@ -2,17 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:qbus/language.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_text.dart';
-
 import '../../../../local_cache/utils.dart';
-import '../../../../res/assets.dart';
-import '../../../../res/res.dart';
-import '../../../../res/strings.dart';
 import '../../../../widgets/text_views.dart';
+import 'package:qbus/resources/resources.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
@@ -61,7 +59,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
         backgroundColor: appColor,
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const CustomText(
+        title: CustomText(
             text: AppLocalizations.of(context)!.booking_history,
             textSize: 18,
             fontWeight: FontWeight.w700,
@@ -116,7 +114,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                         },
                       ),
                     )
-                  : const Center(
+                  : Center(
                       child: Text(AppLocalizations.of(context)!.no_data),
                     ),
               CommonPadding.sizeBoxWithHeight(height: 10),

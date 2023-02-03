@@ -5,9 +5,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';

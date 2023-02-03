@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/local_cache/utils.dart';
-import 'package:qbus/res/strings.dart';
+import 'package:qbus/resources/resources.dart';
 import 'package:qbus/widgets/loader.dart';
 import '../../models/cities/GetCitiesResponse.dart';
 import '../../models/packages/PackagesResponse.dart';

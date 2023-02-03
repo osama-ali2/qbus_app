@@ -4,12 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/auth/forgot_screens/forgot_provider.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/widgets/text_views.dart';

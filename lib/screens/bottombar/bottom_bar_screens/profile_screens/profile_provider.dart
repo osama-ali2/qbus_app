@@ -3,8 +3,8 @@ import 'package:logger/logger.dart';
 import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/auth/LogoutResponse.dart';
 import 'package:qbus/models/auth/UserResponse.dart';
-import 'package:qbus/res/strings.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/widgets/loader.dart';
 
 import '../../../../network_manager/api_url.dart';

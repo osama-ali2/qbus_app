@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
@@ -50,8 +47,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
-        title: const CustomText(
-            text: AppLocalizations.of(context)!."change_password",
+        title: CustomText(
+            text: AppLocalizations.of(context)!.change_password,
             textSize: 18,
             fontWeight: FontWeight.w700,
             textColor: Colors.white),
@@ -120,9 +117,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         Navigator.pop(context);
       }
     } else if (currentPassword.isEmpty) {
-      Toasts.getErrorToast(text: AppLocalizations.of(context)!.old_password_required);
+      Toasts.getErrorToast(
+          text: AppLocalizations.of(context)!.old_password_required);
     } else if (newPassword.isEmpty) {
-      Toasts.getErrorToast(text: AppLocalizations.of(context)!.new_password_required);
+      Toasts.getErrorToast(
+          text: AppLocalizations.of(context)!.new_password_required);
     }
   }
 }

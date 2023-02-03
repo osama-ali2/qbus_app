@@ -6,11 +6,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/thank_you_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
@@ -37,7 +34,7 @@ class _RoundTripReviewOrderScreenState
   late RoundTripReviewOrderProvider roundTripReviewOrderProvider;
 
   /// App Bar
-  final appBar = AppBar(
+  late final appBar = AppBar(
     backgroundColor: appColor,
     elevation: 0,
     centerTitle: false,

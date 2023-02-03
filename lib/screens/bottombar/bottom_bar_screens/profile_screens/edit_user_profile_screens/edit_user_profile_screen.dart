@@ -2,19 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/auth/UserResponse.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/toasts.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/change_password_screens/change_password_screen.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/edit_user_profile_screens/edit_user_profile_provider.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/widgets/custom_outline_button.dart';
 
-import '../../../../../res/colors.dart';
-import '../../../../../res/common_padding.dart';
-import '../../../../../res/res.dart';
 import '../../../../../utils/constant.dart';
 import '../../../../../widgets/custom_button.dart';
 import '../../../../../widgets/custom_text.dart';
 import '../../../../../widgets/custom_textField.dart';
+import '../change_password_screens/change_password_screen.dart';
+import 'edit_user_profile_provider.dart';
 
 class EditUserProfileScreen extends StatefulWidget {
   final UserResponse userResponse;

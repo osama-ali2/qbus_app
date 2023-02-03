@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/widgets/text_views.dart';
 
 import '../../../../../utils/constant.dart';
@@ -87,7 +84,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                             .get20HorizontalPadding(),
                   ],
                 )
-              : const Center(
+              : Center(
                   child: Text(AppLocalizations.of(context)!.no_data),
                 ),
         ),

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/toasts.dart';
 import 'package:qbus/screens/hotel_screens/hotel_provider.dart';
 import 'package:qbus/screens/hotel_screens/hotel_screen.dart';
 import 'package:qbus/screens/passenger_screens/passenger_provider.dart';
 import 'package:qbus/screens/project_widgets/passenger_container_widget.dart';
 import 'package:qbus/widgets/custom_text.dart';
-import '../../res/res.dart';
+import 'package:qbus/resources/resources.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
 import '../review_order_screens/review_order_screen.dart';
@@ -46,9 +43,9 @@ class _PassengerScreenState extends State<PassengerScreen> {
   final List<TextEditingController> _fullNameControllers = [];
   final List<TextEditingController> _idNumberControllers = [];
 
-  final _selectedIdentityType =
+  late final _selectedIdentityType =
       AppLocalizations.of(context)!.identity_proof_type;
-  final _selectedCountry = AppLocalizations.of(context)!.country;
+  late final _selectedCountry = AppLocalizations.of(context)!.country;
 
   @override
   void initState() {

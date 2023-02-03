@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/strings.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/screens/passenger_screens/passenger_screen.dart';
 import 'package:qbus/screens/select_addition_screens/select_addition_provider.dart';
@@ -161,13 +158,19 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                                 border: Border.all(color: appColor),
                               ),
                               child: Center(
-                                child: CustomText(
-                                  text: AppLocalizations.of(context)!.continue,
-                                  textSize: sizes!.fontRatio * 15,
-                                  fontWeight: FontWeight.w500,
-                                  textColor: appColor,
-                                ),
-                              ),
+                                  child: CustomText(
+                                text: "Continue",
+                                textSize: sizes!.fontRatio * 15,
+                                fontWeight: FontWeight.w500,
+                                textColor: appColor,
+                              )
+                                  // CustomText(
+                                  //   text: AppLocalizations.of(context)!.continue,
+                                  //   textSize: sizes!.fontRatio * 15,
+                                  //   fontWeight: FontWeight.w500,
+                                  //   textColor: appColor,
+                                  // ),
+                                  ),
                             ),
                           ),
                         ),
@@ -175,7 +178,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                 ],
               ),
             )
-          : const Center(
+          : Center(
               child: Text(AppLocalizations.of(context)!.no_data),
             ),
     );

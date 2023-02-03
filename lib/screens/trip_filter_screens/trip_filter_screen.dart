@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../res/res.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text.dart';
@@ -25,11 +23,8 @@ class TripFilterScreen extends StatefulWidget {
 class _TripFilterScreenState extends State<TripFilterScreen> {
   late TextEditingController couponController;
 
-  var selectedFromCity = AppLocalizations.of(context)!.departure_from;
-  var selectedToCity = AppLocalizations.of(context)!.arrival_to;
   var selectedFromCityId = "-1";
   var selectedToCityId = "-1";
-  var selectedRating = AppLocalizations.of(context)!.rating;
 
   bool hotel5stars = false;
   bool internet = true;
@@ -40,9 +35,13 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
   late DateTime _selectedEndDate;
   late TimeOfDay _selectedTime;
 
-  String _startDate = AppLocalizations.of(context)!.departure_date;
-  String _endDate = AppLocalizations.of(context)!.return_date;
-  String _startTime = AppLocalizations.of(context)!.start_time;
+  late String _startDate = AppLocalizations.of(context)!.departure_date;
+  late String _endDate = AppLocalizations.of(context)!.return_date;
+  late String _startTime = AppLocalizations.of(context)!.start_time;
+
+  late var selectedRating = AppLocalizations.of(context)!.rating;
+  late var selectedFromCity = AppLocalizations.of(context)!.departure_from;
+  late var selectedToCity = AppLocalizations.of(context)!.arrival_to;
 
   late GetStartedProvider getStartedProvider;
 
@@ -115,7 +114,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
         backgroundColor: appColor,
         elevation: 0,
         automaticallyImplyLeading: true,
-        title: const CustomText(
+        title: CustomText(
             text: AppLocalizations.of(context)!.trips,
             textSize: 18,
             fontWeight: FontWeight.w700,
@@ -255,9 +254,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                         ),
                         underline: const SizedBox(),
                         isExpanded: true,
-                        items: getStartedProvider
-                            .cityList // <String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
-                            .map((String value) {
+                        items: getStartedProvider.cityList.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -311,9 +308,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                         ),
                         underline: const SizedBox(),
                         isExpanded: true,
-                        items: getStartedProvider
-                            .cityList //<String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
-                            .map((String value) {
+                        items: getStartedProvider.cityList.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),

@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/project_widgets/filter_container_widget.dart';
 import 'package:qbus/screens/project_widgets/trip_card_container_widget.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';

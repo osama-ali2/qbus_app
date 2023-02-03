@@ -2,18 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/screens/explore_screens/package_detail_screens/package_detail_provider.dart';
-import 'package:qbus/screens/explore_screens/package_select_addition_screens/package_select_addition_screen.dart';
+import 'package:qbus/resources/resources.dart';
 
-import '../../../res/assets.dart';
-import '../../../res/colors.dart';
-import '../../../res/common_padding.dart';
-import '../../../res/res.dart';
 import '../../../utils/constant.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_text.dart';
 import '../../../widgets/text_views.dart';
+import '../package_select_addition_screens/package_select_addition_screen.dart';
+import 'package_detail_provider.dart';
 
 class PackageDetailScreen extends StatefulWidget {
   final String? packageTitle;
@@ -263,10 +259,11 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            PackageSelectAdditionScreen(
-                                              packageId: packageId,
-                                            )));
+                                      builder: (context) =>
+                                          PackageSelectAdditionScreen(
+                                        packageId: packageId,
+                                      ),
+                                    ));
                               },
                               padding: 0)
                           .get20HorizontalPadding(),

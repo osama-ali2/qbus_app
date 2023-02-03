@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screens/profile_screens/return_policy_screens/return_policy_provider.dart';
+import 'package:qbus/resources/resources.dart';
 
-import '../../../../../res/assets.dart';
-import '../../../../../res/colors.dart';
-import '../../../../../res/common_padding.dart';
-import '../../../../../res/res.dart';
 import '../../../../../utils/constant.dart';
 import '../../../../../widgets/custom_text.dart';
 import '../../../../../widgets/text_views.dart';
+import 'return_policy_provider.dart';
 
 class ReturnPolicyScreen extends StatefulWidget {
   const ReturnPolicyScreen({Key? key}) : super(key: key);

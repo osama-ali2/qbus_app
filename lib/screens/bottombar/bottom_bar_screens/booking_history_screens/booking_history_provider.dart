@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/models/booking_history_model/TripHistoryResponse.dart';
 import 'package:qbus/models/rating_models/TripRatingResponse.dart';
-import 'package:qbus/res/toasts.dart';
 import 'package:qbus/widgets/loader.dart';
+import 'package:qbus/resources/resources.dart';
 
 import '../../../../local_cache/utils.dart';
 import '../../../../network_manager/api_url.dart';
 import '../../../../network_manager/models.dart';
 import '../../../../network_manager/my_api.dart';
-import '../../../../res/strings.dart';
 
 class BookingHistoryProvider with ChangeNotifier {
   BuildContext? context;

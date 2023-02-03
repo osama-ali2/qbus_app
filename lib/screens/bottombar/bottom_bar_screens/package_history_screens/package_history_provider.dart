@@ -8,8 +8,8 @@ import 'package:qbus/widgets/loader.dart';
 import '../../../../local_cache/utils.dart';
 import '../../../../network_manager/api_url.dart';
 import '../../../../network_manager/models.dart';
-import '../../../../res/strings.dart';
-import '../../../../res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 
 class PackageHistoryProvider with ChangeNotifier {
   BuildContext? context;

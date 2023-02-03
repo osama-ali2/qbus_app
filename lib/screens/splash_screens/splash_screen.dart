@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:qbus/screens/splash_screens/splash_provider.dart';
 import 'package:qbus/widgets/loader.dart';
 
-import '../../res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/passenger_screens/passenger_screen.dart';
 import 'package:qbus/screens/project_widgets/filter_container_widget.dart';
 import 'package:qbus/screens/project_widgets/trip_card_container_widget.dart';
@@ -13,8 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../navigation/navigation_helper.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
-import '../../res/assets.dart';
-import '../../res/colors.dart';
+
 import '../../widgets/text_views.dart';
 import '../select_addition_screens/select_addition_screen.dart';
 import 'trips_search_provider.dart';

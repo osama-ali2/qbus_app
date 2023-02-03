@@ -7,9 +7,8 @@ import 'package:qbus/local_notification_service/local_notification_service.dart'
 import 'package:qbus/models/PackageFilterModel.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:qbus/screens/project_widgets/package_card_container_widget.dart';
 import 'package:qbus/screens/round_trip_flow/step_one/round_trip_step_one_result.dart';
@@ -47,8 +46,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   final arrivalToController = TextEditingController();
   final dateController = TextEditingController();
 
-  var departureFrom = AppLocalizations.of(context)!.departure_from;
-  var returnTo = AppLocalizations.of(context)!.arrival_to;
+  late var departureFrom = AppLocalizations.of(context)!.departure_from;
+  late var returnTo = AppLocalizations.of(context)!.arrival_to;
 
   var returnToID = "-1";
   var departureFromID = "-1";

@@ -3,19 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/screens/auth/phone_activation_screens/phone_activation_provider.dart';
+import 'package:qbus/navigation/navigation_helper.dart';
+import 'package:qbus/resources/resources.dart';
 
-import '../../../navigation/navigation_helper.dart';
-import '../../../res/assets.dart';
-import '../../../res/common_padding.dart';
-import '../../../res/res.dart';
-import '../../../res/toasts.dart';
-import '../../../utils/constant.dart';
-import '../../../widgets/custom_button.dart';
-import '../../../widgets/text_views.dart';
-import '../../bottombar/bottom_bar_screen.dart';
+import 'package:qbus/screens/auth/phone_activation_screens/phone_activation_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
+import 'package:qbus/utils/constant.dart';
+import 'package:qbus/widgets/custom_button.dart';
+import 'package:qbus/widgets/text_views.dart';
 
 class PhoneActivationScreen extends StatefulWidget {
   final String? phoneNumber;
@@ -41,7 +37,6 @@ class _PhoneActivationScreenState extends State<PhoneActivationScreen>
   int endSecond = 0;
 
   late CustomTimerController _timerController;
-
   late PhoneActivationProvider phoneActivationProvider;
 
   @override
@@ -120,13 +115,13 @@ class _PhoneActivationScreenState extends State<PhoneActivationScreen>
                 CommonPadding.sizeBoxWithHeight(height: 30),
                 Center(
                   child: TextView.getMediumText16(
-                      AppLocalizations.of(context)!.enter_verification_code +
-                          "${widget.phoneNumber}",
-                      Assets.latoBold,
-                      color: AppColors.black900,
-                      fontWeight: FontWeight.w500,
-                      textAlign: TextAlign.center,
-                      lines: 4),
+                    "${AppLocalizations.of(context)!.enter_verification_code}${widget.phoneNumber}",
+                    Assets.latoBold,
+                    color: AppColors.black900,
+                    fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.center,
+                    lines: 4,
+                  ),
                 ).get20HorizontalPadding(),
                 CommonPadding.sizeBoxWithHeight(height: 20),
                 Pinput(
@@ -143,7 +138,7 @@ class _PhoneActivationScreenState extends State<PhoneActivationScreen>
                     debugPrint("Successful :$pin");
                     Toasts.getSuccessToast(
                         text:
-                            AppLocalizations.of(context)!.successful + "$pin");
+                            "${AppLocalizations.of(context)!.successful}$pin");
                   },
                   focusedPinTheme: defaultPinTheme.copyWith(
                     height: sizes!.fontRatio * 58,
@@ -213,6 +208,7 @@ class _PhoneActivationScreenState extends State<PhoneActivationScreen>
     );
   }
 
+  /// Get Timer Text
   Widget _getTimerText() {
     return CustomTimer(
       controller: _timerController,

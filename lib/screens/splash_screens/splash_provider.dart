@@ -4,7 +4,8 @@ import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/screens/bottombar/bottom_bar_screen.dart';
 
 import '../../local_cache/utils.dart';
-import '../../res/strings.dart';
+import 'package:qbus/resources/resources.dart';
+
 
 class SplashProvider with ChangeNotifier {
   BuildContext? context;

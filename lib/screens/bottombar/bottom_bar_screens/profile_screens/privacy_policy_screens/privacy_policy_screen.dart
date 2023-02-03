@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:qbus/resources/resources.dart';
 
-import '../../../../../res/assets.dart';
-import '../../../../../res/colors.dart';
-import '../../../../../res/common_padding.dart';
-import '../../../../../res/res.dart';
-import '../../../../../utils/constant.dart';
-import '../../../../../widgets/custom_text.dart';
-import '../../../../../widgets/text_views.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:qbus/utils/constant.dart';
+import 'package:qbus/widgets/custom_text.dart';
+import 'package:qbus/widgets/text_views.dart';
 import 'privacy_policy_provider.dart';
 
 class PrivacyPolicyScreen extends StatefulWidget {
@@ -42,7 +38,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
-        title: const CustomText(
+        title: CustomText(
           text: AppLocalizations.of(context)!.privacy_policy,
           textSize: 18,
           fontWeight: FontWeight.w700,
@@ -65,14 +61,15 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                   lines: 1),
               CommonPadding.sizeBoxWithHeight(height: 10),
               TextView.getMediumText14(
-                  privacyPolicyProvider
-                          .privacyPolicyResponse.data?.privacyPolicy?.en ??
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Accumsan lorem urna, augue vel est viverra sed placerat quis. Proin laoreet magna ultrices faucibus volutpat urna habitant. Sed lorem nibh tristique egestas facilisis condimentum id tellus. Mattis donec vitae egestas nibh sollicitudin adipiscing consequat aliquam. Blandit dis leo cursus augue nulla mollis erat. Urna, volutpat non sodales lacinia morbi non ut cursus. Elementum fusce netus lacus, a, accumsan"
-                          "At id ut cras odio arcu vulputate. Pellentesque cursus odio bibendum sagittis. Nullam quis nunc consectetur dictum. Sed nibh urna, ullamcorper tortor enim pellentesque vel. Consectetur amet.",
-                  Assets.latoRegular,
-                  color: AppColors.gray,
-                  fontWeight: FontWeight.w400,
-                  lines: 20),
+                privacyPolicyProvider
+                        .privacyPolicyResponse.data?.privacyPolicy?.en ??
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Accumsan lorem urna, augue vel est viverra sed placerat quis. Proin laoreet magna ultrices faucibus volutpat urna habitant. Sed lorem nibh tristique egestas facilisis condimentum id tellus. Mattis donec vitae egestas nibh sollicitudin adipiscing consequat aliquam. Blandit dis leo cursus augue nulla mollis erat. Urna, volutpat non sodales lacinia morbi non ut cursus. Elementum fusce netus lacus, a, accumsan"
+                        "At id ut cras odio arcu vulputate. Pellentesque cursus odio bibendum sagittis. Nullam quis nunc consectetur dictum. Sed nibh urna, ullamcorper tortor enim pellentesque vel. Consectetur amet.",
+                Assets.latoRegular,
+                color: AppColors.gray,
+                fontWeight: FontWeight.w400,
+                lines: 20,
+              ),
             ],
           ).get20HorizontalPadding(),
         ),

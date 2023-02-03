@@ -5,10 +5,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
@@ -202,14 +200,14 @@ class TripCardContainerWidget extends StatelessWidget {
                           },
                         )
                       : Align(
-                    alignment: Alignment.topLeft,
-                        child: CustomText(
+                          alignment: Alignment.topLeft,
+                          child: CustomText(
                             text: "No Additional",
                             textSize: sizes!.fontRatio * 14,
                             fontWeight: FontWeight.w500,
                             textColor: AppColors.black900,
                           ),
-                      ),
+                        ),
                 ),
                 CommonPadding.sizeBoxWithWidth(width: 4),
                 Container(

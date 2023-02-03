@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qbus/res/colors.dart';
+import 'package:qbus/resources/resources.dart';
 import 'package:qbus/widgets/custom_text.dart';
 
 class Counter extends StatelessWidget {

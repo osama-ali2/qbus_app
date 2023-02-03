@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
 
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
 import '../../../local_cache/utils.dart';
-import '../../../res/strings.dart';
 import '../../auth/login_screens/login_screen.dart';
 import 'package_select_addition_provider.dart';
 

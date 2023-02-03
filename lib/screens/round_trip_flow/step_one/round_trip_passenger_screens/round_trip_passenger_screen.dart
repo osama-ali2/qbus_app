@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/project_widgets/round_trip_passenger_container_widget.dart';
 import 'package:qbus/screens/round_trip_flow/step_two/round_trip_step_two_result.dart';
 import 'package:qbus/utils/constant.dart';
@@ -64,8 +62,9 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
   final List<TextEditingController> _fullNameControllers = [];
   final List<TextEditingController> _idNumberControllers = [];
 
-  var selectedIdentityType = AppLocalizations.of(context)!.identity_proof_type;
-  var selectedCountry = AppLocalizations.of(context)!.country;
+  late var selectedIdentityType =
+      AppLocalizations.of(context)!.identity_proof_type;
+  late var selectedCountry = AppLocalizations.of(context)!.country;
 
   final List<String> identityTypeString = [];
   final List<String> countryString = [];

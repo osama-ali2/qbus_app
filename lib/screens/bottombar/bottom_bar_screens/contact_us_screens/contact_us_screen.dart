@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/bottombar/bottom_bar_screens/contact_us_screens/contact_us_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_text.dart';
@@ -23,7 +22,6 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   late TextEditingController subjectController;
   late TextEditingController messageController;
   late TextEditingController phoneNumberController;
-
   late ContactUsProvider contactUsProvider;
 
   @override
@@ -48,7 +46,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
-        title: const CustomText(
+        title: CustomText(
             text: AppLocalizations.of(context)!.contact_us,
             textSize: 18,
             fontWeight: FontWeight.w400,
@@ -109,9 +107,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                 controller: messageController,
                 keyboardType: TextInputType.text,
                 maxLines: 20,
-                decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: AppLocalizations.of(context)!.your_message),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: AppLocalizations.of(context)!.your_message,
+                ),
               ),
             ),
           ),
@@ -136,6 +135,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
     );
   }
 
+  /// Validate Data
   Future<void> validateData() async {
     var name = fullNameController.text.toString().trim();
     var email = emailController.text.toString().trim();

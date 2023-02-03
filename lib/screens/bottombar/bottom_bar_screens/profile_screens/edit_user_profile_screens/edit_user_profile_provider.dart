@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/network_manager/api_url.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
 import 'package:qbus/widgets/loader.dart';
 
 import '../../../../../local_cache/utils.dart';
@@ -9,7 +9,6 @@ import '../../../../../models/cities/GetCitiesResponse.dart';
 import '../../../../../models/profile/UpdateUserProfileResponse.dart';
 import '../../../../../network_manager/models.dart';
 import '../../../../../network_manager/my_api.dart';
-import '../../../../../res/strings.dart';
 
 class EditUserProfileProvider with ChangeNotifier {
   BuildContext? context;

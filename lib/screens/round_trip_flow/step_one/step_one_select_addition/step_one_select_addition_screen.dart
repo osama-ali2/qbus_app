@@ -3,10 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/strings.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
@@ -168,7 +166,7 @@ class _StepOneSelectAdditionScreenState
                 ],
               ),
             )
-          : const Center(
+          : Center(
               child: Text(AppLocalizations.of(context)!.no_data),
             ),
     );

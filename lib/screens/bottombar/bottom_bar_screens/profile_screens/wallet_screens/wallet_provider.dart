@@ -7,7 +7,7 @@ import '../../../../../models/auth/UserResponse.dart';
 import '../../../../../network_manager/api_url.dart';
 import '../../../../../network_manager/models.dart';
 import '../../../../../network_manager/my_api.dart';
-import '../../../../../res/strings.dart';
+import 'package:qbus/resources/resources.dart';
 
 class WalletProvider with ChangeNotifier {
   BuildContext? context;

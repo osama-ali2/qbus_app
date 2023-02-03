@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
 
 extension AlignExtension on Widget {
   Widget getAlign() {

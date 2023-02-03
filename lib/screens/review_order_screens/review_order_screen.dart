@@ -6,15 +6,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/review_order_screens/review_order_provider.dart';
 import 'package:qbus/screens/thank_you_screen.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/text_views.dart';
-import '../../res/colors.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -100,7 +97,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                                   .oneWayOrderReviewResponse.data?.fees
                                   .toString() ??
                               "00.0")
-                      : const Center(
+                      : Center(
                           child: Text(AppLocalizations.of(context)!.no_data),
                         ),
                   reviewOrderProvider.oneWayOrderReviewResponse.data!
@@ -238,7 +235,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
     );
   }
 
-  // Total Calculation Container
+  /// Total Calculation Container
   Widget totalCalculationContainer(
           {required String title, required String value}) =>
       Row(
@@ -262,6 +259,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
         ],
       );
 
+  /// Trip Order Container
   Widget tripOrderContainer({
     required String quantity,
     required String fromTime,
@@ -329,6 +327,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
         ],
       );
 
+  /// Hotel ROom Container
   Widget hotelRoomContainer({
     required String days,
     required String title,
@@ -405,7 +404,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                     lines: 1),
                 CommonPadding.sizeBoxWithWidth(width: 10),
                 TextView.getGenericText(
-                    text: "$counts",
+                    text: counts,
                     fontFamily: Assets.latoRegular,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,

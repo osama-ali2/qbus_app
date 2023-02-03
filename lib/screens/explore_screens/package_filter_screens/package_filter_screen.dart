@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/PackageFilterModel.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
+
 import 'package:qbus/screens/explore_screens/explore_screen.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 
-import '../../../res/res.dart';
+import 'package:qbus/resources/resources.dart';
 import '../../../utils/constant.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_text.dart';

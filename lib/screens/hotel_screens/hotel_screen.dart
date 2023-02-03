@@ -4,18 +4,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/hotel_screens/hotel_filter_screens/hotel_filter_screen.dart';
 import 'package:qbus/screens/hotel_screens/hotel_provider.dart';
 import 'package:qbus/screens/project_widgets/hotel_card_container_widget.dart';
 import 'package:qbus/screens/review_order_screens/review_order_screen.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
-import '../../res/res.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
 

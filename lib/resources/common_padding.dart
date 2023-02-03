@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
 
 class CommonPadding {
   static final commonWidthPadding30 = sizes!.widthRatio * 30.0;

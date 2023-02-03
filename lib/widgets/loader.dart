@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../res/assets.dart';
-import '../res/res.dart';
+import '../resources/resources.dart';
 
 class Loader {
   showLoader({
@@ -25,7 +24,7 @@ class Loader {
     );
   }
 
-  hideLoader(BuildContext context) {
+  void hideLoader(BuildContext context) {
     Navigator.of(context).pop();
   }
 }

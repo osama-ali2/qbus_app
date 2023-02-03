@@ -3,10 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/PackageFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/explore_screens/explore_provider.dart';
 import 'package:qbus/screens/explore_screens/package_detail_screens/package_detail_screen.dart';
 import 'package:qbus/screens/project_widgets/filter_container_widget.dart';
