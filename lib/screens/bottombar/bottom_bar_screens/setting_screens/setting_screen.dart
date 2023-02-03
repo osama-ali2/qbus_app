@@ -47,10 +47,11 @@ class _SettingScreenState extends State<SettingScreen> {
     );
   }
 
-  Widget getRow(
-          {required String title,
-          required String language,
-          required Function? onPress}) =>
+  Widget getRow({
+    required String title,
+    required String language,
+    required Function? onPress,
+  }) =>
       Container(
         height: sizes!.heightRatio * 42,
         width: sizes!.widthRatio * 335,
@@ -77,7 +78,7 @@ class _SettingScreenState extends State<SettingScreen> {
               const Spacer(),
               DropdownButton(
                 onChanged: (language) {
-                  _changeLanguage(language);
+                  _changeLanguage(language as Language);
                 },
                 underline: const SizedBox(),
                 icon: const Icon(
@@ -100,7 +101,7 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  _changeLanguage(language);
+                  _changeLanguage(language as Language);
                 },
                 child: SvgPicture.asset(
                   "assets/svg/forward_icon.svg",
@@ -114,8 +115,8 @@ class _SettingScreenState extends State<SettingScreen> {
       ).get20HorizontalPadding();
 
   /// Change Language
-  void _changeLanguage(lang) {
-    debugPrint("lang: $lang");
-    PreferenceUtils.setString(Strings.language, lang);
+  void _changeLanguage(Language lang) {
+    debugPrint("lang: ${lang.languageCode}");
+    PreferenceUtils.setString(Strings.language, lang.languageCode);
   }
 }
