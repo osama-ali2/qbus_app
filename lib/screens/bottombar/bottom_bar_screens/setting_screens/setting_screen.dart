@@ -16,10 +16,6 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  void _changeLanguage(lang) {
-    PreferenceUtils.setString(Strings.language, lang.languageCode);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,9 +100,7 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  if (onPress != null) {
-                    onPress.call();
-                  }
+                  _changeLanguage(language);
                 },
                 child: SvgPicture.asset(
                   "assets/svg/forward_icon.svg",
@@ -118,4 +112,10 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
         ),
       ).get20HorizontalPadding();
+
+  /// Change Language
+  void _changeLanguage(lang) {
+    debugPrint("lang: $lang");
+    PreferenceUtils.setString(Strings.language, lang);
+  }
 }
