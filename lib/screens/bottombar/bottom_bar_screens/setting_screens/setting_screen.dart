@@ -79,7 +79,7 @@ class _SettingScreenState extends State<SettingScreen> {
               DropdownButton(
                 onChanged: (language) {
                   _changeLanguage(language as Language);
-                  setState(() {});
+                  // setState(() {});
                 },
                 underline: const SizedBox(),
                 icon: const Icon(
@@ -103,7 +103,7 @@ class _SettingScreenState extends State<SettingScreen> {
               GestureDetector(
                 onTap: () {
                   _changeLanguage(language as Language);
-                  setState(() {});
+                  // setState(() {});
                 },
                 child: SvgPicture.asset(
                   "assets/svg/forward_icon.svg",
