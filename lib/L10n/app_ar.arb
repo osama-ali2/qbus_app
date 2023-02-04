@@ -106,5 +106,6 @@
   "hotels": "الفنادق",
   "id_number": "رقم الهوية",
   "passenger": "المسافر",
-  "add_passenger": "اضافة المسافرين"
+  "add_passenger": "اضافة المسافرين",
+  "number_of_rooms": "عدد الغرف"
 }

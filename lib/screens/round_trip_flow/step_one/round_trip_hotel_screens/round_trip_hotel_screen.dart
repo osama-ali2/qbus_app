@@ -87,18 +87,19 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "Hotels",
+            text: AppLocalizations.of(context)!.hotels,
             textSize: sizes!.fontRatio * 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
         actions: [
           Center(
             child: Padding(
-              padding: EdgeInsets.only(right: sizes!.widthRatio * 20),
+              padding: EdgeInsets.only(
+                  right: sizes!.widthRatio * 20, left: sizes!.widthRatio * 20),
               child: GestureDetector(
                 onTap: () async => _skipAndStepTwoTrip(),
                 child: TextView.getGenericText(
-                    text: "Skip",
+                    text: AppLocalizations.of(context)!.skip,
                     fontFamily: Assets.latoRegular,
                     fontSize: 18,
                     fontWeight: FontWeight.w400,

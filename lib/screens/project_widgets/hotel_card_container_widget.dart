@@ -54,7 +54,7 @@ class HotelCardContainerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: sizes!.heightRatio * 136,
+      height: sizes!.heightRatio * 142,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -145,10 +145,11 @@ class HotelCardContainerWidget extends StatelessWidget {
                     ),
                   CommonPadding.sizeBoxWithWidth(width: 2),
                   CustomText(
-                      text: "$ratingNum.0",
-                      textSize: sizes!.fontRatio * 12,
-                      fontWeight: FontWeight.normal,
-                      textColor: Colors.black),
+                    text: "$ratingNum.0",
+                    textSize: sizes!.fontRatio * 12,
+                    fontWeight: FontWeight.normal,
+                    textColor: Colors.black,
+                  ),
                 ],
               ),
               SizedBox(

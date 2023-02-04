@@ -134,8 +134,11 @@ class RoundTripPassengerProvider with ChangeNotifier {
         var l = getCountriesResponse.data!.countries!.length;
         debugPrint("l:$l");
         for (int i = 0; i < l; i++) {
+          // var name =
+          //     getCountriesResponse.data!.countries![i].name!.en.toString();
+
           var name =
-              getCountriesResponse.data!.countries![i].name!.en.toString();
+              getCountriesResponse.data!.countries![i].name!.ar.toString();
           var id = getCountriesResponse.data!.countries![i].id!.toString();
 
           Map<String, dynamic> map = {

@@ -78,8 +78,9 @@ class _HotelScreenState extends State<HotelScreen> {
           Center(
             child: Padding(
                 padding: EdgeInsets.only(
-                    right: sizes!.widthRatio * 20,
-                    left: sizes!.widthRatio * 20),
+                  right: sizes!.widthRatio * 20,
+                  left: sizes!.widthRatio * 20,
+                ),
                 child: GestureDetector(
                   onTap: () async => _skipAndSaveTripOrder(),
                   child: TextView.getGenericText(
