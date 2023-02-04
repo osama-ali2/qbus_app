@@ -4,10 +4,8 @@
 // © 2022-2023  - All Rights Reserved
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/resources/resources.dart';
-
 import 'package:qbus/screens/review_order_screens/review_order_provider.dart';
 import 'package:qbus/screens/thank_you_screen.dart';
 import 'package:qbus/widgets/custom_button.dart';
@@ -263,7 +261,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
               color: AppColors.black900,
               lines: 1),
           TextView.getGenericText(
-            text: "$value SAR",
+            text: "$valueريال ",
             fontFamily: Assets.latoRegular,
             fontSize: 14,
             fontWeight: FontWeight.w400,
@@ -329,7 +327,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                       borderRadius: BorderRadius.circular(5), color: appColor),
                   child: Center(
                     child: CustomText(
-                        text: "SAR $price",
+                        text: " ريال$price",
                         textSize: sizes!.fontRatio * 10,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.white),
@@ -383,7 +381,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                       borderRadius: BorderRadius.circular(5), color: appColor),
                   child: Center(
                     child: CustomText(
-                        text: "SAR $price",
+                        text: " ريال$price",
                         textSize: sizes!.fontRatio * 10,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.white),
@@ -437,7 +435,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                       borderRadius: BorderRadius.circular(5), color: appColor),
                   child: Center(
                     child: CustomText(
-                        text: "SAR $price",
+                        text: " ريال$price",
                         textSize: sizes!.fontRatio * 10,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.white),

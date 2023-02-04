@@ -4,17 +4,14 @@
 // © 2022-2023  - All Rights Reserved
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/resources/resources.dart';
-
 import 'package:qbus/screens/thank_you_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../../../models/order_reviews/RoundOrderReviewResponse.dart';
 import 'round_trip_review_order_provider.dart';
 
@@ -223,7 +220,7 @@ class _RoundTripReviewOrderScreenState
                           lines: 1),
                       TextView.getGenericText(
                           text:
-                              "${roundTripReviewOrderProvider.roundOrderReviewResponse.data!.total.toString()} SAR",
+                              "${roundTripReviewOrderProvider.roundOrderReviewResponse.data!.total.toString()} ريال ",
                           fontFamily: Assets.latoRegular,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -350,7 +347,7 @@ class _RoundTripReviewOrderScreenState
                       borderRadius: BorderRadius.circular(5), color: appColor),
                   child: Center(
                     child: CustomText(
-                        text: "SAR $price",
+                        text: " ريال$price",
                         textSize: sizes!.fontRatio * 10,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.white),
@@ -404,7 +401,7 @@ class _RoundTripReviewOrderScreenState
                       borderRadius: BorderRadius.circular(5), color: appColor),
                   child: Center(
                     child: CustomText(
-                        text: "SAR $price",
+                        text: " ريال$price",
                         textSize: sizes!.fontRatio * 10,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.white),
@@ -476,7 +473,7 @@ class _RoundTripReviewOrderScreenState
                       borderRadius: BorderRadius.circular(5), color: appColor),
                   child: Center(
                     child: CustomText(
-                        text: "SAR $price",
+                        text: " ريال$price",
                         textSize: sizes!.fontRatio * 10,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.white),
