@@ -105,5 +105,6 @@
     "room_type":"Room Type",
     "hotels":"Hotels",
     "id_number":"ID Number",
-    "passenger":"Passenger"
+    "passenger":"Passenger",
+    "number_of_rooms":"Number of Rooms"
 }

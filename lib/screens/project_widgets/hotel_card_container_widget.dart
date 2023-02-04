@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:qbus/resources/resources.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
@@ -122,7 +123,7 @@ class HotelCardContainerWidget extends StatelessWidget {
                     ),
                     child: Center(
                       child: CustomText(
-                        text: "SKR $rent",
+                        text: "ريال $rent",
                         textSize: sizes!.fontRatio * 10,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.white,
@@ -171,7 +172,7 @@ class HotelCardContainerWidget extends StatelessWidget {
               Row(
                 children: [
                   CustomText(
-                      text: "Booking Days",
+                      text: AppLocalizations.of(context)!.booking_days,
                       textSize: sizes!.fontRatio * 12,
                       fontWeight: FontWeight.w400,
                       textColor: AppColors.gray),
@@ -190,7 +191,7 @@ class HotelCardContainerWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomText(
-                    text: "Number of Rooms",
+                    text: AppLocalizations.of(context)!.number_of_rooms,
                     textSize: sizes!.fontRatio * 12,
                     fontWeight: FontWeight.w400,
                     textColor: AppColors.gray,

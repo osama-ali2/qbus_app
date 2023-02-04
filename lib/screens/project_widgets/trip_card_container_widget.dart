@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qbus/resources/resources.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_text.dart';
@@ -205,7 +206,7 @@ class TripCardContainerWidget extends StatelessWidget {
                       : Align(
                           alignment: Alignment.topLeft,
                           child: CustomText(
-                            text: "No Additional",
+                            text: AppLocalizations.of(context)!.no_data,
                             textSize: sizes!.fontRatio * 14,
                             fontWeight: FontWeight.w500,
                             textColor: AppColors.black900,

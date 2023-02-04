@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/resources/resources.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/custom_textField.dart';
@@ -66,7 +67,8 @@ class _RoundTripPassengerContainerWidgetState
       children: [
         CommonPadding.sizeBoxWithHeight(height: 20),
         CustomText(
-            text: "Passenger ${widget.passengerNumber}",
+            text: AppLocalizations.of(context)!.passenger +
+                " ${widget.passengerNumber}",
             textSize: sizes!.fontRatio * 14,
             fontWeight: FontWeight.w700,
             textColor: Colors.black),
@@ -76,7 +78,7 @@ class _RoundTripPassengerContainerWidgetState
           padding: 0,
           validator: (val) => null,
           inputType: TextInputType.text,
-          hint: "Full Name",
+          hint: AppLocalizations.of(context)!.full_name,
         ),
         CommonPadding.sizeBoxWithHeight(height: 10),
         Container(
@@ -137,7 +139,7 @@ class _RoundTripPassengerContainerWidgetState
           padding: 0,
           validator: (val) => null,
           inputType: TextInputType.text,
-          hint: "ID Number",
+          hint: AppLocalizations.of(context)!.id_number,
         ),
         CommonPadding.sizeBoxWithHeight(height: 10),
         Container(
