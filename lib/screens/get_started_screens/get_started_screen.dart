@@ -39,8 +39,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   // Dates
   late DateTime _selectedStartDate;
   late DateTime _selectedEndDate;
-  String _startDate = "Departure Date";
-  String _endDate = "Return Date";
+  String _startDate = "تاريخ المغادرة";
+  String _endDate = "تاريخ العودة";
 
   final departureFromController = TextEditingController();
   final arrivalToController = TextEditingController();

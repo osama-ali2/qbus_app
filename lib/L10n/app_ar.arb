@@ -100,5 +100,10 @@
     "old_password": "كلمة المرور القديمة",
     "old_password_required": "كلمة المرور القديمة مطلوبة",
     "new_password_required": "مطلوب كلمة مرور جديدة",
-    "update": "تحديث"
+    "update": "تحديث",
+    "booking_days":"ليالي الحجز",
+    "room_type":"نوع الغرفة",
+    "hotels":"الفنادق",
+    "id_number":"رقم الهوية",
+    "passenger":"المسافر"
 }

@@ -9,6 +9,7 @@ import 'package:qbus/resources/resources.dart';
 
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/custom_textField.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../passenger_screens/passenger_provider.dart';
 
@@ -65,7 +66,8 @@ class _PassengerContainerWidgetState extends State<PassengerContainerWidget> {
       children: [
         CommonPadding.sizeBoxWithHeight(height: 20),
         CustomText(
-            text: "Passenger ${widget.passengerNumber}",
+            text: AppLocalizations.of(context)!.passenger +
+                " ${widget.passengerNumber}",
             textSize: sizes!.fontRatio * 14,
             fontWeight: FontWeight.w700,
             textColor: Colors.black),
@@ -75,7 +77,7 @@ class _PassengerContainerWidgetState extends State<PassengerContainerWidget> {
           padding: 0,
           validator: (val) => null,
           inputType: TextInputType.text,
-          hint: "Full Name",
+          hint: AppLocalizations.of(context)!.full_name,
         ),
         CommonPadding.sizeBoxWithHeight(height: 10),
         Container(
@@ -136,7 +138,7 @@ class _PassengerContainerWidgetState extends State<PassengerContainerWidget> {
           padding: 0,
           validator: (val) => null,
           inputType: TextInputType.text,
-          hint: "ID Number",
+          hint: AppLocalizations.of(context)!.id_number,
         ),
         CommonPadding.sizeBoxWithHeight(height: 10),
         Container(

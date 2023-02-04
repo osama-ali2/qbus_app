@@ -139,7 +139,7 @@ class _PassengerScreenState extends State<PassengerScreen> {
             ),
             CommonPadding.sizeBoxWithHeight(height: 20),
             CustomButton(
-              name: "Next",
+              name: AppLocalizations.of(context)!.next,
               buttonColor: appColor,
               height: sizes!.heightRatio * 45,
               width: double.infinity,

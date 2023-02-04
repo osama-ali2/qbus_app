@@ -100,5 +100,10 @@
     "old_password":"Old password",
     "old_password_required":"Old password required",
     "new_password_required":"New password required",
-    "update":"Update"
+    "update":"Update",
+    "booking_days":"Booking Days",
+    "room_type":"Room Type",
+    "hotels":"Hotels",
+    "id_number":"ID Number",
+    "passenger":"Passenger"
 }

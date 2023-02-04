@@ -69,7 +69,7 @@ class _HotelScreenState extends State<HotelScreen> {
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "Hotels",
+            text: AppLocalizations.of(context)!.hotels,
             textSize: sizes!.fontRatio * 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
@@ -118,7 +118,7 @@ class _HotelScreenState extends State<HotelScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    "Filter",
+                    AppLocalizations.of(context)!.filter,
                     style: TextStyle(
                       fontSize: sizes!.fontRatio * 14,
                       fontFamily: Assets.latoRegular,
@@ -176,7 +176,7 @@ class _HotelScreenState extends State<HotelScreen> {
                             hotelTitle: hotelName ?? "First Class Hotel",
                             cityName: city,
                             rent: rent,
-                            roomType: "Room Type",
+                            roomType: AppLocalizations.of(context)!.room_type,
                             hotelImage: thumbnailUrl,
                             houseNum: roomNum,
                             bedRoomNum: bedNum,
