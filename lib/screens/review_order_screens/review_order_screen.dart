@@ -68,7 +68,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                 children: [
                   CommonPadding.sizeBoxWithHeight(height: 10),
                   reviewOrderProvider.isOrderReviewLoaded == true
-                      ? tripOrderContainer(
+                      ? _tripOrderContainer(
                           quantity: reviewOrderProvider
                                   .oneWayOrderReviewResponse.data?.count
                                   .toString() ??
@@ -131,7 +131,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                               var title = data.name!.ar.toString();
 
                               var price = data.fees.toString();
-                              return hotelRoomContainer(
+                              return _hotelRoomContainer(
                                 days: days,
                                 title: title,
                                 price: price,
@@ -158,7 +158,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                               var title = data.name.toString();
                               var price = data.fees.toString();
 
-                              return additionalContainer(
+                              return _additionalContainer(
                                 counts: counts,
                                 title: title,
                                 price: price,
@@ -169,9 +169,9 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                       : const Spacer(),
                   CommonPadding.sizeBoxWithHeight(height: 20),
                   Align(
-                    alignment: Alignment.topLeft,
+                    alignment: Alignment.topRight,
                     child: TextView.getGenericText(
-                        text: "Total",
+                        text: AppLocalizations.of(context)!.total_cost,
                         fontFamily: Assets.latoRegular,
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -179,12 +179,12 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                         lines: 1),
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 10),
-                  totalCalculationContainer(
+                  _totalCalculationContainer(
                     title: AppLocalizations.of(context)!.sub_total,
                     value: "00.0",
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 5),
-                  totalCalculationContainer(
+                  _totalCalculationContainer(
                     title: AppLocalizations.of(context)!.discount,
                     value: reviewOrderProvider
                             .oneWayOrderReviewResponse.data?.discount
@@ -192,7 +192,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                         "00.00",
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 5),
-                  totalCalculationContainer(
+                  _totalCalculationContainer(
                     title: AppLocalizations.of(context)!.tax,
                     value: reviewOrderProvider
                             .oneWayOrderReviewResponse.data?.tax
@@ -205,7 +205,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                     thickness: 1,
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 10),
-                  totalCalculationContainer(
+                  _totalCalculationContainer(
                     title: AppLocalizations.of(context)!.total_cost,
                     value: reviewOrderProvider
                             .oneWayOrderReviewResponse.data?.total
@@ -250,7 +250,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
   }
 
   /// Total Calculation Container
-  Widget totalCalculationContainer(
+  Widget _totalCalculationContainer(
           {required String title, required String value}) =>
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -274,7 +274,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
       );
 
   /// Trip Order Container
-  Widget tripOrderContainer({
+  Widget _tripOrderContainer({
     required String quantity,
     required String fromTime,
     required String fromCity,
@@ -298,6 +298,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                     fontWeight: FontWeight.w400,
                     color: AppColors.black900,
                     lines: 1),
+                CommonPadding.sizeBoxWithWidth(width: 10),
                 TextView.getGenericText(
                     text: "$fromTime $fromCity",
                     fontFamily: Assets.latoRegular,
@@ -305,12 +306,13 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                     fontWeight: FontWeight.w400,
                     color: AppColors.black900,
                     lines: 1),
-                SvgPicture.asset(
-                  "assets/svg/skip_icon.svg",
-                  height: sizes!.heightRatio * 24,
-                  width: sizes!.widthRatio * 24,
-                  color: AppColors.black900,
-                ),
+                const Spacer(),
+                // SvgPicture.asset(
+                //   "assets/svg/skip_icon.svg",
+                //   height: sizes!.heightRatio * 24,
+                //   width: sizes!.widthRatio * 24,
+                //   color: AppColors.black900,
+                // ),
                 TextView.getGenericText(
                     text: "$toTime $toCity",
                     fontFamily: Assets.latoRegular,
@@ -318,6 +320,8 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                     fontWeight: FontWeight.w400,
                     color: AppColors.black900,
                     lines: 1),
+                CommonPadding.sizeBoxWithWidth(width: 10),
+
                 Container(
                   height: sizes!.heightRatio * 20,
                   width: sizes!.widthRatio * 55,
@@ -342,7 +346,7 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
       );
 
   /// Hotel ROom Container
-  Widget hotelRoomContainer({
+  Widget _hotelRoomContainer({
     required String days,
     required String title,
     required String price,
@@ -395,7 +399,8 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
         ],
       );
 
-  Widget additionalContainer({
+  /// Additional Container
+  Widget _additionalContainer({
     required String counts,
     required String title,
     required String price,

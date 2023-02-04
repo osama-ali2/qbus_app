@@ -132,7 +132,7 @@ class _RoundTripReviewOrderScreenState
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 20),
                   Align(
-                    alignment: Alignment.topLeft,
+                    alignment: Alignment.topRight,
                     child: TextView.getGenericText(
                         text: AppLocalizations.of(context)!.total_cost,
                         fontFamily: Assets.latoRegular,
@@ -445,6 +445,7 @@ class _RoundTripReviewOrderScreenState
                     fontWeight: FontWeight.w400,
                     color: AppColors.black900,
                     lines: 1),
+                CommonPadding.sizeBoxWithWidth(width: 10),
                 TextView.getGenericText(
                     text: "$fromTime $fromCity",
                     fontFamily: Assets.latoRegular,
@@ -452,12 +453,13 @@ class _RoundTripReviewOrderScreenState
                     fontWeight: FontWeight.w400,
                     color: AppColors.black900,
                     lines: 1),
-                SvgPicture.asset(
-                  "assets/svg/skip_icon.svg",
-                  height: sizes!.heightRatio * 24,
-                  width: sizes!.widthRatio * 24,
-                  color: AppColors.black900,
-                ),
+                const Spacer(),
+                // SvgPicture.asset(
+                //   "assets/svg/skip_icon.svg",
+                //   height: sizes!.heightRatio * 24,
+                //   width: sizes!.widthRatio * 24,
+                //   color: AppColors.black900,
+                // ),
                 TextView.getGenericText(
                     text: "$toTime $toCity",
                     fontFamily: Assets.latoRegular,
@@ -465,6 +467,8 @@ class _RoundTripReviewOrderScreenState
                     fontWeight: FontWeight.w400,
                     color: AppColors.black900,
                     lines: 1),
+                CommonPadding.sizeBoxWithWidth(width: 10),
+
                 Container(
                   height: sizes!.heightRatio * 20,
                   width: sizes!.widthRatio * 55,
