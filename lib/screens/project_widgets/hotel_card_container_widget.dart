@@ -170,13 +170,14 @@ class HotelCardContainerWidget extends StatelessWidget {
                 height: sizes!.heightRatio * 5,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomText(
                       text: AppLocalizations.of(context)!.booking_days,
                       textSize: sizes!.fontRatio * 12,
                       fontWeight: FontWeight.w400,
                       textColor: AppColors.gray),
-                  CommonPadding.sizeBoxWithWidth(width: 60),
+                  CommonPadding.sizeBoxWithWidth(width: 80),
                   Counter(
                     number: bookingDayCounter,
                     onAdd: () => onPlusBookingDayPress.call(),

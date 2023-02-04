@@ -216,10 +216,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   padding:
                       EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 10),
                   child: CustomText(
-                      text: departureFrom,
-                      textSize: 12,
-                      fontWeight: FontWeight.normal,
-                      textColor: Colors.black),
+                    text: departureFrom,
+                    textSize: 12,
+                    fontWeight: FontWeight.normal,
+                    textColor: Colors.black,
+                  ),
                 ),
                 underline: const SizedBox(),
                 isExpanded: true,

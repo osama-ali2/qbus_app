@@ -75,6 +75,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
               bookingHistoryProvider.isTripHistoryLoaded == true
                   ? Expanded(
                       child: ListView.builder(
+                        controller: _scrollController,
                         itemCount: bookingHistoryProvider
                             .tripHistoryResponse.data!.length,
                         itemBuilder: (context, index) {
@@ -88,10 +89,12 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
 
                           var timeFromCity = data.timeFrom.toString();
                           var timeToCity = data.timeTo.toString();
+
                           var fee = data.fees.toString();
                           var rating = data.review.toString();
                           var type = data.status.toString();
                           var trip = data.providerName.toString();
+
                           var isUserAllowReview = data.isUserAllowReview;
                           var tripId = data.tripId;
 
@@ -100,21 +103,22 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                                 horizontal: sizes!.widthRatio * 20,
                                 vertical: sizes!.heightRatio * 5),
                             child: _bookingContainer(
-                                fromCity: fromCity,
-                                toCity: toCity,
-                                fee: fee,
-                                trip: trip,
-                                rating: rating,
-                                type: type,
-                                timeFromCity: timeFromCity,
-                                timeToCity: timeToCity,
-                                onReviewIt: () {
-                                  showAlertDialog(
-                                    context: context,
-                                    tripId: tripId!,
-                                  );
-                                },
-                                isUserAllowReview: isUserAllowReview!),
+                              fromCity: fromCity,
+                              toCity: toCity,
+                              fee: fee,
+                              trip: trip,
+                              rating: rating,
+                              type: type,
+                              timeFromCity: timeFromCity,
+                              timeToCity: timeToCity,
+                              onReviewIt: () {
+                                showAlertDialog(
+                                  context: context,
+                                  tripId: tripId!,
+                                );
+                              },
+                              isUserAllowReview: isUserAllowReview!,
+                            ),
                           );
                         },
                       ),
@@ -258,7 +262,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   TextView.getGenericText(
-                      text: "stationA",
+                      text: fromCity,
                       fontFamily: Assets.latoRegular,
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
@@ -272,7 +276,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                       color: AppColors.gray,
                       lines: 1),
                   TextView.getGenericText(
-                      text: "stationB",
+                      text: toCity,
                       fontFamily: Assets.latoRegular,
                       fontSize: 12,
                       fontWeight: FontWeight.w400,

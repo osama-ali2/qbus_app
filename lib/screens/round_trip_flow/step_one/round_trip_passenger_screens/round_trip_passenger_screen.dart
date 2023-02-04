@@ -134,10 +134,11 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "Add Passengers",
-            textSize: sizes!.fontRatio * 18,
-            fontWeight: FontWeight.w400,
-            textColor: Colors.white),
+          text: AppLocalizations.of(context)!.add_passenger,
+          textSize: sizes!.fontRatio * 18,
+          fontWeight: FontWeight.w400,
+          textColor: Colors.white,
+        ),
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -154,7 +155,7 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
             ),
             CommonPadding.sizeBoxWithHeight(height: 20),
             CustomButton(
-              name: "Next",
+              name: AppLocalizations.of(context)!.next,
               buttonColor: appColor,
               height: sizes!.heightRatio * 45,
               width: double.infinity,

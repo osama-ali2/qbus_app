@@ -63,10 +63,11 @@ class GetStartedProvider with ChangeNotifier {
       debugPrint("packageBody: $body");
 
       packagesResponse = await MyApi.callPostApi(
-          url: packagesApiUrl,
-          body: body,
-          myHeaders: header,
-          modelName: Models.packagesModel);
+        url: packagesApiUrl,
+        body: body,
+        myHeaders: header,
+        modelName: Models.packagesModel,
+      );
 
       if (packagesResponse.code == 1) {
         _logger.d("packagesResponse: ${packagesResponse.toJson()}");
@@ -93,15 +94,17 @@ class GetStartedProvider with ChangeNotifier {
 
       debugPrint("URL: $getCitiesApiUrl");
       getCitiesResponse = await MyApi.callGetApi(
-          url: getCitiesApiUrl,
-          myHeaders: header,
-          modelName: Models.citiesModel);
+        url: getCitiesApiUrl,
+        myHeaders: header,
+        modelName: Models.citiesModel,
+      );
 
       if (getCitiesResponse.code == 1) {
         _logger.i("getCitiesResponse: ${getCitiesResponse.toJson()}");
 
         for (int i = 0; i < getCitiesResponse.data!.cites!.length; i++) {
-          var name = getCitiesResponse.data!.cites![i].name!.en.toString();
+          // var name = getCitiesResponse.data!.cites![i].name!.en.toString();
+          var name = getCitiesResponse.data!.cites![i].name!.ar.toString();
           var id = getCitiesResponse.data!.cites![i].id!.toString();
 
           Map<String, dynamic> map = {

@@ -102,9 +102,9 @@
   "old_password_required": "پرانا پاس ورڈ درکار ہے",
   "new_password_required": "نیا پاس ورڈ درکار ہے",
   "update": "تازہ کاری",
-  "booking_days":"Booking Days",
-  "room_type":"Room Type",
-  "hotels":"Hotels",
-  "id_number":"ID Number",
-  "passenger":"Passenger"
+  "booking_days": "Booking Days",
+  "room_type": "Room Type",
+  "hotels": "Hotels",
+  "id_number": "ID Number",
+  "passenger": "Passenger"
 }

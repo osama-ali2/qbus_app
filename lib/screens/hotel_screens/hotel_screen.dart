@@ -69,25 +69,19 @@ class _HotelScreenState extends State<HotelScreen> {
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: AppLocalizations.of(context)!.hotels,
-            textSize: sizes!.fontRatio * 18,
-            fontWeight: FontWeight.w400,
-            textColor: Colors.white),
+          text: AppLocalizations.of(context)!.hotels,
+          textSize: sizes!.fontRatio * 18,
+          fontWeight: FontWeight.w400,
+          textColor: Colors.white,
+        ),
         actions: [
           Center(
             child: Padding(
-                padding: EdgeInsets.only(right: sizes!.widthRatio * 20),
+                padding: EdgeInsets.only(
+                    right: sizes!.widthRatio * 20,
+                    left: sizes!.widthRatio * 20),
                 child: GestureDetector(
                   onTap: () async => _skipAndSaveTripOrder(),
-
-                  //     Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const ReviewOrderScreen(
-                  //       tripId: 1,
-                  //     ),
-                  //   ),
-                  // ),
                   child: TextView.getGenericText(
                       text: AppLocalizations.of(context)!.skip,
                       fontFamily: Assets.latoRegular,

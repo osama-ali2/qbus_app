@@ -73,9 +73,14 @@ class PassengerProvider with ChangeNotifier {
         var l = identityProofTypesResponse.data!.identityProofTypes!.length;
         debugPrint("l:$l");
         for (int i = 0; i < l; i++) {
+          // var name = identityProofTypesResponse
+          //     .data!.identityProofTypes![i].name!.en
+          //     .toString();
+
           var name = identityProofTypesResponse
-              .data!.identityProofTypes![i].name!.en
+              .data!.identityProofTypes![i].name!.ar
               .toString();
+
           var id = identityProofTypesResponse.data!.identityProofTypes![i].id!
               .toString();
 
