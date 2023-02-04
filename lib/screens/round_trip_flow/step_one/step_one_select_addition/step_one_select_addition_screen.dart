@@ -103,7 +103,10 @@ class _StepOneSelectAdditionScreenState
                           currentIndex = index;
                           var data = stepOneSelectAdditionProvider
                               .tripAdditionalsResponse.data!.additional![index];
-                          var name = data.name!.en.toString();
+
+                          // var name = data.name!.en.toString();
+                          var name = data.name!.ar.toString();
+
                           var additionId = data.id.toString();
                           return _itemContainer(
                             name: name,

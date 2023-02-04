@@ -80,18 +80,21 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                         itemBuilder: (context, index) {
                           var data = bookingHistoryProvider
                               .tripHistoryResponse.data![index];
-                          var fromCity = data.startStationName!.en!.toString();
-                          var toCity = data.arrivalStationName!.en!.toString();
+
+                          // var fromCity = data.startStationName!.en!.toString();
+                          var fromCity = data.startStationName!.ar!.toString();
+                          // var toCity = data.arrivalStationName!.en!.toString();
+                          var toCity = data.arrivalStationName!.ar!.toString();
+
                           var timeFromCity = data.timeFrom.toString();
                           var timeToCity = data.timeTo.toString();
                           var fee = data.fees.toString();
                           var rating = data.review.toString();
                           var type = data.status.toString();
                           var trip = data.providerName.toString();
-
                           var isUserAllowReview = data.isUserAllowReview;
-
                           var tripId = data.tripId;
+
                           return Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: sizes!.widthRatio * 20,
@@ -107,7 +110,9 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                                 timeToCity: timeToCity,
                                 onReviewIt: () {
                                   showAlertDialog(
-                                      context: context, tripId: tripId!);
+                                    context: context,
+                                    tripId: tripId!,
+                                  );
                                 },
                                 isUserAllowReview: isUserAllowReview!),
                           );
@@ -173,8 +178,9 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
             color: Colors.white),
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: sizes!.widthRatio * 10,
-              vertical: sizes!.heightRatio * 20),
+            horizontal: sizes!.widthRatio * 10,
+            vertical: sizes!.heightRatio * 10,
+          ),
           child: Column(
             children: [
               Row(

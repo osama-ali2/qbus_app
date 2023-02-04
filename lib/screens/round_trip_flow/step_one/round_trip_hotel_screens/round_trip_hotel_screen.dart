@@ -145,13 +145,19 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                           .hotelRoomResponse.data!.rooms!.length,
                       itemBuilder: (context, index) {
                         currentIndex = index;
+
                         var data = roundTripHotelProvider
                             .hotelRoomResponse.data!.rooms![index];
-                        var hotelName = data.name?.en.toString();
+
+                        // var hotelName = data.name?.en.toString();
+                        var hotelName = data.name?.ar.toString();
+
                         var city = data.city.toString();
                         var rate = data.rate.toString();
+
                         var roomNum = data.roomQuantity.toString();
                         var bedNum = data.bedQuantity.toString();
+
                         var imageUrl = roundTripHotelProvider
                             .hotelRoomResponse.data!.imageBase
                             .toString();

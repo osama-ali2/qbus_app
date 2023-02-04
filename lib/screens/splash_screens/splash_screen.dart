@@ -5,7 +5,6 @@ import 'package:qbus/widgets/loader.dart';
 
 import 'package:qbus/resources/resources.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 

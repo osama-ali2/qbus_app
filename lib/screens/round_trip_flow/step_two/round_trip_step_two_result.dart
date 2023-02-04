@@ -138,15 +138,31 @@ class _RoundTripStepTwoResultState extends State<RoundTripStepTwoResult> {
                             itemBuilder: (context, i) {
                               var data = roundTripStepTwoProvider
                                   .tripsResponse.data!.trips![i];
+
+                              // var stationA =
+                              //     data.startStationName!.en.toString();
+
                               var stationA =
-                                  data.startStationName!.en.toString();
+                                  data.startStationName!.ar.toString();
+
+                              // var stationB =
+                              //     data.arrivalStationName!.en.toString();
+
                               var stationB =
-                                  data.arrivalStationName!.en.toString();
+                                  data.arrivalStationName!.ar.toString();
+
                               var fees = data.fees.toString();
                               var rate = data.rate.toString();
+
+                              // var fromCityName =
+                              //     data.fromCityName!.en.toString();
+
                               var fromCityName =
-                                  data.fromCityName!.en.toString();
-                              var toCityName = data.toCityName!.en.toString();
+                                  data.fromCityName!.ar.toString();
+
+                              // var toCityName = data.toCityName!.en.toString();
+                              var toCityName = data.toCityName!.ar.toString();
+
                               var timeFrom = data.timeFrom.toString();
                               var timeTo = data.timeTo.toString();
                               var stops = data.stops.toString();

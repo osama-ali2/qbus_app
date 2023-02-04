@@ -65,8 +65,12 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
                         itemBuilder: (context, index) {
                           var data = packageHistoryProvider
                               .packageHistoryResponse.data![index];
-                          var from = data.startingCityName!.en!.toString();
-                          var to = data.name!.en!.toString();
+
+                          // var from = data.startingCityName!.en!.toString();
+                          var from = data.startingCityName!.ar!.toString();
+                          // var to = data.name!.en!.toString();
+                          var to = data.name!.ar!.toString();
+
                           var fee = data.fees.toString();
                           var rating = data.review.toString();
                           var type = data.status.toString();
@@ -74,8 +78,12 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
                           var packageId = data.packageId;
 
                           var startingTime = data.startingTime.toString();
+                          // var startCityName =
+                          //     data.startingCityName!.en.toString();
+
                           var startCityName =
-                              data.startingCityName!.en.toString();
+                              data.startingCityName!.ar.toString();
+
                           var startingDate = data.startingDate.toString();
 
                           var isUserAllowReview = data.isUserAllowReview!;
@@ -133,18 +141,19 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
   }
 
   /// Booking Container
-  Widget _bookingContainer(
-          {required String from,
-          required String to,
-          required String fee,
-          required String trip,
-          required String rating,
-          required String type,
-          required Function? onReviewIt,
-          required bool isUserAllowReview,
-          required String startingDate,
-          required String startingTime,
-          required String startCityName}) =>
+  Widget _bookingContainer({
+    required String from,
+    required String to,
+    required String fee,
+    required String trip,
+    required String rating,
+    required String type,
+    required Function? onReviewIt,
+    required bool isUserAllowReview,
+    required String startingDate,
+    required String startingTime,
+    required String startCityName,
+  }) =>
       Container(
         height: sizes!.heightRatio * 115,
         width: sizes!.widthRatio * 375,
@@ -160,8 +169,9 @@ class _PackageHistoryScreenState extends State<PackageHistoryScreen> {
             color: Colors.white),
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: sizes!.widthRatio * 15,
-              vertical: sizes!.heightRatio * 12),
+            horizontal: sizes!.widthRatio * 15,
+            vertical: sizes!.heightRatio * 12,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

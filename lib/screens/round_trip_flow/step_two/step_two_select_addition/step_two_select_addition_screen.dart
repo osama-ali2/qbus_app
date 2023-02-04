@@ -96,16 +96,13 @@ class _StepTwoSelectAdditionScreenState
                           .tripAdditionalsResponse.data!.additional!.length,
                       itemBuilder: (context, index) {
                         currentIndex = index;
-                        var name = stepTwoSelectAdditionProvider
-                            .tripAdditionalsResponse
-                            .data!
-                            .additional![index]
-                            .name!
-                            .en
-                            .toString();
-                        var additionId = stepTwoSelectAdditionProvider
-                            .tripAdditionalsResponse.data!.additional![index].id
-                            .toString();
+                        var data = stepTwoSelectAdditionProvider
+                            .tripAdditionalsResponse.data!.additional![index];
+
+                        // var name = data.name!.en.toString();
+                        var name = data.name!.ar.toString();
+                        var additionId = data.id.toString();
+
                         return _itemContainer(
                           name: name,
                           index: index,
@@ -196,10 +193,11 @@ class _StepTwoSelectAdditionScreenState
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => RoundTripReviewOrderScreen(
-                    orderId: stepTwoSelectAdditionProvider
-                        .roundOrderTripResponse.data!.tripId!,
-                  )),
+            builder: (context) => RoundTripReviewOrderScreen(
+              orderId: stepTwoSelectAdditionProvider
+                  .roundOrderTripResponse.data!.tripId!,
+            ),
+          ),
         );
       }
     }

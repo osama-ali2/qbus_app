@@ -133,7 +133,9 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                     width: sizes!.widthRatio * 380,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: Colors.grey.shade400)),
+                        border: Border.all(
+                          color: Colors.grey.shade400,
+                        )),
                     child: Row(
                       children: [
                         Padding(
@@ -166,7 +168,9 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                     width: sizes!.widthRatio * 380,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: Colors.grey.shade400)),
+                        border: Border.all(
+                          color: Colors.grey.shade400,
+                        )),
                     child: Row(
                       children: [
                         Padding(
@@ -325,13 +329,14 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                               couponController.text.toString().trim();
 
                           var filterData = PackageFilterModel(
-                              code: couponCode,
-                              starting_city_id: selectCityId,
-                              date_from: _startDate,
-                              date_to: _endDate,
-                              time_from: _startTime,
-                              additional: [],
-                              offset: 0);
+                            code: couponCode,
+                            starting_city_id: selectCityId,
+                            date_from: _startDate,
+                            date_to: _endDate,
+                            time_from: _startTime,
+                            additional: [],
+                            offset: 0,
+                          );
 
                           debugPrint("myGlobal: ${filterData.toJson()}");
                           Navigator.pop(context);
@@ -367,7 +372,8 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                 color: isSelected ? appColor : Colors.white,
                 borderRadius: BorderRadius.circular(2),
                 border: Border.all(
-                    color: isSelected ? appColor : Colors.grey.shade400)),
+                  color: isSelected ? appColor : Colors.grey.shade400,
+                )),
             child: const Icon(
               Icons.check,
               size: 16,

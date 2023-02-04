@@ -107,10 +107,11 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
                           padding: EdgeInsets.symmetric(
                               horizontal: sizes!.widthRatio * 10),
                           child: CustomText(
-                              text: updateCity,
-                              textSize: 12,
-                              fontWeight: FontWeight.normal,
-                              textColor: Colors.black),
+                            text: updateCity,
+                            textSize: 12,
+                            fontWeight: FontWeight.normal,
+                            textColor: Colors.black,
+                          ),
                         ),
                         underline: const SizedBox(),
                         isExpanded: true,

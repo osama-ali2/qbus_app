@@ -145,16 +145,22 @@ class _HotelScreenState extends State<HotelScreen> {
                           hotelProvider.hotelRoomResponse.data!.rooms!.length,
                       itemBuilder: (context, index) {
                         currentIndex = index;
+
                         var data =
                             hotelProvider.hotelRoomResponse.data!.rooms![index];
-                        var hotelName = data.name?.en.toString();
+
+                        // var hotelName = data.name?.en.toString();
+                        var hotelName = data.name?.ar.toString();
+
                         var city = data.city.toString();
                         var rate = data.rate.toString();
+
                         var roomNum = data.roomQuantity.toString();
                         var bedNum = data.bedQuantity.toString();
                         var imageUrl = hotelProvider
                             .hotelRoomResponse.data!.imageBase
                             .toString();
+
                         var image = data.image.toString();
                         var thumbnailUrl = "$imageUrl/$image";
                         var roomId = int.parse("${data.id}");

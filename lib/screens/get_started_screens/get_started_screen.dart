@@ -448,10 +448,13 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                         var data = getStartedProvider
                             .packagesResponse.data!.packages![i];
                         var packageId = data.id.toString();
-                        var packageName = data.name!.en.toString();
+                        // var packageName = data.name!.en.toString();
+                        var packageName = data.name!.ar.toString();
+
                         var rating = data.rate.toString();
                         var fee = data.fees.toString();
                         var image = data.image.toString();
+
                         var baseUrl = getStartedProvider
                             .packagesResponse.data!.imageBase
                             .toString();
@@ -465,19 +468,21 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                           child: GestureDetector(
                             onTap: () {
                               NavigationHelper.pushRoute(
-                                  context,
-                                  PackageDetailScreen(
-                                    packageTitle: packageName,
-                                    packageId: packageId,
-                                  ));
+                                context,
+                                PackageDetailScreen(
+                                  packageTitle: packageName,
+                                  packageId: packageId,
+                                ),
+                              );
                             },
                             child: PackageCardContainerWidget(
-                                title: packageName,
-                                rating: rating,
-                                fee: fee,
-                                dateFrom: dateFrom,
-                                detail: detail,
-                                image: thumbnailImage),
+                              title: packageName,
+                              rating: rating,
+                              fee: fee,
+                              dateFrom: dateFrom,
+                              detail: detail,
+                              image: thumbnailImage,
+                            ),
                           ),
                         );
                       }))
@@ -495,6 +500,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     );
   }
 
+  /// Validate Trip Data
   void validateTripData() {
     debugPrint("departureFromID: $departureFromID, "
         "arrivalToID: $returnToID,"
@@ -575,10 +581,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             width: 3,
           ),
           CustomText(
-              text: name,
-              textSize: sizes!.fontRatio * 12,
-              fontWeight: FontWeight.normal,
-              textColor: Colors.black)
+            text: name,
+            textSize: sizes!.fontRatio * 12,
+            fontWeight: FontWeight.normal,
+            textColor: Colors.black,
+          )
         ],
       ),
     );

@@ -76,6 +76,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
     });
   }
 
+  /// Present End Date
   void _presentEndDate() {
     showDatePicker(
       initialEntryMode: DatePickerEntryMode.input,
@@ -93,6 +94,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
     });
   }
 
+  /// Present Time
   void _presentTime() {
     showTimePicker(context: context, initialTime: TimeOfDay.now())
         .then((pickedTime) {
@@ -464,6 +466,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
     );
   }
 
+  /// Check Box Container
   Widget _checkBoxContainer(
       BuildContext context, bool isSelected, String name, Function onTap) {
     return InkWell(

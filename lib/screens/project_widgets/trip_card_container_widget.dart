@@ -26,25 +26,25 @@ class TripCardContainerWidget extends StatelessWidget {
   final String providerName;
   final List<Additionals> additionals;
 
-  const TripCardContainerWidget(
-      {Key? key,
-      required this.stationA,
-      required this.stationB,
-      required this.fees,
-      required this.rate,
-      required this.fromCityName,
-      required this.toCityName,
-      required this.timeFrom,
-      required this.timeTo,
-      required this.stops,
-      required this.providerName,
-      required this.additionals})
-      : super(key: key);
+  const TripCardContainerWidget({
+    Key? key,
+    required this.stationA,
+    required this.stationB,
+    required this.fees,
+    required this.rate,
+    required this.fromCityName,
+    required this.toCityName,
+    required this.timeFrom,
+    required this.timeTo,
+    required this.stops,
+    required this.providerName,
+    required this.additionals,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: sizes!.heightRatio * 188,
+      height: sizes!.heightRatio * 190,
       width: sizes!.widthRatio * 335,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -59,8 +59,9 @@ class TripCardContainerWidget extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: sizes!.widthRatio * 10,
-            vertical: sizes!.heightRatio * 20),
+          horizontal: sizes!.widthRatio * 10,
+          vertical: sizes!.heightRatio * 10,
+        ),
         child: Column(
           children: [
             Row(
@@ -190,7 +191,9 @@ class TripCardContainerWidget extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           itemCount: additionals.length,
                           itemBuilder: (context, index) {
-                            var data = additionals[index].en;
+                            // var data = additionals[index].en;
+                            var data = additionals[index].ar;
+
                             return CustomText(
                               text: "$data, ",
                               textSize: sizes!.fontRatio * 14,

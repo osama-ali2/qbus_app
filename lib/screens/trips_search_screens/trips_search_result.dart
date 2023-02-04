@@ -125,16 +125,33 @@ class _SearchResultState extends State<SearchResult> {
                               itemBuilder: (context, i) {
                                 var tripData = searchProvider
                                     .tripsResponse.data!.trips![i];
+                                // var stationA =
+                                //     tripData.startStationName!.en.toString();
+
                                 var stationA =
-                                    tripData.startStationName!.en.toString();
+                                    tripData.startStationName!.ar.toString();
+
+                                // var stationB =
+                                //     tripData.arrivalStationName!.en.toString();
+
                                 var stationB =
-                                    tripData.arrivalStationName!.en.toString();
+                                    tripData.arrivalStationName!.ar.toString();
+
                                 var fees = tripData.fees.toString();
                                 var rate = tripData.rate.toString();
+
+                                // var fromCityName =
+                                //     tripData.fromCityName!.en.toString();
+
                                 var fromCityName =
-                                    tripData.fromCityName!.en.toString();
+                                    tripData.fromCityName!.ar.toString();
+
+                                // var toCityName =
+                                //     tripData.toCityName!.en.toString();
+
                                 var toCityName =
-                                    tripData.toCityName!.en.toString();
+                                    tripData.toCityName!.ar.toString();
+
                                 var timeFrom = tripData.timeFrom.toString();
                                 var timeTo = tripData.timeTo.toString();
                                 var stops = tripData.stops.toString();

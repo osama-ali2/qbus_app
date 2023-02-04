@@ -61,8 +61,11 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                   lines: 1),
               CommonPadding.sizeBoxWithHeight(height: 10),
               TextView.getMediumText14(
+                //
+                // privacyPolicyProvider
+                //         .privacyPolicyResponse.data?.privacyPolicy?.en
                 privacyPolicyProvider
-                        .privacyPolicyResponse.data?.privacyPolicy?.en ??
+                        .privacyPolicyResponse.data?.privacyPolicy?.ar ??
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Accumsan lorem urna, augue vel est viverra sed placerat quis. Proin laoreet magna ultrices faucibus volutpat urna habitant. Sed lorem nibh tristique egestas facilisis condimentum id tellus. Mattis donec vitae egestas nibh sollicitudin adipiscing consequat aliquam. Blandit dis leo cursus augue nulla mollis erat. Urna, volutpat non sodales lacinia morbi non ut cursus. Elementum fusce netus lacus, a, accumsan"
                         "At id ut cras odio arcu vulputate. Pellentesque cursus odio bibendum sagittis. Nullam quis nunc consectetur dictum. Sed nibh urna, ullamcorper tortor enim pellentesque vel. Consectetur amet.",
                 Assets.latoRegular,

@@ -28,7 +28,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   // The controller for the ListView
   late ScrollController _scrollController;
-
   int index = 0;
 
   @override
@@ -72,10 +71,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
         backgroundColor: appColor,
         elevation: 0,
         title: CustomText(
-            text: AppLocalizations.of(context)!.explore_packages,
-            textSize: sizes!.fontRatio * 18,
-            fontWeight: FontWeight.w400,
-            textColor: Colors.white),
+          text: AppLocalizations.of(context)!.explore_packages,
+          textSize: sizes!.fontRatio * 18,
+          fontWeight: FontWeight.w400,
+          textColor: Colors.white,
+        ),
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -91,6 +91,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     );
   }
 
+  /// Get UI
   Widget _getUI(BuildContext context) {
     return Column(
       children: [
@@ -116,7 +117,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               var data = exploreProvider
                                   .packagesResponse.data!.packages![i];
                               var packageId = data.id.toString();
-                              var packageName = data.name!.en.toString();
+
+                              // var packageName = data.name!.en.toString();
+                              var packageName = data.name!.ar.toString();
+
                               var rating = data.rate.toString();
                               var fee = data.fees.toString();
                               var image = data.image.toString();
@@ -139,22 +143,24 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                         ));
                                   },
                                   child: PackageCardContainerWidget(
-                                      title: packageName,
-                                      rating: rating,
-                                      fee: fee,
-                                      dateFrom: dateFrom,
-                                      detail: detail,
-                                      image: thumbnailImage),
+                                    title: packageName,
+                                    rating: rating,
+                                    fee: fee,
+                                    dateFrom: dateFrom,
+                                    detail: detail,
+                                    image: thumbnailImage,
+                                  ),
                                 ),
                               );
                             })
                         : Center(
                             child: TextView.getSubHeadingTextWith15(
-                                AppLocalizations.of(context)!.no_data,
-                                Assets.latoBold,
-                                color: AppColors.blueHomeColor,
-                                lines: 1,
-                                fontWeight: FontWeight.normal),
+                              AppLocalizations.of(context)!.no_data,
+                              Assets.latoBold,
+                              color: AppColors.blueHomeColor,
+                              lines: 1,
+                              fontWeight: FontWeight.normal,
+                            ),
                           ),
               )
             : Container(),

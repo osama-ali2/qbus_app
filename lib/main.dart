@@ -90,7 +90,8 @@ class MyApp extends StatelessWidget {
         ),
         home: const SplashScreen(),
         //TODO: Uncomment this
-        locale: Locale(PreferenceUtils.getString(Strings.language) ?? "en"),
+        locale: const Locale('ar'),
+        //Locale(PreferenceUtils.getString(Strings.language) ?? "en"),
         debugShowCheckedModeBanner: false,
       ),
     );

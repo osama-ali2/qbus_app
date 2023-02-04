@@ -77,26 +77,36 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                                   .oneWayOrderReviewResponse.data?.timeFrom
                                   .toString() ??
                               "null",
-                          fromCity: reviewOrderProvider
-                                  .oneWayOrderReviewResponse
-                                  .data
-                                  ?.fromCity
-                                  ?.name
-                                  ?.en
-                                  .toString() ??
-                              "null",
+                          fromCity:
+                              // reviewOrderProvider
+                              //         .oneWayOrderReviewResponse
+                              //         .data
+                              //         ?.fromCity
+                              //         ?.name
+                              //         ?.en
+                              //         .toString() ??
+                              reviewOrderProvider.oneWayOrderReviewResponse.data
+                                      ?.fromCity?.name?.ar
+                                      .toString() ??
+                                  "null",
                           toTime: reviewOrderProvider
                                   .oneWayOrderReviewResponse.data?.timeTo
                                   .toString() ??
                               "null",
-                          toCity: reviewOrderProvider.oneWayOrderReviewResponse
-                                  .data?.toCity?.name?.en
-                                  .toString() ??
-                              "null",
+                          toCity:
+                              // reviewOrderProvider.oneWayOrderReviewResponse
+                              //         .data?.toCity?.name?.en
+                              //         .toString() ??
+
+                              reviewOrderProvider.oneWayOrderReviewResponse.data
+                                      ?.toCity?.name?.ar
+                                      .toString() ??
+                                  "null",
                           price: reviewOrderProvider
                                   .oneWayOrderReviewResponse.data?.fees
                                   .toString() ??
-                              "00.0")
+                              "00.0",
+                        )
                       : Center(
                           child: Text(AppLocalizations.of(context)!.no_data),
                         ),
@@ -116,7 +126,10 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                                   .hotelsRooms![index];
 
                               var days = data.days.toString();
-                              var title = data.name!.en.toString();
+
+                              // var title = data.name!.en.toString();
+                              var title = data.name!.ar.toString();
+
                               var price = data.fees.toString();
                               return hotelRoomContainer(
                                 days: days,
@@ -167,8 +180,9 @@ class _ReviewOrderScreenState extends State<ReviewOrderScreen> {
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 10),
                   totalCalculationContainer(
-                      title: AppLocalizations.of(context)!.sub_total,
-                      value: "00.0"),
+                    title: AppLocalizations.of(context)!.sub_total,
+                    value: "00.0",
+                  ),
                   CommonPadding.sizeBoxWithHeight(height: 5),
                   totalCalculationContainer(
                     title: AppLocalizations.of(context)!.discount,

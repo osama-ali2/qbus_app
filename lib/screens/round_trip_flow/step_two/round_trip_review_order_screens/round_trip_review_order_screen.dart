@@ -79,6 +79,7 @@ class _RoundTripReviewOrderScreenState
                         /// Data
                         var data = roundTripReviewOrderProvider
                             .roundOrderReviewResponse.data!;
+
                         var discount = data.discount.toString();
                         var taxValue = data.tax.toString();
                         var total = data.total.toString();
@@ -89,8 +90,13 @@ class _RoundTripReviewOrderScreenState
                         var timeTo = dataTrip.timeTo.toString();
                         var dateFrom = dataTrip.dateFrom.toString();
                         var dateTo = dataTrip.dateTo.toString();
-                        var fromCity = dataTrip.fromCity!.name!.en.toString();
-                        var toCity = dataTrip.toCity!.name!.en.toString();
+
+                        // var fromCity = dataTrip.fromCity!.name!.en.toString();
+                        var fromCity = dataTrip.fromCity!.name!.ar.toString();
+
+                        // var toCity = dataTrip.toCity!.name!.en.toString();
+                        var toCity = dataTrip.toCity!.name!.ar.toString();
+
                         var count = dataTrip.count.toString();
                         var tripFee = dataTrip.fees.toString();
 

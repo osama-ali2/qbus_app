@@ -27,7 +27,6 @@ class _PackageSelectAdditionScreenState
   int hotel = 0;
   int chicken = 0;
   int water = 0;
-
   int currentIndex = 0;
 
   late PackageSelectAdditionProvider packageSelectAdditionProvider;
@@ -86,7 +85,8 @@ class _PackageSelectAdditionScreenState
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const LoginScreen()));
+                              builder: (context) => const LoginScreen(),
+                            ));
                       },
                       child: Container(
                         height: sizes!.heightRatio * 45,
@@ -125,12 +125,20 @@ class _PackageSelectAdditionScreenState
                       .packageAdditionalsResponse.data!.additional!.length,
                   itemBuilder: (context, index) {
                     currentIndex = index;
+                    // var name = packageSelectAdditionProvider
+                    //     .packageAdditionalsResponse
+                    //     .data!
+                    //     .additional![index]
+                    //     .name!
+                    //     .en
+                    //     .toString();
+
                     var name = packageSelectAdditionProvider
                         .packageAdditionalsResponse
                         .data!
                         .additional![index]
                         .name!
-                        .en
+                        .ar
                         .toString();
                     return itemContainer(name: name, index: index);
                   }),
@@ -141,6 +149,7 @@ class _PackageSelectAdditionScreenState
     );
   }
 
+  /// Item Container
   Widget itemContainer({required String name, required int index}) => Column(
         children: [
           const SizedBox(
@@ -175,12 +184,14 @@ class _PackageSelectAdditionScreenState
         ],
       );
 
-  Widget _items(
-      {required BuildContext context,
-      required String name,
-      required Function add,
-      required Function minus,
-      required int number}) {
+  /// Items
+  Widget _items({
+    required BuildContext context,
+    required String name,
+    required Function add,
+    required Function minus,
+    required int number,
+  }) {
     return Container(
       height: sizes!.heightRatio * 60,
       width: MediaQuery.of(context).size.width,

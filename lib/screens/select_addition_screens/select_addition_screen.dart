@@ -98,19 +98,29 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                             .tripAdditionalsResponse.data!.additional!.length,
                         itemBuilder: (context, index) {
                           currentIndex = index;
+                          // var name = selectAdditionProvider
+                          //     .tripAdditionalsResponse
+                          //     .data!
+                          //     .additional![index]
+                          //     .name!
+                          //     .en
+                          //     .toString();
+                          //
                           var name = selectAdditionProvider
                               .tripAdditionalsResponse
                               .data!
                               .additional![index]
                               .name!
-                              .en
+                              .ar
                               .toString();
+
                           var additionId = selectAdditionProvider
                               .tripAdditionalsResponse
                               .data!
                               .additional![index]
                               .id
                               .toString();
+
                           return _itemContainer(
                             name: name,
                             index: index,
