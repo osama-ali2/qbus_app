@@ -178,7 +178,7 @@ class HotelCardContainerWidget extends StatelessWidget {
                       textSize: sizes!.fontRatio * 12,
                       fontWeight: FontWeight.w400,
                       textColor: AppColors.gray),
-                  CommonPadding.sizeBoxWithWidth(width: 80),
+                  CommonPadding.sizeBoxWithWidth(width: 65),
                   Counter(
                     number: bookingDayCounter,
                     onAdd: () => onPlusBookingDayPress.call(),
@@ -198,7 +198,7 @@ class HotelCardContainerWidget extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     textColor: AppColors.gray,
                   ),
-                  CommonPadding.sizeBoxWithWidth(width: 36),
+                  CommonPadding.sizeBoxWithWidth(width: 70),
                   Counter(
                     number: numberOfRoomCounter,
                     onAdd: () => onPlusRoomPress.call(),
