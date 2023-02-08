@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/resources/resources.dart';
-
-import '../../../utils/constant.dart';
-import '../../../widgets/custom_button.dart';
-import '../../../widgets/custom_text.dart';
-import '../../../widgets/text_views.dart';
+import 'package:qbus/utils/constant.dart';
+import 'package:qbus/widgets/custom_button.dart';
+import 'package:qbus/widgets/custom_text.dart';
+import 'package:qbus/widgets/text_views.dart';
 import '../package_select_addition_screens/package_select_addition_screen.dart';
 import 'package_detail_provider.dart';
 
@@ -36,7 +35,7 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
 
     debugPrint("widget.packageId!: ${widget.packageId!}");
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      packageDetailProvider.getPackagesData(id: widget.packageId!);
+      packageDetailProvider.getPackagesDetail(id: widget.packageId!);
     });
   }
 
@@ -48,10 +47,11 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
         backgroundColor: appColor,
         elevation: 0,
         title: CustomText(
-            text: widget.packageTitle ?? "Package Detail",
-            textSize: sizes!.fontRatio * 18,
-            fontWeight: FontWeight.w700,
-            textColor: Colors.white),
+          text: widget.packageTitle ?? "Package Detail",
+          textSize: sizes!.fontRatio * 18,
+          fontWeight: FontWeight.w700,
+          textColor: Colors.white,
+        ),
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -128,7 +128,7 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                         //         .packages!.description!.en
 
                         packageDetailProvider.packageDetailResponse.data!
-                                .packages!.description!.ar ??
+                                .packages?.description ??
                             "Sed congue risus sit amet massa suscipit travel bibendum. Sed vulputate nec dolor at a tempus. Vestibulum a dolor posuere sapien laoreet trip a iaculis sit amet nec ipsum. Integer ac sapien on orci. Etiam quis neque eros. Sed enim an mauris, viverra sit amet velit non, maximus ullamcorper mauris. Sed fringilla velit a mollis vehicul travel.",
                         Assets.latoBold,
                         color: AppColors.gray300,
@@ -180,8 +180,6 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                                   .toString();
 
                               return Container(
-                                // height: sizes!.heightRatio * 20,
-                                // width: sizes!.widthRatio * 20,
                                 decoration: BoxDecoration(
                                   color: AppColors.primary,
                                   borderRadius: BorderRadius.circular(5),
@@ -227,20 +225,26 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                               .packageDetailResponse.data!.packages!.id
                               .toString();
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    PackageSelectAdditionScreen(
-                                  packageId: packageId,
-                                ),
-                              ));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PackageSelectAdditionScreen(
+                                packageId: packageId,
+                              ),
+                            ),
+                          );
                         },
                         padding: 0,
                       ).get20HorizontalPadding(),
                     ],
                   )
-                : const Center(
-                    child: Text("No Data Available"),
+                : Center(
+                    child: TextView.getMediumText14(
+                      "No Data Available",
+                      Assets.latoRegular,
+                      color: AppColors.gray300,
+                      fontWeight: FontWeight.w400,
+                      lines: 1,
+                    ),
                   ),
           ),
         ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/models/PackageFilterModel.dart';
+import 'package:qbus/network_manager/api_url.dart';
+import 'package:qbus/network_manager/models.dart';
+import 'package:qbus/network_manager/my_api.dart';
 import 'package:qbus/widgets/loader.dart';
 import '../../models/packages/PackagesResponse.dart';
-import '../../network_manager/api_url.dart';
-import '../../network_manager/models.dart';
-import '../../network_manager/my_api.dart';
 
 class ExploreProvider with ChangeNotifier {
   BuildContext? context;

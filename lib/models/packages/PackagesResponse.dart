@@ -1,7 +1,11 @@
+/// message : "success"
+/// code : 1
+/// data : {"packages":[{"id":1,"provider_id":1,"name":{"en":"مكة مدينة","ar":"مكة مدينة","ur":"مكة مدينة"},"description":"","image":"1671479582_كعبة.jpg","destinations":["1","5","6"],"trips":["61","61","61"],"destinations_move_dates":["2023-12-19","2022-01-22",""],"destinations_move_times":["14:00","21:00","13:30"],"fees":150,"starting_city_id":4,"date_from":"2023-12-19","date_to":"2022-12-23","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"created_at":"2022-12-19T19:53:02.000000Z","updated_at":"2023-02-08T12:35:47.000000Z"},{"id":2,"provider_id":1,"name":{"en":"مكة مدينة","ar":"مكة مدينة","ur":"مكة مدينة"},"description":"","image":"1671655050_كعبة.jpg","destinations":["1","5","6"],"trips":["8","5","6"],"destinations_move_dates":["2022-12-22","2022-12-22","2022-12-23"],"destinations_move_times":["14:00","21:00","13:30"],"fees":150,"starting_city_id":4,"date_from":"2022-12-21","date_to":"2022-12-23","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[],"rate":0,"created_at":"2022-12-21T20:37:30.000000Z","updated_at":"2022-12-21T20:37:30.000000Z"},{"id":3,"provider_id":1,"name":{"en":"مكة عمرة  وزيارة المدينة المنورة","ar":"مكة عمرة وزيارة المدينة المنورة","ur":"مكة عمرة وزيارة المدينة المنورة"},"description":"","image":"1671882946_278-الكعبة.jpg","destinations":["1","5","6"],"trips":["9","13","14"],"destinations_move_dates":["2022-12-26","2022-12-29","2022-12-30"],"destinations_move_times":["14:00","21:00","14:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-26","date_to":"2022-12-26","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[],"rate":0,"created_at":"2022-12-24T11:55:46.000000Z","updated_at":"2022-12-24T11:55:46.000000Z"},{"id":4,"provider_id":1,"name":{"en":"مكة عمرة وزيارة المدينة المنورة","ar":"مكة عمرة وزيارة المدينة المنورة","ur":"مكة عمرة وزيارة المدينة المنورة"},"description":"","image":"1671883029_278-الكعبة.jpg","destinations":["1","5","6"],"trips":["10","13","14"],"destinations_move_dates":["2022-12-28","2022-12-29","2022-12-30"],"destinations_move_times":["14:00","21:00","14:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-28","date_to":"2022-12-28","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[],"rate":0,"created_at":"2022-12-24T11:57:09.000000Z","updated_at":"2022-12-24T11:57:09.000000Z"},{"id":5,"provider_id":1,"name":{"en":"Makkah","ar":"مكة","ur":"مکہ"},"description":"","image":"1671978513_278-الكعبة.jpg","destinations":["1","2"],"trips":["9","12"],"destinations_move_dates":["2022-12-26",""],"destinations_move_times":["14:00","09:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-26","date_to":"2022-12-26","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[],"rate":0,"created_at":"2022-12-25T14:28:33.000000Z","updated_at":"2022-12-25T14:29:17.000000Z"},{"id":6,"provider_id":1,"name":{"en":"Makkah","ar":"مكة","ur":"مکہ"},"description":"","image":"1671978720_278-الكعبة.jpg","destinations":["1","2"],"trips":["10","12"],"destinations_move_dates":["2022-12-28","2022-12-31"],"destinations_move_times":["14:00","09:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-28","date_to":"2022-12-28","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[],"rate":0,"created_at":"2022-12-25T14:30:38.000000Z","updated_at":"2022-12-25T14:32:00.000000Z"},{"id":7,"provider_id":1,"name":{"en":"Makkah","ar":"مكة","ur":"مکہ"},"description":"","image":"1671978797_278-الكعبة.jpg","destinations":["1","2"],"trips":["11","12"],"destinations_move_dates":["2022-12-29","2022-12-31"],"destinations_move_times":["14:00","09:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-29","date_to":"2022-12-29","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[],"rate":0,"created_at":"2022-12-25T14:33:17.000000Z","updated_at":"2022-12-25T14:33:17.000000Z"},{"id":8,"provider_id":1,"name":{"en":"Makkah 01/30 Monday","ar":"مكة 01/30 الاثنين","ur":"مکہ 01/30پیر"},"description":"","image":"1674988757_278-الكعبة.jpg","destinations":["1","2"],"trips":["51","55"],"destinations_move_dates":["2023-01-30",""],"destinations_move_times":["14:00","08:30"],"fees":150,"starting_city_id":4,"date_from":"2023-01-30","date_to":"2023-01-31","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[],"rate":0,"created_at":"2023-01-29T10:39:17.000000Z","updated_at":"2023-01-29T11:34:43.000000Z"}],"image_base":"https://qbus-sa.com/public/images/packages"}
+
 class PackagesResponse {
   PackagesResponse({
     String? message,
-    int? code,
+    num? code,
     Data? data,
   }) {
     _message = message;
@@ -16,12 +20,12 @@ class PackagesResponse {
   }
 
   String? _message;
-  int? _code;
+  num? _code;
   Data? _data;
 
   String? get message => _message;
 
-  int? get code => _code;
+  num? get code => _code;
 
   Data? get data => _data;
 
@@ -35,6 +39,9 @@ class PackagesResponse {
     return map;
   }
 }
+
+/// packages : [{"id":1,"provider_id":1,"name":{"en":"مكة مدينة","ar":"مكة مدينة","ur":"مكة مدينة"},"description":"","image":"1671479582_كعبة.jpg","destinations":["1","5","6"],"trips":["61","61","61"],"destinations_move_dates":["2023-12-19","2022-01-22",""],"destinations_move_times":["14:00","21:00","13:30"],"fees":150,"starting_city_id":4,"date_from":"2023-12-19","date_to":"2022-12-23","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"created_at":"2022-12-19T19:53:02.000000Z","updated_at":"2023-02-08T12:35:47.000000Z"},{"id":2,"provider_id":1,"name":{"en":"مكة مدينة","ar":"مكة مدينة","ur":"مكة مدينة"},"description":"","image":"1671655050_كعبة.jpg","destinations":["1","5","6"],"trips":["8","5","6"],"destinations_move_dates":["2022-12-22","2022-12-22","2022-12-23"],"destinations_move_times":["14:00","21:00","13:30"],"fees":150,"starting_city_id":4,"date_from":"2022-12-21","date_to":"2022-12-23","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[],"rate":0,"created_at":"2022-12-21T20:37:30.000000Z","updated_at":"2022-12-21T20:37:30.000000Z"},{"id":3,"provider_id":1,"name":{"en":"مكة عمرة  وزيارة المدينة المنورة","ar":"مكة عمرة وزيارة المدينة المنورة","ur":"مكة عمرة وزيارة المدينة المنورة"},"description":"","image":"1671882946_278-الكعبة.jpg","destinations":["1","5","6"],"trips":["9","13","14"],"destinations_move_dates":["2022-12-26","2022-12-29","2022-12-30"],"destinations_move_times":["14:00","21:00","14:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-26","date_to":"2022-12-26","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[],"rate":0,"created_at":"2022-12-24T11:55:46.000000Z","updated_at":"2022-12-24T11:55:46.000000Z"},{"id":4,"provider_id":1,"name":{"en":"مكة عمرة وزيارة المدينة المنورة","ar":"مكة عمرة وزيارة المدينة المنورة","ur":"مكة عمرة وزيارة المدينة المنورة"},"description":"","image":"1671883029_278-الكعبة.jpg","destinations":["1","5","6"],"trips":["10","13","14"],"destinations_move_dates":["2022-12-28","2022-12-29","2022-12-30"],"destinations_move_times":["14:00","21:00","14:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-28","date_to":"2022-12-28","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[],"rate":0,"created_at":"2022-12-24T11:57:09.000000Z","updated_at":"2022-12-24T11:57:09.000000Z"},{"id":5,"provider_id":1,"name":{"en":"Makkah","ar":"مكة","ur":"مکہ"},"description":"","image":"1671978513_278-الكعبة.jpg","destinations":["1","2"],"trips":["9","12"],"destinations_move_dates":["2022-12-26",""],"destinations_move_times":["14:00","09:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-26","date_to":"2022-12-26","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[],"rate":0,"created_at":"2022-12-25T14:28:33.000000Z","updated_at":"2022-12-25T14:29:17.000000Z"},{"id":6,"provider_id":1,"name":{"en":"Makkah","ar":"مكة","ur":"مکہ"},"description":"","image":"1671978720_278-الكعبة.jpg","destinations":["1","2"],"trips":["10","12"],"destinations_move_dates":["2022-12-28","2022-12-31"],"destinations_move_times":["14:00","09:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-28","date_to":"2022-12-28","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[],"rate":0,"created_at":"2022-12-25T14:30:38.000000Z","updated_at":"2022-12-25T14:32:00.000000Z"},{"id":7,"provider_id":1,"name":{"en":"Makkah","ar":"مكة","ur":"مکہ"},"description":"","image":"1671978797_278-الكعبة.jpg","destinations":["1","2"],"trips":["11","12"],"destinations_move_dates":["2022-12-29","2022-12-31"],"destinations_move_times":["14:00","09:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-29","date_to":"2022-12-29","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[],"rate":0,"created_at":"2022-12-25T14:33:17.000000Z","updated_at":"2022-12-25T14:33:17.000000Z"},{"id":8,"provider_id":1,"name":{"en":"Makkah 01/30 Monday","ar":"مكة 01/30 الاثنين","ur":"مکہ 01/30پیر"},"description":"","image":"1674988757_278-الكعبة.jpg","destinations":["1","2"],"trips":["51","55"],"destinations_move_dates":["2023-01-30",""],"destinations_move_times":["14:00","08:30"],"fees":150,"starting_city_id":4,"date_from":"2023-01-30","date_to":"2023-01-31","time_from":"14:00","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[],"rate":0,"created_at":"2023-01-29T10:39:17.000000Z","updated_at":"2023-01-29T11:34:43.000000Z"}]
+/// image_base : "https://qbus-sa.com/public/images/packages"
 
 class Data {
   Data({
@@ -72,19 +79,41 @@ class Data {
   }
 }
 
+/// id : 1
+/// provider_id : 1
+/// name : {"en":"مكة مدينة","ar":"مكة مدينة","ur":"مكة مدينة"}
+/// description : ""
+/// image : "1671479582_كعبة.jpg"
+/// destinations : ["1","5","6"]
+/// trips : ["61","61","61"]
+/// destinations_move_dates : ["2023-12-19","2022-01-22",""]
+/// destinations_move_times : ["14:00","21:00","13:30"]
+/// fees : 150
+/// starting_city_id : 4
+/// date_from : "2023-12-19"
+/// date_to : "2022-12-23"
+/// time_from : "14:00"
+/// provider_notes : ""
+/// provider_archive : false
+/// auto_approve : true
+/// additional : [{"id":"1","fees":"2"}]
+/// rate : 0
+/// created_at : "2022-12-19T19:53:02.000000Z"
+/// updated_at : "2023-02-08T12:35:47.000000Z"
+
 class Packages {
   Packages({
-    int? id,
-    int? providerId,
+    num? id,
+    num? providerId,
     Name? name,
-    Description? description,
+    String? description,
     String? image,
     List<String>? destinations,
     List<String>? trips,
     List<String>? destinationsMoveDates,
     List<String>? destinationsMoveTimes,
-    double? fees,
-    int? startingCityId,
+    num? fees,
+    num? startingCityId,
     String? dateFrom,
     String? dateTo,
     String? timeFrom,
@@ -92,7 +121,7 @@ class Packages {
     bool? providerArchive,
     bool? autoApprove,
     List<Additional>? additional,
-    int? rate,
+    num? rate,
     String? createdAt,
     String? updatedAt,
   }) {
@@ -123,9 +152,7 @@ class Packages {
     _id = json['id'];
     _providerId = json['provider_id'];
     _name = json['name'] != null ? Name.fromJson(json['name']) : null;
-    _description = json['description'] != null
-        ? Description.fromJson(json['description'])
-        : null;
+    _description = json['description'];
     _image = json['image'];
     _destinations =
         json['destinations'] != null ? json['destinations'].cast<String>() : [];
@@ -155,17 +182,17 @@ class Packages {
     _updatedAt = json['updated_at'];
   }
 
-  int? _id;
-  int? _providerId;
+  num? _id;
+  num? _providerId;
   Name? _name;
-  Description? _description;
+  String? _description;
   String? _image;
   List<String>? _destinations;
   List<String>? _trips;
   List<String>? _destinationsMoveDates;
   List<String>? _destinationsMoveTimes;
-  double? _fees;
-  int? _startingCityId;
+  num? _fees;
+  num? _startingCityId;
   String? _dateFrom;
   String? _dateTo;
   String? _timeFrom;
@@ -173,17 +200,17 @@ class Packages {
   bool? _providerArchive;
   bool? _autoApprove;
   List<Additional>? _additional;
-  int? _rate;
+  num? _rate;
   String? _createdAt;
   String? _updatedAt;
 
-  int? get id => _id;
+  num? get id => _id;
 
-  int? get providerId => _providerId;
+  num? get providerId => _providerId;
 
   Name? get name => _name;
 
-  Description? get description => _description;
+  String? get description => _description;
 
   String? get image => _image;
 
@@ -195,9 +222,9 @@ class Packages {
 
   List<String>? get destinationsMoveTimes => _destinationsMoveTimes;
 
-  double? get fees => _fees;
+  num? get fees => _fees;
 
-  int? get startingCityId => _startingCityId;
+  num? get startingCityId => _startingCityId;
 
   String? get dateFrom => _dateFrom;
 
@@ -213,7 +240,7 @@ class Packages {
 
   List<Additional>? get additional => _additional;
 
-  int? get rate => _rate;
+  num? get rate => _rate;
 
   String? get createdAt => _createdAt;
 
@@ -226,9 +253,7 @@ class Packages {
     if (_name != null) {
       map['name'] = _name?.toJson();
     }
-    if (_description != null) {
-      map['description'] = _description?.toJson();
-    }
+    map['description'] = _description;
     map['image'] = _image;
     map['destinations'] = _destinations;
     map['trips'] = _trips;
@@ -251,6 +276,9 @@ class Packages {
     return map;
   }
 }
+
+/// id : "1"
+/// fees : "2"
 
 class Additional {
   Additional({
@@ -281,27 +309,9 @@ class Additional {
   }
 }
 
-class Description {
-  Description({
-    String? ur,
-  }) {
-    _ur = ur;
-  }
-
-  Description.fromJson(dynamic json) {
-    _ur = json['ur'];
-  }
-
-  String? _ur;
-
-  String? get ur => _ur;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['ur'] = _ur;
-    return map;
-  }
-}
+/// en : "مكة مدينة"
+/// ar : "مكة مدينة"
+/// ur : "مكة مدينة"
 
 class Name {
   Name({

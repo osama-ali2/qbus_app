@@ -11,6 +11,7 @@ class PackageDetailProvider with ChangeNotifier {
   BuildContext? context;
   final Logger _logger = Logger();
   final Loader _loader = Loader();
+
   bool isDataLoaded = false;
 
   PackageDetailResponse packageDetailResponse = PackageDetailResponse();
@@ -19,16 +20,21 @@ class PackageDetailProvider with ChangeNotifier {
     this.context = context;
   }
 
-  Future<void> getPackagesData({required String id}) async {
+  /// Get Package Data
+  Future<void> getPackagesDetail({
+    required String id,
+  }) async {
     try {
       _loader.showLoader(context: context);
       Map<String, dynamic> header = {"Content-Type": "application/json"};
-
       var url = "$packagesDetailsApiUrl$id";
       debugPrint("URL: $url");
 
       packageDetailResponse = await MyApi.callGetApi(
-          url: url, myHeaders: header, modelName: Models.packagesDetailModel);
+        url: url,
+        myHeaders: header,
+        modelName: Models.packagesDetailModel,
+      );
 
       if (packageDetailResponse.code == 1) {
         _logger.d("packageDetailResponse: ${packageDetailResponse.toJson()}");
@@ -36,12 +42,10 @@ class PackageDetailProvider with ChangeNotifier {
         isDataLoaded = true;
         notifyListeners();
       } else {
-        debugPrint("packageDetailResponse: Something wrong");
         _logger.e("packageDetailResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      debugPrint("packageDetailResponseError: ${e.toString()}");
       _logger.e("packageDetailResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
