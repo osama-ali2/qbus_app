@@ -7,7 +7,7 @@ import 'package:qbus/network_manager/my_api.dart';
 import 'package:qbus/widgets/loader.dart';
 import '../../models/packages/PackagesResponse.dart';
 
-class ExploreProvider with ChangeNotifier {
+class PackageProvider with ChangeNotifier {
   BuildContext? context;
   final Logger _logger = Logger();
   final Loader _loader = Loader();

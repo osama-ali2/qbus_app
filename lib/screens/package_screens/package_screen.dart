@@ -4,27 +4,26 @@ import 'package:provider/provider.dart';
 import 'package:qbus/models/PackageFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/resources/resources.dart';
-
-import 'package:qbus/screens/explore_screens/explore_provider.dart';
-import 'package:qbus/screens/explore_screens/package_detail_screens/package_detail_screen.dart';
 import 'package:qbus/screens/project_widgets/filter_container_widget.dart';
 import 'package:qbus/screens/project_widgets/package_card_container_widget.dart';
 import 'package:qbus/widgets/text_views.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
+import 'package_detail_screens/package_detail_screen.dart';
 import 'package_filter_screens/package_filter_screen.dart';
+import 'package_provider.dart';
 
-class ExploreScreen extends StatefulWidget {
+class PackageScreen extends StatefulWidget {
   final PackageFilterModel? packageFilterModel;
 
-  const ExploreScreen({Key? key, this.packageFilterModel}) : super(key: key);
+  const PackageScreen({Key? key, this.packageFilterModel}) : super(key: key);
 
   @override
-  State<ExploreScreen> createState() => _ExploreScreenState();
+  State<PackageScreen> createState() => _PackageScreenState();
 }
 
-class _ExploreScreenState extends State<ExploreScreen> {
-  late ExploreProvider exploreProvider;
+class _PackageScreenState extends State<PackageScreen> {
+  late PackageProvider packageProvider;
 
   // The controller for the ListView
   late ScrollController _scrollController;
@@ -33,9 +32,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
   @override
   void initState() {
     super.initState();
-    exploreProvider = ExploreProvider();
-    exploreProvider = Provider.of<ExploreProvider>(context, listen: false);
-    exploreProvider.init(context: context);
+
+    packageProvider = PackageProvider();
+    packageProvider = Provider.of<PackageProvider>(context, listen: false);
+    packageProvider.init(context: context);
 
     _scrollController = ScrollController();
     _scrollController.addListener(() {
@@ -46,13 +46,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
           index++;
           debugPrint("EndingIndex: $index");
         });
-        exploreProvider.getPackagesData(
+        packageProvider.getPackagesData(
             packageFilterModel: widget.packageFilterModel!, offset: index);
       }
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      exploreProvider.getPackagesData(
+      packageProvider.getPackagesData(
           packageFilterModel: widget.packageFilterModel!, offset: index);
     });
   }
@@ -65,7 +65,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<ExploreProvider>(context, listen: true);
+    Provider.of<PackageProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
@@ -81,7 +81,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: sizes!.fontRatio * 20.0),
-          child: exploreProvider.isListHasData > 0
+          child: packageProvider.isListHasData > 0
               ? _getUI(context)
               : const Center(
                   child: Text("No Data"),
@@ -105,16 +105,16 @@ class _ExploreScreenState extends State<ExploreScreen> {
           );
         }),
         CommonPadding.sizeBoxWithHeight(height: 10),
-        exploreProvider.isDataLoaded
+        packageProvider.isDataLoaded
             ? Expanded(
                 child:
-                    exploreProvider.packagesResponse.data!.packages!.isNotEmpty
+                    packageProvider.packagesResponse.data!.packages!.isNotEmpty
                         ? ListView.builder(
                             controller: _scrollController,
-                            itemCount: exploreProvider
+                            itemCount: packageProvider
                                 .packagesResponse.data!.packages!.length,
                             itemBuilder: (context, i) {
-                              var data = exploreProvider
+                              var data = packageProvider
                                   .packagesResponse.data!.packages![i];
                               var packageId = data.id.toString();
 
@@ -124,7 +124,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               var rating = data.rate.toString();
                               var fee = data.fees.toString();
                               var image = data.image.toString();
-                              var baseUrl = exploreProvider
+                              var baseUrl = packageProvider
                                   .packagesResponse.data!.imageBase
                                   .toString();
                               var thumbnailImage = "$baseUrl/$image";

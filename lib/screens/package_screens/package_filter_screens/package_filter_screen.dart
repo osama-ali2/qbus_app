@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/PackageFilterModel.dart';
-
-import 'package:qbus/screens/explore_screens/explore_screen.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
-
 import 'package:qbus/resources/resources.dart';
 import '../../../utils/constant.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_text.dart';
 import '../../../widgets/custom_textField.dart';
+import '../package_screen.dart';
 
 class PackageFilterScreen extends StatefulWidget {
   const PackageFilterScreen({Key? key}) : super(key: key);
@@ -343,7 +341,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ExploreScreen(
+                              builder: (context) => PackageScreen(
                                 packageFilterModel: filterData,
                               ),
                             ),
@@ -359,6 +357,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
     );
   }
 
+  /// Check Box
   Widget checkBox(
       BuildContext context, bool isSelected, String name, Function onTap) {
     return InkWell(

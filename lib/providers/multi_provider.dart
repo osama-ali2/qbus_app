@@ -1,4 +1,8 @@
 import 'package:provider/provider.dart';
+import 'package:qbus/screens/package_screens/package_detail_screens/package_detail_provider.dart';
+import 'package:qbus/screens/package_screens/package_filter_screens/package_filter_provider.dart';
+import 'package:qbus/screens/package_screens/package_provider.dart';
+import 'package:qbus/screens/package_screens/package_select_addition_screens/package_select_addition_provider.dart';
 import '../screens/auth/forgot_screens/forgot_provider.dart';
 import '../screens/auth/forgot_screens/phone_number_screens/phone_number_provider.dart';
 import '../screens/auth/login_screens/login_provider.dart';
@@ -16,10 +20,6 @@ import '../screens/bottombar/bottom_bar_screens/profile_screens/return_policy_sc
 import '../screens/bottombar/bottom_bar_screens/profile_screens/wallet_screens/wallet_provider.dart';
 import '../screens/bottombar/bottom_bar_screens/setting_screens/setting_provider.dart';
 import '../screens/bottombar/bottom_bar_screens/setting_select_lang_screens/setting_select_lang_provider.dart';
-import '../screens/explore_screens/explore_provider.dart';
-import '../screens/explore_screens/package_detail_screens/package_detail_provider.dart';
-import '../screens/explore_screens/package_filter_screens/package_filter_provider.dart';
-import '../screens/explore_screens/package_select_addition_screens/package_select_addition_provider.dart';
 import '../screens/get_started_screens/get_started_provider.dart';
 import '../screens/hotel_screens/hotel_provider.dart';
 import '../screens/passenger_screens/passenger_provider.dart';
@@ -57,8 +57,8 @@ final multiProviders = [
     create: (_) => SelectAdditionProvider(),
     lazy: true,
   ),
-  ChangeNotifierProvider<ExploreProvider>(
-    create: (_) => ExploreProvider(),
+  ChangeNotifierProvider<PackageProvider>(
+    create: (_) => PackageProvider(),
     lazy: true,
   ),
   ChangeNotifierProvider<ContactUsProvider>(

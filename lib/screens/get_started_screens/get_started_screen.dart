@@ -16,8 +16,8 @@ import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import '../../../../widgets/custom_button.dart';
-import '../explore_screens/explore_screen.dart';
-import '../explore_screens/package_detail_screens/package_detail_screen.dart';
+import '../package_screens/package_detail_screens/package_detail_screen.dart';
+import '../package_screens/package_screen.dart';
 import '../trips_search_screens/trips_search_result.dart';
 
 class GetStartedScreen extends StatefulWidget {
@@ -415,7 +415,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 onTap: () {
                   NavigationHelper.pushRoute(
                       context,
-                      ExploreScreen(
+                      PackageScreen(
                         packageFilterModel: PackageFilterModel(),
                       ));
                 },
