@@ -450,7 +450,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                           .packagesResponse.data!.packages![i];
                       var packageId = data.id.toString();
                       // var packageName = data.name!.en.toString();
-                      var packageName = data.name!.ar.toString();
+                      var packageName = data.name!.toString();
 
                       var rating = data.rate.toString();
                       var fee = data.fees.toString();

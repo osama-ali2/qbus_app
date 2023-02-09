@@ -4,11 +4,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/resources/resources.dart';
 import 'package:qbus/utils/constant.dart';
+import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
 import '../package_select_addition_screens/package_select_addition_screen.dart';
 import 'package_detail_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PackageDetailScreen extends StatefulWidget {
   final String? packageTitle;
@@ -23,6 +25,7 @@ class PackageDetailScreen extends StatefulWidget {
 
 class _PackageDetailScreenState extends State<PackageDetailScreen> {
   late PackageDetailProvider packageDetailProvider;
+  int passengersNumber = 1;
 
   @override
   void initState() {
@@ -145,7 +148,7 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                       ).get20HorizontalPadding(),
                       CommonPadding.sizeBoxWithHeight(height: 12),
                       SizedBox(
-                        height: sizes!.heightRatio * 80,
+                        height: sizes!.heightRatio * 60,
                         child: GridView.builder(
                             gridDelegate:
                                 const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -186,15 +189,17 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                                 ),
                                 child: Center(
                                   child: TextView.getMediumText14(
-                                      name, Assets.latoBold,
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.w400,
-                                      lines: 1),
+                                    name,
+                                    Assets.latoBold,
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.w400,
+                                    lines: 1,
+                                  ),
                                 ),
                               );
                             }),
                       ).get20HorizontalPadding(),
-                      CommonPadding.sizeBoxWithHeight(height: 16),
+                      // CommonPadding.sizeBoxWithHeight(height: 16),
                       TextView.getMediumText16(
                               "Departure Date: ${packageDetailProvider.packageDetailResponse.data!.packages!.dateFrom.toString()}",
                               Assets.latoBold,
@@ -210,7 +215,36 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                         fontWeight: FontWeight.w400,
                         lines: 1,
                       ).get20HorizontalPadding(),
-                      CommonPadding.sizeBoxWithHeight(height: 20),
+                      SizedBox(
+                        height: sizes!.heightRatio * 20,
+                      ),
+                      CustomText(
+                        text: AppLocalizations.of(context)!.passengers_count,
+                        textSize: sizes!.fontRatio * 14,
+                        fontWeight: FontWeight.normal,
+                        textColor: Colors.black,
+                      ).get20HorizontalPadding(),
+                      SizedBox(
+                        height: sizes!.heightRatio * 10,
+                      ),
+                      Counter(
+                          number: passengersNumber,
+                          onAdd: () {
+                            if (passengersNumber > 9) {
+                              Toasts.getWarningToast(
+                                  text: "Only 10 Passengers Allowed");
+                            } else {
+                              passengersNumber++;
+                              setState(() {});
+                            }
+                          },
+                          onMinus: () {
+                            if (passengersNumber > 1) {
+                              passengersNumber--;
+                              setState(() {});
+                            }
+                          }).get20HorizontalPadding(),
+                      CommonPadding.sizeBoxWithHeight(height: 40),
                       CustomButton(
                         name: "Book Now",
                         buttonColor: appColor,
@@ -235,6 +269,7 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                         },
                         padding: 0,
                       ).get20HorizontalPadding(),
+                      CommonPadding.sizeBoxWithHeight(height: 20),
                     ],
                   )
                 : Center(

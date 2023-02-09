@@ -1,6 +1,9 @@
 import 'package:provider/provider.dart';
 import 'package:qbus/screens/package_screens/package_detail_screens/package_detail_provider.dart';
 import 'package:qbus/screens/package_screens/package_filter_screens/package_filter_provider.dart';
+import 'package:qbus/screens/package_screens/package_hotel_screens/hotel_filter_screens/hotel_filter_provider.dart';
+import 'package:qbus/screens/package_screens/package_hotel_screens/package_hotel_provider.dart';
+import 'package:qbus/screens/package_screens/package_passenger_screens/package_passenger_provider.dart';
 import 'package:qbus/screens/package_screens/package_provider.dart';
 import 'package:qbus/screens/package_screens/package_select_addition_screens/package_select_addition_provider.dart';
 import '../screens/auth/forgot_screens/forgot_provider.dart';
@@ -183,6 +186,18 @@ final multiProviders = [
   ),
   ChangeNotifierProvider<RoundTripReviewOrderProvider>(
     create: (_) => RoundTripReviewOrderProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PackagePassengerProvider>(
+    create: (_) => PackagePassengerProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PackageHotelFilterProvider>(
+    create: (_) => PackageHotelFilterProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PackageHotelProvider>(
+    create: (_) => PackageHotelProvider(),
     lazy: true,
   ),
 ];

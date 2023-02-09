@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/resources/resources.dart';
+import 'package:qbus/screens/passenger_screens/passenger_screen.dart';
 
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
@@ -9,6 +10,7 @@ import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
 import '../../../local_cache/utils.dart';
 import '../../auth/login_screens/login_screen.dart';
+import '../package_passenger_screens/package_passenger_screen.dart';
 import 'package_select_addition_provider.dart';
 
 class PackageSelectAdditionScreen extends StatefulWidget {
@@ -53,60 +55,6 @@ class _PackageSelectAdditionScreenState
   Widget build(BuildContext context) {
     Provider.of<PackageSelectAdditionProvider>(context, listen: true);
     return Scaffold(
-      bottomNavigationBar: SizedBox(
-        height: sizes!.heightRatio * 130,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          children: [
-            CustomButton(
-                name: "PROCEED TO PAYMENT",
-                buttonColor: appColor,
-                height: sizes!.heightRatio * 45,
-                width: double.infinity,
-                textSize: sizes!.fontRatio * 14,
-                textColor: Colors.white,
-                fontWeight: FontWeight.w500,
-                borderRadius: 5,
-                onTapped: () {
-                  Toasts.getErrorToast(text: "Try it Later");
-                },
-                padding: 20),
-            const SizedBox(
-              height: 10,
-            ),
-            (PreferenceUtils.getString(Strings.loginEmail)!.isNotEmpty &&
-                    PreferenceUtils.getString(Strings.loginUserToken)!
-                        .isNotEmpty)
-                ? Container()
-                : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
-                            ));
-                      },
-                      child: Container(
-                        height: sizes!.heightRatio * 45,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: appColor)),
-                        child: Center(
-                          child: CustomText(
-                              text: "Continue",
-                              textSize: sizes!.fontRatio * 15,
-                              fontWeight: FontWeight.w500,
-                              textColor: appColor),
-                        ),
-                      ),
-                    ),
-                  )
-          ],
-        ),
-      ),
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
@@ -120,28 +68,94 @@ class _PackageSelectAdditionScreenState
       backgroundColor: Colors.white,
       body: packageSelectAdditionProvider.isPackageLoaded == true
           ? SafeArea(
-              child: ListView.builder(
-                  itemCount: packageSelectAdditionProvider
-                      .packageAdditionalsResponse.data!.additional!.length,
-                  itemBuilder: (context, index) {
-                    currentIndex = index;
-                    // var name = packageSelectAdditionProvider
-                    //     .packageAdditionalsResponse
-                    //     .data!
-                    //     .additional![index]
-                    //     .name!
-                    //     .en
-                    //     .toString();
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: packageSelectAdditionProvider
+                            .packageAdditionalsResponse
+                            .data!
+                            .additional!
+                            .length,
+                        itemBuilder: (context, index) {
+                          currentIndex = index;
+                          // var name = packageSelectAdditionProvider
+                          //     .packageAdditionalsResponse
+                          //     .data!
+                          //     .additional![index]
+                          //     .name!
+                          //     .en
+                          //     .toString();
 
-                    var name = packageSelectAdditionProvider
-                        .packageAdditionalsResponse
-                        .data!
-                        .additional![index]
-                        .name!
-                        .ar
-                        .toString();
-                    return itemContainer(name: name, index: index);
-                  }),
+                          var name = packageSelectAdditionProvider
+                              .packageAdditionalsResponse
+                              .data!
+                              .additional![index]
+                              .name!
+                              .ar
+                              .toString();
+                          return itemContainer(name: name, index: index);
+                        }),
+                  ),
+                  CustomButton(
+                      name: "NEXT",
+                      buttonColor: appColor,
+                      height: sizes!.heightRatio * 45,
+                      width: double.infinity,
+                      textSize: sizes!.fontRatio * 14,
+                      textColor: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      borderRadius: 5,
+                      onTapped: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PackagePassengerScreen(
+                                passengerCount: 1,
+                                tripId: 1,
+                                additionalList: [],
+                              ),
+                            ));
+                      },
+                      padding: 20),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  (PreferenceUtils.getString(Strings.loginEmail)!.isNotEmpty &&
+                          PreferenceUtils.getString(Strings.loginUserToken)!
+                              .isNotEmpty)
+                      ? Container()
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginScreen()),
+                              );
+                            },
+                            child: Container(
+                              height: sizes!.heightRatio * 45,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: appColor),
+                              ),
+                              child: Center(
+                                child: CustomText(
+                                  text: "Continue",
+                                  textSize: sizes!.fontRatio * 15,
+                                  fontWeight: FontWeight.w500,
+                                  textColor: appColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                  CommonPadding.sizeBoxWithHeight(height: 10)
+                ],
+              ),
             )
           : const Center(
               child: Text("No Data Available"),

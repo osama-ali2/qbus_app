@@ -47,13 +47,17 @@ class _PackageScreenState extends State<PackageScreen> {
           debugPrint("EndingIndex: $index");
         });
         packageProvider.getPackagesData(
-            packageFilterModel: widget.packageFilterModel!, offset: index);
+          packageFilterModel: widget.packageFilterModel!,
+          offset: index,
+        );
       }
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       packageProvider.getPackagesData(
-          packageFilterModel: widget.packageFilterModel!, offset: index);
+        packageFilterModel: widget.packageFilterModel!,
+        offset: index,
+      );
     });
   }
 
@@ -119,7 +123,7 @@ class _PackageScreenState extends State<PackageScreen> {
                               var packageId = data.id.toString();
 
                               // var packageName = data.name!.en.toString();
-                              var packageName = data.name!.ar.toString();
+                              var packageName = data.name!.toString();
 
                               var rating = data.rate.toString();
                               var fee = data.fees.toString();
