@@ -14,10 +14,14 @@ import '../package_passenger_screens/package_passenger_screen.dart';
 import 'package_select_addition_provider.dart';
 
 class PackageSelectAdditionScreen extends StatefulWidget {
-  final String? packageId;
+  final String packageId;
+  final int passengerCount;
 
-  const PackageSelectAdditionScreen({Key? key, this.packageId})
-      : super(key: key);
+  const PackageSelectAdditionScreen({
+    Key? key,
+    required this.packageId,
+    required this.passengerCount,
+  }) : super(key: key);
 
   @override
   State<PackageSelectAdditionScreen> createState() =>
@@ -111,8 +115,8 @@ class _PackageSelectAdditionScreenState
                             context,
                             MaterialPageRoute(
                               builder: (context) => PackagePassengerScreen(
-                                passengerCount: 1,
-                                tripId: 1,
+                                passengerCount: widget.passengerCount,
+                                tripId: int.parse(widget.packageId),
                                 additionalList: [],
                               ),
                             ));

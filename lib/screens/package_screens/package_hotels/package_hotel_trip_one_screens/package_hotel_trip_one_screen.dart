@@ -3,24 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/resources/resources.dart';
+import 'package:qbus/screens/package_screens/package_hotels/package_hotel_trip_two_screens/package_hotel_trip_two_screen.dart';
 import 'package:qbus/screens/project_widgets/hotel_card_container_widget.dart';
 import 'package:qbus/screens/review_order_screens/review_order_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
+import 'package_hotel_trip_one_filter_screens/package_hotel_tripe_one_filter_screen.dart';
+import 'package_hotel_trip_one_provider.dart';
 
-import 'hotel_filter_screens/hotel_filter_screen.dart';
-import 'package_hotel_provider.dart';
-
-class PackageHotelScreen extends StatefulWidget {
+class PackageHotelTripOneScreen extends StatefulWidget {
   final int tripId;
-
   final String passengerCounts;
   final List<Map<String, dynamic>> paramPassengerBody;
   final List<Map<String, dynamic>> paramAdditionalList;
 
-  const PackageHotelScreen({
+  const PackageHotelTripOneScreen({
     Key? key,
     required this.tripId,
     required this.passengerCounts,
@@ -29,24 +28,25 @@ class PackageHotelScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<PackageHotelScreen> createState() => _PackageHotelScreenState();
+  State<PackageHotelTripOneScreen> createState() =>
+      _PackageHotelTripOneScreenState();
 }
 
-class _PackageHotelScreenState extends State<PackageHotelScreen> {
-  late PackageHotelProvider packageHotelProvider;
+class _PackageHotelTripOneScreenState extends State<PackageHotelTripOneScreen> {
+  late PackageHotelTripOneProvider packageHotelProvider;
   int currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
 
-    packageHotelProvider = PackageHotelProvider();
+    packageHotelProvider = PackageHotelTripOneProvider();
     packageHotelProvider =
-        Provider.of<PackageHotelProvider>(context, listen: false);
+        Provider.of<PackageHotelTripOneProvider>(context, listen: false);
     packageHotelProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // packageHotelProvider.getHotels(tripId: widget.tripId);
+      packageHotelProvider.getHotels(tripId: widget.tripId);
     });
   }
 
@@ -61,7 +61,7 @@ class _PackageHotelScreenState extends State<PackageHotelScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<PackageHotelProvider>(context, listen: true);
+    Provider.of<PackageHotelTripOneProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
@@ -104,7 +104,8 @@ class _PackageHotelScreenState extends State<PackageHotelScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PackageHotelFilterScreen(),
+                    builder: (context) =>
+                        const PackageHotelTripOneFilterScreen(),
                   ),
                 );
               },
@@ -223,7 +224,18 @@ class _PackageHotelScreenState extends State<PackageHotelScreen> {
                     fontWeight: FontWeight.w500,
                     borderRadius: 5,
                     onTapped: () async {
-                      await _saveTripOrder();
+                      // await _saveTripOrder();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PackageHotelTripTwoScreen(
+                            tripId: widget.tripId,
+                            passengerCounts: widget.passengerCounts,
+                            paramPassengerBody: [],
+                            paramAdditionalList: [],
+                          ),
+                        ),
+                      );
                     },
                     padding: 0,
                   )

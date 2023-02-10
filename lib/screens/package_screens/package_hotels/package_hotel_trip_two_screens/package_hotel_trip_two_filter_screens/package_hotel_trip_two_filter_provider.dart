@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
-class PackageHotelFilterProvider with ChangeNotifier {
+class PackageHotelTripTwoFilterProvider with ChangeNotifier {
   BuildContext? context;
   final Logger _logger = Logger();
 

@@ -1,8 +1,7 @@
 import 'package:provider/provider.dart';
 import 'package:qbus/screens/package_screens/package_detail_screens/package_detail_provider.dart';
 import 'package:qbus/screens/package_screens/package_filter_screens/package_filter_provider.dart';
-import 'package:qbus/screens/package_screens/package_hotel_screens/hotel_filter_screens/hotel_filter_provider.dart';
-import 'package:qbus/screens/package_screens/package_hotel_screens/package_hotel_provider.dart';
+import 'package:qbus/screens/package_screens/package_hotels/package_hotels.dart';
 import 'package:qbus/screens/package_screens/package_passenger_screens/package_passenger_provider.dart';
 import 'package:qbus/screens/package_screens/package_provider.dart';
 import 'package:qbus/screens/package_screens/package_select_addition_screens/package_select_addition_provider.dart';
@@ -192,12 +191,20 @@ final multiProviders = [
     create: (_) => PackagePassengerProvider(),
     lazy: true,
   ),
-  ChangeNotifierProvider<PackageHotelFilterProvider>(
-    create: (_) => PackageHotelFilterProvider(),
+  ChangeNotifierProvider<PackageHotelTripOneFilterProvider>(
+    create: (_) => PackageHotelTripOneFilterProvider(),
     lazy: true,
   ),
-  ChangeNotifierProvider<PackageHotelProvider>(
-    create: (_) => PackageHotelProvider(),
+  ChangeNotifierProvider<PackageHotelTripOneProvider>(
+    create: (_) => PackageHotelTripOneProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PackageHotelTripTwoFilterProvider>(
+    create: (_) => PackageHotelTripTwoFilterProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PackageHotelTripTwoProvider>(
+    create: (_) => PackageHotelTripTwoProvider(),
     lazy: true,
   ),
 ];

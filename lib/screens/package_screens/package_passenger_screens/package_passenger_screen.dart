@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/screens/hotel_screens/hotel_provider.dart';
 import 'package:qbus/screens/hotel_screens/hotel_screen.dart';
+import 'package:qbus/screens/package_screens/package_hotels/package_hotels.dart';
 import 'package:qbus/screens/passenger_screens/passenger_provider.dart';
 import 'package:qbus/screens/project_widgets/passenger_container_widget.dart';
 import 'package:qbus/screens/review_order_screens/review_order_screen.dart';
@@ -148,7 +149,17 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
               fontWeight: FontWeight.w500,
               borderRadius: 5,
               onTapped: () async {
-               // _validateData();
+                // _validateData();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PackageHotelTripOneScreen(
+                        tripId: widget.tripId,
+                        passengerCounts: "1",
+                        paramPassengerBody: [],
+                        paramAdditionalList: [],
+                      ),
+                    ));
               },
               padding: 0,
             ),

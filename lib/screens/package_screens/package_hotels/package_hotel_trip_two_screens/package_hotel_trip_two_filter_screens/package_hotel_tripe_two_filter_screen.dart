@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/resources/resources.dart';
+import 'package:qbus/screens/package_screens/package_hotels/package_hotels.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/custom_textField.dart';
+import '../package_hotel_trip_two_provider.dart';
 
-import '../package_hotel_provider.dart';
-
-class PackageHotelFilterScreen extends StatefulWidget {
-  const PackageHotelFilterScreen({Key? key}) : super(key: key);
+class PackageHotelTripTwoFilterScreen extends StatefulWidget {
+  const PackageHotelTripTwoFilterScreen({Key? key}) : super(key: key);
 
   @override
-  State<PackageHotelFilterScreen> createState() =>
-      _PackageHotelFilterScreenState();
+  State<PackageHotelTripTwoFilterScreen> createState() =>
+      _PackageHotelTripTwoFilterScreenState();
 }
 
-class _PackageHotelFilterScreenState extends State<PackageHotelFilterScreen> {
+class _PackageHotelTripTwoFilterScreenState
+    extends State<PackageHotelTripTwoFilterScreen> {
   late TextEditingController couponController;
-  late PackageHotelProvider packageHotelProvider;
+  late PackageHotelTripTwoProvider packageHotelProvider;
 
   List<String> roomQuantityList = ["1", "2", "3", "4", "5"];
   List<String> maxAdultsList = ["1", "2", "3", "4", "5"];
@@ -30,16 +31,16 @@ class _PackageHotelFilterScreenState extends State<PackageHotelFilterScreen> {
   void initState() {
     super.initState();
 
-    packageHotelProvider = PackageHotelProvider();
+    packageHotelProvider = PackageHotelTripTwoProvider();
     packageHotelProvider =
-        Provider.of<PackageHotelProvider>(context, listen: false);
+        Provider.of<PackageHotelTripTwoProvider>(context, listen: false);
     packageHotelProvider.init(context: context);
     couponController = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<PackageHotelProvider>(context, listen: true);
+    Provider.of<PackageHotelTripTwoProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,

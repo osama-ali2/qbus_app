@@ -13,7 +13,7 @@ import 'package:qbus/resources/resources.dart';
 
 import 'package:qbus/widgets/loader.dart';
 
-class PackageHotelProvider with ChangeNotifier {
+class PackageHotelTripOneProvider with ChangeNotifier {
   var userToken = PreferenceUtils.getString(Strings.loginUserToken);
   BuildContext? context;
   final _logger = Logger();

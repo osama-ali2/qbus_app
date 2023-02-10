@@ -263,6 +263,7 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                             MaterialPageRoute(
                               builder: (context) => PackageSelectAdditionScreen(
                                 packageId: packageId,
+                                passengerCount: passengersNumber,
                               ),
                             ),
                           );
