@@ -470,11 +470,15 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                           onTap: () {
                             debugPrint("packageName:$packageName");
                             debugPrint("packageId:$packageId");
+                            debugPrint(
+                                "hotelRoomTripOne:${data.hotelRoomTripOne!.isEmpty}");
                             NavigationHelper.pushRoute(
                               context,
                               PackageDetailScreen(
                                 packageTitle: packageName,
                                 packageId: packageId,
+                                isHotelTripeOneEmpty:
+                                    data.hotelRoomTripOne!.isEmpty,
                               ),
                             );
                           },

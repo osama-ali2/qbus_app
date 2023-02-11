@@ -136,20 +136,21 @@ class _PackageScreenState extends State<PackageScreen> {
                               var detail = data.description!.toString();
                               // debugPrint("thumbnailImage: $thumbnailImage");
 
-
-
-
-
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 8.0),
                                 child: GestureDetector(
                                   onTap: () {
+                                    debugPrint(
+                                        "hotelRoomTripOne:${data.hotelRoomTripOne!.isEmpty}");
                                     NavigationHelper.pushRoute(
-                                        context,
-                                        PackageDetailScreen(
-                                          packageTitle: packageName,
-                                          packageId: packageId,
-                                        ));
+                                      context,
+                                      PackageDetailScreen(
+                                        packageTitle: packageName,
+                                        packageId: packageId,
+                                        isHotelTripeOneEmpty:
+                                            data.hotelRoomTripOne!.isEmpty,
+                                      ),
+                                    );
                                   },
                                   child: PackageCardContainerWidget(
                                     title: packageName,

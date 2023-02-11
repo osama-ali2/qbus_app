@@ -16,9 +16,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class PackageDetailScreen extends StatefulWidget {
   final String? packageTitle;
   final String? packageId;
+  final bool isHotelTripeOneEmpty;
 
-  const PackageDetailScreen({Key? key, this.packageTitle, this.packageId})
-      : super(key: key);
+  const PackageDetailScreen({
+    Key? key,
+    this.packageTitle,
+    this.packageId,
+    required this.isHotelTripeOneEmpty,
+  }) : super(key: key);
 
   @override
   State<PackageDetailScreen> createState() => _PackageDetailScreenState();
@@ -270,6 +275,8 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                                     PackageSelectAdditionScreen(
                                   packageId: packageId,
                                   passengerCount: passengersNumber,
+                                  isHotelTripeOneEmpty:
+                                      widget.isHotelTripeOneEmpty,
                                 ),
                               ),
                             );
@@ -280,8 +287,10 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                                 MaterialPageRoute(
                                   builder: (context) => PackagePassengerScreen(
                                     passengerCount: passengersNumber,
-                                    tripId: int.parse(packageId),
+                                    packageId: int.parse(packageId),
                                     additionalList: [],
+                                    isHotelTripeOneEmpty:
+                                        widget.isHotelTripeOneEmpty,
                                   ),
                                 ));
                           }

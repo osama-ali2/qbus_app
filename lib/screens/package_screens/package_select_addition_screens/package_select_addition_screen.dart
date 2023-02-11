@@ -13,11 +13,13 @@ import 'package_select_addition_provider.dart';
 class PackageSelectAdditionScreen extends StatefulWidget {
   final String packageId;
   final int passengerCount;
+  final bool isHotelTripeOneEmpty;
 
   const PackageSelectAdditionScreen({
     Key? key,
     required this.packageId,
     required this.passengerCount,
+    required this.isHotelTripeOneEmpty,
   }) : super(key: key);
 
   @override
@@ -127,9 +129,11 @@ class _PackageSelectAdditionScreenState
                             MaterialPageRoute(
                               builder: (context) => PackagePassengerScreen(
                                 passengerCount: widget.passengerCount,
-                                tripId: int.parse(widget.packageId),
+                                packageId: int.parse(widget.packageId),
                                 additionalList: packageSelectAdditionProvider
                                     .additionalList,
+                                isHotelTripeOneEmpty:
+                                    widget.isHotelTripeOneEmpty,
                               ),
                             ));
                       },

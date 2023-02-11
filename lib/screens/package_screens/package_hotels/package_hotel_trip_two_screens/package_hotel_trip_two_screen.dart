@@ -6,24 +6,23 @@ import 'package:qbus/resources/resources.dart';
 import 'package:qbus/screens/package_screens/package_hotels/package_hotels.dart';
 import 'package:qbus/screens/package_screens/package_review_order_screens/package_review_order_screen.dart';
 import 'package:qbus/screens/project_widgets/hotel_card_container_widget.dart';
-import 'package:qbus/screens/review_order_screens/review_order_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
 
 class PackageHotelTripTwoScreen extends StatefulWidget {
-  final int tripId;
+  final int packageId;
   final String passengerCounts;
   final List<Map<String, dynamic>> paramPassengerBody;
   final List<Map<String, dynamic>> paramAdditionalList;
 
   const PackageHotelTripTwoScreen({
     Key? key,
-    required this.tripId,
     required this.passengerCounts,
     required this.paramPassengerBody,
     required this.paramAdditionalList,
+    required this.packageId,
   }) : super(key: key);
 
   @override
@@ -45,7 +44,7 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
     packageHotelTripTwoProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      packageHotelTripTwoProvider.getHotels(tripId: widget.tripId);
+      packageHotelTripTwoProvider.getHotels(tripId: widget.packageId);
     });
   }
 
@@ -223,15 +222,7 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
                     fontWeight: FontWeight.w500,
                     borderRadius: 5,
                     onTapped: () async {
-                      // await _saveTripOrder();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PackageReviewOrderScreen(
-                            tripId: widget.tripId,
-                          ),
-                        ),
-                      );
+                      await _savePackageOrder();
                     },
                     padding: 0,
                   )
@@ -243,7 +234,7 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
     );
   }
 
-  // On Plus Booking Day
+  /// On Plus Booking Day
   void onPlusBookingDay({required int index, required int roomId}) {
     setState(() {
       packageHotelTripTwoProvider.selectBookingDaysList[index]++;
@@ -258,7 +249,7 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
     });
   }
 
-  // On Minus Booking Day
+  /// On Minus Booking Day
   void onMinusBookingDay({required int index, required int roomId}) {
     if (packageHotelTripTwoProvider.selectBookingDaysList[index] > 0) {
       setState(() {
@@ -275,7 +266,7 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
     }
   }
 
-  // On Plus Room
+  /// On Plus Room
   void onPlusRoom({required int index, required int roomId}) {
     setState(() {
       packageHotelTripTwoProvider.selectNumberOfRoomsList[index]++;
@@ -292,7 +283,7 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
     });
   }
 
-  // On Minus Room
+  /// On Minus Room
   void onMinusRoom({required int index, required int roomId}) {
     if (packageHotelTripTwoProvider.selectNumberOfRoomsList[index] > 0) {
       setState(() {
@@ -312,24 +303,25 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
   }
 
   /// Save Trip Order
-  Future<void> _saveTripOrder() async {
-    await packageHotelTripTwoProvider.oneWayOrderTrip(
-      tripId: "${widget.tripId}",
-      passengerCounts: widget.passengerCounts,
+  Future<void> _savePackageOrder() async {
+    await packageHotelTripTwoProvider.savePackageOrders(
+      packageId: widget.packageId,
+      passengerCounts: int.parse(widget.passengerCounts),
       paramPassengerBody: widget.paramPassengerBody,
       additionalList: widget.paramAdditionalList,
     );
 
     /// One way order Trip save successfully
-    if (packageHotelTripTwoProvider.isOneWayOrderTripSaved) {
+    if (packageHotelTripTwoProvider.isPackageOrdersSaved) {
       if (!mounted) return;
-      var tripId =
-          packageHotelTripTwoProvider.oneWayOrdersTripResponse.data!.tripId;
+      var packageId =
+          packageHotelTripTwoProvider.packageOrderResponse.data!.packageOrderId;
+
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ReviewOrderScreen(
-            tripId: tripId!,
+          builder: (context) => PackageReviewOrderScreen(
+            packageId: packageId!,
           ),
         ),
       );
@@ -344,21 +336,21 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
     debugPrint(
         "SkippingHotelAdditional: ${widget.paramAdditionalList.map((e) => e)}");
     await packageHotelTripTwoProvider.skipHotelOneWayOrderTrip(
-      tripId: "${widget.tripId}",
-      passengerCounts: widget.passengerCounts,
+      packageId: widget.packageId,
+      passengerCounts: int.parse(widget.passengerCounts),
       paramPassengerBody: widget.paramPassengerBody,
       additionalList: widget.paramAdditionalList,
     );
 
-    if (packageHotelTripTwoProvider.isOneWayOrderTripSaved) {
+    if (packageHotelTripTwoProvider.isPackageOrdersSaved) {
       if (!mounted) return;
-      var tripId =
-          packageHotelTripTwoProvider.oneWayOrdersTripResponse.data!.tripId;
+      var packageId =
+          packageHotelTripTwoProvider.packageOrderResponse.data!.packageOrderId;
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ReviewOrderScreen(
-            tripId: tripId!,
+          builder: (context) => PackageReviewOrderScreen(
+            packageId: packageId!,
           ),
         ),
       );

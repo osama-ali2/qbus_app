@@ -30,7 +30,7 @@ class ReviewOrderProvider with ChangeNotifier {
 
   /// orderReview
   Future<void> orderReview({
-    required int tripId,
+    required num tripId,
   }) async {
     try {
       _loader.showLoader(context: context);

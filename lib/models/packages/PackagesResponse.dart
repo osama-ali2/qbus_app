@@ -1,6 +1,6 @@
 /// message : "success"
 /// code : 1
-/// data : {"packages":[{"id":1,"provider_name":"","name":"مكة مدينة","description":"","image":"1671479582_كعبة.jpg","destinations":["1","5","6"],"trips":["61","61","61"],"destinations_move_dates":["2023-12-19","2022-01-22",""],"destinations_move_times":["14:00","21:00","13:30"],"fees":150,"starting_city_id":4,"date_from":"2023-12-19","date_to":"2022-12-23","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":61,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":61,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":61,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]}],"created_at":"2022-12-19T19:53:02.000000Z","updated_at":"2023-02-08T12:35:47.000000Z"},{"id":2,"provider_name":"","name":"مكة مدينة","description":"","image":"1671655050_كعبة.jpg","destinations":["1","5","6"],"trips":["8","5","6"],"destinations_move_dates":["2022-12-22","2022-12-22","2022-12-23"],"destinations_move_times":["14:00","21:00","13:30"],"fees":150,"starting_city_id":4,"date_from":"2022-12-21","date_to":"2022-12-23","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":8,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":5,"rooms":[]},{"trip_id":6,"rooms":[]}],"created_at":"2022-12-21T20:37:30.000000Z","updated_at":"2022-12-21T20:37:30.000000Z"},{"id":3,"provider_name":"","name":"مكة عمرة  وزيارة المدينة المنورة","description":"","image":"1671882946_278-الكعبة.jpg","destinations":["1","5","6"],"trips":["9","13","14"],"destinations_move_dates":["2022-12-26","2022-12-29","2022-12-30"],"destinations_move_times":["14:00","21:00","14:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-26","date_to":"2022-12-26","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":9,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":13,"rooms":[]},{"trip_id":14,"rooms":[]}],"created_at":"2022-12-24T11:55:46.000000Z","updated_at":"2022-12-24T11:55:46.000000Z"},{"id":4,"provider_name":"","name":"مكة عمرة وزيارة المدينة المنورة","description":"","image":"1671883029_278-الكعبة.jpg","destinations":["1","5","6"],"trips":["10","13","14"],"destinations_move_dates":["2022-12-28","2022-12-29","2022-12-30"],"destinations_move_times":["14:00","21:00","14:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-28","date_to":"2022-12-28","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":10,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":13,"rooms":[]},{"trip_id":14,"rooms":[]}],"created_at":"2022-12-24T11:57:09.000000Z","updated_at":"2022-12-24T11:57:09.000000Z"},{"id":5,"provider_name":"","name":"Makkah","description":"","image":"1671978513_278-الكعبة.jpg","destinations":["1","2"],"trips":["9","12"],"destinations_move_dates":["2022-12-26",""],"destinations_move_times":["14:00","09:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-26","date_to":"2022-12-26","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":9,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":12,"rooms":[]}],"created_at":"2022-12-25T14:28:33.000000Z","updated_at":"2022-12-25T14:29:17.000000Z"},{"id":6,"provider_name":"","name":"Makkah","description":"","image":"1671978720_278-الكعبة.jpg","destinations":["1","2"],"trips":["10","12"],"destinations_move_dates":["2022-12-28","2022-12-31"],"destinations_move_times":["14:00","09:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-28","date_to":"2022-12-28","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":10,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":12,"rooms":[]}],"created_at":"2022-12-25T14:30:38.000000Z","updated_at":"2022-12-25T14:32:00.000000Z"},{"id":7,"provider_name":"","name":"Makkah","description":"","image":"1671978797_278-الكعبة.jpg","destinations":["1","2"],"trips":["11","12"],"destinations_move_dates":["2022-12-29","2022-12-31"],"destinations_move_times":["14:00","09:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-29","date_to":"2022-12-29","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":11,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":12,"rooms":[]}],"created_at":"2022-12-25T14:33:17.000000Z","updated_at":"2022-12-25T14:33:17.000000Z"},{"id":8,"provider_name":"","name":"Makkah 01/30 Monday","description":"","image":"1674988757_278-الكعبة.jpg","destinations":["1","2"],"trips":["51","55"],"destinations_move_dates":["2023-01-30",""],"destinations_move_times":["14:00","08:30"],"fees":150,"starting_city_id":4,"date_from":"2023-01-30","date_to":"2023-01-31","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":51,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":55,"rooms":[]}],"created_at":"2023-01-29T10:39:17.000000Z","updated_at":"2023-01-29T11:34:43.000000Z"}],"image_base":"https://qbus-sa.com/public/images/packages"}
+/// data : {"packages":[{"id":1,"provider_name":"","name":"allhotels okay","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["5","7","1"],"trips":["63","45","61"],"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":250,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[{"fees":"2","room_type":"2"}],"hotel_room_trip_two":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:27:27.000000Z"},{"id":4,"provider_name":"","name":"hotel_room_trip_one empty","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["2","8","1"],"trips":["62","46","61"],"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":260.02,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[],"hotel_room_trip_two":[{"fees":"2","room_type":"2"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:25:38.000000Z"}],"image_base":"https://qbus-sa.com/public/images/packages"}
 
 class PackagesResponse {
   PackagesResponse({
@@ -40,7 +40,7 @@ class PackagesResponse {
   }
 }
 
-/// packages : [{"id":1,"provider_name":"","name":"مكة مدينة","description":"","image":"1671479582_كعبة.jpg","destinations":["1","5","6"],"trips":["61","61","61"],"destinations_move_dates":["2023-12-19","2022-01-22",""],"destinations_move_times":["14:00","21:00","13:30"],"fees":150,"starting_city_id":4,"date_from":"2023-12-19","date_to":"2022-12-23","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":61,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":61,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":61,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]}],"created_at":"2022-12-19T19:53:02.000000Z","updated_at":"2023-02-08T12:35:47.000000Z"},{"id":2,"provider_name":"","name":"مكة مدينة","description":"","image":"1671655050_كعبة.jpg","destinations":["1","5","6"],"trips":["8","5","6"],"destinations_move_dates":["2022-12-22","2022-12-22","2022-12-23"],"destinations_move_times":["14:00","21:00","13:30"],"fees":150,"starting_city_id":4,"date_from":"2022-12-21","date_to":"2022-12-23","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":8,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":5,"rooms":[]},{"trip_id":6,"rooms":[]}],"created_at":"2022-12-21T20:37:30.000000Z","updated_at":"2022-12-21T20:37:30.000000Z"},{"id":3,"provider_name":"","name":"مكة عمرة  وزيارة المدينة المنورة","description":"","image":"1671882946_278-الكعبة.jpg","destinations":["1","5","6"],"trips":["9","13","14"],"destinations_move_dates":["2022-12-26","2022-12-29","2022-12-30"],"destinations_move_times":["14:00","21:00","14:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-26","date_to":"2022-12-26","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":9,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":13,"rooms":[]},{"trip_id":14,"rooms":[]}],"created_at":"2022-12-24T11:55:46.000000Z","updated_at":"2022-12-24T11:55:46.000000Z"},{"id":4,"provider_name":"","name":"مكة عمرة وزيارة المدينة المنورة","description":"","image":"1671883029_278-الكعبة.jpg","destinations":["1","5","6"],"trips":["10","13","14"],"destinations_move_dates":["2022-12-28","2022-12-29","2022-12-30"],"destinations_move_times":["14:00","21:00","14:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-28","date_to":"2022-12-28","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":10,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":13,"rooms":[]},{"trip_id":14,"rooms":[]}],"created_at":"2022-12-24T11:57:09.000000Z","updated_at":"2022-12-24T11:57:09.000000Z"},{"id":5,"provider_name":"","name":"Makkah","description":"","image":"1671978513_278-الكعبة.jpg","destinations":["1","2"],"trips":["9","12"],"destinations_move_dates":["2022-12-26",""],"destinations_move_times":["14:00","09:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-26","date_to":"2022-12-26","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":9,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":12,"rooms":[]}],"created_at":"2022-12-25T14:28:33.000000Z","updated_at":"2022-12-25T14:29:17.000000Z"},{"id":6,"provider_name":"","name":"Makkah","description":"","image":"1671978720_278-الكعبة.jpg","destinations":["1","2"],"trips":["10","12"],"destinations_move_dates":["2022-12-28","2022-12-31"],"destinations_move_times":["14:00","09:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-28","date_to":"2022-12-28","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":10,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":12,"rooms":[]}],"created_at":"2022-12-25T14:30:38.000000Z","updated_at":"2022-12-25T14:32:00.000000Z"},{"id":7,"provider_name":"","name":"Makkah","description":"","image":"1671978797_278-الكعبة.jpg","destinations":["1","2"],"trips":["11","12"],"destinations_move_dates":["2022-12-29","2022-12-31"],"destinations_move_times":["14:00","09:00"],"fees":150,"starting_city_id":4,"date_from":"2022-12-29","date_to":"2022-12-29","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":11,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":12,"rooms":[]}],"created_at":"2022-12-25T14:33:17.000000Z","updated_at":"2022-12-25T14:33:17.000000Z"},{"id":8,"provider_name":"","name":"Makkah 01/30 Monday","description":"","image":"1674988757_278-الكعبة.jpg","destinations":["1","2"],"trips":["51","55"],"destinations_move_dates":["2023-01-30",""],"destinations_move_times":["14:00","08:30"],"fees":150,"starting_city_id":4,"date_from":"2023-01-30","date_to":"2023-01-31","time_from":"14:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"2"}],"rate":0,"hotels":[{"trip_id":51,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":55,"rooms":[]}],"created_at":"2023-01-29T10:39:17.000000Z","updated_at":"2023-01-29T11:34:43.000000Z"}]
+/// packages : [{"id":1,"provider_name":"","name":"allhotels okay","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["5","7","1"],"trips":["63","45","61"],"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":250,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[{"fees":"2","room_type":"2"}],"hotel_room_trip_two":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:27:27.000000Z"},{"id":4,"provider_name":"","name":"hotel_room_trip_one empty","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["2","8","1"],"trips":["62","46","61"],"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":260.02,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[],"hotel_room_trip_two":[{"fees":"2","room_type":"2"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:25:38.000000Z"}]
 /// image_base : "https://qbus-sa.com/public/images/packages"
 
 class Data {
@@ -81,27 +81,28 @@ class Data {
 
 /// id : 1
 /// provider_name : ""
-/// name : "مكة مدينة"
+/// name : "allhotels okay"
 /// description : ""
-/// image : "1671479582_كعبة.jpg"
-/// destinations : ["1","5","6"]
-/// trips : ["61","61","61"]
-/// destinations_move_dates : ["2023-12-19","2022-01-22",""]
-/// destinations_move_times : ["14:00","21:00","13:30"]
-/// fees : 150
-/// starting_city_id : 4
-/// date_from : "2023-12-19"
-/// date_to : "2022-12-23"
-/// time_from : "14:00"
+/// image : "1676112646_25886297314266_n.jpg"
+/// destinations : ["5","7","1"]
+/// trips : ["63","45","61"]
+/// destinations_move_dates : ["2023-03-10","2023-03-10",""]
+/// destinations_move_times : ["05:00","13:00","17:00"]
+/// fees : 250
+/// starting_city_id : 2
+/// date_from : "2023-03-10"
+/// date_to : "2023-03-08"
+/// time_from : "17:00"
 /// time_to : ""
 /// provider_notes : ""
 /// provider_archive : false
 /// auto_approve : true
-/// additional : [{"id":"1","fees":"2"}]
+/// additional : [{"id":"1","fees":"7"}]
 /// rate : 0
-/// hotels : [{"trip_id":61,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":61,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]},{"trip_id":61,"rooms":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]}]
-/// created_at : "2022-12-19T19:53:02.000000Z"
-/// updated_at : "2023-02-08T12:35:47.000000Z"
+/// hotel_room_trip_one : [{"fees":"2","room_type":"2"}]
+/// hotel_room_trip_two : [{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]
+/// created_at : "2023-02-11T10:50:46.000000Z"
+/// updated_at : "2023-02-11T12:27:27.000000Z"
 
 class Packages {
   Packages({
@@ -125,7 +126,8 @@ class Packages {
     bool? autoApprove,
     List<Additional>? additional,
     num? rate,
-    List<Hotels>? hotels,
+    List<HotelRoomTripOne>? hotelRoomTripOne,
+    List<HotelRoomTripTwo>? hotelRoomTripTwo,
     String? createdAt,
     String? updatedAt,
   }) {
@@ -149,7 +151,8 @@ class Packages {
     _autoApprove = autoApprove;
     _additional = additional;
     _rate = rate;
-    _hotels = hotels;
+    _hotelRoomTripOne = hotelRoomTripOne;
+    _hotelRoomTripTwo = hotelRoomTripTwo;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
   }
@@ -185,10 +188,16 @@ class Packages {
       });
     }
     _rate = json['rate'];
-    if (json['hotels'] != null) {
-      _hotels = [];
-      json['hotels'].forEach((v) {
-        _hotels?.add(Hotels.fromJson(v));
+    if (json['hotel_room_trip_one'] != null) {
+      _hotelRoomTripOne = [];
+      json['hotel_room_trip_one'].forEach((v) {
+        _hotelRoomTripOne?.add(HotelRoomTripOne.fromJson(v));
+      });
+    }
+    if (json['hotel_room_trip_two'] != null) {
+      _hotelRoomTripTwo = [];
+      json['hotel_room_trip_two'].forEach((v) {
+        _hotelRoomTripTwo?.add(HotelRoomTripTwo.fromJson(v));
       });
     }
     _createdAt = json['created_at'];
@@ -215,7 +224,8 @@ class Packages {
   bool? _autoApprove;
   List<Additional>? _additional;
   num? _rate;
-  List<Hotels>? _hotels;
+  List<HotelRoomTripOne>? _hotelRoomTripOne;
+  List<HotelRoomTripTwo>? _hotelRoomTripTwo;
   String? _createdAt;
   String? _updatedAt;
 
@@ -259,7 +269,9 @@ class Packages {
 
   num? get rate => _rate;
 
-  List<Hotels>? get hotels => _hotels;
+  List<HotelRoomTripOne>? get hotelRoomTripOne => _hotelRoomTripOne;
+
+  List<HotelRoomTripTwo>? get hotelRoomTripTwo => _hotelRoomTripTwo;
 
   String? get createdAt => _createdAt;
 
@@ -289,8 +301,13 @@ class Packages {
       map['additional'] = _additional?.map((v) => v.toJson()).toList();
     }
     map['rate'] = _rate;
-    if (_hotels != null) {
-      map['hotels'] = _hotels?.map((v) => v.toJson()).toList();
+    if (_hotelRoomTripOne != null) {
+      map['hotel_room_trip_one'] =
+          _hotelRoomTripOne?.map((v) => v.toJson()).toList();
+    }
+    if (_hotelRoomTripTwo != null) {
+      map['hotel_room_trip_two'] =
+          _hotelRoomTripTwo?.map((v) => v.toJson()).toList();
     }
     map['created_at'] = _createdAt;
     map['updated_at'] = _updatedAt;
@@ -298,50 +315,11 @@ class Packages {
   }
 }
 
-/// trip_id : 61
-/// rooms : [{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]
-
-class Hotels {
-  Hotels({
-    num? tripId,
-    List<Rooms>? rooms,
-  }) {
-    _tripId = tripId;
-    _rooms = rooms;
-  }
-
-  Hotels.fromJson(dynamic json) {
-    _tripId = json['trip_id'];
-    if (json['rooms'] != null) {
-      _rooms = [];
-      json['rooms'].forEach((v) {
-        _rooms?.add(Rooms.fromJson(v));
-      });
-    }
-  }
-
-  num? _tripId;
-  List<Rooms>? _rooms;
-
-  num? get tripId => _tripId;
-
-  List<Rooms>? get rooms => _rooms;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['trip_id'] = _tripId;
-    if (_rooms != null) {
-      map['rooms'] = _rooms?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
-}
-
 /// fees : "100"
 /// room_type : "2"
 
-class Rooms {
-  Rooms({
+class HotelRoomTripTwo {
+  HotelRoomTripTwo({
     String? fees,
     String? roomType,
   }) {
@@ -349,7 +327,39 @@ class Rooms {
     _roomType = roomType;
   }
 
-  Rooms.fromJson(dynamic json) {
+  HotelRoomTripTwo.fromJson(dynamic json) {
+    _fees = json['fees'];
+    _roomType = json['room_type'];
+  }
+
+  String? _fees;
+  String? _roomType;
+
+  String? get fees => _fees;
+
+  String? get roomType => _roomType;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['fees'] = _fees;
+    map['room_type'] = _roomType;
+    return map;
+  }
+}
+
+/// fees : "2"
+/// room_type : "2"
+
+class HotelRoomTripOne {
+  HotelRoomTripOne({
+    String? fees,
+    String? roomType,
+  }) {
+    _fees = fees;
+    _roomType = roomType;
+  }
+
+  HotelRoomTripOne.fromJson(dynamic json) {
     _fees = json['fees'];
     _roomType = json['room_type'];
   }
@@ -370,7 +380,7 @@ class Rooms {
 }
 
 /// id : "1"
-/// fees : "2"
+/// fees : "7"
 
 class Additional {
   Additional({

@@ -229,7 +229,7 @@ class _PackageHotelTripOneScreenState extends State<PackageHotelTripOneScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => PackageHotelTripTwoScreen(
-                            tripId: widget.tripId,
+                            packageId: widget.tripId,
                             passengerCounts: widget.passengerCounts,
                             paramPassengerBody: [],
                             paramAdditionalList: [],

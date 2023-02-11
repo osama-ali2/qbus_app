@@ -15,10 +15,12 @@ import 'package:qbus/widgets/text_views.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PackageReviewOrderScreen extends StatefulWidget {
-  final int tripId;
+  final int packageId;
 
-  const PackageReviewOrderScreen({Key? key, required this.tripId})
-      : super(key: key);
+  const PackageReviewOrderScreen({
+    Key? key,
+    required this.packageId,
+  }) : super(key: key);
 
   @override
   State<PackageReviewOrderScreen> createState() =>
@@ -38,7 +40,7 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
     reviewOrderProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      reviewOrderProvider.orderReview(tripId: widget.tripId);
+      reviewOrderProvider.orderReview(tripId: widget.packageId);
     });
   }
 
@@ -227,7 +229,7 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => ThankYouScreen(
-                              tripId: widget.tripId,
+                              tripId: widget.packageId,
                             ),
                           ));
                     },
