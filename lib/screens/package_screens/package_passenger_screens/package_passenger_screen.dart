@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:qbus/screens/hotel_screens/hotel_provider.dart';
 import 'package:qbus/screens/package_screens/package_hotels/package_hotels.dart';
 import 'package:qbus/screens/project_widgets/package_passenger_container_widget.dart';
-import 'package:qbus/screens/review_order_screens/review_order_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
@@ -16,6 +15,8 @@ class PackagePassengerScreen extends StatefulWidget {
   final int packageId;
   final List<Map<String, dynamic>> additionalList;
   final bool isHotelTripeOneEmpty;
+  final int firstTripId;
+  final int secondTripId;
 
   const PackagePassengerScreen({
     Key? key,
@@ -23,6 +24,8 @@ class PackagePassengerScreen extends StatefulWidget {
     required this.additionalList,
     required this.isHotelTripeOneEmpty,
     required this.packageId,
+    required this.firstTripId,
+    required this.secondTripId,
   }) : super(key: key);
 
   @override
@@ -209,6 +212,10 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
 
         /// Save Trip Order
         //await _saveTripOrderWithEmptyHotelAndAdditional();
+
+        debugPrint(
+            "packagePassengerScreen: ${widget.packageId}, ${widget.passengerCount.toString()}, $_passengerBody, ${widget.additionalList.map((e) => e)}");
+
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -217,34 +224,27 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
                 passengerCounts: widget.passengerCount.toString(),
                 paramPassengerBody: _passengerBody,
                 paramAdditionalList: widget.additionalList,
+                secondTripId: widget.secondTripId,
               ),
             ));
       } else {
         /// Hotel and Additional with data
         debugPrint("onPassengerScreen: ${widget.additionalList.map((e) => e)}");
+        debugPrint(
+            "packagePassengerScreen: ${widget.packageId}, ${widget.passengerCount.toString()}, $_passengerBody, ${widget.additionalList.map((e) => e)}");
 
         Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => PackageHotelTripOneScreen(
-                tripId: widget.packageId,
                 passengerCounts: widget.passengerCount.toString(),
                 paramPassengerBody: _passengerBody,
                 paramAdditionalList: widget.additionalList,
+                firstTripId: widget.firstTripId,
+                packageId: widget.packageId,
+                secondTripId: widget.secondTripId,
               ),
             ));
-
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => HotelScreen(
-        //       tripId: widget.tripId,
-        //       passengerCounts: widget.passengerCount.toString(),
-        //       paramPassengerBody: _passengerBody,
-        //       paramAdditionalList: widget.additionalList,
-        //     ),
-        //   ),
-        // );
       }
     }
   }

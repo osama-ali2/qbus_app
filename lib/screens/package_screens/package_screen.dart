@@ -136,6 +136,9 @@ class _PackageScreenState extends State<PackageScreen> {
                               var detail = data.description!.toString();
                               // debugPrint("thumbnailImage: $thumbnailImage");
 
+                              var firstTripId = data.firstTripId;
+                              var secondTripId = data.secondTripId;
+
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 8.0),
                                 child: GestureDetector(
@@ -149,6 +152,8 @@ class _PackageScreenState extends State<PackageScreen> {
                                         packageId: packageId,
                                         isHotelTripeOneEmpty:
                                             data.hotelRoomTripOne!.isEmpty,
+                                        firstTripId: firstTripId!,
+                                        secondTripId: secondTripId!,
                                       ),
                                     );
                                   },

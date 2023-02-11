@@ -62,6 +62,7 @@ class PackageHotelTripTwoProvider with ChangeNotifier {
         var length = hotelRoomResponse.data!.rooms!.length;
         for (int i = 0; i < length; i++) {
           Map<String, dynamic> demoData = {
+            "trip_id": 0,
             "room_id": 0,
             "rooms_number": 0,
             "days": 0
@@ -84,6 +85,7 @@ class PackageHotelTripTwoProvider with ChangeNotifier {
     }
   }
 
+  /// Save Package Orders
   Future<void> savePackageOrders({
     required int packageId,
     required int passengerCounts,
@@ -103,29 +105,23 @@ class PackageHotelTripTwoProvider with ChangeNotifier {
       var url = packageOrdersApiUrl;
       debugPrint("URL: $url");
 
-      // final passengers = [
-      //   {
-      //     "name": "Abdelhadi Mohammed",
-      //     "id_proof_type": 3,
-      //     "id_number": "Ac-88sd8f7sdf",
-      //     "country_id": 1
-      //   },
-      //   {
-      //     "name": "mohammed Ahmded",
-      //     "id_proof_type": 2,
-      //     "id_number": "Ac-89sd8f7sdf",
-      //     "country_id": 2
-      //   }
-      // ];
-      //
-      // final additional = [
-      //   {"id": 1, "counter": 2}
-      // ];
-      //
-      final hotelRooms = [
-        {"trip_id": 59, "room_id": 5, "rooms_number": 2, "days": 2},
-        {"trip_id": 56, "room_id": 4, "rooms_number": 1, "days": 2}
-      ];
+      _logger.i("packageId: $packageId");
+      _logger.i("additionalList: ${additionalList.map((e) => e)}");
+      _logger.i("paramPassengerBody: ${paramPassengerBody.map((e) => e)}");
+
+      //TODO: Checkout hotel issue,
+      var newHotelBody = [];
+      for (int i = 0; i < hotelRoomBody.length; i++) {
+        if (hotelRoomBody[i]['rooms_number'] > 0 &&
+            hotelRoomBody[i]['days'] > 0) {
+          newHotelBody.add(hotelRoomBody[i]);
+          _logger.i("newHotelBodyFor:$newHotelBody");
+        }
+        // else {
+        //   newHotelBody = [];
+        //   _logger.d("newHotelBodyElse:$newHotelBody");
+        // }
+      }
 
       final body = {
         "package_id": packageId,
@@ -133,9 +129,11 @@ class PackageHotelTripTwoProvider with ChangeNotifier {
         "code": "",
         "passengers": paramPassengerBody,
         "additional": additionalList,
-        "hotel_rooms": hotelRooms,
+        "hotel_rooms": newHotelBody,
         "user_notes": ""
       };
+
+      _logger.i("apiBody:$body");
 
       packageOrderResponse = await MyApi.callPostApi(
         url: url,
@@ -185,43 +183,26 @@ class PackageHotelTripTwoProvider with ChangeNotifier {
         "Authorization": "Bearer $userToken"
       };
       _logger.i("packageId: $packageId");
+      _logger.i("additionalList: ${additionalList.map((e) => e)}");
+      _logger.i("paramPassengerBody: ${paramPassengerBody.map((e) => e)}");
 
       var url = packageOrdersApiUrl;
       debugPrint("URL: $url");
 
-      // final passengers = [
-      //   {
-      //     "name": "Abdelhadi Mohammed",
-      //     "id_proof_type": 3,
-      //     "id_number": "Ac-88sd8f7sdf",
-      //     "country_id": 1
-      //   },
-      //   {
-      //     "name": "mohammed Ahmded",
-      //     "id_proof_type": 2,
-      //     "id_number": "Ac-89sd8f7sdf",
-      //     "country_id": 2
-      //   }
-      // ];
-      //
-      // final additional = [
-      //   {"id": 1, "counter": 2}
-      // ];
-      //
-      final hotelRooms = [
-        {"trip_id": 59, "room_id": 5, "rooms_number": 2, "days": 2},
-        {"trip_id": 56, "room_id": 4, "rooms_number": 1, "days": 2}
-      ];
-
       final body = {
-        "package_id": packageId,
+        "package_id": 1,
         "count": passengerCounts,
         "code": "",
         "passengers": paramPassengerBody,
         "additional": additionalList,
-        "hotel_rooms": hotelRooms,
+        "hotel_rooms": [
+          {"trip_id": 59, "room_id": 5, "rooms_number": 2, "days": 2},
+          {"trip_id": 56, "room_id": 4, "rooms_number": 1, "days": 2}
+        ],
         "user_notes": ""
       };
+
+      debugPrint("body:$body");
 
       packageOrderResponse = await MyApi.callPostApi(
         url: url,

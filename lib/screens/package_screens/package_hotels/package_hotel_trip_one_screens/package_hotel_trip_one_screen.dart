@@ -14,17 +14,21 @@ import 'package_hotel_trip_one_filter_screens/package_hotel_tripe_one_filter_scr
 import 'package_hotel_trip_one_provider.dart';
 
 class PackageHotelTripOneScreen extends StatefulWidget {
-  final int tripId;
+  final int firstTripId;
+  final int secondTripId;
+  final int packageId;
+
   final String passengerCounts;
   final List<Map<String, dynamic>> paramPassengerBody;
   final List<Map<String, dynamic>> paramAdditionalList;
 
   const PackageHotelTripOneScreen({
     Key? key,
-    required this.tripId,
+    required this.firstTripId,
     required this.passengerCounts,
     required this.paramPassengerBody,
     required this.paramAdditionalList,
+    required this.packageId, required this.secondTripId,
   }) : super(key: key);
 
   @override
@@ -46,7 +50,7 @@ class _PackageHotelTripOneScreenState extends State<PackageHotelTripOneScreen> {
     packageHotelProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      packageHotelProvider.getHotels(tripId: widget.tripId);
+      packageHotelProvider.getHotels(tripId: widget.firstTripId);
     });
   }
 
@@ -105,7 +109,7 @@ class _PackageHotelTripOneScreenState extends State<PackageHotelTripOneScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        const PackageHotelTripOneFilterScreen(),
+                    const PackageHotelTripOneFilterScreen(),
                   ),
                 );
               },
@@ -135,110 +139,117 @@ class _PackageHotelTripOneScreenState extends State<PackageHotelTripOneScreen> {
             CommonPadding.sizeBoxWithHeight(height: 10),
             packageHotelProvider.isHotelLoaded == true
                 ? Expanded(
-                    child: ListView.builder(
-                      itemCount: packageHotelProvider
-                          .hotelRoomResponse.data!.rooms!.length,
-                      itemBuilder: (context, index) {
-                        currentIndex = index;
+              child: ListView.builder(
+                itemCount: packageHotelProvider
+                    .hotelRoomResponse.data!.rooms!.length,
+                itemBuilder: (context, index) {
+                  currentIndex = index;
 
-                        var data = packageHotelProvider
-                            .hotelRoomResponse.data!.rooms![index];
+                  var data = packageHotelProvider
+                      .hotelRoomResponse.data!.rooms![index];
 
-                        // var hotelName = data.name?.en.toString();
-                        var hotelName = data.name?.ar.toString();
+                  // var hotelName = data.name?.en.toString();
+                  var hotelName = data.name?.ar.toString();
 
-                        var city = data.city.toString();
-                        var rate = data.rate.toString();
+                  var city = data.city.toString();
+                  var rate = data.rate.toString();
 
-                        var roomNum = data.roomQuantity.toString();
-                        var bedNum = data.bedQuantity.toString();
-                        var imageUrl = packageHotelProvider
-                            .hotelRoomResponse.data!.imageBase
-                            .toString();
+                  var roomNum = data.roomQuantity.toString();
+                  var bedNum = data.bedQuantity.toString();
+                  var imageUrl = packageHotelProvider
+                      .hotelRoomResponse.data!.imageBase
+                      .toString();
 
-                        var image = data.image.toString();
-                        var thumbnailUrl = "$imageUrl/$image";
-                        var roomId = int.parse("${data.id}");
+                  var image = data.image.toString();
+                  var thumbnailUrl = "$imageUrl/$image";
+                  var roomId = int.parse("${data.id}");
+                  var tripId = int.parse("${data.id}");
 
-                        var rent = data.fees.toString();
+                  var rent = data.fees.toString();
 
-                        return Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: sizes!.heightRatio * 5,
-                          ),
-                          child: HotelCardContainerWidget(
-                            key: Key("$index"),
-                            hotelTitle: hotelName ?? "First Class Hotel",
-                            cityName: city,
-                            rent: rent,
-                            roomType: AppLocalizations.of(context)!.room_type,
-                            hotelImage: thumbnailUrl,
-                            houseNum: roomNum,
-                            bedRoomNum: bedNum,
-                            ratingNum: int.parse(rate),
-                            onPlusBookingDayPress: () {
-                              onPlusBookingDay(index: index, roomId: roomId);
-                            },
-                            onMinusBookingDayPress: () {
-                              onMinusBookingDay(index: index, roomId: roomId);
-                            },
-                            onPlusRoomPress: () {
-                              onPlusRoom(index: index, roomId: roomId);
-                            },
-                            onMinusRoomPress: () {
-                              onMinusRoom(index: index, roomId: roomId);
-                            },
-                            bookingDayCounter: packageHotelProvider
-                                    .selectBookingDaysList.isNotEmpty
-                                ? packageHotelProvider
-                                    .selectBookingDaysList[index]
-                                : 0,
-                            numberOfRoomCounter: packageHotelProvider
-                                    .selectNumberOfRoomsList.isNotEmpty
-                                ? packageHotelProvider
-                                    .selectNumberOfRoomsList[index]
-                                : 0,
-                          ),
-                        );
-                      },
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: sizes!.heightRatio * 5,
                     ),
-                  )
+                    child: HotelCardContainerWidget(
+                      key: Key("$index"),
+                      hotelTitle: hotelName ?? "First Class Hotel",
+                      cityName: city,
+                      rent: rent,
+                      roomType: AppLocalizations.of(context)!.room_type,
+                      hotelImage: thumbnailUrl,
+                      houseNum: roomNum,
+                      bedRoomNum: bedNum,
+                      ratingNum: int.parse(rate),
+                      onPlusBookingDayPress: () {
+                        onPlusBookingDay(
+                            index: index, roomId: roomId, tripId: tripId);
+                      },
+                      onMinusBookingDayPress: () {
+                        onMinusBookingDay(
+                            index: index, roomId: roomId, tripId: tripId);
+                      },
+                      onPlusRoomPress: () {
+                        onPlusRoom(
+                            index: index, roomId: roomId, tripId: tripId);
+                      },
+                      onMinusRoomPress: () {
+                        onMinusRoom(
+                            index: index, roomId: roomId, tripId: tripId);
+                      },
+                      bookingDayCounter: packageHotelProvider
+                          .selectBookingDaysList.isNotEmpty
+                          ? packageHotelProvider
+                          .selectBookingDaysList[index]
+                          : 0,
+                      numberOfRoomCounter: packageHotelProvider
+                          .selectNumberOfRoomsList.isNotEmpty
+                          ? packageHotelProvider
+                          .selectNumberOfRoomsList[index]
+                          : 0,
+                    ),
+                  );
+                },
+              ),
+            )
                 : Center(
-                    child: TextView.getGenericText(
-                        text: AppLocalizations.of(context)!.no_hotel_found,
-                        fontFamily: Assets.latoRegular,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.whiteTextColor,
-                        lines: 1),
-                  ),
+              child: TextView.getGenericText(
+                  text: AppLocalizations.of(context)!.no_hotel_found,
+                  fontFamily: Assets.latoRegular,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  color: AppColors.whiteTextColor,
+                  lines: 1),
+            ),
             CommonPadding.sizeBoxWithHeight(height: 10),
             packageHotelProvider.isHotelLoaded == true
                 ? CustomButton(
-                    name: AppLocalizations.of(context)!.confirm_order,
-                    buttonColor: appColor,
-                    height: sizes!.heightRatio * 45,
-                    width: double.infinity,
-                    textSize: sizes!.fontRatio * 14,
-                    textColor: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    borderRadius: 5,
-                    onTapped: () async {
-                      // await _saveTripOrder();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PackageHotelTripTwoScreen(
-                            packageId: widget.tripId,
-                            passengerCounts: widget.passengerCounts,
-                            paramPassengerBody: [],
-                            paramAdditionalList: [],
-                          ),
+              name: AppLocalizations.of(context)!.confirm_order,
+              buttonColor: appColor,
+              height: sizes!.heightRatio * 45,
+              width: double.infinity,
+              textSize: sizes!.fontRatio * 14,
+              textColor: Colors.white,
+              fontWeight: FontWeight.w500,
+              borderRadius: 5,
+              onTapped: () async {
+                // await _saveTripOrder();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        PackageHotelTripTwoScreen(
+                          packageId: widget.packageId,
+                          passengerCounts: widget.passengerCounts,
+                          paramPassengerBody: widget.paramPassengerBody,
+                          paramAdditionalList: widget.paramAdditionalList,
+                          secondTripId: widget.secondTripId,
                         ),
-                      );
-                    },
-                    padding: 0,
-                  )
+                  ),
+                );
+              },
+              padding: 0,
+            )
                 : Container(),
             CommonPadding.sizeBoxWithHeight(height: 10),
           ],
@@ -248,10 +259,15 @@ class _PackageHotelTripOneScreenState extends State<PackageHotelTripOneScreen> {
   }
 
   // On Plus Booking Day
-  void onPlusBookingDay({required int index, required int roomId}) {
+  void onPlusBookingDay({
+    required int index,
+    required int roomId,
+    required int tripId,
+  }) {
     setState(() {
       packageHotelProvider.selectBookingDaysList[index]++;
       Map<String, dynamic> selected = {
+        "trip_id": tripId,
         "room_id": roomId,
         "rooms_number": packageHotelProvider.selectNumberOfRoomsList[index],
         "days": packageHotelProvider.selectBookingDaysList[index],
@@ -262,11 +278,16 @@ class _PackageHotelTripOneScreenState extends State<PackageHotelTripOneScreen> {
   }
 
   // On Minus Booking Day
-  void onMinusBookingDay({required int index, required int roomId}) {
+  void onMinusBookingDay({
+    required int index,
+    required int roomId,
+    required int tripId,
+  }) {
     if (packageHotelProvider.selectBookingDaysList[index] > 0) {
       setState(() {
         packageHotelProvider.selectBookingDaysList[index]--;
         Map<String, dynamic> selected = {
+          "trip_id": tripId,
           "room_id": roomId,
           "rooms_number": packageHotelProvider.selectNumberOfRoomsList[index],
           "days": packageHotelProvider.selectBookingDaysList[index],
@@ -278,10 +299,15 @@ class _PackageHotelTripOneScreenState extends State<PackageHotelTripOneScreen> {
   }
 
   // On Plus Room
-  void onPlusRoom({required int index, required int roomId}) {
+  void onPlusRoom({
+    required int index,
+    required int roomId,
+    required int tripId,
+  }) {
     setState(() {
       packageHotelProvider.selectNumberOfRoomsList[index]++;
       Map<String, dynamic> selected = {
+        "trip_id": tripId,
         "room_id": roomId,
         "rooms_number": packageHotelProvider.selectNumberOfRoomsList[index],
         //numberOfRoomsCounter,
@@ -294,11 +320,16 @@ class _PackageHotelTripOneScreenState extends State<PackageHotelTripOneScreen> {
   }
 
   // On Minus Room
-  void onMinusRoom({required int index, required int roomId}) {
+  void onMinusRoom({
+    required int index,
+    required int roomId,
+    required int tripId,
+  }) {
     if (packageHotelProvider.selectNumberOfRoomsList[index] > 0) {
       setState(() {
         packageHotelProvider.selectNumberOfRoomsList[index]--;
         Map<String, dynamic> selected = {
+          "trip_id": tripId,
           "room_id": roomId,
           "rooms_number": packageHotelProvider.selectNumberOfRoomsList[index],
           //numberOfRoomsCounter,
@@ -314,7 +345,7 @@ class _PackageHotelTripOneScreenState extends State<PackageHotelTripOneScreen> {
   /// Save Trip Order
   Future<void> _saveTripOrder() async {
     await packageHotelProvider.oneWayOrderTrip(
-      tripId: "${widget.tripId}",
+      tripId: "${widget.packageId}",
       passengerCounts: widget.passengerCounts,
       paramPassengerBody: widget.paramPassengerBody,
       additionalList: widget.paramAdditionalList,
@@ -327,9 +358,10 @@ class _PackageHotelTripOneScreenState extends State<PackageHotelTripOneScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ReviewOrderScreen(
-            tripId: tripId!,
-          ),
+          builder: (context) =>
+              ReviewOrderScreen(
+                tripId: tripId!,
+              ),
         ),
       );
     } else {
@@ -343,7 +375,7 @@ class _PackageHotelTripOneScreenState extends State<PackageHotelTripOneScreen> {
     debugPrint(
         "SkippingHotelAdditional: ${widget.paramAdditionalList.map((e) => e)}");
     await packageHotelProvider.skipHotelOneWayOrderTrip(
-      tripId: "${widget.tripId}",
+      tripId: "${widget.packageId}",
       passengerCounts: widget.passengerCounts,
       paramPassengerBody: widget.paramPassengerBody,
       additionalList: widget.paramAdditionalList,
@@ -355,9 +387,10 @@ class _PackageHotelTripOneScreenState extends State<PackageHotelTripOneScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ReviewOrderScreen(
-            tripId: tripId!,
-          ),
+          builder: (context) =>
+              ReviewOrderScreen(
+                tripId: tripId!,
+              ),
         ),
       );
     }

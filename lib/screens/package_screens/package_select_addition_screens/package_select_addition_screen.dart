@@ -14,12 +14,16 @@ class PackageSelectAdditionScreen extends StatefulWidget {
   final String packageId;
   final int passengerCount;
   final bool isHotelTripeOneEmpty;
+  final int firstTripId;
+  final int secondTripId;
 
   const PackageSelectAdditionScreen({
     Key? key,
     required this.packageId,
     required this.passengerCount,
     required this.isHotelTripeOneEmpty,
+    required this.firstTripId,
+    required this.secondTripId,
   }) : super(key: key);
 
   @override
@@ -113,31 +117,34 @@ class _PackageSelectAdditionScreenState
                         }),
                   ),
                   CustomButton(
-                      name: "NEXT",
-                      buttonColor: appColor,
-                      height: sizes!.heightRatio * 45,
-                      width: double.infinity,
-                      textSize: sizes!.fontRatio * 14,
-                      textColor: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      borderRadius: 5,
-                      onTapped: () {
-                        debugPrint(
-                            "AdditionalList: ${packageSelectAdditionProvider.additionalList}");
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PackagePassengerScreen(
-                                passengerCount: widget.passengerCount,
-                                packageId: int.parse(widget.packageId),
-                                additionalList: packageSelectAdditionProvider
-                                    .additionalList,
-                                isHotelTripeOneEmpty:
-                                    widget.isHotelTripeOneEmpty,
-                              ),
-                            ));
-                      },
-                      padding: 20),
+                    name: "NEXT",
+                    buttonColor: appColor,
+                    height: sizes!.heightRatio * 45,
+                    width: double.infinity,
+                    textSize: sizes!.fontRatio * 14,
+                    textColor: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    borderRadius: 5,
+                    onTapped: () {
+                      debugPrint(
+                          "packageSelectAddition: ${packageSelectAdditionProvider.additionalList}, passengerCount:${widget.passengerCount}, packageId:${widget.packageId}");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PackagePassengerScreen(
+                            passengerCount: widget.passengerCount,
+                            packageId: int.parse(widget.packageId),
+                            additionalList:
+                                packageSelectAdditionProvider.additionalList,
+                            isHotelTripeOneEmpty: widget.isHotelTripeOneEmpty,
+                            firstTripId: widget.firstTripId,
+                            secondTripId: widget.secondTripId,
+                          ),
+                        ),
+                      );
+                    },
+                    padding: 20,
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -150,10 +157,11 @@ class _PackageSelectAdditionScreenState
                           child: GestureDetector(
                             onTap: () {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const LoginScreen(),
-                                  ));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
                             },
                             child: Container(
                               height: sizes!.heightRatio * 45,
@@ -269,10 +277,11 @@ class _PackageSelectAdditionScreenState
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomText(
-                text: name,
-                textSize: sizes!.fontRatio * 16,
-                fontWeight: FontWeight.normal,
-                textColor: const Color(0xff747268)),
+              text: name,
+              textSize: sizes!.fontRatio * 16,
+              fontWeight: FontWeight.normal,
+              textColor: const Color(0xff747268),
+            ),
             Counter(number: number, onAdd: () => add(), onMinus: () => minus())
           ],
         ),

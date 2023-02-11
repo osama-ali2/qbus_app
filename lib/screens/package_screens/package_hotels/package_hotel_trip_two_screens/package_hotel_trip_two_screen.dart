@@ -12,6 +12,7 @@ import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
 
 class PackageHotelTripTwoScreen extends StatefulWidget {
+  final int secondTripId;
   final int packageId;
   final String passengerCounts;
   final List<Map<String, dynamic>> paramPassengerBody;
@@ -22,6 +23,7 @@ class PackageHotelTripTwoScreen extends StatefulWidget {
     required this.passengerCounts,
     required this.paramPassengerBody,
     required this.paramAdditionalList,
+    required this.secondTripId,
     required this.packageId,
   }) : super(key: key);
 
@@ -44,7 +46,7 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
     packageHotelTripTwoProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      packageHotelTripTwoProvider.getHotels(tripId: widget.packageId);
+      packageHotelTripTwoProvider.getHotels(tripId: widget.secondTripId);
     });
   }
 
@@ -157,6 +159,7 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
                         var image = data.image.toString();
                         var thumbnailUrl = "$imageUrl/$image";
                         var roomId = int.parse("${data.id}");
+                        var tripId = int.parse("${data.id}");
 
                         var rent = data.fees.toString();
 
@@ -175,16 +178,32 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
                             bedRoomNum: bedNum,
                             ratingNum: int.parse(rate),
                             onPlusBookingDayPress: () {
-                              onPlusBookingDay(index: index, roomId: roomId);
+                              onPlusBookingDay(
+                                index: index,
+                                roomId: roomId,
+                                tripId: tripId,
+                              );
                             },
                             onMinusBookingDayPress: () {
-                              onMinusBookingDay(index: index, roomId: roomId);
+                              onMinusBookingDay(
+                                index: index,
+                                roomId: roomId,
+                                tripId: tripId,
+                              );
                             },
                             onPlusRoomPress: () {
-                              onPlusRoom(index: index, roomId: roomId);
+                              onPlusRoom(
+                                index: index,
+                                roomId: roomId,
+                                tripId: tripId,
+                              );
                             },
                             onMinusRoomPress: () {
-                              onMinusRoom(index: index, roomId: roomId);
+                              onMinusRoom(
+                                index: index,
+                                roomId: roomId,
+                                tripId: tripId,
+                              );
                             },
                             bookingDayCounter: packageHotelTripTwoProvider
                                     .selectBookingDaysList.isNotEmpty
@@ -235,10 +254,15 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
   }
 
   /// On Plus Booking Day
-  void onPlusBookingDay({required int index, required int roomId}) {
+  void onPlusBookingDay({
+    required int index,
+    required int roomId,
+    required int tripId,
+  }) {
     setState(() {
       packageHotelTripTwoProvider.selectBookingDaysList[index]++;
       Map<String, dynamic> selected = {
+        "trip_id": tripId,
         "room_id": roomId,
         "rooms_number":
             packageHotelTripTwoProvider.selectNumberOfRoomsList[index],
@@ -250,11 +274,16 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
   }
 
   /// On Minus Booking Day
-  void onMinusBookingDay({required int index, required int roomId}) {
+  void onMinusBookingDay({
+    required int index,
+    required int roomId,
+    required int tripId,
+  }) {
     if (packageHotelTripTwoProvider.selectBookingDaysList[index] > 0) {
       setState(() {
         packageHotelTripTwoProvider.selectBookingDaysList[index]--;
         Map<String, dynamic> selected = {
+          "trip_id": tripId,
           "room_id": roomId,
           "rooms_number":
               packageHotelTripTwoProvider.selectNumberOfRoomsList[index],
@@ -267,10 +296,15 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
   }
 
   /// On Plus Room
-  void onPlusRoom({required int index, required int roomId}) {
+  void onPlusRoom({
+    required int index,
+    required int roomId,
+    required int tripId,
+  }) {
     setState(() {
       packageHotelTripTwoProvider.selectNumberOfRoomsList[index]++;
       Map<String, dynamic> selected = {
+        "trip_id": tripId,
         "room_id": roomId,
         "rooms_number":
             packageHotelTripTwoProvider.selectNumberOfRoomsList[index],
@@ -284,11 +318,16 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
   }
 
   /// On Minus Room
-  void onMinusRoom({required int index, required int roomId}) {
+  void onMinusRoom({
+    required int index,
+    required int roomId,
+    required int tripId,
+  }) {
     if (packageHotelTripTwoProvider.selectNumberOfRoomsList[index] > 0) {
       setState(() {
         packageHotelTripTwoProvider.selectNumberOfRoomsList[index]--;
         Map<String, dynamic> selected = {
+          "trip_id": tripId,
           "room_id": roomId,
           "rooms_number":
               packageHotelTripTwoProvider.selectNumberOfRoomsList[index],
@@ -304,6 +343,9 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
 
   /// Save Trip Order
   Future<void> _savePackageOrder() async {
+    debugPrint(
+        "_savePackageOrder: ${widget.packageId}, ${widget.passengerCounts},\n${widget.paramPassengerBody.map((e) => e)},\n${widget.paramAdditionalList.map((e) => e)}");
+
     await packageHotelTripTwoProvider.savePackageOrders(
       packageId: widget.packageId,
       passengerCounts: int.parse(widget.passengerCounts),

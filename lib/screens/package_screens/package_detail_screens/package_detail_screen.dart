@@ -17,12 +17,16 @@ class PackageDetailScreen extends StatefulWidget {
   final String? packageTitle;
   final String? packageId;
   final bool isHotelTripeOneEmpty;
+  final int firstTripId;
+  final int secondTripId;
 
   const PackageDetailScreen({
     Key? key,
     this.packageTitle,
     this.packageId,
     required this.isHotelTripeOneEmpty,
+    required this.firstTripId,
+    required this.secondTripId,
   }) : super(key: key);
 
   @override
@@ -268,6 +272,8 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                           if (packageDetailProvider.packageDetailResponse.data!
                               .packages!.additionals!.isNotEmpty) {
                             /// Navigate to Package Select Addition Screen
+                            debugPrint(
+                                "packageDetail:$passengersNumber, $packageId");
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -277,11 +283,15 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                                   passengerCount: passengersNumber,
                                   isHotelTripeOneEmpty:
                                       widget.isHotelTripeOneEmpty,
+                                  firstTripId: widget.firstTripId,
+                                  secondTripId: widget.secondTripId,
                                 ),
                               ),
                             );
                           } else {
                             /// Navigator to Package Passenger Screen
+                            debugPrint(
+                                "packageDetail:$passengersNumber, $packageId");
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -291,6 +301,8 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                                     additionalList: [],
                                     isHotelTripeOneEmpty:
                                         widget.isHotelTripeOneEmpty,
+                                    firstTripId: widget.firstTripId,
+                                    secondTripId: widget.secondTripId,
                                   ),
                                 ));
                           }

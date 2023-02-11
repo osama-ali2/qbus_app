@@ -1,11 +1,11 @@
 /// message : "success"
 /// code : 1
-/// data : {"packages":[{"id":1,"provider_name":"","name":"allhotels okay","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["5","7","1"],"trips":["63","45","61"],"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":250,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[{"fees":"2","room_type":"2"}],"hotel_room_trip_two":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:27:27.000000Z"},{"id":4,"provider_name":"","name":"hotel_room_trip_one empty","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["2","8","1"],"trips":["62","46","61"],"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":260.02,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[],"hotel_room_trip_two":[{"fees":"2","room_type":"2"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:25:38.000000Z"}],"image_base":"https://qbus-sa.com/public/images/packages"}
+/// data : {"packages":[{"id":1,"provider_name":"","name":"allhotels okay","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["5","7","1"],"first_trip_id":63,"second_trip_id":45,"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":250,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[{"fees":"2","room_type":"2"}],"hotel_room_trip_two":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:27:27.000000Z"},{"id":4,"provider_name":"","name":"hotel_room_trip_one empty","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["2","8","1"],"first_trip_id":62,"second_trip_id":46,"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":260,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[],"hotel_room_trip_two":[{"fees":"2","room_type":"2"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:31:58.000000Z"},{"id":5,"provider_name":"","name":"hotel_room_trip_two empty","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["1","6","8"],"first_trip_id":61,"second_trip_id":64,"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":280,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}],"hotel_room_trip_two":[],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:34:20.000000Z"}],"image_base":"https://qbus-sa.com/public/images/packages"}
 
 class PackagesResponse {
   PackagesResponse({
     String? message,
-    num? code,
+    int? code,
     Data? data,
   }) {
     _message = message;
@@ -20,12 +20,12 @@ class PackagesResponse {
   }
 
   String? _message;
-  num? _code;
+  int? _code;
   Data? _data;
 
   String? get message => _message;
 
-  num? get code => _code;
+  int? get code => _code;
 
   Data? get data => _data;
 
@@ -40,7 +40,7 @@ class PackagesResponse {
   }
 }
 
-/// packages : [{"id":1,"provider_name":"","name":"allhotels okay","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["5","7","1"],"trips":["63","45","61"],"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":250,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[{"fees":"2","room_type":"2"}],"hotel_room_trip_two":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:27:27.000000Z"},{"id":4,"provider_name":"","name":"hotel_room_trip_one empty","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["2","8","1"],"trips":["62","46","61"],"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":260.02,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[],"hotel_room_trip_two":[{"fees":"2","room_type":"2"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:25:38.000000Z"}]
+/// packages : [{"id":1,"provider_name":"","name":"allhotels okay","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["5","7","1"],"first_trip_id":63,"second_trip_id":45,"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":250,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[{"fees":"2","room_type":"2"}],"hotel_room_trip_two":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:27:27.000000Z"},{"id":4,"provider_name":"","name":"hotel_room_trip_one empty","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["2","8","1"],"first_trip_id":62,"second_trip_id":46,"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":260,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[],"hotel_room_trip_two":[{"fees":"2","room_type":"2"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:31:58.000000Z"},{"id":5,"provider_name":"","name":"hotel_room_trip_two empty","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["1","6","8"],"first_trip_id":61,"second_trip_id":64,"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":280,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}],"hotel_room_trip_two":[],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:34:20.000000Z"}]
 /// image_base : "https://qbus-sa.com/public/images/packages"
 
 class Data {
@@ -85,7 +85,8 @@ class Data {
 /// description : ""
 /// image : "1676112646_25886297314266_n.jpg"
 /// destinations : ["5","7","1"]
-/// trips : ["63","45","61"]
+/// first_trip_id : 63
+/// second_trip_id : 45
 /// destinations_move_dates : ["2023-03-10","2023-03-10",""]
 /// destinations_move_times : ["05:00","13:00","17:00"]
 /// fees : 250
@@ -106,17 +107,18 @@ class Data {
 
 class Packages {
   Packages({
-    num? id,
+    int? id,
     String? providerName,
     String? name,
     String? description,
     String? image,
     List<String>? destinations,
-    List<String>? trips,
+    int? firstTripId,
+    int? secondTripId,
     List<String>? destinationsMoveDates,
     List<String>? destinationsMoveTimes,
-    num? fees,
-    num? startingCityId,
+    int? fees,
+    int? startingCityId,
     String? dateFrom,
     String? dateTo,
     String? timeFrom,
@@ -125,7 +127,7 @@ class Packages {
     bool? providerArchive,
     bool? autoApprove,
     List<Additional>? additional,
-    num? rate,
+    int? rate,
     List<HotelRoomTripOne>? hotelRoomTripOne,
     List<HotelRoomTripTwo>? hotelRoomTripTwo,
     String? createdAt,
@@ -137,7 +139,8 @@ class Packages {
     _description = description;
     _image = image;
     _destinations = destinations;
-    _trips = trips;
+    _firstTripId = firstTripId;
+    _secondTripId = secondTripId;
     _destinationsMoveDates = destinationsMoveDates;
     _destinationsMoveTimes = destinationsMoveTimes;
     _fees = fees;
@@ -165,7 +168,8 @@ class Packages {
     _image = json['image'];
     _destinations =
         json['destinations'] != null ? json['destinations'].cast<String>() : [];
-    _trips = json['trips'] != null ? json['trips'].cast<String>() : [];
+    _firstTripId = json['first_trip_id'];
+    _secondTripId = json['second_trip_id'];
     _destinationsMoveDates = json['destinations_move_dates'] != null
         ? json['destinations_move_dates'].cast<String>()
         : [];
@@ -204,17 +208,18 @@ class Packages {
     _updatedAt = json['updated_at'];
   }
 
-  num? _id;
+  int? _id;
   String? _providerName;
   String? _name;
   String? _description;
   String? _image;
   List<String>? _destinations;
-  List<String>? _trips;
+  int? _firstTripId;
+  int? _secondTripId;
   List<String>? _destinationsMoveDates;
   List<String>? _destinationsMoveTimes;
-  num? _fees;
-  num? _startingCityId;
+  int? _fees;
+  int? _startingCityId;
   String? _dateFrom;
   String? _dateTo;
   String? _timeFrom;
@@ -223,13 +228,13 @@ class Packages {
   bool? _providerArchive;
   bool? _autoApprove;
   List<Additional>? _additional;
-  num? _rate;
+  int? _rate;
   List<HotelRoomTripOne>? _hotelRoomTripOne;
   List<HotelRoomTripTwo>? _hotelRoomTripTwo;
   String? _createdAt;
   String? _updatedAt;
 
-  num? get id => _id;
+  int? get id => _id;
 
   String? get providerName => _providerName;
 
@@ -241,15 +246,17 @@ class Packages {
 
   List<String>? get destinations => _destinations;
 
-  List<String>? get trips => _trips;
+  int? get firstTripId => _firstTripId;
+
+  int? get secondTripId => _secondTripId;
 
   List<String>? get destinationsMoveDates => _destinationsMoveDates;
 
   List<String>? get destinationsMoveTimes => _destinationsMoveTimes;
 
-  num? get fees => _fees;
+  int? get fees => _fees;
 
-  num? get startingCityId => _startingCityId;
+  int? get startingCityId => _startingCityId;
 
   String? get dateFrom => _dateFrom;
 
@@ -267,7 +274,7 @@ class Packages {
 
   List<Additional>? get additional => _additional;
 
-  num? get rate => _rate;
+  int? get rate => _rate;
 
   List<HotelRoomTripOne>? get hotelRoomTripOne => _hotelRoomTripOne;
 
@@ -285,7 +292,8 @@ class Packages {
     map['description'] = _description;
     map['image'] = _image;
     map['destinations'] = _destinations;
-    map['trips'] = _trips;
+    map['first_trip_id'] = _firstTripId;
+    map['second_trip_id'] = _secondTripId;
     map['destinations_move_dates'] = _destinationsMoveDates;
     map['destinations_move_times'] = _destinationsMoveTimes;
     map['fees'] = _fees;

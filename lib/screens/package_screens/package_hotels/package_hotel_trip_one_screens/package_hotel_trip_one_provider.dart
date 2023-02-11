@@ -63,6 +63,7 @@ class PackageHotelTripOneProvider with ChangeNotifier {
         var length = hotelRoomResponse.data!.rooms!.length;
         for (int i = 0; i < length; i++) {
           Map<String, dynamic> demoData = {
+            "trip_id": 0,
             "room_id": 0,
             "rooms_number": 0,
             "days": 0

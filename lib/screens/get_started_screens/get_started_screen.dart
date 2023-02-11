@@ -463,6 +463,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                       var dateFrom = data.dateFrom.toString();
                       var detail = data.description!.toString();
                       // debugPrint("thumbnailImage: $thumbnailImage");
+
+                      var firstTripId = data.firstTripId;
+                      var secondTripId = data.secondTripId;
                       return Padding(
                         padding:
                             EdgeInsets.only(bottom: sizes!.heightRatio * 8.0),
@@ -479,6 +482,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                                 packageId: packageId,
                                 isHotelTripeOneEmpty:
                                     data.hotelRoomTripOne!.isEmpty,
+                                firstTripId: firstTripId!,
+                                secondTripId: secondTripId!,
                               ),
                             );
                           },
