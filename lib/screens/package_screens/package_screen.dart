@@ -6,9 +6,9 @@ import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/resources/resources.dart';
 import 'package:qbus/screens/project_widgets/filter_container_widget.dart';
 import 'package:qbus/screens/project_widgets/package_card_container_widget.dart';
+import 'package:qbus/utils/constant.dart';
+import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
-import '../../../../utils/constant.dart';
-import '../../../../widgets/custom_text.dart';
 import 'package_detail_screens/package_detail_screen.dart';
 import 'package_filter_screens/package_filter_screen.dart';
 import 'package_provider.dart';
@@ -135,6 +135,11 @@ class _PackageScreenState extends State<PackageScreen> {
                               var dateFrom = data.dateFrom.toString();
                               var detail = data.description!.toString();
                               // debugPrint("thumbnailImage: $thumbnailImage");
+
+
+
+
+
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 8.0),
                                 child: GestureDetector(

@@ -32,20 +32,20 @@ class PackageHotelTripTwoScreen extends StatefulWidget {
 }
 
 class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
-  late PackageHotelTripTwoProvider packageHotelProvider;
+  late PackageHotelTripTwoProvider packageHotelTripTwoProvider;
   int currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
 
-    packageHotelProvider = PackageHotelTripTwoProvider();
-    packageHotelProvider =
+    packageHotelTripTwoProvider = PackageHotelTripTwoProvider();
+    packageHotelTripTwoProvider =
         Provider.of<PackageHotelTripTwoProvider>(context, listen: false);
-    packageHotelProvider.init(context: context);
+    packageHotelTripTwoProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      packageHotelProvider.getHotels(tripId: widget.tripId);
+      packageHotelTripTwoProvider.getHotels(tripId: widget.tripId);
     });
   }
 
@@ -53,9 +53,9 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
   void dispose() {
     super.dispose();
 
-    packageHotelProvider.selectBookingDaysList.clear();
-    packageHotelProvider.selectNumberOfRoomsList.clear();
-    packageHotelProvider.hotelRoomBody.clear();
+    packageHotelTripTwoProvider.selectBookingDaysList.clear();
+    packageHotelTripTwoProvider.selectNumberOfRoomsList.clear();
+    packageHotelTripTwoProvider.hotelRoomBody.clear();
   }
 
   @override
@@ -132,15 +132,15 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
               ),
             ),
             CommonPadding.sizeBoxWithHeight(height: 10),
-            packageHotelProvider.isHotelLoaded == true
+            packageHotelTripTwoProvider.isHotelLoaded == true
                 ? Expanded(
                     child: ListView.builder(
-                      itemCount: packageHotelProvider
+                      itemCount: packageHotelTripTwoProvider
                           .hotelRoomResponse.data!.rooms!.length,
                       itemBuilder: (context, index) {
                         currentIndex = index;
 
-                        var data = packageHotelProvider
+                        var data = packageHotelTripTwoProvider
                             .hotelRoomResponse.data!.rooms![index];
 
                         // var hotelName = data.name?.en.toString();
@@ -151,7 +151,7 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
 
                         var roomNum = data.roomQuantity.toString();
                         var bedNum = data.bedQuantity.toString();
-                        var imageUrl = packageHotelProvider
+                        var imageUrl = packageHotelTripTwoProvider
                             .hotelRoomResponse.data!.imageBase
                             .toString();
 
@@ -187,14 +187,14 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
                             onMinusRoomPress: () {
                               onMinusRoom(index: index, roomId: roomId);
                             },
-                            bookingDayCounter: packageHotelProvider
+                            bookingDayCounter: packageHotelTripTwoProvider
                                     .selectBookingDaysList.isNotEmpty
-                                ? packageHotelProvider
+                                ? packageHotelTripTwoProvider
                                     .selectBookingDaysList[index]
                                 : 0,
-                            numberOfRoomCounter: packageHotelProvider
+                            numberOfRoomCounter: packageHotelTripTwoProvider
                                     .selectNumberOfRoomsList.isNotEmpty
-                                ? packageHotelProvider
+                                ? packageHotelTripTwoProvider
                                     .selectNumberOfRoomsList[index]
                                 : 0,
                           ),
@@ -212,7 +212,7 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
                         lines: 1),
                   ),
             CommonPadding.sizeBoxWithHeight(height: 10),
-            packageHotelProvider.isHotelLoaded == true
+            packageHotelTripTwoProvider.isHotelLoaded == true
                 ? CustomButton(
                     name: AppLocalizations.of(context)!.confirm_order,
                     buttonColor: appColor,
@@ -246,29 +246,31 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
   // On Plus Booking Day
   void onPlusBookingDay({required int index, required int roomId}) {
     setState(() {
-      packageHotelProvider.selectBookingDaysList[index]++;
+      packageHotelTripTwoProvider.selectBookingDaysList[index]++;
       Map<String, dynamic> selected = {
         "room_id": roomId,
-        "rooms_number": packageHotelProvider.selectNumberOfRoomsList[index],
-        "days": packageHotelProvider.selectBookingDaysList[index],
+        "rooms_number":
+            packageHotelTripTwoProvider.selectNumberOfRoomsList[index],
+        "days": packageHotelTripTwoProvider.selectBookingDaysList[index],
       };
       debugPrint("bookingDaysCounter:$selected");
-      packageHotelProvider.hotelRoomBody[index].addAll(selected);
+      packageHotelTripTwoProvider.hotelRoomBody[index].addAll(selected);
     });
   }
 
   // On Minus Booking Day
   void onMinusBookingDay({required int index, required int roomId}) {
-    if (packageHotelProvider.selectBookingDaysList[index] > 0) {
+    if (packageHotelTripTwoProvider.selectBookingDaysList[index] > 0) {
       setState(() {
-        packageHotelProvider.selectBookingDaysList[index]--;
+        packageHotelTripTwoProvider.selectBookingDaysList[index]--;
         Map<String, dynamic> selected = {
           "room_id": roomId,
-          "rooms_number": packageHotelProvider.selectNumberOfRoomsList[index],
-          "days": packageHotelProvider.selectBookingDaysList[index],
+          "rooms_number":
+              packageHotelTripTwoProvider.selectNumberOfRoomsList[index],
+          "days": packageHotelTripTwoProvider.selectBookingDaysList[index],
         };
         debugPrint("bookingDaysCounter:$selected");
-        packageHotelProvider.hotelRoomBody[index].addAll(selected);
+        packageHotelTripTwoProvider.hotelRoomBody[index].addAll(selected);
       });
     }
   }
@@ -276,40 +278,42 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
   // On Plus Room
   void onPlusRoom({required int index, required int roomId}) {
     setState(() {
-      packageHotelProvider.selectNumberOfRoomsList[index]++;
+      packageHotelTripTwoProvider.selectNumberOfRoomsList[index]++;
       Map<String, dynamic> selected = {
         "room_id": roomId,
-        "rooms_number": packageHotelProvider.selectNumberOfRoomsList[index],
+        "rooms_number":
+            packageHotelTripTwoProvider.selectNumberOfRoomsList[index],
         //numberOfRoomsCounter,
-        "days": packageHotelProvider.selectBookingDaysList[index],
+        "days": packageHotelTripTwoProvider.selectBookingDaysList[index],
         //bookingDaysCounter
       };
       debugPrint("numberOfRoomsCounter:$selected");
-      packageHotelProvider.hotelRoomBody[index].addAll(selected);
+      packageHotelTripTwoProvider.hotelRoomBody[index].addAll(selected);
     });
   }
 
   // On Minus Room
   void onMinusRoom({required int index, required int roomId}) {
-    if (packageHotelProvider.selectNumberOfRoomsList[index] > 0) {
+    if (packageHotelTripTwoProvider.selectNumberOfRoomsList[index] > 0) {
       setState(() {
-        packageHotelProvider.selectNumberOfRoomsList[index]--;
+        packageHotelTripTwoProvider.selectNumberOfRoomsList[index]--;
         Map<String, dynamic> selected = {
           "room_id": roomId,
-          "rooms_number": packageHotelProvider.selectNumberOfRoomsList[index],
+          "rooms_number":
+              packageHotelTripTwoProvider.selectNumberOfRoomsList[index],
           //numberOfRoomsCounter,
-          "days": packageHotelProvider.selectBookingDaysList[index],
+          "days": packageHotelTripTwoProvider.selectBookingDaysList[index],
           //bookingDaysCounter
         };
         debugPrint("numberOfRoomsCounter:$selected");
-        packageHotelProvider.hotelRoomBody[index].addAll(selected);
+        packageHotelTripTwoProvider.hotelRoomBody[index].addAll(selected);
       });
     }
   }
 
   /// Save Trip Order
   Future<void> _saveTripOrder() async {
-    await packageHotelProvider.oneWayOrderTrip(
+    await packageHotelTripTwoProvider.oneWayOrderTrip(
       tripId: "${widget.tripId}",
       passengerCounts: widget.passengerCounts,
       paramPassengerBody: widget.paramPassengerBody,
@@ -317,9 +321,10 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
     );
 
     /// One way order Trip save successfully
-    if (packageHotelProvider.isOneWayOrderTripSaved) {
+    if (packageHotelTripTwoProvider.isOneWayOrderTripSaved) {
       if (!mounted) return;
-      var tripId = packageHotelProvider.oneWayOrdersTripResponse.data!.tripId;
+      var tripId =
+          packageHotelTripTwoProvider.oneWayOrdersTripResponse.data!.tripId;
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -338,16 +343,17 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
     /// Skipping the hotels
     debugPrint(
         "SkippingHotelAdditional: ${widget.paramAdditionalList.map((e) => e)}");
-    await packageHotelProvider.skipHotelOneWayOrderTrip(
+    await packageHotelTripTwoProvider.skipHotelOneWayOrderTrip(
       tripId: "${widget.tripId}",
       passengerCounts: widget.passengerCounts,
       paramPassengerBody: widget.paramPassengerBody,
       additionalList: widget.paramAdditionalList,
     );
 
-    if (packageHotelProvider.isOneWayOrderTripSaved) {
+    if (packageHotelTripTwoProvider.isOneWayOrderTripSaved) {
       if (!mounted) return;
-      var tripId = packageHotelProvider.oneWayOrdersTripResponse.data!.tripId;
+      var tripId =
+          packageHotelTripTwoProvider.oneWayOrdersTripResponse.data!.tripId;
       Navigator.push(
         context,
         MaterialPageRoute(

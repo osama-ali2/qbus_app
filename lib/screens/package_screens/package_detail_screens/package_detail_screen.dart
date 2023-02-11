@@ -8,6 +8,7 @@ import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
+import '../package_passenger_screens/package_passenger_screen.dart';
 import '../package_select_addition_screens/package_select_addition_screen.dart';
 import 'package_detail_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -258,15 +259,32 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                           var packageId = packageDetailProvider
                               .packageDetailResponse.data!.packages!.id
                               .toString();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PackageSelectAdditionScreen(
-                                packageId: packageId,
-                                passengerCount: passengersNumber,
+
+                          if (packageDetailProvider.packageDetailResponse.data!
+                              .packages!.additionals!.isNotEmpty) {
+                            /// Navigate to Package Select Addition Screen
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    PackageSelectAdditionScreen(
+                                  packageId: packageId,
+                                  passengerCount: passengersNumber,
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          } else {
+                            /// Navigator to Package Passenger Screen
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PackagePassengerScreen(
+                                    passengerCount: passengersNumber,
+                                    tripId: int.parse(packageId),
+                                    additionalList: [],
+                                  ),
+                                ));
+                          }
                         },
                         padding: 0,
                       ).get20HorizontalPadding(),

@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/resources/resources.dart';
+import 'package:qbus/screens/package_screens/package_passenger_screens/package_passenger_provider.dart';
 
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/custom_textField.dart';
@@ -13,7 +14,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../passenger_screens/passenger_provider.dart';
 
-class PassengerContainerWidget extends StatefulWidget {
+class PackagePassengerContainerWidget extends StatefulWidget {
   final String passengerNumber;
   final TextEditingController fullNameController;
   final TextEditingController idNumberController;
@@ -21,9 +22,9 @@ class PassengerContainerWidget extends StatefulWidget {
   String selectedIdentityType;
 
   /// Check it if work perfectly,
-  PassengerProvider passengerProvider;
+  PackagePassengerProvider passengerProvider;
 
-  PassengerContainerWidget({
+  PackagePassengerContainerWidget({
     Key? key,
     required this.passengerNumber,
     required this.fullNameController,
@@ -34,19 +35,21 @@ class PassengerContainerWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<PassengerContainerWidget> createState() =>
-      _PassengerContainerWidgetState();
+  State<PackagePassengerContainerWidget> createState() =>
+      _PackagePassengerContainerWidgetState();
 }
 
-class _PassengerContainerWidgetState extends State<PassengerContainerWidget> {
-  late PassengerProvider passengerProvider;
+class _PackagePassengerContainerWidgetState
+    extends State<PackagePassengerContainerWidget> {
+  late PackagePassengerProvider passengerProvider;
 
   @override
   void initState() {
     super.initState();
 
-    passengerProvider = PassengerProvider();
-    passengerProvider = Provider.of<PassengerProvider>(context, listen: false);
+    passengerProvider = PackagePassengerProvider();
+    passengerProvider =
+        Provider.of<PackagePassengerProvider>(context, listen: false);
     passengerProvider.init(context: context);
     //
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -60,7 +63,7 @@ class _PassengerContainerWidgetState extends State<PassengerContainerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<PassengerProvider>(context, listen: true);
+    Provider.of<PackagePassengerProvider>(context, listen: true);
     debugPrint("passengerNumberRebuild: ${widget.passengerNumber}");
 
     return Column(

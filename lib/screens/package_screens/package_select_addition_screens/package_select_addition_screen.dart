@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/resources/resources.dart';
-import 'package:qbus/screens/passenger_screens/passenger_screen.dart';
-
+import 'package:qbus/screens/auth/login_screens/login_screen.dart';
+import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
-
-import '../../../../utils/constant.dart';
-import '../../../../widgets/custom_text.dart';
-import '../../../local_cache/utils.dart';
-import '../../auth/login_screens/login_screen.dart';
+import 'package:qbus/widgets/custom_text.dart';
 import '../package_passenger_screens/package_passenger_screen.dart';
 import 'package_select_addition_provider.dart';
 
@@ -46,7 +43,7 @@ class _PackageSelectAdditionScreenState
     packageSelectAdditionProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      packageSelectAdditionProvider.getAdditionalData(id: widget.packageId!);
+      packageSelectAdditionProvider.getAdditionalData(id: widget.packageId);
     });
   }
 
@@ -98,7 +95,19 @@ class _PackageSelectAdditionScreenState
                               .name!
                               .ar
                               .toString();
-                          return itemContainer(name: name, index: index);
+
+                          var additionId = packageSelectAdditionProvider
+                              .packageAdditionalsResponse
+                              .data!
+                              .additional![index]
+                              .id
+                              .toString();
+
+                          return itemContainer(
+                            name: name,
+                            index: index,
+                            additionId: additionId,
+                          );
                         }),
                   ),
                   CustomButton(
@@ -111,13 +120,16 @@ class _PackageSelectAdditionScreenState
                       fontWeight: FontWeight.w500,
                       borderRadius: 5,
                       onTapped: () {
+                        debugPrint(
+                            "AdditionalList: ${packageSelectAdditionProvider.additionalList}");
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => PackagePassengerScreen(
                                 passengerCount: widget.passengerCount,
                                 tripId: int.parse(widget.packageId),
-                                additionalList: [],
+                                additionalList: packageSelectAdditionProvider
+                                    .additionalList,
                               ),
                             ));
                       },
@@ -134,10 +146,10 @@ class _PackageSelectAdditionScreenState
                           child: GestureDetector(
                             onTap: () {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const LoginScreen()),
-                              );
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginScreen(),
+                                  ));
                             },
                             child: Container(
                               height: sizes!.heightRatio * 45,
@@ -168,7 +180,12 @@ class _PackageSelectAdditionScreenState
   }
 
   /// Item Container
-  Widget itemContainer({required String name, required int index}) => Column(
+  Widget itemContainer({
+    required String name,
+    required int index,
+    required String additionId,
+  }) =>
+      Column(
         children: [
           const SizedBox(
             height: 10,
@@ -178,29 +195,53 @@ class _PackageSelectAdditionScreenState
                   context: context,
                   name: name,
                   add: () {
-                    packageSelectAdditionProvider
-                        .packageSelectAdditionalList[index]++;
-                    setState(() {});
+                    _tripAddCounter(index: index, additionId: additionId);
                   },
                   minus: () {
-                    if (packageSelectAdditionProvider
-                            .packageSelectAdditionalList[index] >
-                        0) {
-                      packageSelectAdditionProvider
-                          .packageSelectAdditionalList[index]--;
-                      setState(() {});
-                    }
+                    _tripMinusCounter(index: index, additionId: additionId);
                   },
                   number: packageSelectAdditionProvider
-                      .packageSelectAdditionalList[index])
+                      .packageSelectAdditionalList[index],
+                )
               : _items(
                   context: context,
                   name: name,
                   add: () {},
                   minus: () {},
-                  number: 0),
+                  number: 0,
+                ),
         ],
       );
+
+  /// Trip Add Counter
+  void _tripAddCounter({required int index, required String additionId}) {
+    setState(() {
+      packageSelectAdditionProvider.packageSelectAdditionalList[index]++;
+      Map<String, dynamic> selected = {
+        "id": additionId,
+        "counter":
+            packageSelectAdditionProvider.packageSelectAdditionalList[index],
+      };
+      debugPrint("tripAddCounter: $selected");
+      packageSelectAdditionProvider.additionalList[index].addAll(selected);
+    });
+  }
+
+  /// Trip Minus Counter
+  void _tripMinusCounter({required int index, required String additionId}) {
+    if (packageSelectAdditionProvider.packageSelectAdditionalList[index] > 0) {
+      setState(() {
+        packageSelectAdditionProvider.packageSelectAdditionalList[index]--;
+        Map<String, dynamic> selected = {
+          "id": additionId,
+          "counter":
+              packageSelectAdditionProvider.packageSelectAdditionalList[index],
+        };
+        debugPrint("tripMinusCounter: $selected");
+        packageSelectAdditionProvider.additionalList[index].addAll(selected);
+      });
+    }
+  }
 
   /// Items
   Widget _items({

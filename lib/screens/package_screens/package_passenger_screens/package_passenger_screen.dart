@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/screens/hotel_screens/hotel_provider.dart';
-import 'package:qbus/screens/hotel_screens/hotel_screen.dart';
 import 'package:qbus/screens/package_screens/package_hotels/package_hotels.dart';
-import 'package:qbus/screens/passenger_screens/passenger_provider.dart';
-import 'package:qbus/screens/project_widgets/passenger_container_widget.dart';
+import 'package:qbus/screens/project_widgets/package_passenger_container_widget.dart';
 import 'package:qbus/screens/review_order_screens/review_order_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/resources/resources.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package_passenger_provider.dart';
 
 class PackagePassengerScreen extends StatefulWidget {
   final int passengerCount;
@@ -31,9 +30,11 @@ class PackagePassengerScreen extends StatefulWidget {
 }
 
 class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
-  late PassengerProvider passengerProvider;
+  // Providers
+  late PackagePassengerProvider packagePassengerProvider;
   late HotelProvider hotelProvider;
 
+  // Lists
   final List<TextEditingController> _controllers = [];
   final List<Widget> _fields = [];
 
@@ -52,9 +53,10 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
   void initState() {
     super.initState();
 
-    passengerProvider = PassengerProvider();
-    passengerProvider = Provider.of<PassengerProvider>(context, listen: false);
-    passengerProvider.init(context: context);
+    packagePassengerProvider = PackagePassengerProvider();
+    packagePassengerProvider =
+        Provider.of<PackagePassengerProvider>(context, listen: false);
+    packagePassengerProvider.init(context: context);
 
     /// Hotel Provider
     hotelProvider = HotelProvider();
@@ -63,8 +65,8 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _addFields();
-      passengerProvider.getIdentityProofTypes();
-      passengerProvider.getCountriesList();
+      packagePassengerProvider.getIdentityProofTypes();
+      packagePassengerProvider.getCountriesList();
     });
   }
 
@@ -89,14 +91,14 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
         final fullNameController = TextEditingController();
         final idNumberController = TextEditingController();
 
-        final field = PassengerContainerWidget(
+        final field = PackagePassengerContainerWidget(
           key: Key("${i + 1}"),
           passengerNumber: "${i + 1}",
           fullNameController: fullNameController,
           idNumberController: idNumberController,
           selectedCountry: _selectedCountry,
           selectedIdentityType: _selectedIdentityType,
-          passengerProvider: passengerProvider,
+          passengerProvider: packagePassengerProvider,
         );
 
         debugPrint("functionCalled: $i");
@@ -111,7 +113,7 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<PassengerProvider>(context, listen: true);
+    Provider.of<PackagePassengerProvider>(context, listen: true);
     Provider.of<HotelProvider>(context, listen: true);
 
     return Scaffold(
@@ -149,17 +151,7 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
               fontWeight: FontWeight.w500,
               borderRadius: 5,
               onTapped: () async {
-                // _validateData();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PackageHotelTripOneScreen(
-                        tripId: widget.tripId,
-                        passengerCounts: "1",
-                        paramPassengerBody: [],
-                        paramAdditionalList: [],
-                      ),
-                    ));
+                _validateData();
               },
               padding: 0,
             ),
@@ -170,18 +162,20 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
     );
   }
 
-  // Validate Data Fields
+  /// Validate Data Fields
   void _validateData() async {
     // Is user enter values
     bool isDataValidate = false;
+
+    /// Loop throw
     for (int i = 0; i < widget.passengerCount; i++) {
       if (_fullNameControllers[i].value.text.isNotEmpty ||
           _idNumberControllers[i].value.text.isNotEmpty) {
         var fullName = _fullNameControllers[i].value.text.toString().trim();
         var idNumber = _idNumberControllers[i].value.text.toString().trim();
 
-        var proofId = passengerProvider.userIdentityProofTypeId[i];
-        var countryId = passengerProvider.userCountryId[i];
+        var proofId = packagePassengerProvider.userIdentityProofTypeId[i];
+        var countryId = packagePassengerProvider.userCountryId[i];
 
         debugPrint(
           "fullName: $fullName"
@@ -189,6 +183,7 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
           "\n IdentityProofId: $proofId \n Country: $countryId",
         );
 
+        /// Parameter Passenger Body
         Map<String, dynamic> paraPassengerBody = {
           "name": fullName,
           "id_proof_type": proofId,
@@ -213,21 +208,33 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
         debugPrint("isHotelEmpty: ${widget.isHotelEmpty}");
 
         /// Save Trip Order
-        await _saveTripOrderWithEmptyHotelAndAdditional();
+        //await _saveTripOrderWithEmptyHotelAndAdditional();
       } else {
         /// Hotel and Additional with data
         debugPrint("onPassengerScreen: ${widget.additionalList.map((e) => e)}");
+
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HotelScreen(
-              tripId: widget.tripId,
-              passengerCounts: widget.passengerCount.toString(),
-              paramPassengerBody: _passengerBody,
-              paramAdditionalList: widget.additionalList,
-            ),
-          ),
-        );
+            context,
+            MaterialPageRoute(
+              builder: (context) => PackageHotelTripOneScreen(
+                tripId: widget.tripId,
+                passengerCounts: widget.passengerCount.toString(),
+                paramPassengerBody: _passengerBody,
+                paramAdditionalList: widget.additionalList,
+              ),
+            ));
+
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => HotelScreen(
+        //       tripId: widget.tripId,
+        //       passengerCounts: widget.passengerCount.toString(),
+        //       paramPassengerBody: _passengerBody,
+        //       paramAdditionalList: widget.additionalList,
+        //     ),
+        //   ),
+        // );
       }
     }
   }
