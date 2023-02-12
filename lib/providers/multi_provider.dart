@@ -4,6 +4,7 @@ import 'package:qbus/screens/package_screens/package_filter_screens/package_filt
 import 'package:qbus/screens/package_screens/package_hotels/package_hotels.dart';
 import 'package:qbus/screens/package_screens/package_passenger_screens/package_passenger_provider.dart';
 import 'package:qbus/screens/package_screens/package_provider.dart';
+import 'package:qbus/screens/package_screens/package_review_order_screens/package_review_order_provider.dart';
 import 'package:qbus/screens/package_screens/package_select_addition_screens/package_select_addition_provider.dart';
 import '../screens/auth/forgot_screens/forgot_provider.dart';
 import '../screens/auth/forgot_screens/phone_number_screens/phone_number_provider.dart';
@@ -205,6 +206,10 @@ final multiProviders = [
   ),
   ChangeNotifierProvider<PackageHotelTripTwoProvider>(
     create: (_) => PackageHotelTripTwoProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PackageReviewOrderProvider>(
+    create: (_) => PackageReviewOrderProvider(),
     lazy: true,
   ),
 ];

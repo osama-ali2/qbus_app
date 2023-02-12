@@ -7,10 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/hotel/HotelRoomResponse.dart';
-import 'package:qbus/models/trips/OneWayOrdersTripResponse.dart';
+import 'package:qbus/models/packages/PackageOrderResponse.dart';
 import 'package:qbus/network_manager/network_manager.dart';
 import 'package:qbus/resources/resources.dart';
-
 import 'package:qbus/widgets/loader.dart';
 
 class PackageHotelTripOneProvider with ChangeNotifier {
@@ -20,12 +19,11 @@ class PackageHotelTripOneProvider with ChangeNotifier {
   final _loader = Loader();
 
   HotelRoomResponse hotelRoomResponse = HotelRoomResponse();
-  OneWayOrdersTripResponse oneWayOrdersTripResponse =
-      OneWayOrdersTripResponse();
+  PackageOrderResponse packageOrderResponse = PackageOrderResponse();
 
   // Checks
   bool isHotelLoaded = false;
-  bool isOneWayOrderTripSaved = false;
+  bool isPackageOrdersSaved = false;
 
   // UI Lists:
   List<int> selectBookingDaysList = [];
@@ -86,12 +84,12 @@ class PackageHotelTripOneProvider with ChangeNotifier {
     }
   }
 
-  // One Way Order Trip
-  Future<void> oneWayOrderTrip({
-    required String tripId,
-    required String passengerCounts,
-    required List<Map<String, dynamic>> paramPassengerBody,
+  /// Skip Hotel One From Screen
+  Future<void> skipHotelOneFromScreen({
+    required int packageId,
+    required int passengerCounts,
     required List<Map<String, dynamic>> additionalList,
+    required List<Map<String, dynamic>> paramPassengerBody,
   }) async {
     try {
       _loader.showLoader(context: context);
@@ -101,193 +99,62 @@ class PackageHotelTripOneProvider with ChangeNotifier {
         "Content-Type": "application/json",
         "Authorization": "Bearer $userToken"
       };
-      _logger.i("trips.id: $tripId");
+      _logger.i("packageId: $packageId");
 
-      //TODO: Checkout hotel issue,
-      var newHotelBody = [];
-      for (int i = 0; i < hotelRoomBody.length; i++) {
-        if (hotelRoomBody[i]['rooms_number'] > 0 &&
-            hotelRoomBody[i]['days'] > 0) {
-          newHotelBody.add(hotelRoomBody[i]);
-          _logger.i("newHotelBodyFor:$newHotelBody");
-        }
-        // else {
-        //   newHotelBody = [];
-        //   _logger.d("newHotelBodyElse:$newHotelBody");
-        // }
-      }
-
-      //TODO: Checkout newHotelBody issue,
-      // API->Body
-      final newBody = {
-        "trip_id": tripId,
-        "count": passengerCounts,
-        "code": "",
-        "additional": additionalList,
-        "passengers": paramPassengerBody,
-        "hotel_rooms": newHotelBody, //hotelRoomBody,
-        "user_notes": ""
-      };
-      _logger.i("newBody: $newBody");
-
-      var url = oneWayOrderTripApiUrl;
+      var url = packageOrdersApiUrl;
       debugPrint("URL: $url");
-      oneWayOrdersTripResponse = await MyApi.callPostApi(
-        url: url,
-        myHeaders: header,
-        body: newBody,
-        modelName: Models.oneWayOrderTripModel,
-      );
 
-      if (oneWayOrdersTripResponse.code == 1) {
-        _logger.i(
-            "oneWayOrdersTripResponse: ${oneWayOrdersTripResponse.toJson()}, ${oneWayOrdersTripResponse.message.toString()}");
-
-        Toasts.getSuccessToast(
-          text: oneWayOrdersTripResponse.message.toString(),
-        );
-
-        //clear the data lists
-        additionalList.clear();
-        paramPassengerBody.clear();
-        hotelRoomBody.clear();
-
-        isOneWayOrderTripSaved = true;
-        _loader.hideLoader(context!);
-        notifyListeners();
-      } else {
-        _logger.e("oneWayOrdersTripResponse: Something wrong");
-        _loader.hideLoader(context!);
-      }
-    } catch (e) {
-      _logger.e("oneWayOrdersTripResponseError: ${e.toString()}");
-      _loader.hideLoader(context!);
-    }
-  }
-
-  /// One Way Order Trip
-  Future<void> oneWayOrderTripCallFromPassengerScreen({
-    required String tripId,
-    required String passengerCounts,
-    required List<Map<String, dynamic>> paramPassengerBody,
-    required List<Map<String, dynamic>> additionalList,
-  }) async {
-    try {
-      _loader.showLoader(context: context);
-
-      // Headers
-      Map<String, dynamic> header = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $userToken"
-      };
-
-      _logger.i("trips.id: $tripId");
+      _logger.i("packageId: $packageId");
       _logger.i("additionalList: ${additionalList.map((e) => e)}");
       _logger.i("paramPassengerBody: ${paramPassengerBody.map((e) => e)}");
-      _logger.i("hotelRoomBody: ${hotelRoomBody.map((e) => e)}");
 
-      // API->Body
-      final newBody = {
-        "trip_id": tripId,
+      // //TODO: Checkout hotel issue,
+      // var newHotelBody = [];
+      // for (int i = 0; i < hotelRoomBody.length; i++) {
+      //   if (hotelRoomBody[i]['rooms_number'] > 0 &&
+      //       hotelRoomBody[i]['days'] > 0) {
+      //     newHotelBody.add(hotelRoomBody[i]);
+      //     _logger.i("newHotelBodyFor:$newHotelBody");
+      //   }
+      //   // else {
+      //   //   newHotelBody = [];
+      //   //   _logger.d("newHotelBodyElse:$newHotelBody");
+      //   // }
+      // }
+
+      final body = {
+        "package_id": packageId,
         "count": passengerCounts,
         "code": "",
-        "additional": [],
         "passengers": paramPassengerBody,
-        "hotel_rooms": [], //hotelRoomBody,
-        "user_notes": ""
-      };
-      _logger.i("newBody: $newBody");
-
-      var url = oneWayOrderTripApiUrl;
-      debugPrint("URL: $url");
-      oneWayOrdersTripResponse = await MyApi.callPostApi(
-        url: url,
-        myHeaders: header,
-        body: newBody,
-        modelName: Models.oneWayOrderTripModel,
-      );
-
-      if (oneWayOrdersTripResponse.code == 1) {
-        _logger.i(
-            "oneWayOrdersTripResponse: ${oneWayOrdersTripResponse.toJson()}, ${oneWayOrdersTripResponse.message.toString()}");
-
-        Toasts.getSuccessToast(
-          text: oneWayOrdersTripResponse.message.toString(),
-        );
-
-        //clear the data lists
-        additionalList.clear();
-        paramPassengerBody.clear();
-        hotelRoomBody.clear();
-
-        isOneWayOrderTripSaved = true;
-        _loader.hideLoader(context!);
-        notifyListeners();
-      } else {
-        _logger.e("oneWayOrdersTripResponse: Something wrong");
-        _loader.hideLoader(context!);
-      }
-    } catch (e) {
-      _logger.e("oneWayOrdersTripResponseError: ${e.toString()}");
-      _loader.hideLoader(context!);
-    }
-  }
-
-  // One Way Order Trip
-  Future<void> skipHotelOneWayOrderTrip({
-    required String tripId,
-    required String passengerCounts,
-    required List<Map<String, dynamic>> paramPassengerBody,
-    required List<Map<String, dynamic>> additionalList,
-  }) async {
-    try {
-      _loader.showLoader(context: context);
-
-      // Headers
-      Map<String, dynamic> header = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $userToken"
-      };
-
-      _logger.i("trips.id: $tripId");
-      _logger.i("additionalList: ${additionalList.map((e) => e)}");
-      _logger.i("paramPassengerBody: ${paramPassengerBody.map((e) => e)}");
-      _logger.i("hotelRoomBody: ${hotelRoomBody.map((e) => e)}");
-
-      // API->Body
-      final newBody = {
-        "trip_id": tripId,
-        "count": passengerCounts,
-        "code": "",
         "additional": additionalList,
-        "passengers": paramPassengerBody,
-        "hotel_rooms": [], //hotelRoomBody,
+        "hotel_rooms": [],
         "user_notes": ""
       };
 
-      var url = oneWayOrderTripApiUrl;
-      debugPrint("URL: $url");
-      _logger.i("newBody: $newBody");
-      oneWayOrdersTripResponse = await MyApi.callPostApi(
+      _logger.i("apiBody:$body");
+
+      packageOrderResponse = await MyApi.callPostApi(
         url: url,
         myHeaders: header,
-        body: newBody,
-        modelName: Models.oneWayOrderTripModel,
+        body: body,
+        modelName: Models.packageOrderModel,
       );
 
-      if (oneWayOrdersTripResponse.code == 1) {
+      if (packageOrderResponse.code == 1) {
         _logger.i(
-            "oneWayOrdersTripResponse: ${oneWayOrdersTripResponse.toJson()}, ${oneWayOrdersTripResponse.message.toString()}");
+            "packageOrderResponse: ${packageOrderResponse.toJson()}, ${packageOrderResponse.message.toString()}");
 
         Toasts.getSuccessToast(
-          text: oneWayOrdersTripResponse.message.toString(),
+          text: packageOrderResponse.message.toString(),
         );
+
+        isPackageOrdersSaved = true;
 
         //clear the data lists
         additionalList.clear();
         paramPassengerBody.clear();
 
-        isOneWayOrderTripSaved = true;
         _loader.hideLoader(context!);
         notifyListeners();
       } else {
@@ -295,7 +162,7 @@ class PackageHotelTripOneProvider with ChangeNotifier {
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      _logger.e("oneWayOrdersTripResponseError: ${e.toString()}");
+      _logger.e("savePackageOrdersError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

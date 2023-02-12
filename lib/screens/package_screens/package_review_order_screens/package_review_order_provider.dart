@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/order_reviews/OneWayOrderReviewResponse.dart';
+import 'package:qbus/models/order_reviews/PackageOrderReviewResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
 import 'package:qbus/network_manager/models.dart';
 import 'package:qbus/network_manager/my_api.dart';
@@ -21,16 +22,16 @@ class PackageReviewOrderProvider with ChangeNotifier {
 
   bool isOrderReviewLoaded = false;
 
-  OneWayOrderReviewResponse oneWayOrderReviewResponse =
-      OneWayOrderReviewResponse();
+  PackageOrderReviewResponse packageOrderReviewResponse =
+      PackageOrderReviewResponse();
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
   }
 
   /// orderReview
-  Future<void> orderReview({
-    required int tripId,
+  Future<void> packageOrderReview({
+    required int packageId,
   }) async {
     try {
       _loader.showLoader(context: context);
@@ -41,35 +42,35 @@ class PackageReviewOrderProvider with ChangeNotifier {
         "Authorization": "Bearer $userToken"
       };
 
-      final body = {"orders_id": tripId};
-      var url = oneWayOrderOrderApiUrl;
+      final body = {"orders_id": packageId};
+      var url = packageOrderReviewApiUrl;
       debugPrint("URL: $url");
       _logger.i("newBody: $body");
 
-      oneWayOrderReviewResponse = await MyApi.callPostApi(
+      packageOrderReviewResponse = await MyApi.callPostApi(
         url: url,
         myHeaders: header,
         body: body,
-        modelName: Models.oneWayOrderReviewModel,
+        modelName: Models.packageOrderReviewModel,
       );
 
-      if (oneWayOrderReviewResponse.code == 1) {
+      if (packageOrderReviewResponse.code == 1) {
         _logger.i(
-            "oneWayOrderReviewResponse: ${oneWayOrderReviewResponse.toJson()}, ${oneWayOrderReviewResponse.message.toString()}");
+            "oneWayOrderReviewResponse: ${packageOrderReviewResponse.toJson()}, ${packageOrderReviewResponse.message.toString()}");
 
         Toasts.getSuccessToast(
-          text: oneWayOrderReviewResponse.message.toString(),
+          text: packageOrderReviewResponse.message.toString(),
         );
 
         isOrderReviewLoaded = true;
         _loader.hideLoader(context!);
         notifyListeners();
       } else {
-        _logger.e("oneWayOrderReviewResponse: Something wrong");
+        _logger.e("packageOrderReviewResponse: Something wrong");
         _loader.hideLoader(context!);
       }
     } catch (e) {
-      _logger.e("oneWayOrderReviewResponseError: ${e.toString()}");
+      _logger.e("packageOrderReviewResponseError: ${e.toString()}");
       _loader.hideLoader(context!);
     }
   }

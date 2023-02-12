@@ -377,7 +377,7 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
     /// Skipping the hotels
     debugPrint(
         "SkippingHotelAdditional: ${widget.paramAdditionalList.map((e) => e)}");
-    await packageHotelTripTwoProvider.skipHotelOneWayOrderTrip(
+    await packageHotelTripTwoProvider.skipHotelTwoFromScreen(
       packageId: widget.packageId,
       passengerCounts: int.parse(widget.passengerCounts),
       paramPassengerBody: widget.paramPassengerBody,

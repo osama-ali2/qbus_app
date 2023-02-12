@@ -16,6 +16,7 @@ import 'package:qbus/models/error_model/ErrorResponse.dart';
 import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
 import 'package:qbus/models/hotel/HotelRoomResponse.dart';
 import 'package:qbus/models/order_reviews/OneWayOrderReviewResponse.dart';
+import 'package:qbus/models/order_reviews/PackageOrderReviewResponse.dart';
 import 'package:qbus/models/order_reviews/RoundOrderReviewResponse.dart';
 import 'package:qbus/models/packages/PackageDetailResponse.dart';
 import 'package:qbus/models/packages/PackageOrderResponse.dart';
@@ -87,12 +88,15 @@ class Models {
   // One Way Order Review Response
   static const String oneWayOrderReviewModel = "oneWayOrderReviewModel";
   static const String roundOrderReviewModel = "roundOrderReviewModel";
+  static const String packageOrderReviewModel = "packageOrderReviewModel";
 
   static Future<dynamic> getModelObject(
       String modelName, Map<String, dynamic> json) async {
     switch (modelName) {
       case updateProfilePasswordModel:
         return UpdateProfilePasswordResponse.fromJson(json);
+      case packageOrderReviewModel:
+        return PackageOrderReviewResponse.fromJson(json);
       case packageRatingModel:
         return PackageRatingResponse.fromJson(json);
       case tripRatingModel:

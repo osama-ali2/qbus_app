@@ -6,13 +6,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/resources/resources.dart';
-import 'package:qbus/screens/review_order_screens/review_order_provider.dart';
 import 'package:qbus/screens/thank_you_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'package_review_order_provider.dart';
 
 class PackageReviewOrderScreen extends StatefulWidget {
   final int packageId;
@@ -28,19 +29,20 @@ class PackageReviewOrderScreen extends StatefulWidget {
 }
 
 class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
-  late ReviewOrderProvider reviewOrderProvider;
+  late PackageReviewOrderProvider packageReviewOrderProvider;
 
   @override
   void initState() {
     super.initState();
 
-    reviewOrderProvider = ReviewOrderProvider();
-    reviewOrderProvider =
-        Provider.of<ReviewOrderProvider>(context, listen: false);
-    reviewOrderProvider.init(context: context);
+    packageReviewOrderProvider = PackageReviewOrderProvider();
+    packageReviewOrderProvider =
+        Provider.of<PackageReviewOrderProvider>(context, listen: false);
+    packageReviewOrderProvider.init(context: context);
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      reviewOrderProvider.orderReview(tripId: widget.packageId);
+      packageReviewOrderProvider.packageOrderReview(
+          packageId: widget.packageId);
     });
   }
 
@@ -52,7 +54,7 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<ReviewOrderProvider>(context, listen: true);
+    Provider.of<PackageReviewOrderProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appColor,
@@ -65,65 +67,73 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
             textColor: Colors.white),
       ),
       body: SafeArea(
-        child: reviewOrderProvider.isOrderReviewLoaded == true
+        child: packageReviewOrderProvider.isOrderReviewLoaded == true
             ? Column(
                 children: [
                   CommonPadding.sizeBoxWithHeight(height: 10),
-                  reviewOrderProvider.isOrderReviewLoaded == true
+                  packageReviewOrderProvider.isOrderReviewLoaded == true
                       ? _tripOrderContainer(
-                          quantity: reviewOrderProvider
-                                  .oneWayOrderReviewResponse.data?.count
+                          quantity: packageReviewOrderProvider
+                                  .packageOrderReviewResponse.data?.count
                                   .toString() ??
                               "0",
-                          fromTime: reviewOrderProvider
-                                  .oneWayOrderReviewResponse.data?.timeFrom
+                          fromTime: packageReviewOrderProvider
+                                  .packageOrderReviewResponse.data?.timeFrom
                                   .toString() ??
                               "null",
-                          fromCity:
-                              // reviewOrderProvider
-                              //         .oneWayOrderReviewResponse
-                              //         .data
-                              //         ?.fromCity
-                              //         ?.name
-                              //         ?.en
-                              //         .toString() ??
-                              reviewOrderProvider.oneWayOrderReviewResponse.data
-                                      ?.fromCity?.name?.ar
-                                      .toString() ??
-                                  "null",
-                          toTime: reviewOrderProvider
-                                  .oneWayOrderReviewResponse.data?.timeTo
+                          // fromCity:
+                          // packageReviewOrderProvider
+                          //         .packageOrderReviewResponse
+                          //         .data
+                          //         ?.fromCity
+                          //         ?.name
+                          //         ?.en
+                          //         .toString() ??
+                          // packageReviewOrderProvider
+                          //         .packageOrderReviewResponse
+                          //         .data
+                          //         ?.fromCity
+                          //         ?.name
+                          //         ?.ar
+                          //         .toString() ??
+                          // "null",
+                          toTime: packageReviewOrderProvider
+                                  .packageOrderReviewResponse.data?.timeTo
                                   .toString() ??
                               "null",
-                          toCity:
-                              // reviewOrderProvider.oneWayOrderReviewResponse
-                              //         .data?.toCity?.name?.en
-                              //         .toString() ??
+                          // toCity:
+                          // packageReviewOrderProvider.packageOrderReviewResponse
+                          //         .data?.toCity?.name?.en
+                          //         .toString() ??
 
-                              reviewOrderProvider.oneWayOrderReviewResponse.data
-                                      ?.toCity?.name?.ar
-                                      .toString() ??
-                                  "null",
-                          price: reviewOrderProvider
-                                  .oneWayOrderReviewResponse.data?.fees
+                          // packageReviewOrderProvider
+                          //         .packageOrderReviewResponse
+                          //         .data
+                          //         ?.toCity
+                          //         ?.name
+                          //         ?.ar
+                          //          .toString() ??
+                          // "null",
+                          price: packageReviewOrderProvider
+                                  .packageOrderReviewResponse.data?.fees
                                   .toString() ??
                               "00.0",
                         )
                       : Center(
                           child: Text(AppLocalizations.of(context)!.no_data),
                         ),
-                  reviewOrderProvider.oneWayOrderReviewResponse.data!
+                  packageReviewOrderProvider.packageOrderReviewResponse.data!
                           .hotelsRooms!.isNotEmpty
                       ? Expanded(
                           child: ListView.builder(
-                            itemCount: reviewOrderProvider
-                                .oneWayOrderReviewResponse
+                            itemCount: packageReviewOrderProvider
+                                .packageOrderReviewResponse
                                 .data!
                                 .hotelsRooms!
                                 .length,
                             itemBuilder: (context, index) {
-                              var data = reviewOrderProvider
-                                  .oneWayOrderReviewResponse
+                              var data = packageReviewOrderProvider
+                                  .packageOrderReviewResponse
                                   .data!
                                   .hotelsRooms![index];
 
@@ -142,18 +152,18 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                           ),
                         )
                       : const Spacer(),
-                  reviewOrderProvider.oneWayOrderReviewResponse.data!
+                  packageReviewOrderProvider.packageOrderReviewResponse.data!
                           .additionals!.isNotEmpty
                       ? Expanded(
                           child: ListView.builder(
-                            itemCount: reviewOrderProvider
-                                .oneWayOrderReviewResponse
+                            itemCount: packageReviewOrderProvider
+                                .packageOrderReviewResponse
                                 .data!
                                 .additionals!
                                 .length,
                             itemBuilder: (context, index) {
-                              var data = reviewOrderProvider
-                                  .oneWayOrderReviewResponse
+                              var data = packageReviewOrderProvider
+                                  .packageOrderReviewResponse
                                   .data!
                                   .additionals![index];
                               var counts = data.count.toString();
@@ -188,16 +198,16 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                   CommonPadding.sizeBoxWithHeight(height: 5),
                   _totalCalculationContainer(
                     title: AppLocalizations.of(context)!.discount,
-                    value: reviewOrderProvider
-                            .oneWayOrderReviewResponse.data?.discount
+                    value: packageReviewOrderProvider
+                            .packageOrderReviewResponse.data?.discount
                             .toString() ??
                         "00.00",
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 5),
                   _totalCalculationContainer(
                     title: AppLocalizations.of(context)!.tax,
-                    value: reviewOrderProvider
-                            .oneWayOrderReviewResponse.data?.tax
+                    value: packageReviewOrderProvider
+                            .packageOrderReviewResponse.data?.tax
                             .toString() ??
                         "49.05",
                   ),
@@ -209,8 +219,8 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                   CommonPadding.sizeBoxWithHeight(height: 10),
                   _totalCalculationContainer(
                     title: AppLocalizations.of(context)!.total_cost,
-                    value: reviewOrderProvider
-                            .oneWayOrderReviewResponse.data?.total
+                    value: packageReviewOrderProvider
+                            .packageOrderReviewResponse.data?.total
                             .toString() ??
                         "00.0",
                   ),
@@ -279,9 +289,9 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
   Widget _tripOrderContainer({
     required String quantity,
     required String fromTime,
-    required String fromCity,
+    // required String fromCity,
     required String toTime,
-    required String toCity,
+    // required String toCity,
     required String price,
   }) =>
       Column(
@@ -302,7 +312,7 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                     lines: 1),
                 CommonPadding.sizeBoxWithWidth(width: 10),
                 TextView.getGenericText(
-                    text: "$fromTime $fromCity",
+                    text: "$fromTime ",
                     fontFamily: Assets.latoRegular,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
@@ -316,7 +326,7 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                 //   color: AppColors.black900,
                 // ),
                 TextView.getGenericText(
-                    text: "$toTime $toCity",
+                    text: "$toTime ",
                     fontFamily: Assets.latoRegular,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
