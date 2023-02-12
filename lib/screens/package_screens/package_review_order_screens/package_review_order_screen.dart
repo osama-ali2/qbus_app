@@ -101,10 +101,10 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                           //         ?.ar
                           //         .toString() ??
                           // "null",
-                          toTime: packageReviewOrderProvider
-                                  .packageOrderReviewResponse.data?.timeTo
-                                  .toString() ??
-                              "null",
+                          // toTime: packageReviewOrderProvider
+                          //         .packageOrderReviewResponse.data?.timeTo
+                          //         .toString() ??
+                          //     "null",
                           // toCity:
                           // packageReviewOrderProvider.packageOrderReviewResponse
                           //         .data?.toCity?.name?.en
@@ -199,7 +199,10 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                   CommonPadding.sizeBoxWithHeight(height: 10),
                   _totalCalculationContainer(
                     title: AppLocalizations.of(context)!.sub_total,
-                    value: "00.0",
+                    value: packageReviewOrderProvider
+                            .packageOrderReviewResponse.data?.fees
+                            .toString() ??
+                        "00.0",
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 5),
                   _totalCalculationContainer(
@@ -297,7 +300,7 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
     required String quantity,
     required String fromTime,
     // required String fromCity,
-    required String toTime,
+    // required String toTime,
     // required String toCity,
     required String price,
   }) =>
@@ -396,13 +399,13 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                 //   width: sizes!.widthRatio * 24,
                 //   color: AppColors.black900,
                 // ),
-                TextView.getGenericText(
-                    text: "$toTime ",
-                    fontFamily: Assets.latoRegular,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.black900,
-                    lines: 1),
+                // TextView.getGenericText(
+                //     text: "$toTime ",
+                //     fontFamily: Assets.latoRegular,
+                //     fontSize: 14,
+                //     fontWeight: FontWeight.w400,
+                //     color: AppColors.black900,
+                //     lines: 1),
                 CommonPadding.sizeBoxWithWidth(width: 10),
 
                 Container(
@@ -459,7 +462,13 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                     fontWeight: FontWeight.w400,
                     color: AppColors.black900,
                     lines: 1),
-                CommonPadding.sizeBoxWithWidth(width: 8),
+                TextView.getGenericText(
+                    text: " - ",
+                    fontFamily: Assets.latoRegular,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.black900,
+                    lines: 1),
                 TextView.getGenericText(
                     text: cityName,
                     fontFamily: Assets.latoRegular,
