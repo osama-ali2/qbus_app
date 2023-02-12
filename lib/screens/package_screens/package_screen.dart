@@ -87,7 +87,7 @@ class _PackageScreenState extends State<PackageScreen> {
           padding: EdgeInsets.symmetric(horizontal: sizes!.fontRatio * 20.0),
           child: packageProvider.isListHasData > 0
               ? _getUI(context)
-              : const Center(
+              : Center(
                   child: Text(AppLocalizations.of(context)!.no_data),
                 ),
         ),

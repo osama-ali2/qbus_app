@@ -186,7 +186,7 @@ class _PackageSelectAdditionScreenState
                 ],
               ),
             )
-          : const Center(
+          : Center(
               child: Text(AppLocalizations.of(context)!.no_data),
             ),
     );

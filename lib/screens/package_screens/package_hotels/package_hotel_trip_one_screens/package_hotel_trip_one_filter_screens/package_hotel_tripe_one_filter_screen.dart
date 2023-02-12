@@ -25,8 +25,8 @@ class _PackageHotelTripOneFilterScreenState
   List<String> roomQuantityList = ["1", "2", "3", "4", "5"];
   List<String> maxAdultsList = ["1", "2", "3", "4", "5"];
 
-  var roomQuantity = AppLocalizations.of(context)!.room_quantity;
-  var maxAdults = AppLocalizations.of(context)!.max_adults;
+  late var roomQuantity = AppLocalizations.of(context)!.room_quantity;
+  late var maxAdults = AppLocalizations.of(context)!.max_adults;
 
   @override
   void initState() {
@@ -47,7 +47,7 @@ class _PackageHotelTripOneFilterScreenState
         backgroundColor: appColor,
         elevation: 0,
         automaticallyImplyLeading: true,
-        title: const CustomText(
+        title: CustomText(
             text: AppLocalizations.of(context)!.hotels,
             textSize: 18,
             fontWeight: FontWeight.w700,

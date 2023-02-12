@@ -22,7 +22,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
   late TextEditingController couponController;
   late GetStartedProvider getStartedProvider;
 
-  var selectedCity = AppLocalizations.of(context)!.departure_from;
+  late var selectedCity = AppLocalizations.of(context)!.departure_from;
   var selectCityId = "-1";
   bool internet = false;
   bool meal = false;
@@ -32,8 +32,8 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
   late DateTime _selectedDate;
   late TimeOfDay _selectedTime;
 
-  String _startDate = AppLocalizations.of(context)!.departure_date;
-  String _endDate = AppLocalizations.of(context)!.arrival_date;
+  late String _startDate = AppLocalizations.of(context)!.departure_date;
+  late String _endDate = AppLocalizations.of(context)!.arrival_date;
   String _startTime = "Start Time";
 
   @override
@@ -94,7 +94,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
         backgroundColor: appColor,
         elevation: 0,
         automaticallyImplyLeading: true,
-        title: const CustomText(
+        title: CustomText(
             text: AppLocalizations.of(context)!.packages,
             textSize: 18,
             fontWeight: FontWeight.w700,
