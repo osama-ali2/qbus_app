@@ -108,5 +108,13 @@
   "passenger": "المسافر",
   "add_passenger": "اضافة المسافرين",
   "number_of_rooms": "عدد الغرف",
-  "riyal": "ريال"
+  "riyal": "ريال",
+  "package_detail":"تفاصيل البرنامج",
+  "book_now":"احجز الان",
+  "no_data_selected": "لم يتم اختيار اي بيانات",
+  "coupon": "الكوبون",
+  "additional": "الاضافات",
+  "room_quantity": "عدد الغرف",
+  "max_adults": "اقصي عدد",
+  "hotel_name": "اسم الفندق"
 }

@@ -9,6 +9,7 @@ import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import '../package_passenger_screens/package_passenger_screen.dart';
 import 'package_select_addition_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PackageSelectAdditionScreen extends StatefulWidget {
   final String packageId;
@@ -67,7 +68,7 @@ class _PackageSelectAdditionScreenState
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "Package Select Additions",
+            text: AppLocalizations.of(context)!.select_additions,
             textSize: sizes!.fontRatio * 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
@@ -117,7 +118,7 @@ class _PackageSelectAdditionScreenState
                         }),
                   ),
                   CustomButton(
-                    name: "NEXT",
+                    name: AppLocalizations.of(context)!.next,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,
@@ -186,7 +187,7 @@ class _PackageSelectAdditionScreenState
               ),
             )
           : const Center(
-              child: Text("No Data Available"),
+              child: Text(AppLocalizations.of(context)!.no_data),
             ),
     );
   }

@@ -363,7 +363,7 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextView.getGenericText(
-                    text: "$days Days",
+                    text: "$days ليال",
                     fontFamily: Assets.latoRegular,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,

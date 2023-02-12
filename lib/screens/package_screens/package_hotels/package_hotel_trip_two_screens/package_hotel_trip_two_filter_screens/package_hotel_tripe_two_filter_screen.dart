@@ -7,6 +7,7 @@ import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/custom_textField.dart';
 import '../package_hotel_trip_two_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PackageHotelTripTwoFilterScreen extends StatefulWidget {
   const PackageHotelTripTwoFilterScreen({Key? key}) : super(key: key);
@@ -24,8 +25,8 @@ class _PackageHotelTripTwoFilterScreenState
   List<String> roomQuantityList = ["1", "2", "3", "4", "5"];
   List<String> maxAdultsList = ["1", "2", "3", "4", "5"];
 
-  var roomQuantity = "Room Quantity";
-  var maxAdults = "Max Adults";
+  var roomQuantity = AppLocalizations.of(context)!.room_quantity;
+  var maxAdults = AppLocalizations.of(context)!.max_adults;
 
   @override
   void initState() {
@@ -47,7 +48,7 @@ class _PackageHotelTripTwoFilterScreenState
         elevation: 0,
         automaticallyImplyLeading: true,
         title: const CustomText(
-            text: "Hotels",
+            text: AppLocalizations.of(context)!.hotels,
             textSize: 18,
             fontWeight: FontWeight.w700,
             textColor: Colors.white),
@@ -66,7 +67,7 @@ class _PackageHotelTripTwoFilterScreenState
                   padding: 0,
                   validator: (val) => null,
                   inputType: TextInputType.name,
-                  hint: "Hotel Name",
+                  hint: AppLocalizations.of(context)!.hotel_name,
                 ),
                 CommonPadding.sizeBoxWithHeight(height: 10),
                 Container(
@@ -141,7 +142,7 @@ class _PackageHotelTripTwoFilterScreenState
                 ),
                 CommonPadding.sizeBoxWithHeight(height: 20),
                 CustomButton(
-                    name: "Filter Result",
+                    name: AppLocalizations.of(context)!.filter,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,

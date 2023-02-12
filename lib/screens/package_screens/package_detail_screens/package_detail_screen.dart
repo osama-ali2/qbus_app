@@ -60,7 +60,8 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
         backgroundColor: appColor,
         elevation: 0,
         title: CustomText(
-          text: widget.packageTitle ?? "Package Detail",
+          text: widget.packageTitle ??
+              AppLocalizations.of(context)!.package_detail,
           textSize: sizes!.fontRatio * 18,
           fontWeight: FontWeight.w700,
           textColor: Colors.white,
@@ -150,7 +151,7 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                       ).get20HorizontalPadding(),
                       CommonPadding.sizeBoxWithHeight(height: 12),
                       TextView.getMediumText16(
-                        "Additions",
+                        AppLocalizations.of(context)!.additions,
                         Assets.latoBold,
                         color: AppColors.black900,
                         fontWeight: FontWeight.w500,
@@ -242,7 +243,8 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                           onAdd: () {
                             if (passengersNumber > 9) {
                               Toasts.getWarningToast(
-                                  text: "Only 10 Passengers Allowed");
+                                  text: AppLocalizations.of(context)!
+                                      .only_10_Passengers_allowed);
                             } else {
                               passengersNumber++;
                               setState(() {});
@@ -256,7 +258,7 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                           }).get20HorizontalPadding(),
                       CommonPadding.sizeBoxWithHeight(height: 40),
                       CustomButton(
-                        name: "Book Now",
+                        name: AppLocalizations.of(context)!.book_now,
                         buttonColor: appColor,
                         height: sizes!.heightRatio * 45,
                         width: double.infinity,
@@ -314,7 +316,7 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                   )
                 : Center(
                     child: TextView.getMediumText14(
-                      "No Data Available",
+                      AppLocalizations.of(context)!.no_data,
                       Assets.latoRegular,
                       color: AppColors.gray300,
                       fontWeight: FontWeight.w400,

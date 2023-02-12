@@ -9,6 +9,7 @@ import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_text.dart';
 import '../../../widgets/custom_textField.dart';
 import '../package_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PackageFilterScreen extends StatefulWidget {
   const PackageFilterScreen({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
   late TextEditingController couponController;
   late GetStartedProvider getStartedProvider;
 
-  var selectedCity = "Starting City";
+  var selectedCity = AppLocalizations.of(context)!.departure_from;
   var selectCityId = "-1";
   bool internet = false;
   bool meal = false;
@@ -31,8 +32,8 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
   late DateTime _selectedDate;
   late TimeOfDay _selectedTime;
 
-  String _startDate = "Start Date";
-  String _endDate = "End Date";
+  String _startDate = AppLocalizations.of(context)!.departure_date;
+  String _endDate = AppLocalizations.of(context)!.arrival_date;
   String _startTime = "Start Time";
 
   @override
@@ -58,7 +59,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
       lastDate: DateTime(2050),
     ).then((pickedDate) {
       if (pickedDate == null) {
-        return 'no date selected';
+        return AppLocalizations.of(context)!.no_data_selected;
       }
       setState(() {
         _selectedDate = pickedDate;
@@ -74,7 +75,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
     showTimePicker(context: context, initialTime: TimeOfDay.now())
         .then((pickedTime) {
       if (pickedTime == null) {
-        return 'no time selected';
+        return AppLocalizations.of(context)!.no_time_selected;
       }
 
       setState(() {
@@ -94,7 +95,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
         elevation: 0,
         automaticallyImplyLeading: true,
         title: const CustomText(
-            text: "Packages",
+            text: AppLocalizations.of(context)!.packages,
             textSize: 18,
             fontWeight: FontWeight.w700,
             textColor: Colors.white),
@@ -112,7 +113,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                   padding: 0,
                   validator: (val) => null,
                   inputType: TextInputType.name,
-                  hint: "Coupon",
+                  hint: AppLocalizations.of(context)!.coupon,
                 ).get20HorizontalPadding(),
                 CommonPadding.sizeBoxWithHeight(height: 20),
                 GestureDetector(
@@ -273,7 +274,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                 ),
                 CommonPadding.sizeBoxWithHeight(height: 20),
                 CustomText(
-                  text: "Additional",
+                  text: AppLocalizations.of(context)!.additional,
                   textSize: sizes!.fontRatio * 18,
                   fontWeight: FontWeight.w500,
                   textColor: Colors.black,
@@ -314,7 +315,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                 ).get20HorizontalPadding(),
                 CommonPadding.sizeBoxWithHeight(height: 20),
                 CustomButton(
-                        name: "Filter Result",
+                        name: AppLocalizations.of(context)!.filter,
                         buttonColor: appColor,
                         height: sizes!.heightRatio * 45,
                         width: double.infinity,

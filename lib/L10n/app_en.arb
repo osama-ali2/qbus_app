@@ -107,5 +107,13 @@
   "id_number": "ID Number",
   "passenger": "Passenger",
   "number_of_rooms": "Number of Rooms",
-  "add_passenger": "Add Passengers"
+  "add_passenger": "Add Passengers",
+  "package_detail":"Package Detail",
+  "book_now":"Book Now",
+  "no_data_selected": "No data selected",
+  "coupon": "Coupon",
+  "additional": "Additional",
+  "room_quantity": "Room Quantity",
+  "max_adults": "Max Adults",
+  "hotel_name": "Hotel Name"
 }

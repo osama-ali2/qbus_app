@@ -88,7 +88,7 @@ class _PackageScreenState extends State<PackageScreen> {
           child: packageProvider.isListHasData > 0
               ? _getUI(context)
               : const Center(
-                  child: Text("No Data"),
+                  child: Text(AppLocalizations.of(context)!.no_data),
                 ),
         ),
       ),
