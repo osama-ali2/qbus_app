@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/models/additionals/PackageAdditionalsResponse.dart';
-import 'package:qbus/network_manager/api_url.dart';
+import 'package:qbus/network_manager/network_manager.dart';
 import 'package:qbus/widgets/loader.dart';
-
-import '../../../network_manager/models.dart';
-import '../../../network_manager/my_api.dart';
 
 class PackageSelectAdditionProvider with ChangeNotifier {
   BuildContext? context;
@@ -24,18 +21,21 @@ class PackageSelectAdditionProvider with ChangeNotifier {
     this.context = context;
   }
 
-  Future<void> getAdditionalData({required String id}) async {
+  // Get Additional Data
+  Future<void> getAdditionalData({
+    required String id,
+  }) async {
     try {
       _loader.showLoader(context: context);
-
       Map<String, dynamic> header = {"Content-Type": "application/json"};
-
       var url = "$packageAdditionalApiUrl$id";
       debugPrint("URL: $url");
+
       packageAdditionalsResponse = await MyApi.callGetApi(
-          url: url,
-          myHeaders: header,
-          modelName: Models.packageAdditionalsModel);
+        url: url,
+        myHeaders: header,
+        modelName: Models.packageAdditionalsModel,
+      );
       // debugPrint("aBody: $body");
 
       if (packageAdditionalsResponse.code == 1) {

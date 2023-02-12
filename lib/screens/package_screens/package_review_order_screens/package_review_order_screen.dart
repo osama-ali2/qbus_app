@@ -73,6 +73,10 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                   CommonPadding.sizeBoxWithHeight(height: 10),
                   packageReviewOrderProvider.isOrderReviewLoaded == true
                       ? _tripOrderContainer(
+                          packageName: packageReviewOrderProvider
+                                  .packageOrderReviewResponse.data?.name?.ar
+                                  .toString() ??
+                              "null",
                           quantity: packageReviewOrderProvider
                                   .packageOrderReviewResponse.data?.count
                                   .toString() ??
@@ -141,12 +145,14 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
 
                               // var title = data.name!.en.toString();
                               var title = data.name!.ar.toString();
+                              var cityName = data.cityName!.ar.toString();
 
                               var price = data.fees.toString();
                               return _hotelRoomContainer(
                                 days: days,
                                 title: title,
                                 price: price,
+                                cityName: cityName,
                               );
                             },
                           ),
@@ -287,6 +293,7 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
 
   /// Trip Order Container
   Widget _tripOrderContainer({
+    required String packageName,
     required String quantity,
     required String fromTime,
     // required String fromCity,
@@ -304,20 +311,84 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextView.getGenericText(
-                    text: "X$quantity",
-                    fontFamily: Assets.latoRegular,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.black900,
-                    lines: 1),
+                  text: "X$quantity",
+                  fontFamily: Assets.latoRegular,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.black900,
+                  lines: 1,
+                ),
+
                 CommonPadding.sizeBoxWithWidth(width: 10),
                 TextView.getGenericText(
-                    text: "$fromTime ",
-                    fontFamily: Assets.latoRegular,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.black900,
-                    lines: 1),
+                  text: "$packageName ",
+                  fontFamily: Assets.latoRegular,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.black900,
+                  lines: 1,
+                ),
+                const Spacer(),
+                // SvgPicture.asset(
+                //   "assets/svg/skip_icon.svg",
+                //   height: sizes!.heightRatio * 24,
+                //   width: sizes!.widthRatio * 24,
+                //   color: AppColors.black900,
+                // ),
+                // TextView.getGenericText(
+                //     text: "$toTime ",
+                //     fontFamily: Assets.latoRegular,
+                //     fontSize: 14,
+                //     fontWeight: FontWeight.w400,
+                //     color: AppColors.black900,
+                //     lines: 1),
+                CommonPadding.sizeBoxWithWidth(width: 10),
+
+                Container(
+                  height: sizes!.heightRatio * 20,
+                  width: sizes!.widthRatio * 55,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5), color: appColor),
+                  child: Center(
+                    child: CustomText(
+                        text: " ريال$price",
+                        textSize: sizes!.fontRatio * 10,
+                        fontWeight: FontWeight.normal,
+                        textColor: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Divider(
+            color: AppColors.borderColor,
+            thickness: 1,
+          ),
+          Container(
+            height: sizes!.heightRatio * 50,
+            width: sizes!.width,
+            decoration: const BoxDecoration(color: Colors.transparent),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextView.getGenericText(
+                  text: "X$quantity",
+                  fontFamily: Assets.latoRegular,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.black900,
+                  lines: 1,
+                ),
+
+                CommonPadding.sizeBoxWithWidth(width: 10),
+                TextView.getGenericText(
+                  text: "$fromTime ",
+                  fontFamily: Assets.latoRegular,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.black900,
+                  lines: 1,
+                ),
                 const Spacer(),
                 // SvgPicture.asset(
                 //   "assets/svg/skip_icon.svg",
@@ -353,7 +424,7 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
           const Divider(
             color: AppColors.borderColor,
             thickness: 1,
-          )
+          ),
         ],
       );
 
@@ -362,6 +433,7 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
     required String days,
     required String title,
     required String price,
+    required String cityName,
   }) =>
       Column(
         children: [
@@ -382,6 +454,14 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                 CommonPadding.sizeBoxWithWidth(width: 10),
                 TextView.getGenericText(
                     text: title,
+                    fontFamily: Assets.latoRegular,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.black900,
+                    lines: 1),
+                CommonPadding.sizeBoxWithWidth(width: 8),
+                TextView.getGenericText(
+                    text: cityName,
                     fontFamily: Assets.latoRegular,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,

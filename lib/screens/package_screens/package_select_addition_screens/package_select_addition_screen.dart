@@ -57,6 +57,9 @@ class _PackageSelectAdditionScreenState
   @override
   void dispose() {
     super.dispose();
+
+    packageSelectAdditionProvider.additionalList.clear();
+    packageSelectAdditionProvider.packageSelectAdditionalList.clear();
   }
 
   @override
@@ -214,7 +217,10 @@ class _PackageSelectAdditionScreenState
                     _tripMinusCounter(index: index, additionId: additionId);
                   },
                   number: packageSelectAdditionProvider
-                      .packageSelectAdditionalList[index],
+                          .packageSelectAdditionalList.isNotEmpty
+                      ? packageSelectAdditionProvider
+                          .packageSelectAdditionalList[index]
+                      : 0,
                 )
               : _items(
                   context: context,
