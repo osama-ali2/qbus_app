@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/strings.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../round_trip_review_order_screens/round_trip_review_order_screen.dart';
 import 'step_two_select_addition_provider.dart';
@@ -80,7 +80,7 @@ class _StepTwoSelectAdditionScreenState
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "Trip Select Additions",
+            text: AppLocalizations.of(context)!.trip_additions,
             textSize: sizes!.fontRatio * 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
@@ -96,16 +96,13 @@ class _StepTwoSelectAdditionScreenState
                           .tripAdditionalsResponse.data!.additional!.length,
                       itemBuilder: (context, index) {
                         currentIndex = index;
-                        var name = stepTwoSelectAdditionProvider
-                            .tripAdditionalsResponse
-                            .data!
-                            .additional![index]
-                            .name!
-                            .en
-                            .toString();
-                        var additionId = stepTwoSelectAdditionProvider
-                            .tripAdditionalsResponse.data!.additional![index].id
-                            .toString();
+                        var data = stepTwoSelectAdditionProvider
+                            .tripAdditionalsResponse.data!.additional![index];
+
+                        // var name = data.name!.en.toString();
+                        var name = data.name!.ar.toString();
+                        var additionId = data.id.toString();
+
                         return _itemContainer(
                           name: name,
                           index: index,
@@ -115,7 +112,7 @@ class _StepTwoSelectAdditionScreenState
                     ),
                   ),
                   CustomButton(
-                    name: "Save Second Trip & Review Order",
+                    name: AppLocalizations.of(context)!.save_secound_trip,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,
@@ -164,8 +161,8 @@ class _StepTwoSelectAdditionScreenState
                         )
                 ],
               )
-            : const Center(
-                child: Text("No Data Available"),
+            : Center(
+                child: Text(AppLocalizations.of(context)!.no_data),
               ),
       ),
     );
@@ -196,10 +193,11 @@ class _StepTwoSelectAdditionScreenState
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => RoundTripReviewOrderScreen(
-                    orderId: stepTwoSelectAdditionProvider
-                        .roundOrderTripResponse.data!.tripId!,
-                  )),
+            builder: (context) => RoundTripReviewOrderScreen(
+              orderId: stepTwoSelectAdditionProvider
+                  .roundOrderTripResponse.data!.tripId!,
+            ),
+          ),
         );
       }
     }

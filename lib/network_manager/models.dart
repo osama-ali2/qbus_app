@@ -16,8 +16,10 @@ import 'package:qbus/models/error_model/ErrorResponse.dart';
 import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
 import 'package:qbus/models/hotel/HotelRoomResponse.dart';
 import 'package:qbus/models/order_reviews/OneWayOrderReviewResponse.dart';
+import 'package:qbus/models/order_reviews/PackageOrderReviewResponse.dart';
 import 'package:qbus/models/order_reviews/RoundOrderReviewResponse.dart';
 import 'package:qbus/models/packages/PackageDetailResponse.dart';
+import 'package:qbus/models/packages/PackageOrderResponse.dart';
 import 'package:qbus/models/packages/PackagesResponse.dart';
 import 'package:qbus/models/passenger_models/GetCountriesResponse.dart';
 import 'package:qbus/models/passenger_models/IdentityProofTypesResponse.dart';
@@ -64,6 +66,7 @@ class Models {
   static const String roundOrderTripModel = "roundOrderTripModel";
   static const String multiOrderTripModel = "multiOrderTripModel";
   static const String ordersReviewModel = "ordersReviewModel";
+  static const String packageOrderModel = "packageOrderModel";
 
   //Histories:
   static const String tripBookingHistoryModel = "tripBookingHistoryModel";
@@ -85,12 +88,15 @@ class Models {
   // One Way Order Review Response
   static const String oneWayOrderReviewModel = "oneWayOrderReviewModel";
   static const String roundOrderReviewModel = "roundOrderReviewModel";
+  static const String packageOrderReviewModel = "packageOrderReviewModel";
 
   static Future<dynamic> getModelObject(
       String modelName, Map<String, dynamic> json) async {
     switch (modelName) {
       case updateProfilePasswordModel:
         return UpdateProfilePasswordResponse.fromJson(json);
+      case packageOrderReviewModel:
+        return PackageOrderReviewResponse.fromJson(json);
       case packageRatingModel:
         return PackageRatingResponse.fromJson(json);
       case tripRatingModel:
@@ -99,6 +105,8 @@ class Models {
         return PackageHistoryResponse.fromJson(json);
       case tripBookingHistoryModel:
         return TripHistoryResponse.fromJson(json);
+      case packageOrderModel:
+        return PackageOrderResponse.fromJson(json);
       case oneWayOrderTripModel:
         return OneWayOrdersTripResponse.fromJson(json);
       case multiOrderTripModel:

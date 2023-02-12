@@ -24,17 +24,13 @@ class _SettingScreenState extends State<SettingScreenSelectLang> {
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
       ),
-      body: _getUI(context),
-    );
-  }
-
-  Widget _getUI(BuildContext context) {
-    return Column(
-      children: const [
-        SizedBox(
-          height: 10,
-        ),
-      ],
+      body: Column(
+        children: const [
+          SizedBox(
+            height: 10,
+          ),
+        ],
+      ),
     );
   }
 }

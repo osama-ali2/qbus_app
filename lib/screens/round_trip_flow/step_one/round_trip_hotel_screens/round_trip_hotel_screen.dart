@@ -3,17 +3,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/project_widgets/hotel_card_container_widget.dart';
 import 'package:qbus/screens/round_trip_flow/step_two/round_trip_step_two_result.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'round_trip_hotel_provider.dart';
 
@@ -89,18 +87,19 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "Hotels",
+            text: AppLocalizations.of(context)!.hotels,
             textSize: sizes!.fontRatio * 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
         actions: [
           Center(
             child: Padding(
-              padding: EdgeInsets.only(right: sizes!.widthRatio * 20),
+              padding: EdgeInsets.only(
+                  right: sizes!.widthRatio * 20, left: sizes!.widthRatio * 20),
               child: GestureDetector(
                 onTap: () async => _skipAndStepTwoTrip(),
                 child: TextView.getGenericText(
-                    text: "Skip",
+                    text: AppLocalizations.of(context)!.skip,
                     fontFamily: Assets.latoRegular,
                     fontSize: 18,
                     fontWeight: FontWeight.w400,
@@ -147,13 +146,19 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                           .hotelRoomResponse.data!.rooms!.length,
                       itemBuilder: (context, index) {
                         currentIndex = index;
+
                         var data = roundTripHotelProvider
                             .hotelRoomResponse.data!.rooms![index];
-                        var hotelName = data.name?.en.toString();
+
+                        // var hotelName = data.name?.en.toString();
+                        var hotelName = data.name?.ar.toString();
+
                         var city = data.city.toString();
                         var rate = data.rate.toString();
+
                         var roomNum = data.roomQuantity.toString();
                         var bedNum = data.bedQuantity.toString();
+
                         var imageUrl = roundTripHotelProvider
                             .hotelRoomResponse.data!.imageBase
                             .toString();
@@ -206,7 +211,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
                   )
                 : Center(
                     child: TextView.getGenericText(
-                        text: "No Hotel Founds",
+                        text: AppLocalizations.of(context)!.no_hotel_found,
                         fontFamily: Assets.latoRegular,
                         fontSize: 18,
                         fontWeight: FontWeight.w800,
@@ -216,7 +221,7 @@ class _RoundTripHotelScreenState extends State<RoundTripHotelScreen> {
             CommonPadding.sizeBoxWithHeight(height: 10),
             roundTripHotelProvider.isHotelLoaded == true
                 ? CustomButton(
-                    name: "Save And Start Trip Two",
+                    name: AppLocalizations.of(context)!.save_start_trip_two,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,

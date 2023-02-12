@@ -4,15 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/auth/forgot_screens/forgot_provider.dart';
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/widgets/text_views.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../utils/constant.dart';
 import '../../../widgets/custom_button.dart';
@@ -108,7 +105,9 @@ class _ForgotScreenState extends State<ForgotScreen> {
                 CommonPadding.sizeBoxWithHeight(height: 30),
                 Center(
                   child: TextView.getMediumText16(
-                      "Reset Password Token has been sent to ${widget.phoneNumber}",
+                      AppLocalizations.of(context)!
+                              .reset_password_token_sent_to +
+                          "${widget.phoneNumber}",
                       Assets.latoBold,
                       color: AppColors.black900,
                       fontWeight: FontWeight.w500,
@@ -128,7 +127,9 @@ class _ForgotScreenState extends State<ForgotScreen> {
                   },
                   onSubmitted: (pin) {
                     debugPrint("Successful :$pin");
-                    Toasts.getSuccessToast(text: "Successful :$pin");
+                    Toasts.getSuccessToast(
+                        text:
+                            AppLocalizations.of(context)!.successful + "$pin");
                   },
                   focusedPinTheme: defaultPinTheme.copyWith(
                     height: sizes!.fontRatio * 58,
@@ -152,7 +153,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                       padding: 20,
                       validator: (val) => null,
                       inputType: TextInputType.name,
-                      hint: "New Password",
+                      hint: AppLocalizations.of(context)!.new_password,
                       isVisible: _isNewPassword.value,
                       onPress: () {
                         _isNewPassword.value = !_isNewPassword.value;
@@ -169,7 +170,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                       padding: 20,
                       validator: (val) => null,
                       inputType: TextInputType.name,
-                      hint: "Confirm Password",
+                      hint: AppLocalizations.of(context)!.confirm_password,
                       isVisible: _isConfirmPassword.value,
                       onPress: () {
                         _isConfirmPassword.value = !_isConfirmPassword.value;
@@ -180,7 +181,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                 ),
                 CommonPadding.sizeBoxWithHeight(height: 60),
                 CustomButton(
-                    name: "Reset Password",
+                    name: AppLocalizations.of(context)!.reset_password,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,
@@ -217,13 +218,14 @@ class _ForgotScreenState extends State<ForgotScreen> {
             MaterialPageRoute(builder: (context) => const LoginScreen()));
       }
     } else if (code.isEmpty) {
-      Toasts.getErrorToast(text: "Field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
     } else if (password.isEmpty) {
-      Toasts.getErrorToast(text: "Field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
     } else if (confirmPassword.isEmpty) {
-      Toasts.getErrorToast(text: "Field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.required_fields);
     } else if (password != confirmPassword) {
-      Toasts.getErrorToast(text: "Password isn't matched");
+      Toasts.getErrorToast(
+          text: AppLocalizations.of(context)!.password_not_matched);
     }
   }
 }

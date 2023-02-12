@@ -5,10 +5,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
@@ -28,25 +27,25 @@ class TripCardContainerWidget extends StatelessWidget {
   final String providerName;
   final List<Additionals> additionals;
 
-  const TripCardContainerWidget(
-      {Key? key,
-      required this.stationA,
-      required this.stationB,
-      required this.fees,
-      required this.rate,
-      required this.fromCityName,
-      required this.toCityName,
-      required this.timeFrom,
-      required this.timeTo,
-      required this.stops,
-      required this.providerName,
-      required this.additionals})
-      : super(key: key);
+  const TripCardContainerWidget({
+    Key? key,
+    required this.stationA,
+    required this.stationB,
+    required this.fees,
+    required this.rate,
+    required this.fromCityName,
+    required this.toCityName,
+    required this.timeFrom,
+    required this.timeTo,
+    required this.stops,
+    required this.providerName,
+    required this.additionals,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: sizes!.heightRatio * 188,
+      height: sizes!.heightRatio * 190,
       width: sizes!.widthRatio * 335,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -61,8 +60,9 @@ class TripCardContainerWidget extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: sizes!.widthRatio * 10,
-            vertical: sizes!.heightRatio * 20),
+          horizontal: sizes!.widthRatio * 10,
+          vertical: sizes!.heightRatio * 10,
+        ),
         child: Column(
           children: [
             Row(
@@ -192,7 +192,9 @@ class TripCardContainerWidget extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           itemCount: additionals.length,
                           itemBuilder: (context, index) {
-                            var data = additionals[index].en;
+                            // var data = additionals[index].en;
+                            var data = additionals[index].ar;
+
                             return CustomText(
                               text: "$data, ",
                               textSize: sizes!.fontRatio * 14,
@@ -202,14 +204,14 @@ class TripCardContainerWidget extends StatelessWidget {
                           },
                         )
                       : Align(
-                    alignment: Alignment.topLeft,
-                        child: CustomText(
-                            text: "No Additional",
+                          alignment: Alignment.topLeft,
+                          child: CustomText(
+                            text: AppLocalizations.of(context)!.no_data,
                             textSize: sizes!.fontRatio * 14,
                             fontWeight: FontWeight.w500,
                             textColor: AppColors.black900,
                           ),
-                      ),
+                        ),
                 ),
                 CommonPadding.sizeBoxWithWidth(width: 4),
                 Container(

@@ -8,8 +8,8 @@ import 'package:logger/logger.dart';
 import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/hotel/HotelRoomResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
-import 'package:qbus/res/strings.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/widgets/loader.dart';
 import '../../models/trips/OneWayOrdersTripResponse.dart';
 import '../../network_manager/models.dart';

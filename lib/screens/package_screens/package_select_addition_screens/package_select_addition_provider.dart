@@ -18,6 +18,7 @@ class PackageSelectAdditionProvider with ChangeNotifier {
       PackageAdditionalsResponse();
 
   List<int> packageSelectAdditionalList = [];
+  List<Map<String, dynamic>> additionalList = [];
 
   Future<void> init({@required BuildContext? context}) async {
     this.context = context;
@@ -40,12 +41,16 @@ class PackageSelectAdditionProvider with ChangeNotifier {
       if (packageAdditionalsResponse.code == 1) {
         _logger.d(
             "packageAdditionalsResponse: ${packageAdditionalsResponse.toJson()}");
-
         var length = packageAdditionalsResponse.data!.additional!.length;
         for (int i = 0; i < length; i++) {
+          Map<String, dynamic> demoData = {
+            "id": 0,
+            "counter": 0,
+          };
+          additionalList.add(demoData);
           packageSelectAdditionalList.add(0);
-          debugPrint(
-              "packageSelectAdditionalList: ${packageSelectAdditionalList.length}");
+          _logger
+              .i("selectAdditionalList: ${packageSelectAdditionalList.length}");
         }
 
         _loader.hideLoader(context!);

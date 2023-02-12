@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/PackageFilterModel.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/screens/explore_screens/explore_screen.dart';
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
-
-import '../../../res/res.dart';
+import 'package:qbus/resources/resources.dart';
 import '../../../utils/constant.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_text.dart';
 import '../../../widgets/custom_textField.dart';
+import '../package_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PackageFilterScreen extends StatefulWidget {
   const PackageFilterScreen({Key? key}) : super(key: key);
@@ -25,7 +22,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
   late TextEditingController couponController;
   late GetStartedProvider getStartedProvider;
 
-  var selectedCity = "Starting City";
+  late var selectedCity = AppLocalizations.of(context)!.departure_from;
   var selectCityId = "-1";
   bool internet = false;
   bool meal = false;
@@ -35,8 +32,8 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
   late DateTime _selectedDate;
   late TimeOfDay _selectedTime;
 
-  String _startDate = "Start Date";
-  String _endDate = "End Date";
+  late String _startDate = AppLocalizations.of(context)!.departure_date;
+  late String _endDate = AppLocalizations.of(context)!.arrival_date;
   String _startTime = "Start Time";
 
   @override
@@ -62,7 +59,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
       lastDate: DateTime(2050),
     ).then((pickedDate) {
       if (pickedDate == null) {
-        return 'no date selected';
+        return AppLocalizations.of(context)!.no_data_selected;
       }
       setState(() {
         _selectedDate = pickedDate;
@@ -78,7 +75,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
     showTimePicker(context: context, initialTime: TimeOfDay.now())
         .then((pickedTime) {
       if (pickedTime == null) {
-        return 'no time selected';
+        return AppLocalizations.of(context)!.no_time_selected;
       }
 
       setState(() {
@@ -97,8 +94,8 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
         backgroundColor: appColor,
         elevation: 0,
         automaticallyImplyLeading: true,
-        title: const CustomText(
-            text: "Packages",
+        title: CustomText(
+            text: AppLocalizations.of(context)!.packages,
             textSize: 18,
             fontWeight: FontWeight.w700,
             textColor: Colors.white),
@@ -116,7 +113,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                   padding: 0,
                   validator: (val) => null,
                   inputType: TextInputType.name,
-                  hint: "Coupon",
+                  hint: AppLocalizations.of(context)!.coupon,
                 ).get20HorizontalPadding(),
                 CommonPadding.sizeBoxWithHeight(height: 20),
                 GestureDetector(
@@ -135,7 +132,9 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                     width: sizes!.widthRatio * 380,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: Colors.grey.shade400)),
+                        border: Border.all(
+                          color: Colors.grey.shade400,
+                        )),
                     child: Row(
                       children: [
                         Padding(
@@ -168,7 +167,9 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                     width: sizes!.widthRatio * 380,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: Colors.grey.shade400)),
+                        border: Border.all(
+                          color: Colors.grey.shade400,
+                        )),
                     child: Row(
                       children: [
                         Padding(
@@ -273,7 +274,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                 ),
                 CommonPadding.sizeBoxWithHeight(height: 20),
                 CustomText(
-                  text: "Additional",
+                  text: AppLocalizations.of(context)!.additional,
                   textSize: sizes!.fontRatio * 18,
                   fontWeight: FontWeight.w500,
                   textColor: Colors.black,
@@ -314,7 +315,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                 ).get20HorizontalPadding(),
                 CommonPadding.sizeBoxWithHeight(height: 20),
                 CustomButton(
-                        name: "Filter Result",
+                        name: AppLocalizations.of(context)!.filter,
                         buttonColor: appColor,
                         height: sizes!.heightRatio * 45,
                         width: double.infinity,
@@ -327,20 +328,21 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                               couponController.text.toString().trim();
 
                           var filterData = PackageFilterModel(
-                              code: couponCode,
-                              starting_city_id: selectCityId,
-                              date_from: _startDate,
-                              date_to: _endDate,
-                              time_from: _startTime,
-                              additional: [],
-                              offset: 0);
+                            code: couponCode,
+                            starting_city_id: selectCityId,
+                            date_from: _startDate,
+                            date_to: _endDate,
+                            time_from: _startTime,
+                            additional: [],
+                            offset: 0,
+                          );
 
                           debugPrint("myGlobal: ${filterData.toJson()}");
                           Navigator.pop(context);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ExploreScreen(
+                              builder: (context) => PackageScreen(
                                 packageFilterModel: filterData,
                               ),
                             ),
@@ -356,6 +358,7 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
     );
   }
 
+  /// Check Box
   Widget checkBox(
       BuildContext context, bool isSelected, String name, Function onTap) {
     return InkWell(
@@ -369,7 +372,8 @@ class _PackageFilterScreenState extends State<PackageFilterScreen> {
                 color: isSelected ? appColor : Colors.white,
                 borderRadius: BorderRadius.circular(2),
                 border: Border.all(
-                    color: isSelected ? appColor : Colors.grey.shade400)),
+                  color: isSelected ? appColor : Colors.grey.shade400,
+                )),
             child: const Icon(
               Icons.check,
               size: 16,

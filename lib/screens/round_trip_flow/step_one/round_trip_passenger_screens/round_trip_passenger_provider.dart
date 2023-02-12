@@ -11,7 +11,7 @@ import 'package:qbus/models/passenger_models/IdentityProofTypesResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
 import 'package:qbus/network_manager/models.dart';
 import 'package:qbus/network_manager/my_api.dart';
-import 'package:qbus/res/strings.dart';
+import 'package:qbus/resources/resources.dart';
 import 'package:qbus/widgets/loader.dart';
 
 class RoundTripPassengerProvider with ChangeNotifier {
@@ -73,9 +73,14 @@ class RoundTripPassengerProvider with ChangeNotifier {
         var l = identityProofTypesResponse.data!.identityProofTypes!.length;
         debugPrint("l:$l");
         for (int i = 0; i < l; i++) {
+          // var name = identityProofTypesResponse
+          //     .data!.identityProofTypes![i].name!.en
+          //     .toString();
+
           var name = identityProofTypesResponse
-              .data!.identityProofTypes![i].name!.en
+              .data!.identityProofTypes![i].name!.ar
               .toString();
+
           var id = identityProofTypesResponse.data!.identityProofTypes![i].id!
               .toString();
 
@@ -129,8 +134,11 @@ class RoundTripPassengerProvider with ChangeNotifier {
         var l = getCountriesResponse.data!.countries!.length;
         debugPrint("l:$l");
         for (int i = 0; i < l; i++) {
+          // var name =
+          //     getCountriesResponse.data!.countries![i].name!.en.toString();
+
           var name =
-              getCountriesResponse.data!.countries![i].name!.en.toString();
+              getCountriesResponse.data!.countries![i].name!.ar.toString();
           var id = getCountriesResponse.data!.countries![i].id!.toString();
 
           Map<String, dynamic> map = {

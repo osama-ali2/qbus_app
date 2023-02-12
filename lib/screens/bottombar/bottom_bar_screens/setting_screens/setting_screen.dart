@@ -2,17 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:qbus/language.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_text.dart';
-
 import '../../../../local_cache/utils.dart';
-import '../../../../res/assets.dart';
-import '../../../../res/res.dart';
-import '../../../../res/strings.dart';
 import '../../../../widgets/text_views.dart';
+import 'package:qbus/resources/resources.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -22,10 +16,6 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  void _changeLanguage(lang) {
-    PreferenceUtils.setString(Strings.language, lang.languageCode);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,10 +47,11 @@ class _SettingScreenState extends State<SettingScreen> {
     );
   }
 
-  Widget getRow(
-          {required String title,
-          required String language,
-          required Function? onPress}) =>
+  Widget getRow({
+    required String title,
+    required String language,
+    required Function? onPress,
+  }) =>
       Container(
         height: sizes!.heightRatio * 42,
         width: sizes!.widthRatio * 335,
@@ -87,7 +78,8 @@ class _SettingScreenState extends State<SettingScreen> {
               const Spacer(),
               DropdownButton(
                 onChanged: (language) {
-                  _changeLanguage(language);
+                  _changeLanguage(language as Language);
+                  // setState(() {});
                 },
                 underline: const SizedBox(),
                 icon: const Icon(
@@ -110,9 +102,8 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  if (onPress != null) {
-                    onPress.call();
-                  }
+                  _changeLanguage(language as Language);
+                  // setState(() {});
                 },
                 child: SvgPicture.asset(
                   "assets/svg/forward_icon.svg",
@@ -124,4 +115,10 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
         ),
       ).get20HorizontalPadding();
+
+  /// Change Language
+  void _changeLanguage(Language lang) {
+    debugPrint("lang: ${lang.languageCode}");
+    PreferenceUtils.setString(Strings.language, lang.languageCode);
+  }
 }

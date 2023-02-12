@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/models/auth/GetVerifyPhoneResponse.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
 import 'package:qbus/widgets/loader.dart';
+import 'package:qbus/network_manager/network_manager.dart';
 
-import '../../../network_manager/api_url.dart';
-import '../../../network_manager/models.dart';
-import '../../../network_manager/my_api.dart';
 
 class PhoneActivationProvider with ChangeNotifier {
   BuildContext? context;

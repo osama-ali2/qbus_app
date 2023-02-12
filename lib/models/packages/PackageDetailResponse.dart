@@ -1,7 +1,11 @@
+/// message : "messages.success"
+/// code : 1
+/// data : {"packages":{"id":7,"provider_id":1,"name":{"en":"Makkah","ar":"مكة","ur":"مکہ"},"date_from":"2022-12-29","time_from":"14:00","description":null,"image":"1671978797_278-الكعبة.jpg","fees":150,"start_station_name":"{\"en\":\"Alahsa\",\"ar\":\"'ا''ل'ا''ح'س'ا'ء'\",\"ur\":\"alahsa\"}","rate":0,"additionals":[{"id":1,"fees":2,"name":{"en":"شاي","ar":"شاي","ur":"tea"}}],"destinations":[{"id":1,"provider_id":1,"from_city_id":4,"to_city_id":2,"starting_terminal_id":1,"arrival_terminal_id":2,"stops":null,"created_at":"2022-12-18T13:33:00.000000Z","updated_at":"2022-12-18T13:33:00.000000Z","name":"Alahsa - Makka","from_city":{"id":4,"name":{"en":"Alahsa","ar":"الاحساء","ur":"alahsa"},"created_at":"2022-11-13T12:04:05.000000Z","updated_at":"2022-11-13T12:04:35.000000Z"},"to_city":{"id":2,"name":{"en":"Makka","ar":"مكة المكرمة","ur":"Makka"},"created_at":"2022-11-13T11:44:12.000000Z","updated_at":"2022-11-13T11:44:12.000000Z"}},{"id":2,"provider_id":1,"from_city_id":2,"to_city_id":4,"starting_terminal_id":1,"arrival_terminal_id":2,"stops":null,"created_at":"2022-12-18T13:33:24.000000Z","updated_at":"2022-12-18T13:33:24.000000Z","name":"Makka - Alahsa","from_city":{"id":2,"name":{"en":"Makka","ar":"مكة المكرمة","ur":"Makka"},"created_at":"2022-11-13T11:44:12.000000Z","updated_at":"2022-11-13T11:44:12.000000Z"},"to_city":{"id":4,"name":{"en":"Alahsa","ar":"الاحساء","ur":"alahsa"},"created_at":"2022-11-13T12:04:05.000000Z","updated_at":"2022-11-13T12:04:35.000000Z"}}]},"image_base":"https://qbus-sa.com/public/images/packages"}
+
 class PackageDetailResponse {
   PackageDetailResponse({
     String? message,
-    int? code,
+    num? code,
     Data? data,
   }) {
     _message = message;
@@ -16,12 +20,12 @@ class PackageDetailResponse {
   }
 
   String? _message;
-  int? _code;
+  num? _code;
   Data? _data;
 
   String? get message => _message;
 
-  int? get code => _code;
+  num? get code => _code;
 
   Data? get data => _data;
 
@@ -35,6 +39,9 @@ class PackageDetailResponse {
     return map;
   }
 }
+
+/// packages : {"id":7,"provider_id":1,"name":{"en":"Makkah","ar":"مكة","ur":"مکہ"},"date_from":"2022-12-29","time_from":"14:00","description":null,"image":"1671978797_278-الكعبة.jpg","fees":150,"start_station_name":"{\"en\":\"Alahsa\",\"ar\":\"'ا''ل'ا''ح'س'ا'ء'\",\"ur\":\"alahsa\"}","rate":0,"additionals":[{"id":1,"fees":2,"name":{"en":"شاي","ar":"شاي","ur":"tea"}}],"destinations":[{"id":1,"provider_id":1,"from_city_id":4,"to_city_id":2,"starting_terminal_id":1,"arrival_terminal_id":2,"stops":null,"created_at":"2022-12-18T13:33:00.000000Z","updated_at":"2022-12-18T13:33:00.000000Z","name":"Alahsa - Makka","from_city":{"id":4,"name":{"en":"Alahsa","ar":"الاحساء","ur":"alahsa"},"created_at":"2022-11-13T12:04:05.000000Z","updated_at":"2022-11-13T12:04:35.000000Z"},"to_city":{"id":2,"name":{"en":"Makka","ar":"مكة المكرمة","ur":"Makka"},"created_at":"2022-11-13T11:44:12.000000Z","updated_at":"2022-11-13T11:44:12.000000Z"}},{"id":2,"provider_id":1,"from_city_id":2,"to_city_id":4,"starting_terminal_id":1,"arrival_terminal_id":2,"stops":null,"created_at":"2022-12-18T13:33:24.000000Z","updated_at":"2022-12-18T13:33:24.000000Z","name":"Makka - Alahsa","from_city":{"id":2,"name":{"en":"Makka","ar":"مكة المكرمة","ur":"Makka"},"created_at":"2022-11-13T11:44:12.000000Z","updated_at":"2022-11-13T11:44:12.000000Z"},"to_city":{"id":4,"name":{"en":"Alahsa","ar":"الاحساء","ur":"alahsa"},"created_at":"2022-11-13T12:04:05.000000Z","updated_at":"2022-11-13T12:04:35.000000Z"}}]}
+/// image_base : "https://qbus-sa.com/public/images/packages"
 
 class Data {
   Data({
@@ -68,18 +75,31 @@ class Data {
   }
 }
 
+/// id : 7
+/// provider_id : 1
+/// name : {"en":"Makkah","ar":"مكة","ur":"مکہ"}
+/// date_from : "2022-12-29"
+/// time_from : "14:00"
+/// description : null
+/// image : "1671978797_278-الكعبة.jpg"
+/// fees : 150
+/// start_station_name : "{\"en\":\"Alahsa\",\"ar\":\"'ا''ل'ا''ح'س'ا'ء'\",\"ur\":\"alahsa\"}"
+/// rate : 0
+/// additionals : [{"id":1,"fees":2,"name":{"en":"شاي","ar":"شاي","ur":"tea"}}]
+/// destinations : [{"id":1,"provider_id":1,"from_city_id":4,"to_city_id":2,"starting_terminal_id":1,"arrival_terminal_id":2,"stops":null,"created_at":"2022-12-18T13:33:00.000000Z","updated_at":"2022-12-18T13:33:00.000000Z","name":"Alahsa - Makka","from_city":{"id":4,"name":{"en":"Alahsa","ar":"الاحساء","ur":"alahsa"},"created_at":"2022-11-13T12:04:05.000000Z","updated_at":"2022-11-13T12:04:35.000000Z"},"to_city":{"id":2,"name":{"en":"Makka","ar":"مكة المكرمة","ur":"Makka"},"created_at":"2022-11-13T11:44:12.000000Z","updated_at":"2022-11-13T11:44:12.000000Z"}},{"id":2,"provider_id":1,"from_city_id":2,"to_city_id":4,"starting_terminal_id":1,"arrival_terminal_id":2,"stops":null,"created_at":"2022-12-18T13:33:24.000000Z","updated_at":"2022-12-18T13:33:24.000000Z","name":"Makka - Alahsa","from_city":{"id":2,"name":{"en":"Makka","ar":"مكة المكرمة","ur":"Makka"},"created_at":"2022-11-13T11:44:12.000000Z","updated_at":"2022-11-13T11:44:12.000000Z"},"to_city":{"id":4,"name":{"en":"Alahsa","ar":"الاحساء","ur":"alahsa"},"created_at":"2022-11-13T12:04:05.000000Z","updated_at":"2022-11-13T12:04:35.000000Z"}}]
+
 class Packages {
   Packages({
-    int? id,
-    int? providerId,
+    num? id,
+    num? providerId,
     Name? name,
     String? dateFrom,
     String? timeFrom,
-    Description? description,
+    dynamic description,
     String? image,
-    double? fees,
-    StartStationName? startStationName,
-    int? rate,
+    num? fees,
+    String? startStationName,
+    num? rate,
     List<Additionals>? additionals,
     List<Destinations>? destinations,
   }) {
@@ -103,14 +123,10 @@ class Packages {
     _name = json['name'] != null ? Name.fromJson(json['name']) : null;
     _dateFrom = json['date_from'];
     _timeFrom = json['time_from'];
-    _description = json['description'] != null
-        ? Description.fromJson(json['description'])
-        : null;
+    _description = json['description'];
     _image = json['image'];
     _fees = json['fees'];
-    _startStationName = json['start_station_name'] != null
-        ? StartStationName.fromJson(json['start_station_name'])
-        : null;
+    _startStationName = json['start_station_name'];
     _rate = json['rate'];
     if (json['additionals'] != null) {
       _additionals = [];
@@ -126,22 +142,22 @@ class Packages {
     }
   }
 
-  int? _id;
-  int? _providerId;
+  num? _id;
+  num? _providerId;
   Name? _name;
   String? _dateFrom;
   String? _timeFrom;
-  Description? _description;
+  dynamic _description;
   String? _image;
-  double? _fees;
-  StartStationName? _startStationName;
-  int? _rate;
+  num? _fees;
+  String? _startStationName;
+  num? _rate;
   List<Additionals>? _additionals;
   List<Destinations>? _destinations;
 
-  int? get id => _id;
+  num? get id => _id;
 
-  int? get providerId => _providerId;
+  num? get providerId => _providerId;
 
   Name? get name => _name;
 
@@ -149,15 +165,15 @@ class Packages {
 
   String? get timeFrom => _timeFrom;
 
-  Description? get description => _description;
+  dynamic get description => _description;
 
   String? get image => _image;
 
-  double? get fees => _fees;
+  num? get fees => _fees;
 
-  StartStationName? get startStationName => _startStationName;
+  String? get startStationName => _startStationName;
 
-  int? get rate => _rate;
+  num? get rate => _rate;
 
   List<Additionals>? get additionals => _additionals;
 
@@ -172,14 +188,10 @@ class Packages {
     }
     map['date_from'] = _dateFrom;
     map['time_from'] = _timeFrom;
-    if (_description != null) {
-      map['description'] = _description?.toJson();
-    }
+    map['description'] = _description;
     map['image'] = _image;
     map['fees'] = _fees;
-    if (_startStationName != null) {
-      map['start_station_name'] = _startStationName?.toJson();
-    }
+    map['start_station_name'] = _startStationName;
     map['rate'] = _rate;
     if (_additionals != null) {
       map['additionals'] = _additionals?.map((v) => v.toJson()).toList();
@@ -191,15 +203,28 @@ class Packages {
   }
 }
 
+/// id : 1
+/// provider_id : 1
+/// from_city_id : 4
+/// to_city_id : 2
+/// starting_terminal_id : 1
+/// arrival_terminal_id : 2
+/// stops : null
+/// created_at : "2022-12-18T13:33:00.000000Z"
+/// updated_at : "2022-12-18T13:33:00.000000Z"
+/// name : "Alahsa - Makka"
+/// from_city : {"id":4,"name":{"en":"Alahsa","ar":"الاحساء","ur":"alahsa"},"created_at":"2022-11-13T12:04:05.000000Z","updated_at":"2022-11-13T12:04:35.000000Z"}
+/// to_city : {"id":2,"name":{"en":"Makka","ar":"مكة المكرمة","ur":"Makka"},"created_at":"2022-11-13T11:44:12.000000Z","updated_at":"2022-11-13T11:44:12.000000Z"}
+
 class Destinations {
   Destinations({
-    int? id,
-    int? providerId,
-    int? fromCityId,
-    int? toCityId,
-    int? startingTerminalId,
-    int? arrivalTerminalId,
-    List<String>? stops,
+    num? id,
+    num? providerId,
+    num? fromCityId,
+    num? toCityId,
+    num? startingTerminalId,
+    num? arrivalTerminalId,
+    dynamic stops,
     String? createdAt,
     String? updatedAt,
     String? name,
@@ -227,7 +252,7 @@ class Destinations {
     _toCityId = json['to_city_id'];
     _startingTerminalId = json['starting_terminal_id'];
     _arrivalTerminalId = json['arrival_terminal_id'];
-    _stops = json['stops'] != null ? json['stops'].cast<String>() : [];
+    _stops = json['stops'];
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
     _name = json['name'];
@@ -236,32 +261,32 @@ class Destinations {
     _toCity = json['to_city'] != null ? ToCity.fromJson(json['to_city']) : null;
   }
 
-  int? _id;
-  int? _providerId;
-  int? _fromCityId;
-  int? _toCityId;
-  int? _startingTerminalId;
-  int? _arrivalTerminalId;
-  List<String>? _stops;
+  num? _id;
+  num? _providerId;
+  num? _fromCityId;
+  num? _toCityId;
+  num? _startingTerminalId;
+  num? _arrivalTerminalId;
+  dynamic _stops;
   String? _createdAt;
   String? _updatedAt;
   String? _name;
   FromCity? _fromCity;
   ToCity? _toCity;
 
-  int? get id => _id;
+  num? get id => _id;
 
-  int? get providerId => _providerId;
+  num? get providerId => _providerId;
 
-  int? get fromCityId => _fromCityId;
+  num? get fromCityId => _fromCityId;
 
-  int? get toCityId => _toCityId;
+  num? get toCityId => _toCityId;
 
-  int? get startingTerminalId => _startingTerminalId;
+  num? get startingTerminalId => _startingTerminalId;
 
-  int? get arrivalTerminalId => _arrivalTerminalId;
+  num? get arrivalTerminalId => _arrivalTerminalId;
 
-  List<String>? get stops => _stops;
+  dynamic get stops => _stops;
 
   String? get createdAt => _createdAt;
 
@@ -295,9 +320,14 @@ class Destinations {
   }
 }
 
+/// id : 2
+/// name : {"en":"Makka","ar":"مكة المكرمة","ur":"Makka"}
+/// created_at : "2022-11-13T11:44:12.000000Z"
+/// updated_at : "2022-11-13T11:44:12.000000Z"
+
 class ToCity {
   ToCity({
-    int? id,
+    num? id,
     Name? name,
     String? createdAt,
     String? updatedAt,
@@ -315,12 +345,12 @@ class ToCity {
     _updatedAt = json['updated_at'];
   }
 
-  int? _id;
+  num? _id;
   Name? _name;
   String? _createdAt;
   String? _updatedAt;
 
-  int? get id => _id;
+  num? get id => _id;
 
   Name? get name => _name;
 
@@ -339,6 +369,10 @@ class ToCity {
     return map;
   }
 }
+
+/// en : "Makka"
+/// ar : "مكة المكرمة"
+/// ur : "Makka"
 
 class Name {
   Name({
@@ -376,9 +410,14 @@ class Name {
   }
 }
 
+/// id : 4
+/// name : {"en":"Alahsa","ar":"الاحساء","ur":"alahsa"}
+/// created_at : "2022-11-13T12:04:05.000000Z"
+/// updated_at : "2022-11-13T12:04:35.000000Z"
+
 class FromCity {
   FromCity({
-    int? id,
+    num? id,
     Name? name,
     String? createdAt,
     String? updatedAt,
@@ -396,12 +435,12 @@ class FromCity {
     _updatedAt = json['updated_at'];
   }
 
-  int? _id;
+  num? _id;
   Name? _name;
   String? _createdAt;
   String? _updatedAt;
 
-  int? get id => _id;
+  num? get id => _id;
 
   Name? get name => _name;
 
@@ -421,10 +460,14 @@ class FromCity {
   }
 }
 
+/// id : 1
+/// fees : 2
+/// name : {"en":"شاي","ar":"شاي","ur":"tea"}
+
 class Additionals {
   Additionals({
-    int? id,
-    int? fees,
+    num? id,
+    num? fees,
     Name? name,
   }) {
     _id = id;
@@ -438,13 +481,13 @@ class Additionals {
     _name = json['name'] != null ? Name.fromJson(json['name']) : null;
   }
 
-  int? _id;
-  int? _fees;
+  num? _id;
+  num? _fees;
   Name? _name;
 
-  int? get id => _id;
+  num? get id => _id;
 
-  int? get fees => _fees;
+  num? get fees => _fees;
 
   Name? get name => _name;
 
@@ -455,78 +498,6 @@ class Additionals {
     if (_name != null) {
       map['name'] = _name?.toJson();
     }
-    return map;
-  }
-}
-
-class StartStationName {
-  StartStationName({
-    String? en,
-    String? ar,
-    String? ur,
-  }) {
-    _en = en;
-    _ar = ar;
-    _ur = ur;
-  }
-
-  StartStationName.fromJson(dynamic json) {
-    _en = json['en'];
-    _ar = json['ar'];
-    _ur = json['ur'];
-  }
-
-  String? _en;
-  String? _ar;
-  String? _ur;
-
-  String? get en => _en;
-
-  String? get ar => _ar;
-
-  String? get ur => _ur;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['en'] = _en;
-    map['ar'] = _ar;
-    map['ur'] = _ur;
-    return map;
-  }
-}
-
-class Description {
-  Description({
-    String? ur,
-    String? en,
-    String? ar,
-  }) {
-    _ur = ur;
-    _en = en;
-    _ar = ar;
-  }
-
-  Description.fromJson(dynamic json) {
-    _ur = json['ur'];
-    _en = json['en'];
-    _ar = json['ar'];
-  }
-
-  String? _ur;
-  String? _en;
-  String? _ar;
-
-  String? get ur => _ur;
-
-  String? get en => _en;
-
-  String? get ar => _ar;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['ur'] = _ur;
-    map['en'] = _en;
-    map['ar'] = _ar;
     return map;
   }
 }

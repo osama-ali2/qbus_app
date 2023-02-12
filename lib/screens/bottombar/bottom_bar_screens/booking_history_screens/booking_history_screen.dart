@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
 import 'booking_history_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookingHistoryScreen extends StatefulWidget {
   const BookingHistoryScreen({Key? key}) : super(key: key);
@@ -60,8 +59,8 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
         backgroundColor: appColor,
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const CustomText(
-            text: "Trip History",
+        title: CustomText(
+            text: AppLocalizations.of(context)!.booking_history,
             textSize: 18,
             fontWeight: FontWeight.w700,
             textColor: Colors.white),
@@ -76,47 +75,56 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
               bookingHistoryProvider.isTripHistoryLoaded == true
                   ? Expanded(
                       child: ListView.builder(
+                        controller: _scrollController,
                         itemCount: bookingHistoryProvider
                             .tripHistoryResponse.data!.length,
                         itemBuilder: (context, index) {
                           var data = bookingHistoryProvider
                               .tripHistoryResponse.data![index];
-                          var fromCity = data.startStationName!.en!.toString();
-                          var toCity = data.arrivalStationName!.en!.toString();
+
+                          // var fromCity = data.startStationName!.en!.toString();
+                          var fromCity = data.startStationName!.ar!.toString();
+                          // var toCity = data.arrivalStationName!.en!.toString();
+                          var toCity = data.arrivalStationName!.ar!.toString();
+
                           var timeFromCity = data.timeFrom.toString();
                           var timeToCity = data.timeTo.toString();
+
                           var fee = data.fees.toString();
                           var rating = data.review.toString();
                           var type = data.status.toString();
                           var trip = data.providerName.toString();
 
                           var isUserAllowReview = data.isUserAllowReview;
-
                           var tripId = data.tripId;
+
                           return Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: sizes!.widthRatio * 20,
                                 vertical: sizes!.heightRatio * 5),
                             child: _bookingContainer(
-                                fromCity: fromCity,
-                                toCity: toCity,
-                                fee: fee,
-                                trip: trip,
-                                rating: rating,
-                                type: type,
-                                timeFromCity: timeFromCity,
-                                timeToCity: timeToCity,
-                                onReviewIt: () {
-                                  showAlertDialog(
-                                      context: context, tripId: tripId!);
-                                },
-                                isUserAllowReview: isUserAllowReview!),
+                              fromCity: fromCity,
+                              toCity: toCity,
+                              fee: fee,
+                              trip: trip,
+                              rating: rating,
+                              type: type,
+                              timeFromCity: timeFromCity,
+                              timeToCity: timeToCity,
+                              onReviewIt: () {
+                                showAlertDialog(
+                                  context: context,
+                                  tripId: tripId!,
+                                );
+                              },
+                              isUserAllowReview: isUserAllowReview!,
+                            ),
                           );
                         },
                       ),
                     )
-                  : const Center(
-                      child: Text("No Data Available"),
+                  : Center(
+                      child: Text(AppLocalizations.of(context)!.no_data),
                     ),
               CommonPadding.sizeBoxWithHeight(height: 10),
               //TODO: Uncomment Package History Screen later when needed
@@ -174,8 +182,9 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
             color: Colors.white),
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: sizes!.widthRatio * 10,
-              vertical: sizes!.heightRatio * 20),
+            horizontal: sizes!.widthRatio * 10,
+            vertical: sizes!.heightRatio * 10,
+          ),
           child: Column(
             children: [
               Row(
@@ -253,7 +262,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   TextView.getGenericText(
-                      text: "stationA",
+                      text: fromCity,
                       fontFamily: Assets.latoRegular,
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
@@ -267,7 +276,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                       color: AppColors.gray,
                       lines: 1),
                   TextView.getGenericText(
-                      text: "stationB",
+                      text: toCity,
                       fontFamily: Assets.latoRegular,
                       fontSize: 12,
                       fontWeight: FontWeight.w400,

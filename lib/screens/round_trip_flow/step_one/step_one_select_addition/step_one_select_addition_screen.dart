@@ -3,13 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/strings.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
@@ -85,7 +84,7 @@ class _StepOneSelectAdditionScreenState
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-          text: "Trip Select Additions",
+          text: AppLocalizations.of(context)!.trip_additions,
           textSize: sizes!.fontRatio * 18,
           fontWeight: FontWeight.w400,
           textColor: Colors.white,
@@ -104,7 +103,10 @@ class _StepOneSelectAdditionScreenState
                           currentIndex = index;
                           var data = stepOneSelectAdditionProvider
                               .tripAdditionalsResponse.data!.additional![index];
-                          var name = data.name!.en.toString();
+
+                          // var name = data.name!.en.toString();
+                          var name = data.name!.ar.toString();
+
                           var additionId = data.id.toString();
                           return _itemContainer(
                             name: name,
@@ -114,7 +116,7 @@ class _StepOneSelectAdditionScreenState
                         }),
                   ),
                   CustomButton(
-                    name: "Save First Trip",
+                    name: AppLocalizations.of(context)!.save_first_trip,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,
@@ -167,8 +169,8 @@ class _StepOneSelectAdditionScreenState
                 ],
               ),
             )
-          : const Center(
-              child: Text("No Data Available"),
+          : Center(
+              child: Text(AppLocalizations.of(context)!.no_data),
             ),
     );
   }

@@ -6,10 +6,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/models/error_model/ValidatingErrorResponse.dart';
+import 'package:qbus/resources/resources.dart';
 
 import '../models/error_model/ErrorResponse.dart';
-import '../res/strings.dart';
-import '../res/toasts.dart';
 import 'models.dart';
 
 class MyApi {

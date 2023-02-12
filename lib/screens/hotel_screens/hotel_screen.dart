@@ -1,20 +1,17 @@
 import 'dart:developer';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/hotel_screens/hotel_filter_screens/hotel_filter_screen.dart';
 import 'package:qbus/screens/hotel_screens/hotel_provider.dart';
 import 'package:qbus/screens/project_widgets/hotel_card_container_widget.dart';
 import 'package:qbus/screens/review_order_screens/review_order_screen.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
-import '../../res/res.dart';
 import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
 
@@ -72,27 +69,22 @@ class _HotelScreenState extends State<HotelScreen> {
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "Hotels",
-            textSize: sizes!.fontRatio * 18,
-            fontWeight: FontWeight.w400,
-            textColor: Colors.white),
+          text: AppLocalizations.of(context)!.hotels,
+          textSize: sizes!.fontRatio * 18,
+          fontWeight: FontWeight.w400,
+          textColor: Colors.white,
+        ),
         actions: [
           Center(
             child: Padding(
-                padding: EdgeInsets.only(right: sizes!.widthRatio * 20),
+                padding: EdgeInsets.only(
+                  right: sizes!.widthRatio * 20,
+                  left: sizes!.widthRatio * 20,
+                ),
                 child: GestureDetector(
                   onTap: () async => _skipAndSaveTripOrder(),
-
-                  //     Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const ReviewOrderScreen(
-                  //       tripId: 1,
-                  //     ),
-                  //   ),
-                  // ),
                   child: TextView.getGenericText(
-                      text: "Skip",
+                      text: AppLocalizations.of(context)!.skip,
                       fontFamily: Assets.latoRegular,
                       fontSize: 18,
                       fontWeight: FontWeight.w400,
@@ -121,7 +113,7 @@ class _HotelScreenState extends State<HotelScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    "Filter",
+                    AppLocalizations.of(context)!.filter,
                     style: TextStyle(
                       fontSize: sizes!.fontRatio * 14,
                       fontFamily: Assets.latoRegular,
@@ -148,16 +140,22 @@ class _HotelScreenState extends State<HotelScreen> {
                           hotelProvider.hotelRoomResponse.data!.rooms!.length,
                       itemBuilder: (context, index) {
                         currentIndex = index;
+
                         var data =
                             hotelProvider.hotelRoomResponse.data!.rooms![index];
-                        var hotelName = data.name?.en.toString();
+
+                        // var hotelName = data.name?.en.toString();
+                        var hotelName = data.name?.ar.toString();
+
                         var city = data.city.toString();
                         var rate = data.rate.toString();
+
                         var roomNum = data.roomQuantity.toString();
                         var bedNum = data.bedQuantity.toString();
                         var imageUrl = hotelProvider
                             .hotelRoomResponse.data!.imageBase
                             .toString();
+
                         var image = data.image.toString();
                         var thumbnailUrl = "$imageUrl/$image";
                         var roomId = int.parse("${data.id}");
@@ -173,7 +171,7 @@ class _HotelScreenState extends State<HotelScreen> {
                             hotelTitle: hotelName ?? "First Class Hotel",
                             cityName: city,
                             rent: rent,
-                            roomType: "Room Type",
+                            roomType: AppLocalizations.of(context)!.room_type,
                             hotelImage: thumbnailUrl,
                             houseNum: roomNum,
                             bedRoomNum: bedNum,
@@ -205,7 +203,7 @@ class _HotelScreenState extends State<HotelScreen> {
                   )
                 : Center(
                     child: TextView.getGenericText(
-                        text: "No Hotel Founds",
+                        text: AppLocalizations.of(context)!.no_hotel_found,
                         fontFamily: Assets.latoRegular,
                         fontSize: 18,
                         fontWeight: FontWeight.w800,
@@ -215,7 +213,7 @@ class _HotelScreenState extends State<HotelScreen> {
             CommonPadding.sizeBoxWithHeight(height: 10),
             hotelProvider.isHotelLoaded == true
                 ? CustomButton(
-                    name: "Save And Review The Order",
+                    name: AppLocalizations.of(context)!.confirm_order,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,

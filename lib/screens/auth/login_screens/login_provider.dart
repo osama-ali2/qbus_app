@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/auth/LoginResponse.dart';
 import 'package:qbus/push_notification_service/FirebasePushNotificationService.dart';
 import 'package:qbus/widgets/loader.dart';
-
-import '../../../local_cache/utils.dart';
-import '../../../network_manager/api_url.dart';
-import '../../../network_manager/models.dart';
-import '../../../network_manager/my_api.dart';
-import '../../../res/strings.dart';
+import 'package:qbus/resources/resources.dart';
+import 'package:qbus/network_manager/network_manager.dart';
 
 class LoginProvider with ChangeNotifier {
   BuildContext? context;

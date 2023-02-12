@@ -1,3 +1,7 @@
+/// message : "success"
+/// code : 1
+/// data : {"packages":[{"id":1,"provider_name":"","name":"allhotels okay","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["5","7","1"],"first_trip_id":63,"second_trip_id":45,"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":250,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[{"fees":"2","room_type":"2"}],"hotel_room_trip_two":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:27:27.000000Z"},{"id":4,"provider_name":"","name":"hotel_room_trip_one empty","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["2","8","1"],"first_trip_id":62,"second_trip_id":46,"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":260,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[],"hotel_room_trip_two":[{"fees":"2","room_type":"2"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:31:58.000000Z"},{"id":5,"provider_name":"","name":"hotel_room_trip_two empty","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["1","6","8"],"first_trip_id":61,"second_trip_id":64,"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":280,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}],"hotel_room_trip_two":[],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:34:20.000000Z"}],"image_base":"https://qbus-sa.com/public/images/packages"}
+
 class PackagesResponse {
   PackagesResponse({
     String? message,
@@ -36,6 +40,9 @@ class PackagesResponse {
   }
 }
 
+/// packages : [{"id":1,"provider_name":"","name":"allhotels okay","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["5","7","1"],"first_trip_id":63,"second_trip_id":45,"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":250,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[{"fees":"2","room_type":"2"}],"hotel_room_trip_two":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:27:27.000000Z"},{"id":4,"provider_name":"","name":"hotel_room_trip_one empty","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["2","8","1"],"first_trip_id":62,"second_trip_id":46,"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":260,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[],"hotel_room_trip_two":[{"fees":"2","room_type":"2"}],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:31:58.000000Z"},{"id":5,"provider_name":"","name":"hotel_room_trip_two empty","description":"","image":"1676112646_25886297314266_n.jpg","destinations":["1","6","8"],"first_trip_id":61,"second_trip_id":64,"destinations_move_dates":["2023-03-10","2023-03-10",""],"destinations_move_times":["05:00","13:00","17:00"],"fees":280,"starting_city_id":2,"date_from":"2023-03-10","date_to":"2023-03-08","time_from":"17:00","time_to":"","provider_notes":"","provider_archive":false,"auto_approve":true,"additional":[{"id":"1","fees":"7"}],"rate":0,"hotel_room_trip_one":[{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}],"hotel_room_trip_two":[],"created_at":"2023-02-11T10:50:46.000000Z","updated_at":"2023-02-11T12:34:20.000000Z"}]
+/// image_base : "https://qbus-sa.com/public/images/packages"
+
 class Data {
   Data({
     List<Packages>? packages,
@@ -72,37 +79,68 @@ class Data {
   }
 }
 
+/// id : 1
+/// provider_name : ""
+/// name : "allhotels okay"
+/// description : ""
+/// image : "1676112646_25886297314266_n.jpg"
+/// destinations : ["5","7","1"]
+/// first_trip_id : 63
+/// second_trip_id : 45
+/// destinations_move_dates : ["2023-03-10","2023-03-10",""]
+/// destinations_move_times : ["05:00","13:00","17:00"]
+/// fees : 250
+/// starting_city_id : 2
+/// date_from : "2023-03-10"
+/// date_to : "2023-03-08"
+/// time_from : "17:00"
+/// time_to : ""
+/// provider_notes : ""
+/// provider_archive : false
+/// auto_approve : true
+/// additional : [{"id":"1","fees":"7"}]
+/// rate : 0
+/// hotel_room_trip_one : [{"fees":"2","room_type":"2"}]
+/// hotel_room_trip_two : [{"fees":"100","room_type":"2"},{"fees":"100","room_type":"3"},{"fees":"100","room_type":"7"},{"fees":"100","room_type":"8"},{"fees":"100","room_type":"9"},{"fees":"30","room_type":"10"}]
+/// created_at : "2023-02-11T10:50:46.000000Z"
+/// updated_at : "2023-02-11T12:27:27.000000Z"
+
 class Packages {
   Packages({
     int? id,
-    int? providerId,
-    Name? name,
-    Description? description,
+    String? providerName,
+    String? name,
+    String? description,
     String? image,
     List<String>? destinations,
-    List<String>? trips,
+    int? firstTripId,
+    int? secondTripId,
     List<String>? destinationsMoveDates,
     List<String>? destinationsMoveTimes,
-    double? fees,
+    int? fees,
     int? startingCityId,
     String? dateFrom,
     String? dateTo,
     String? timeFrom,
+    String? timeTo,
     String? providerNotes,
     bool? providerArchive,
     bool? autoApprove,
     List<Additional>? additional,
     int? rate,
+    List<HotelRoomTripOne>? hotelRoomTripOne,
+    List<HotelRoomTripTwo>? hotelRoomTripTwo,
     String? createdAt,
     String? updatedAt,
   }) {
     _id = id;
-    _providerId = providerId;
+    _providerName = providerName;
     _name = name;
     _description = description;
     _image = image;
     _destinations = destinations;
-    _trips = trips;
+    _firstTripId = firstTripId;
+    _secondTripId = secondTripId;
     _destinationsMoveDates = destinationsMoveDates;
     _destinationsMoveTimes = destinationsMoveTimes;
     _fees = fees;
@@ -110,26 +148,28 @@ class Packages {
     _dateFrom = dateFrom;
     _dateTo = dateTo;
     _timeFrom = timeFrom;
+    _timeTo = timeTo;
     _providerNotes = providerNotes;
     _providerArchive = providerArchive;
     _autoApprove = autoApprove;
     _additional = additional;
     _rate = rate;
+    _hotelRoomTripOne = hotelRoomTripOne;
+    _hotelRoomTripTwo = hotelRoomTripTwo;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
   }
 
   Packages.fromJson(dynamic json) {
     _id = json['id'];
-    _providerId = json['provider_id'];
-    _name = json['name'] != null ? Name.fromJson(json['name']) : null;
-    _description = json['description'] != null
-        ? Description.fromJson(json['description'])
-        : null;
+    _providerName = json['provider_name'];
+    _name = json['name'];
+    _description = json['description'];
     _image = json['image'];
     _destinations =
         json['destinations'] != null ? json['destinations'].cast<String>() : [];
-    _trips = json['trips'] != null ? json['trips'].cast<String>() : [];
+    _firstTripId = json['first_trip_id'];
+    _secondTripId = json['second_trip_id'];
     _destinationsMoveDates = json['destinations_move_dates'] != null
         ? json['destinations_move_dates'].cast<String>()
         : [];
@@ -141,6 +181,7 @@ class Packages {
     _dateFrom = json['date_from'];
     _dateTo = json['date_to'];
     _timeFrom = json['time_from'];
+    _timeTo = json['time_to'];
     _providerNotes = json['provider_notes'];
     _providerArchive = json['provider_archive'];
     _autoApprove = json['auto_approve'];
@@ -151,51 +192,69 @@ class Packages {
       });
     }
     _rate = json['rate'];
+    if (json['hotel_room_trip_one'] != null) {
+      _hotelRoomTripOne = [];
+      json['hotel_room_trip_one'].forEach((v) {
+        _hotelRoomTripOne?.add(HotelRoomTripOne.fromJson(v));
+      });
+    }
+    if (json['hotel_room_trip_two'] != null) {
+      _hotelRoomTripTwo = [];
+      json['hotel_room_trip_two'].forEach((v) {
+        _hotelRoomTripTwo?.add(HotelRoomTripTwo.fromJson(v));
+      });
+    }
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
   }
 
   int? _id;
-  int? _providerId;
-  Name? _name;
-  Description? _description;
+  String? _providerName;
+  String? _name;
+  String? _description;
   String? _image;
   List<String>? _destinations;
-  List<String>? _trips;
+  int? _firstTripId;
+  int? _secondTripId;
   List<String>? _destinationsMoveDates;
   List<String>? _destinationsMoveTimes;
-  double? _fees;
+  int? _fees;
   int? _startingCityId;
   String? _dateFrom;
   String? _dateTo;
   String? _timeFrom;
+  String? _timeTo;
   String? _providerNotes;
   bool? _providerArchive;
   bool? _autoApprove;
   List<Additional>? _additional;
   int? _rate;
+  List<HotelRoomTripOne>? _hotelRoomTripOne;
+  List<HotelRoomTripTwo>? _hotelRoomTripTwo;
   String? _createdAt;
   String? _updatedAt;
 
   int? get id => _id;
 
-  int? get providerId => _providerId;
+  String? get providerName => _providerName;
 
-  Name? get name => _name;
+  String? get name => _name;
 
-  Description? get description => _description;
+  String? get description => _description;
 
   String? get image => _image;
 
   List<String>? get destinations => _destinations;
 
-  List<String>? get trips => _trips;
+  int? get firstTripId => _firstTripId;
+
+  int? get secondTripId => _secondTripId;
 
   List<String>? get destinationsMoveDates => _destinationsMoveDates;
 
   List<String>? get destinationsMoveTimes => _destinationsMoveTimes;
 
-  double? get fees => _fees;
+  int? get fees => _fees;
 
   int? get startingCityId => _startingCityId;
 
@@ -204,6 +263,8 @@ class Packages {
   String? get dateTo => _dateTo;
 
   String? get timeFrom => _timeFrom;
+
+  String? get timeTo => _timeTo;
 
   String? get providerNotes => _providerNotes;
 
@@ -215,6 +276,10 @@ class Packages {
 
   int? get rate => _rate;
 
+  List<HotelRoomTripOne>? get hotelRoomTripOne => _hotelRoomTripOne;
+
+  List<HotelRoomTripTwo>? get hotelRoomTripTwo => _hotelRoomTripTwo;
+
   String? get createdAt => _createdAt;
 
   String? get updatedAt => _updatedAt;
@@ -222,16 +287,13 @@ class Packages {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
-    map['provider_id'] = _providerId;
-    if (_name != null) {
-      map['name'] = _name?.toJson();
-    }
-    if (_description != null) {
-      map['description'] = _description?.toJson();
-    }
+    map['provider_name'] = _providerName;
+    map['name'] = _name;
+    map['description'] = _description;
     map['image'] = _image;
     map['destinations'] = _destinations;
-    map['trips'] = _trips;
+    map['first_trip_id'] = _firstTripId;
+    map['second_trip_id'] = _secondTripId;
     map['destinations_move_dates'] = _destinationsMoveDates;
     map['destinations_move_times'] = _destinationsMoveTimes;
     map['fees'] = _fees;
@@ -239,6 +301,7 @@ class Packages {
     map['date_from'] = _dateFrom;
     map['date_to'] = _dateTo;
     map['time_from'] = _timeFrom;
+    map['time_to'] = _timeTo;
     map['provider_notes'] = _providerNotes;
     map['provider_archive'] = _providerArchive;
     map['auto_approve'] = _autoApprove;
@@ -246,11 +309,86 @@ class Packages {
       map['additional'] = _additional?.map((v) => v.toJson()).toList();
     }
     map['rate'] = _rate;
+    if (_hotelRoomTripOne != null) {
+      map['hotel_room_trip_one'] =
+          _hotelRoomTripOne?.map((v) => v.toJson()).toList();
+    }
+    if (_hotelRoomTripTwo != null) {
+      map['hotel_room_trip_two'] =
+          _hotelRoomTripTwo?.map((v) => v.toJson()).toList();
+    }
     map['created_at'] = _createdAt;
     map['updated_at'] = _updatedAt;
     return map;
   }
 }
+
+/// fees : "100"
+/// room_type : "2"
+
+class HotelRoomTripTwo {
+  HotelRoomTripTwo({
+    String? fees,
+    String? roomType,
+  }) {
+    _fees = fees;
+    _roomType = roomType;
+  }
+
+  HotelRoomTripTwo.fromJson(dynamic json) {
+    _fees = json['fees'];
+    _roomType = json['room_type'];
+  }
+
+  String? _fees;
+  String? _roomType;
+
+  String? get fees => _fees;
+
+  String? get roomType => _roomType;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['fees'] = _fees;
+    map['room_type'] = _roomType;
+    return map;
+  }
+}
+
+/// fees : "2"
+/// room_type : "2"
+
+class HotelRoomTripOne {
+  HotelRoomTripOne({
+    String? fees,
+    String? roomType,
+  }) {
+    _fees = fees;
+    _roomType = roomType;
+  }
+
+  HotelRoomTripOne.fromJson(dynamic json) {
+    _fees = json['fees'];
+    _roomType = json['room_type'];
+  }
+
+  String? _fees;
+  String? _roomType;
+
+  String? get fees => _fees;
+
+  String? get roomType => _roomType;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['fees'] = _fees;
+    map['room_type'] = _roomType;
+    return map;
+  }
+}
+
+/// id : "1"
+/// fees : "7"
 
 class Additional {
   Additional({
@@ -277,64 +415,6 @@ class Additional {
     final map = <String, dynamic>{};
     map['id'] = _id;
     map['fees'] = _fees;
-    return map;
-  }
-}
-
-class Description {
-  Description({
-    String? ur,
-  }) {
-    _ur = ur;
-  }
-
-  Description.fromJson(dynamic json) {
-    _ur = json['ur'];
-  }
-
-  String? _ur;
-
-  String? get ur => _ur;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['ur'] = _ur;
-    return map;
-  }
-}
-
-class Name {
-  Name({
-    String? en,
-    String? ar,
-    String? ur,
-  }) {
-    _en = en;
-    _ar = ar;
-    _ur = ur;
-  }
-
-  Name.fromJson(dynamic json) {
-    _en = json['en'];
-    _ar = json['ar'];
-    _ur = json['ur'];
-  }
-
-  String? _en;
-  String? _ar;
-  String? _ur;
-
-  String? get en => _en;
-
-  String? get ar => _ar;
-
-  String? get ur => _ur;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['en'] = _en;
-    map['ar'] = _ar;
-    map['ur'] = _ur;
     return map;
   }
 }

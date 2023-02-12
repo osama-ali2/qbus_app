@@ -5,9 +5,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
@@ -54,7 +54,7 @@ class HotelCardContainerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: sizes!.heightRatio * 136,
+      height: sizes!.heightRatio * 142,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -123,7 +123,7 @@ class HotelCardContainerWidget extends StatelessWidget {
                     ),
                     child: Center(
                       child: CustomText(
-                        text: "SKR $rent",
+                        text: "ريال $rent",
                         textSize: sizes!.fontRatio * 10,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.white,
@@ -145,10 +145,11 @@ class HotelCardContainerWidget extends StatelessWidget {
                     ),
                   CommonPadding.sizeBoxWithWidth(width: 2),
                   CustomText(
-                      text: "$ratingNum.0",
-                      textSize: sizes!.fontRatio * 12,
-                      fontWeight: FontWeight.normal,
-                      textColor: Colors.black),
+                    text: "$ratingNum.0",
+                    textSize: sizes!.fontRatio * 12,
+                    fontWeight: FontWeight.normal,
+                    textColor: Colors.black,
+                  ),
                 ],
               ),
               SizedBox(
@@ -170,13 +171,14 @@ class HotelCardContainerWidget extends StatelessWidget {
                 height: sizes!.heightRatio * 5,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomText(
-                      text: "Booking Days",
+                      text: AppLocalizations.of(context)!.booking_days,
                       textSize: sizes!.fontRatio * 12,
                       fontWeight: FontWeight.w400,
                       textColor: AppColors.gray),
-                  CommonPadding.sizeBoxWithWidth(width: 60),
+                  CommonPadding.sizeBoxWithWidth(width: 65),
                   Counter(
                     number: bookingDayCounter,
                     onAdd: () => onPlusBookingDayPress.call(),
@@ -191,12 +193,12 @@ class HotelCardContainerWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomText(
-                    text: "Number of Rooms",
+                    text: AppLocalizations.of(context)!.number_of_rooms,
                     textSize: sizes!.fontRatio * 12,
                     fontWeight: FontWeight.w400,
                     textColor: AppColors.gray,
                   ),
-                  CommonPadding.sizeBoxWithWidth(width: 36),
+                  CommonPadding.sizeBoxWithWidth(width: 70),
                   Counter(
                     number: numberOfRoomCounter,
                     onAdd: () => onPlusRoomPress.call(),

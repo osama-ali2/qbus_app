@@ -4,9 +4,8 @@
 // © 2022-2023  - All Rights Reserved
 
 import 'package:flutter/material.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/widgets/custom_text.dart';
 
 import '../../utils/constant.dart';

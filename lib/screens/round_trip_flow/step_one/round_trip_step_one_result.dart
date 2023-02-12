@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/project_widgets/filter_container_widget.dart';
 import 'package:qbus/screens/project_widgets/trip_card_container_widget.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';
@@ -16,6 +13,7 @@ import 'package:qbus/widgets/text_views.dart';
 import 'round_trip_passenger_screens/round_trip_passenger_screen.dart';
 import 'round_trip_step_one_provider.dart';
 import 'step_one_select_addition/step_one_select_addition_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RoundTripStepOneResult extends StatefulWidget {
   final TripFilterModel? tripFilterModel;
@@ -110,15 +108,27 @@ class _RoundTripStepOneResultState extends State<RoundTripStepOneResult> {
                             itemBuilder: (context, i) {
                               var data =
                                   searchProvider.tripsResponse.data!.trips![i];
+
+                              // var stationA =
+                              //     data.startStationName!.en.toString();
                               var stationA =
-                                  data.startStationName!.en.toString();
+                                  data.startStationName!.ar.toString();
+
+                              // var stationB =
+                              //     data.arrivalStationName!.en.toString();
                               var stationB =
-                                  data.arrivalStationName!.en.toString();
+                                  data.arrivalStationName!.ar.toString();
+
                               var fees = data.fees.toString();
                               var rate = data.rate.toString();
+
+                              // var fromCityName =
+                              //     data.fromCityName!.en.toString();
                               var fromCityName =
-                                  data.fromCityName!.en.toString();
-                              var toCityName = data.toCityName!.en.toString();
+                                  data.fromCityName!.ar.toString();
+                              // var toCityName = data.toCityName!.en.toString();
+                              var toCityName = data.toCityName!.ar.toString();
+
                               var timeFrom = data.timeFrom.toString();
                               var timeTo = data.timeTo.toString();
                               var stops = data.stops.toString();
@@ -200,7 +210,8 @@ class _RoundTripStepOneResultState extends State<RoundTripStepOneResult> {
                             })
                         : Center(
                             child: TextView.getSubHeadingTextWith15(
-                                "No Data Available", Assets.latoBold,
+                                AppLocalizations.of(context)!.no_data,
+                                Assets.latoBold,
                                 color: AppColors.blueHomeColor,
                                 lines: 1,
                                 fontWeight: FontWeight.normal),
@@ -212,7 +223,7 @@ class _RoundTripStepOneResultState extends State<RoundTripStepOneResult> {
             )
           : Center(
               child: TextView.getSubHeadingTextWith15(
-                  "No Trip Available", Assets.latoBold,
+                  AppLocalizations.of(context)!.no_trip, Assets.latoBold,
                   color: AppColors.blueHomeColor,
                   lines: 1,
                   fontWeight: FontWeight.normal),

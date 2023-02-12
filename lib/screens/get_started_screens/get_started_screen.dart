@@ -7,9 +7,8 @@ import 'package:qbus/local_notification_service/local_notification_service.dart'
 import 'package:qbus/models/PackageFilterModel.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/navigation/navigation_helper.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
 import 'package:qbus/screens/project_widgets/package_card_container_widget.dart';
 import 'package:qbus/screens/round_trip_flow/step_one/round_trip_step_one_result.dart';
@@ -17,8 +16,8 @@ import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import '../../../../widgets/custom_button.dart';
-import '../explore_screens/explore_screen.dart';
-import '../explore_screens/package_detail_screens/package_detail_screen.dart';
+import '../package_screens/package_detail_screens/package_detail_screen.dart';
+import '../package_screens/package_screen.dart';
 import '../trips_search_screens/trips_search_result.dart';
 
 class GetStartedScreen extends StatefulWidget {
@@ -40,15 +39,15 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   // Dates
   late DateTime _selectedStartDate;
   late DateTime _selectedEndDate;
-  String _startDate = "Departure Date";
-  String _endDate = "Return Date";
+  String _startDate = "تاريخ المغادرة";
+  String _endDate = "تاريخ العودة";
 
   final departureFromController = TextEditingController();
   final arrivalToController = TextEditingController();
   final dateController = TextEditingController();
 
-  var departureFrom = "Departure from";
-  var returnTo = "Return to";
+  late var departureFrom = AppLocalizations.of(context)!.departure_from;
+  late var returnTo = AppLocalizations.of(context)!.arrival_to;
 
   var returnToID = "-1";
   var departureFromID = "-1";
@@ -217,10 +216,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   padding:
                       EdgeInsets.symmetric(horizontal: sizes!.widthRatio * 10),
                   child: CustomText(
-                      text: departureFrom,
-                      textSize: 12,
-                      fontWeight: FontWeight.normal,
-                      textColor: Colors.black),
+                    text: departureFrom,
+                    textSize: 12,
+                    fontWeight: FontWeight.normal,
+                    textColor: Colors.black,
+                  ),
                 ),
                 underline: const SizedBox(),
                 isExpanded: true,
@@ -415,7 +415,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 onTap: () {
                   NavigationHelper.pushRoute(
                       context,
-                      ExploreScreen(
+                      PackageScreen(
                         packageFilterModel: PackageFilterModel(),
                       ));
                 },
@@ -443,48 +443,67 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   height: sizes!.heightRatio * 250,
                   width: MediaQuery.of(context).size.width,
                   child: ListView.builder(
-                      itemCount: getStartedProvider
-                          .packagesResponse.data!.packages!.length,
-                      itemBuilder: (context, i) {
-                        var data = getStartedProvider
-                            .packagesResponse.data!.packages![i];
-                        var packageId = data.id.toString();
-                        var packageName = data.name!.en.toString();
-                        var rating = data.rate.toString();
-                        var fee = data.fees.toString();
-                        var image = data.image.toString();
-                        var baseUrl = getStartedProvider
-                            .packagesResponse.data!.imageBase
-                            .toString();
-                        var thumbnailImage = "$baseUrl/$image";
-                        var dateFrom = data.dateFrom.toString();
-                        var detail = data.description!.ur.toString();
-                        // debugPrint("thumbnailImage: $thumbnailImage");
-                        return Padding(
-                          padding:
-                              EdgeInsets.only(bottom: sizes!.heightRatio * 8.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              NavigationHelper.pushRoute(
-                                  context,
-                                  PackageDetailScreen(
-                                    packageTitle: packageName,
-                                    packageId: packageId,
-                                  ));
-                            },
-                            child: PackageCardContainerWidget(
-                                title: packageName,
-                                rating: rating,
-                                fee: fee,
-                                dateFrom: dateFrom,
-                                detail: detail,
-                                image: thumbnailImage),
+                    itemCount: getStartedProvider
+                        .packagesResponse.data!.packages!.length,
+                    itemBuilder: (context, i) {
+                      var data = getStartedProvider
+                          .packagesResponse.data!.packages![i];
+                      var packageId = data.id.toString();
+                      // var packageName = data.name!.en.toString();
+                      var packageName = data.name!.toString();
+
+                      var rating = data.rate.toString();
+                      var fee = data.fees.toString();
+                      var image = data.image.toString();
+
+                      var baseUrl = getStartedProvider
+                          .packagesResponse.data!.imageBase
+                          .toString();
+                      var thumbnailImage = "$baseUrl/$image";
+                      var dateFrom = data.dateFrom.toString();
+                      var detail = data.description!.toString();
+                      // debugPrint("thumbnailImage: $thumbnailImage");
+
+                      var firstTripId = data.firstTripId;
+                      var secondTripId = data.secondTripId;
+                      return Padding(
+                        padding:
+                            EdgeInsets.only(bottom: sizes!.heightRatio * 8.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            debugPrint("packageName:$packageName");
+                            debugPrint("packageId:$packageId");
+                            debugPrint(
+                                "hotelRoomTripOne:${data.hotelRoomTripOne!.isEmpty}");
+                            NavigationHelper.pushRoute(
+                              context,
+                              PackageDetailScreen(
+                                packageTitle: packageName,
+                                packageId: packageId,
+                                isHotelTripeOneEmpty:
+                                    data.hotelRoomTripOne!.isEmpty,
+                                firstTripId: firstTripId!,
+                                secondTripId: secondTripId!,
+                              ),
+                            );
+                          },
+                          child: PackageCardContainerWidget(
+                            title: packageName,
+                            rating: rating,
+                            fee: fee,
+                            dateFrom: dateFrom,
+                            detail: detail,
+                            image: thumbnailImage,
                           ),
-                        );
-                      }))
+                        ),
+                      );
+                    },
+                  ),
+                )
               : Center(
                   child: CustomText(
-                      text: "No Package Available",
+                      //"No Package Available"
+                      text: AppLocalizations.of(context)!.no_package_avilable,
                       textSize: sizes!.fontRatio * 14,
                       fontWeight: FontWeight.normal,
                       textColor: Colors.black),
@@ -495,6 +514,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     );
   }
 
+  /// Validate Trip Data
   void validateTripData() {
     debugPrint("departureFromID: $departureFromID, "
         "arrivalToID: $returnToID,"
@@ -575,10 +595,11 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             width: 3,
           ),
           CustomText(
-              text: name,
-              textSize: sizes!.fontRatio * 12,
-              fontWeight: FontWeight.normal,
-              textColor: Colors.black)
+            text: name,
+            textSize: sizes!.fontRatio * 12,
+            fontWeight: FontWeight.normal,
+            textColor: Colors.black,
+          )
         ],
       ),
     );

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/passenger_screens/passenger_screen.dart';
 import 'package:qbus/screens/project_widgets/filter_container_widget.dart';
 import 'package:qbus/screens/project_widgets/trip_card_container_widget.dart';
 import 'package:qbus/screens/trip_filter_screens/trip_filter_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../navigation/navigation_helper.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_text.dart';
-import '../../res/assets.dart';
-import '../../res/colors.dart';
+
 import '../../widgets/text_views.dart';
 import '../select_addition_screens/select_addition_screen.dart';
 import 'trips_search_provider.dart';
@@ -126,16 +125,33 @@ class _SearchResultState extends State<SearchResult> {
                               itemBuilder: (context, i) {
                                 var tripData = searchProvider
                                     .tripsResponse.data!.trips![i];
+                                // var stationA =
+                                //     tripData.startStationName!.en.toString();
+
                                 var stationA =
-                                    tripData.startStationName!.en.toString();
+                                    tripData.startStationName!.ar.toString();
+
+                                // var stationB =
+                                //     tripData.arrivalStationName!.en.toString();
+
                                 var stationB =
-                                    tripData.arrivalStationName!.en.toString();
+                                    tripData.arrivalStationName!.ar.toString();
+
                                 var fees = tripData.fees.toString();
                                 var rate = tripData.rate.toString();
+
+                                // var fromCityName =
+                                //     tripData.fromCityName!.en.toString();
+
                                 var fromCityName =
-                                    tripData.fromCityName!.en.toString();
+                                    tripData.fromCityName!.ar.toString();
+
+                                // var toCityName =
+                                //     tripData.toCityName!.en.toString();
+
                                 var toCityName =
-                                    tripData.toCityName!.en.toString();
+                                    tripData.toCityName!.ar.toString();
+
                                 var timeFrom = tripData.timeFrom.toString();
                                 var timeTo = tripData.timeTo.toString();
                                 var stops = tripData.stops.toString();
@@ -209,7 +225,8 @@ class _SearchResultState extends State<SearchResult> {
                               })
                           : Center(
                               child: TextView.getSubHeadingTextWith15(
-                                  "No Data Available", Assets.latoBold,
+                                  AppLocalizations.of(context)!.no_data,
+                                  Assets.latoBold,
                                   color: AppColors.blueHomeColor,
                                   lines: 1,
                                   fontWeight: FontWeight.normal),
@@ -221,7 +238,7 @@ class _SearchResultState extends State<SearchResult> {
               )
             : Center(
                 child: TextView.getSubHeadingTextWith15(
-                  "No Trip Available",
+                  AppLocalizations.of(context)!.no_data,
                   Assets.latoBold,
                   color: AppColors.blueHomeColor,
                   lines: 1,

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/project_widgets/round_trip_passenger_container_widget.dart';
 import 'package:qbus/screens/round_trip_flow/step_two/round_trip_step_two_result.dart';
 import 'package:qbus/utils/constant.dart';
@@ -13,6 +11,7 @@ import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import '../round_trip_hotel_screens/round_trip_hotel_screen.dart';
 import 'round_trip_passenger_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RoundTripPassengerScreen extends StatefulWidget {
   final int passengerCount;
@@ -63,8 +62,9 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
   final List<TextEditingController> _fullNameControllers = [];
   final List<TextEditingController> _idNumberControllers = [];
 
-  var selectedIdentityType = "Identity proof type";
-  var selectedCountry = "Country";
+  late var selectedIdentityType =
+      AppLocalizations.of(context)!.identity_proof_type;
+  late var selectedCountry = AppLocalizations.of(context)!.country;
 
   final List<String> identityTypeString = [];
   final List<String> countryString = [];
@@ -134,10 +134,11 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "Add Passengers",
-            textSize: sizes!.fontRatio * 18,
-            fontWeight: FontWeight.w400,
-            textColor: Colors.white),
+          text: AppLocalizations.of(context)!.add_passenger,
+          textSize: sizes!.fontRatio * 18,
+          fontWeight: FontWeight.w400,
+          textColor: Colors.white,
+        ),
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -154,7 +155,7 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
             ),
             CommonPadding.sizeBoxWithHeight(height: 20),
             CustomButton(
-              name: "Next",
+              name: AppLocalizations.of(context)!.next,
               buttonColor: appColor,
               height: sizes!.heightRatio * 45,
               width: double.infinity,
@@ -201,7 +202,8 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
         passengerBody.add(paraPassengerBody);
         debugPrint("passengerBody: ${passengerBody.map((e) => e)} ");
       } else {
-        Toasts.getWarningToast(text: "The fields are required");
+        Toasts.getWarningToast(
+            text: AppLocalizations.of(context)!.required_fields);
       }
     }
 

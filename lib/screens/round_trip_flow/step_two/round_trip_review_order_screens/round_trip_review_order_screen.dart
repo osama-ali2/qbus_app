@@ -4,19 +4,14 @@
 // © 2022-2023  - All Rights Reserved
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/assets.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
 import 'package:qbus/screens/thank_you_screen.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../models/order_reviews/RoundOrderReviewResponse.dart';
 import 'round_trip_review_order_provider.dart';
 
@@ -36,12 +31,12 @@ class _RoundTripReviewOrderScreenState
   late RoundTripReviewOrderProvider roundTripReviewOrderProvider;
 
   /// App Bar
-  final appBar = AppBar(
+  late final appBar = AppBar(
     backgroundColor: appColor,
     elevation: 0,
     centerTitle: false,
     title: CustomText(
-        text: "Review The Order",
+        text: AppLocalizations.of(context)!.confirm_order,
         textSize: sizes!.fontRatio * 18,
         fontWeight: FontWeight.w400,
         textColor: Colors.white),
@@ -81,6 +76,7 @@ class _RoundTripReviewOrderScreenState
                         /// Data
                         var data = roundTripReviewOrderProvider
                             .roundOrderReviewResponse.data!;
+
                         var discount = data.discount.toString();
                         var taxValue = data.tax.toString();
                         var total = data.total.toString();
@@ -91,8 +87,13 @@ class _RoundTripReviewOrderScreenState
                         var timeTo = dataTrip.timeTo.toString();
                         var dateFrom = dataTrip.dateFrom.toString();
                         var dateTo = dataTrip.dateTo.toString();
-                        var fromCity = dataTrip.fromCity!.name!.en.toString();
-                        var toCity = dataTrip.toCity!.name!.en.toString();
+
+                        // var fromCity = dataTrip.fromCity!.name!.en.toString();
+                        var fromCity = dataTrip.fromCity!.name!.ar.toString();
+
+                        // var toCity = dataTrip.toCity!.name!.en.toString();
+                        var toCity = dataTrip.toCity!.name!.ar.toString();
+
                         var count = dataTrip.count.toString();
                         var tripFee = dataTrip.fees.toString();
 
@@ -128,9 +129,9 @@ class _RoundTripReviewOrderScreenState
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 20),
                   Align(
-                    alignment: Alignment.topLeft,
+                    alignment: Alignment.topRight,
                     child: TextView.getGenericText(
-                        text: "Total",
+                        text: AppLocalizations.of(context)!.total_cost,
                         fontFamily: Assets.latoRegular,
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -142,7 +143,7 @@ class _RoundTripReviewOrderScreenState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextView.getGenericText(
-                          text: "Sub Total",
+                          text: AppLocalizations.of(context)!.sub_total,
                           fontFamily: Assets.latoRegular,
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -162,7 +163,7 @@ class _RoundTripReviewOrderScreenState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextView.getGenericText(
-                          text: "Discount",
+                          text: AppLocalizations.of(context)!.discount,
                           fontFamily: Assets.latoRegular,
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -184,7 +185,7 @@ class _RoundTripReviewOrderScreenState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextView.getGenericText(
-                          text: "Tax 15%",
+                          text: AppLocalizations.of(context)!.tax,
                           fontFamily: Assets.latoRegular,
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -211,7 +212,7 @@ class _RoundTripReviewOrderScreenState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextView.getGenericText(
-                          text: "Total Cost",
+                          text: AppLocalizations.of(context)!.total_cost,
                           fontFamily: Assets.latoRegular,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -219,7 +220,7 @@ class _RoundTripReviewOrderScreenState
                           lines: 1),
                       TextView.getGenericText(
                           text:
-                              "${roundTripReviewOrderProvider.roundOrderReviewResponse.data!.total.toString()} SAR",
+                              "${roundTripReviewOrderProvider.roundOrderReviewResponse.data!.total.toString()} ريال ",
                           fontFamily: Assets.latoRegular,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -229,7 +230,7 @@ class _RoundTripReviewOrderScreenState
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 20),
                   CustomButton(
-                    name: "PROCESS TO CHECKOUT",
+                    name: AppLocalizations.of(context)!.process_to_checkout,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,
@@ -254,7 +255,7 @@ class _RoundTripReviewOrderScreenState
               ).get20HorizontalPadding()
             : Center(
                 child: TextView.getGenericText(
-                    text: "No Data Found",
+                    text: AppLocalizations.of(context)!.no_data,
                     fontFamily: Assets.latoRegular,
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
@@ -346,7 +347,7 @@ class _RoundTripReviewOrderScreenState
                       borderRadius: BorderRadius.circular(5), color: appColor),
                   child: Center(
                     child: CustomText(
-                        text: "SAR $price",
+                        text: " ريال$price",
                         textSize: sizes!.fontRatio * 10,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.white),
@@ -400,7 +401,7 @@ class _RoundTripReviewOrderScreenState
                       borderRadius: BorderRadius.circular(5), color: appColor),
                   child: Center(
                     child: CustomText(
-                        text: "SAR $price",
+                        text: " ريال$price",
                         textSize: sizes!.fontRatio * 10,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.white),
@@ -441,6 +442,7 @@ class _RoundTripReviewOrderScreenState
                     fontWeight: FontWeight.w400,
                     color: AppColors.black900,
                     lines: 1),
+                CommonPadding.sizeBoxWithWidth(width: 10),
                 TextView.getGenericText(
                     text: "$fromTime $fromCity",
                     fontFamily: Assets.latoRegular,
@@ -448,12 +450,13 @@ class _RoundTripReviewOrderScreenState
                     fontWeight: FontWeight.w400,
                     color: AppColors.black900,
                     lines: 1),
-                SvgPicture.asset(
-                  "assets/svg/skip_icon.svg",
-                  height: sizes!.heightRatio * 24,
-                  width: sizes!.widthRatio * 24,
-                  color: AppColors.black900,
-                ),
+                const Spacer(),
+                // SvgPicture.asset(
+                //   "assets/svg/skip_icon.svg",
+                //   height: sizes!.heightRatio * 24,
+                //   width: sizes!.widthRatio * 24,
+                //   color: AppColors.black900,
+                // ),
                 TextView.getGenericText(
                     text: "$toTime $toCity",
                     fontFamily: Assets.latoRegular,
@@ -461,6 +464,8 @@ class _RoundTripReviewOrderScreenState
                     fontWeight: FontWeight.w400,
                     color: AppColors.black900,
                     lines: 1),
+                CommonPadding.sizeBoxWithWidth(width: 10),
+
                 Container(
                   height: sizes!.heightRatio * 20,
                   width: sizes!.widthRatio * 55,
@@ -468,7 +473,7 @@ class _RoundTripReviewOrderScreenState
                       borderRadius: BorderRadius.circular(5), color: appColor),
                   child: Center(
                     child: CustomText(
-                        text: "SAR $price",
+                        text: " ريال$price",
                         textSize: sizes!.fontRatio * 10,
                         fontWeight: FontWeight.normal,
                         textColor: Colors.white),

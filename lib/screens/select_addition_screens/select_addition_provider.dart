@@ -12,7 +12,7 @@ import 'package:qbus/widgets/loader.dart';
 
 import '../../network_manager/models.dart';
 import '../../network_manager/my_api.dart';
-import '../../res/strings.dart';
+import 'package:qbus/resources/resources.dart';
 
 class SelectAdditionProvider with ChangeNotifier {
   BuildContext? context;

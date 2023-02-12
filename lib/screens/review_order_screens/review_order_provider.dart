@@ -10,9 +10,8 @@ import 'package:qbus/models/order_reviews/OneWayOrderReviewResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
 import 'package:qbus/network_manager/models.dart';
 import 'package:qbus/network_manager/my_api.dart';
-import 'package:qbus/res/strings.dart';
 import 'package:qbus/widgets/loader.dart';
-import '../../res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
 
 class ReviewOrderProvider with ChangeNotifier {
   var userToken = PreferenceUtils.getString(Strings.loginUserToken);
@@ -31,7 +30,7 @@ class ReviewOrderProvider with ChangeNotifier {
 
   /// orderReview
   Future<void> orderReview({
-    required int tripId,
+    required num tripId,
   }) async {
     try {
       _loader.showLoader(context: context);

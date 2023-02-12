@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/toasts.dart';
-import 'package:qbus/screens/bottombar/bottom_bar_screens/contact_us_screens/contact_us_provider.dart';
+import 'package:qbus/resources/resources.dart';
 
+import 'package:qbus/screens/bottombar/bottom_bar_screens/contact_us_screens/contact_us_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../utils/constant.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_text.dart';
@@ -22,7 +22,6 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   late TextEditingController subjectController;
   late TextEditingController messageController;
   late TextEditingController phoneNumberController;
-
   late ContactUsProvider contactUsProvider;
 
   @override
@@ -47,11 +46,12 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       appBar: AppBar(
         backgroundColor: appColor,
         elevation: 0,
-        title: const CustomText(
-            text: "Contact Us",
-            textSize: 18,
-            fontWeight: FontWeight.w400,
-            textColor: Colors.white),
+        title: CustomText(
+          text: AppLocalizations.of(context)!.contact_us,
+          textSize: 18,
+          fontWeight: FontWeight.w400,
+          textColor: Colors.white,
+        ),
       ),
       backgroundColor: Colors.white,
       body: SafeArea(child: SingleChildScrollView(child: _getUI(context))),
@@ -67,7 +67,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.name,
-          hint: "Name",
+          hint: AppLocalizations.of(context)!.full_name,
         ),
         const SizedBox(height: 10),
         CustomTextField(
@@ -75,7 +75,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.emailAddress,
-          hint: "Email address",
+          hint: AppLocalizations.of(context)!.email,
         ),
         const SizedBox(height: 10),
         CustomTextField(
@@ -83,7 +83,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.phone,
-          hint: "Phone Number",
+          hint: AppLocalizations.of(context)!.mobile_number,
         ),
         const SizedBox(height: 10),
         CustomTextField(
@@ -91,7 +91,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           padding: 20,
           validator: (val) => null,
           inputType: TextInputType.text,
-          hint: "Subject",
+          hint: AppLocalizations.of(context)!.subject,
         ),
         const SizedBox(height: 10),
         Padding(
@@ -108,8 +108,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                 controller: messageController,
                 keyboardType: TextInputType.text,
                 maxLines: 20,
-                decoration: const InputDecoration(
-                    border: InputBorder.none, hintText: "Your Message"),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: AppLocalizations.of(context)!.your_message,
+                ),
               ),
             ),
           ),
@@ -118,7 +120,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           height: sizes!.heightRatio * 20,
         ),
         CustomButton(
-            name: "Send",
+            name: AppLocalizations.of(context)!.send,
             buttonColor: appColor,
             height: sizes!.heightRatio * 45,
             width: double.infinity,
@@ -134,6 +136,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
     );
   }
 
+  /// Validate Data
   Future<void> validateData() async {
     var name = fullNameController.text.toString().trim();
     var email = emailController.text.toString().trim();
@@ -158,17 +161,20 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         Navigator.pop(context);
       }
     } else if (name.isEmpty) {
-      Toasts.getErrorToast(text: "Name field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.name_required);
     } else if (email.isEmpty) {
-      Toasts.getErrorToast(text: "Email field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.email_required);
     } else if (subject.isEmpty) {
-      Toasts.getErrorToast(text: "Subject field is required");
+      Toasts.getErrorToast(
+          text: AppLocalizations.of(context)!.subject_required);
     } else if (subject.length < 8) {
-      Toasts.getErrorToast(text: "Subject field is required");
+      Toasts.getErrorToast(
+          text: AppLocalizations.of(context)!.subject_length_required);
     } else if (message.isEmpty) {
-      Toasts.getErrorToast(text: "Message field is required");
+      Toasts.getErrorToast(
+          text: AppLocalizations.of(context)!.message_required);
     } else if (phoneNumber.isEmpty) {
-      Toasts.getErrorToast(text: "Phone Number field is required");
+      Toasts.getErrorToast(text: AppLocalizations.of(context)!.mobile_required);
     }
   }
 }

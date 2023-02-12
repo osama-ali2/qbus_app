@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:qbus/res/extensions.dart';
-
-import '../../../../../res/colors.dart';
-import '../../../../../res/common_padding.dart';
-import '../../../../../res/res.dart';
 import '../../../../../utils/constant.dart';
 import '../../../../../widgets/custom_text.dart';
 import 'wallet_provider.dart';
+import 'package:qbus/resources/resources.dart';
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({Key? key}) : super(key: key);
@@ -94,19 +89,21 @@ class _WalletScreenState extends State<WalletScreen> {
                                 textColor: Colors.white),
                             CommonPadding.sizeBoxWithHeight(height: 5),
                             CustomText(
-                                text:
-                                    "SAR ${walletProvider.userResponse.data!.user!.wallet.toString()}",
-                                textSize: 40,
-                                fontWeight: FontWeight.w700,
-                                textColor: Colors.white),
+                              text:
+                                  "SAR ${walletProvider.userResponse.data!.user!.wallet.toString()}",
+                              textSize: 40,
+                              fontWeight: FontWeight.w700,
+                              textColor: Colors.white,
+                            ),
                           ],
                         )
                       : const Center(
                           child: CustomText(
-                              text: "No Credit Available",
-                              textSize: 14,
-                              fontWeight: FontWeight.w400,
-                              textColor: Colors.black),
+                            text: "No Credit Available",
+                            textSize: 14,
+                            fontWeight: FontWeight.w400,
+                            textColor: Colors.black,
+                          ),
                         ),
                 ),
               ).get20HorizontalPadding(),

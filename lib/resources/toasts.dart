@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
 
 class Toasts {
   static getErrorToast({@required String? text}) async {

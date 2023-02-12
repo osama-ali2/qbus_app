@@ -1,4 +1,11 @@
 import 'package:provider/provider.dart';
+import 'package:qbus/screens/package_screens/package_detail_screens/package_detail_provider.dart';
+import 'package:qbus/screens/package_screens/package_filter_screens/package_filter_provider.dart';
+import 'package:qbus/screens/package_screens/package_hotels/package_hotels.dart';
+import 'package:qbus/screens/package_screens/package_passenger_screens/package_passenger_provider.dart';
+import 'package:qbus/screens/package_screens/package_provider.dart';
+import 'package:qbus/screens/package_screens/package_review_order_screens/package_review_order_provider.dart';
+import 'package:qbus/screens/package_screens/package_select_addition_screens/package_select_addition_provider.dart';
 import '../screens/auth/forgot_screens/forgot_provider.dart';
 import '../screens/auth/forgot_screens/phone_number_screens/phone_number_provider.dart';
 import '../screens/auth/login_screens/login_provider.dart';
@@ -16,10 +23,6 @@ import '../screens/bottombar/bottom_bar_screens/profile_screens/return_policy_sc
 import '../screens/bottombar/bottom_bar_screens/profile_screens/wallet_screens/wallet_provider.dart';
 import '../screens/bottombar/bottom_bar_screens/setting_screens/setting_provider.dart';
 import '../screens/bottombar/bottom_bar_screens/setting_select_lang_screens/setting_select_lang_provider.dart';
-import '../screens/explore_screens/explore_provider.dart';
-import '../screens/explore_screens/package_detail_screens/package_detail_provider.dart';
-import '../screens/explore_screens/package_filter_screens/package_filter_provider.dart';
-import '../screens/explore_screens/package_select_addition_screens/package_select_addition_provider.dart';
 import '../screens/get_started_screens/get_started_provider.dart';
 import '../screens/hotel_screens/hotel_provider.dart';
 import '../screens/passenger_screens/passenger_provider.dart';
@@ -57,8 +60,8 @@ final multiProviders = [
     create: (_) => SelectAdditionProvider(),
     lazy: true,
   ),
-  ChangeNotifierProvider<ExploreProvider>(
-    create: (_) => ExploreProvider(),
+  ChangeNotifierProvider<PackageProvider>(
+    create: (_) => PackageProvider(),
     lazy: true,
   ),
   ChangeNotifierProvider<ContactUsProvider>(
@@ -183,6 +186,30 @@ final multiProviders = [
   ),
   ChangeNotifierProvider<RoundTripReviewOrderProvider>(
     create: (_) => RoundTripReviewOrderProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PackagePassengerProvider>(
+    create: (_) => PackagePassengerProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PackageHotelTripOneFilterProvider>(
+    create: (_) => PackageHotelTripOneFilterProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PackageHotelTripOneProvider>(
+    create: (_) => PackageHotelTripOneProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PackageHotelTripTwoFilterProvider>(
+    create: (_) => PackageHotelTripTwoFilterProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PackageHotelTripTwoProvider>(
+    create: (_) => PackageHotelTripTwoProvider(),
+    lazy: true,
+  ),
+  ChangeNotifierProvider<PackageReviewOrderProvider>(
+    create: (_) => PackageReviewOrderProvider(),
     lazy: true,
   ),
 ];

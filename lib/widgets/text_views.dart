@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../res/res.dart';
+import 'package:qbus/resources/res.dart';
 
 class TextView {
 

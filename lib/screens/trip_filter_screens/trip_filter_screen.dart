@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/models/TripFilterModel.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
+import 'package:qbus/resources/resources.dart';
 
-import '../../res/res.dart';
+import 'package:qbus/screens/get_started_screens/get_started_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../utils/constant.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text.dart';
@@ -24,11 +23,8 @@ class TripFilterScreen extends StatefulWidget {
 class _TripFilterScreenState extends State<TripFilterScreen> {
   late TextEditingController couponController;
 
-  var selectedFromCity = "From City";
-  var selectedToCity = "To City";
   var selectedFromCityId = "-1";
   var selectedToCityId = "-1";
-  var selectedRating = "Rating";
 
   bool hotel5stars = false;
   bool internet = true;
@@ -39,9 +35,13 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
   late DateTime _selectedEndDate;
   late TimeOfDay _selectedTime;
 
-  String _startDate = "Start Date";
-  String _endDate = "End Date";
-  String _startTime = "Start Time";
+  late String _startDate = AppLocalizations.of(context)!.departure_date;
+  late String _endDate = AppLocalizations.of(context)!.return_date;
+  late String _startTime = AppLocalizations.of(context)!.start_time;
+
+  late var selectedRating = AppLocalizations.of(context)!.rating;
+  late var selectedFromCity = AppLocalizations.of(context)!.departure_from;
+  late var selectedToCity = AppLocalizations.of(context)!.arrival_to;
 
   late GetStartedProvider getStartedProvider;
 
@@ -76,6 +76,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
     });
   }
 
+  /// Present End Date
   void _presentEndDate() {
     showDatePicker(
       initialEntryMode: DatePickerEntryMode.input,
@@ -85,7 +86,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
       lastDate: DateTime(2050),
     ).then((pickedDate) {
       if (pickedDate == null) {
-        return 'no date selected';
+        return AppLocalizations.of(context)!.no_data;
       }
       setState(() {
         _selectedEndDate = pickedDate;
@@ -93,11 +94,12 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
     });
   }
 
+  /// Present Time
   void _presentTime() {
     showTimePicker(context: context, initialTime: TimeOfDay.now())
         .then((pickedTime) {
       if (pickedTime == null) {
-        return 'no time selected';
+        return AppLocalizations.of(context)!.no_time_selected;
       }
 
       setState(() {
@@ -114,8 +116,8 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
         backgroundColor: appColor,
         elevation: 0,
         automaticallyImplyLeading: true,
-        title: const CustomText(
-            text: "Trips",
+        title: CustomText(
+            text: AppLocalizations.of(context)!.trips,
             textSize: 18,
             fontWeight: FontWeight.w700,
             textColor: Colors.white),
@@ -254,9 +256,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                         ),
                         underline: const SizedBox(),
                         isExpanded: true,
-                        items: getStartedProvider
-                            .cityList // <String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
-                            .map((String value) {
+                        items: getStartedProvider.cityList.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -310,9 +310,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                         ),
                         underline: const SizedBox(),
                         isExpanded: true,
-                        items: getStartedProvider
-                            .cityList //<String>['Riyadh', 'Abha', 'Dammam', 'Tabuk']
-                            .map((String value) {
+                        items: getStartedProvider.cityList.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -385,7 +383,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                 ),
                 CommonPadding.sizeBoxWithHeight(height: 20),
                 CustomText(
-                  text: "Additional",
+                  text: AppLocalizations.of(context)!.additions,
                   textSize: sizes!.fontRatio * 18,
                   fontWeight: FontWeight.w500,
                   textColor: Colors.black,
@@ -426,7 +424,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
                 ).get20HorizontalPadding(),
                 CommonPadding.sizeBoxWithHeight(height: 20),
                 CustomButton(
-                  name: "Filter Result",
+                  name: AppLocalizations.of(context)!.filter,
                   buttonColor: appColor,
                   height: sizes!.heightRatio * 45,
                   width: double.infinity,
@@ -468,6 +466,7 @@ class _TripFilterScreenState extends State<TripFilterScreen> {
     );
   }
 
+  /// Check Box Container
   Widget _checkBoxContainer(
       BuildContext context, bool isSelected, String name, Function onTap) {
     return InkWell(

@@ -5,13 +5,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:qbus/res/colors.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'bottombar/bottom_bar_screen.dart';
 
@@ -31,16 +30,15 @@ class ThankYouScreen extends StatelessWidget {
               CommonPadding.sizeBoxWithHeight(height: 60),
               SvgPicture.asset("assets/svg/trip_done_icon.svg"),
               CommonPadding.sizeBoxWithHeight(height: 18),
-              const CustomText(
-                text: "Your Order is Saved! What’s next?",
+              CustomText(
+                text: AppLocalizations.of(context)!.your_order_saved,
                 textSize: 18,
                 fontWeight: FontWeight.w700,
                 textColor: AppColors.black900,
               ),
               CommonPadding.sizeBoxWithHeight(height: 18),
-              const CustomText(
-                text:
-                    "Head to the office to complete your Order Payment using your reference number",
+              CustomText(
+                text: AppLocalizations.of(context)!.complete_order_text,
                 textSize: 14,
                 fontWeight: FontWeight.w400,
                 textColor: AppColors.black900,
@@ -55,7 +53,7 @@ class ThankYouScreen extends StatelessWidget {
               ),
               const Spacer(),
               CustomButton(
-                name: "HOME",
+                name: AppLocalizations.of(context)!.home,
                 buttonColor: appColor,
                 height: sizes!.heightRatio * 45,
                 width: double.infinity,

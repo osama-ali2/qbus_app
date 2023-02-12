@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:qbus/models/auth/SignUpResponse.dart';
 import 'package:qbus/models/cities/GetCitiesResponse.dart';
-import 'package:qbus/network_manager/api_url.dart';
+import 'package:qbus/navigation/navigation_helper.dart';
 import 'package:qbus/widgets/loader.dart';
-
-import '../../../navigation/navigation_helper.dart';
-import '../../../network_manager/models.dart';
-import '../../../network_manager/my_api.dart';
+import 'package:qbus/network_manager/network_manager.dart';
 import '../phone_activation_screens/phone_activation_screen.dart';
 
 class SignUpProvider with ChangeNotifier {

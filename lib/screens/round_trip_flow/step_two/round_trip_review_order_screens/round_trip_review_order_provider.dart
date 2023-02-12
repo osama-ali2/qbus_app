@@ -10,8 +10,8 @@ import 'package:qbus/models/order_reviews/RoundOrderReviewResponse.dart';
 import 'package:qbus/network_manager/api_url.dart';
 import 'package:qbus/network_manager/models.dart';
 import 'package:qbus/network_manager/my_api.dart';
-import 'package:qbus/res/strings.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/widgets/loader.dart';
 
 class RoundTripReviewOrderProvider with ChangeNotifier {

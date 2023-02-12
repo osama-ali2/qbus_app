@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/auth/LoginResponse.dart';
-import '../res/strings.dart';
+import 'package:qbus/resources/resources.dart';
 
 class PreferenceUtils {
   static String? userImage;

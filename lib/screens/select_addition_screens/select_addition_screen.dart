@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/models/trips/TripsResponse.dart';
-import 'package:qbus/res/common_padding.dart';
-import 'package:qbus/res/extensions.dart';
-import 'package:qbus/res/res.dart';
-import 'package:qbus/res/strings.dart';
-import 'package:qbus/res/toasts.dart';
+import 'package:qbus/resources/resources.dart';
+
 import 'package:qbus/screens/auth/login_screens/login_screen.dart';
 import 'package:qbus/screens/passenger_screens/passenger_screen.dart';
 import 'package:qbus/screens/select_addition_screens/select_addition_provider.dart';
@@ -14,6 +11,7 @@ import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/counter.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SelectAdditionScreen extends StatefulWidget {
   final Trips tripsModel;
@@ -83,7 +81,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
         elevation: 0,
         centerTitle: false,
         title: CustomText(
-            text: "Trip Select Additions",
+            text: AppLocalizations.of(context)!.trip_additions,
             textSize: sizes!.fontRatio * 18,
             fontWeight: FontWeight.w400,
             textColor: Colors.white),
@@ -100,19 +98,29 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                             .tripAdditionalsResponse.data!.additional!.length,
                         itemBuilder: (context, index) {
                           currentIndex = index;
+                          // var name = selectAdditionProvider
+                          //     .tripAdditionalsResponse
+                          //     .data!
+                          //     .additional![index]
+                          //     .name!
+                          //     .en
+                          //     .toString();
+                          //
                           var name = selectAdditionProvider
                               .tripAdditionalsResponse
                               .data!
                               .additional![index]
                               .name!
-                              .en
+                              .ar
                               .toString();
+
                           var additionId = selectAdditionProvider
                               .tripAdditionalsResponse
                               .data!
                               .additional![index]
                               .id
                               .toString();
+
                           return _itemContainer(
                             name: name,
                             index: index,
@@ -122,7 +130,7 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 10),
                   CustomButton(
-                    name: "Next",
+                    name: AppLocalizations.of(context)!.next,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,
@@ -160,13 +168,19 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                                 border: Border.all(color: appColor),
                               ),
                               child: Center(
-                                child: CustomText(
-                                  text: "Continue",
-                                  textSize: sizes!.fontRatio * 15,
-                                  fontWeight: FontWeight.w500,
-                                  textColor: appColor,
-                                ),
-                              ),
+                                  child: CustomText(
+                                text: "Continue",
+                                textSize: sizes!.fontRatio * 15,
+                                fontWeight: FontWeight.w500,
+                                textColor: appColor,
+                              )
+                                  // CustomText(
+                                  //   text: AppLocalizations.of(context)!.continue,
+                                  //   textSize: sizes!.fontRatio * 15,
+                                  //   fontWeight: FontWeight.w500,
+                                  //   textColor: appColor,
+                                  // ),
+                                  ),
                             ),
                           ),
                         ),
@@ -174,8 +188,8 @@ class _SelectAdditionScreenState extends State<SelectAdditionScreen> {
                 ],
               ),
             )
-          : const Center(
-              child: Text("No Data Available"),
+          : Center(
+              child: Text(AppLocalizations.of(context)!.no_data),
             ),
     );
   }
