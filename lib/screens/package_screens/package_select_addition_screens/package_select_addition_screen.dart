@@ -17,6 +17,8 @@ class PackageSelectAdditionScreen extends StatefulWidget {
   final bool isHotelTripeOneEmpty;
   final int firstTripId;
   final int secondTripId;
+  final bool isHotelRoomTripOneEmpty;
+  final bool isHotelRoomTripTwoEmpty;
 
   const PackageSelectAdditionScreen({
     Key? key,
@@ -25,6 +27,8 @@ class PackageSelectAdditionScreen extends StatefulWidget {
     required this.isHotelTripeOneEmpty,
     required this.firstTripId,
     required this.secondTripId,
+    required this.isHotelRoomTripOneEmpty,
+    required this.isHotelRoomTripTwoEmpty,
   }) : super(key: key);
 
   @override
@@ -143,6 +147,10 @@ class _PackageSelectAdditionScreenState
                             isHotelTripeOneEmpty: widget.isHotelTripeOneEmpty,
                             firstTripId: widget.firstTripId,
                             secondTripId: widget.secondTripId,
+                            isHotelRoomTripOneEmpty:
+                                widget.isHotelRoomTripOneEmpty,
+                            isHotelRoomTripTwoEmpty:
+                                widget.isHotelRoomTripTwoEmpty,
                           ),
                         ),
                       );

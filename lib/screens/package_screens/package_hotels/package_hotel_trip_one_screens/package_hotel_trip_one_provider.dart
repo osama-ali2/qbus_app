@@ -84,6 +84,89 @@ class PackageHotelTripOneProvider with ChangeNotifier {
     }
   }
 
+  /// Save Package Orders
+  Future<void> hotelTripOnePackageOrders({
+    required int packageId,
+    required int passengerCounts,
+    required List<Map<String, dynamic>> additionalList,
+    required List<Map<String, dynamic>> paramPassengerBody,
+    // required List<Map<String, dynamic>> hotelOneBody,
+  }) async {
+    try {
+      _loader.showLoader(context: context);
+
+      // Headers
+      Map<String, dynamic> header = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $userToken"
+      };
+      _logger.i("packageId: $packageId");
+
+      var url = packageOrdersApiUrl;
+      debugPrint("URL: $url");
+
+      _logger.i("packageId: $packageId");
+      _logger.i("additionalList: ${additionalList.map((e) => e)}");
+      _logger.i("paramPassengerBody: ${paramPassengerBody.map((e) => e)}");
+      _logger.i("hotelRoomBody: ${hotelRoomBody.map((e) => e)}");
+      _logger.i("hotelOneBody: ${hotelRoomBody.map((e) => e)}");
+
+      //TODO: Checkout hotel One issue,
+      var newHotelOneBody = [];
+      for (int i = 0; i < hotelRoomBody.length; i++) {
+        if (hotelRoomBody[i]['rooms_number'] > 0 &&
+            hotelRoomBody[i]['days'] > 0) {
+          newHotelOneBody.add(hotelRoomBody[i]);
+          _logger.i("newHotelOneBody:$hotelRoomBody");
+        }
+      }
+
+      final updateBody = {
+        "package_id": packageId,
+        "count": passengerCounts,
+        "code": "",
+        "passengers": paramPassengerBody,
+        "additional": additionalList,
+        "hotel_rooms_one": newHotelOneBody,
+        "hotel_rooms_two": [],
+        "user_notes": ""
+      };
+
+      _logger.i("apiBody:$updateBody");
+
+      packageOrderResponse = await MyApi.callPostApi(
+        url: url,
+        myHeaders: header,
+        body: updateBody,
+        modelName: Models.packageOrderModel,
+      );
+
+      if (packageOrderResponse.code == 1) {
+        _logger.i(
+            "packageOrderResponse: ${packageOrderResponse.toJson()}, ${packageOrderResponse.message.toString()}");
+
+        Toasts.getSuccessToast(
+          text: packageOrderResponse.message.toString(),
+        );
+
+        isPackageOrdersSaved = true;
+
+        //clear the data lists
+        additionalList.clear();
+        paramPassengerBody.clear();
+
+        _loader.hideLoader(context!);
+        notifyListeners();
+      } else {
+        _logger.e("oneWayOrdersTripResponse: Something wrong");
+        _loader.hideLoader(context!);
+      }
+    } catch (e) {
+      _logger.e("savePackageOrdersError: ${e.toString()}");
+      _loader.hideLoader(context!);
+    }
+  }
+
   /// Skip Hotel One From Screen
   Future<void> skipHotelOneFromScreen({
     required int packageId,
@@ -108,30 +191,6 @@ class PackageHotelTripOneProvider with ChangeNotifier {
       _logger.i("additionalList: ${additionalList.map((e) => e)}");
       _logger.i("paramPassengerBody: ${paramPassengerBody.map((e) => e)}");
 
-      // //TODO: Checkout hotel issue,
-      // var newHotelBody = [];
-      // for (int i = 0; i < hotelRoomBody.length; i++) {
-      //   if (hotelRoomBody[i]['rooms_number'] > 0 &&
-      //       hotelRoomBody[i]['days'] > 0) {
-      //     newHotelBody.add(hotelRoomBody[i]);
-      //     _logger.i("newHotelBodyFor:$newHotelBody");
-      //   }
-      //   // else {
-      //   //   newHotelBody = [];
-      //   //   _logger.d("newHotelBodyElse:$newHotelBody");
-      //   // }
-      // }
-
-      // final body = {
-      //   "package_id": packageId,
-      //   "count": passengerCounts,
-      //   "code": "",
-      //   "passengers": paramPassengerBody,
-      //   "additional": additionalList,
-      //   "hotel_rooms": [],
-      //   "user_notes": ""
-      // };
-
       final updateBody = {
         "package_id": packageId,
         "count": passengerCounts,
@@ -144,7 +203,6 @@ class PackageHotelTripOneProvider with ChangeNotifier {
       };
 
       _logger.i("apiBody:$updateBody");
-
       packageOrderResponse = await MyApi.callPostApi(
         url: url,
         myHeaders: header,

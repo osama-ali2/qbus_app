@@ -466,6 +466,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
 
                       var firstTripId = data.firstTripId;
                       var secondTripId = data.secondTripId;
+
+                      var isHotelRoomTripOneEmpty =
+                          data.hotelRoomTripOne!.isEmpty;
+                      var isHotelRoomTripTwoEmpty =
+                          data.hotelRoomTripTwo!.isEmpty;
+
                       return Padding(
                         padding:
                             EdgeInsets.only(bottom: sizes!.heightRatio * 8.0),
@@ -484,6 +490,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                                     data.hotelRoomTripOne!.isEmpty,
                                 firstTripId: firstTripId!,
                                 secondTripId: secondTripId!,
+                                isHotelRoomTripOneEmpty:
+                                    isHotelRoomTripOneEmpty,
+                                isHotelRoomTripTwoEmpty:
+                                    isHotelRoomTripTwoEmpty,
                               ),
                             );
                           },

@@ -19,6 +19,8 @@ class PackageDetailScreen extends StatefulWidget {
   final bool isHotelTripeOneEmpty;
   final int firstTripId;
   final int secondTripId;
+  final bool isHotelRoomTripOneEmpty;
+  final bool isHotelRoomTripTwoEmpty;
 
   const PackageDetailScreen({
     Key? key,
@@ -27,6 +29,8 @@ class PackageDetailScreen extends StatefulWidget {
     required this.isHotelTripeOneEmpty,
     required this.firstTripId,
     required this.secondTripId,
+    required this.isHotelRoomTripOneEmpty,
+    required this.isHotelRoomTripTwoEmpty,
   }) : super(key: key);
 
   @override
@@ -102,12 +106,6 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                           errorWidget: (context, url, error) =>
                               const Icon(Icons.error),
                         ),
-                        // Image.asset(
-                        //   "assets/png/thumbnail.png",
-                        //   fit: BoxFit.fill,
-                        //   height: sizes!.heightRatio * 185,
-                        //   width: sizes!.widthRatio * 375,
-                        // ),
                       ),
                       CommonPadding.sizeBoxWithHeight(height: 16),
                       Row(
@@ -287,6 +285,10 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                                       widget.isHotelTripeOneEmpty,
                                   firstTripId: widget.firstTripId,
                                   secondTripId: widget.secondTripId,
+                                  isHotelRoomTripOneEmpty:
+                                      widget.isHotelRoomTripOneEmpty,
+                                  isHotelRoomTripTwoEmpty:
+                                      widget.isHotelRoomTripTwoEmpty,
                                 ),
                               ),
                             );
@@ -305,6 +307,10 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                                         widget.isHotelTripeOneEmpty,
                                     firstTripId: widget.firstTripId,
                                     secondTripId: widget.secondTripId,
+                                    isHotelRoomTripOneEmpty:
+                                        widget.isHotelRoomTripOneEmpty,
+                                    isHotelRoomTripTwoEmpty:
+                                        widget.isHotelRoomTripTwoEmpty,
                                   ),
                                 ));
                           }
