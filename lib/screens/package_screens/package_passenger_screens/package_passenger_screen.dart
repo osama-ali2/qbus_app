@@ -225,6 +225,7 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
                 paramPassengerBody: _passengerBody,
                 paramAdditionalList: widget.additionalList,
                 secondTripId: widget.secondTripId,
+                hotelOneBody: [],
               ),
             ));
       } else {
@@ -248,30 +249,4 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
       }
     }
   }
-
-// /// Save Trip Order
-// Future<void> _saveTripOrderWithEmptyHotelAndAdditional() async {
-//   /// call API with Hotel and Additional Data empty
-//   debugPrint(
-//       "fromFunOnPassengerScreen: ${widget.additionalList.map((e) => e)}");
-//   await hotelProvider.oneWayOrderTripCallFromPassengerScreen(
-//     tripId: widget.packageId,
-//     passengerCounts: widget.passengerCount.toString(),
-//     paramPassengerBody: _passengerBody,
-//     additionalList: widget.additionalList,
-//   );
-//
-//   if (hotelProvider.isOneWayOrderTripSaved) {
-//     if (!mounted) return;
-//     var tripId = hotelProvider.oneWayOrdersTripResponse.data!.tripId;
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) => ReviewOrderScreen(
-//           tripId: tripId!,
-//         ),
-//       ),
-//     );
-//   }
-// }
 }

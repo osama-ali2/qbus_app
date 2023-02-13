@@ -17,6 +17,7 @@ class PackageHotelTripTwoScreen extends StatefulWidget {
   final String passengerCounts;
   final List<Map<String, dynamic>> paramPassengerBody;
   final List<Map<String, dynamic>> paramAdditionalList;
+  final List<Map<String, dynamic>> hotelOneBody;
 
   const PackageHotelTripTwoScreen({
     Key? key,
@@ -25,6 +26,7 @@ class PackageHotelTripTwoScreen extends StatefulWidget {
     required this.paramAdditionalList,
     required this.secondTripId,
     required this.packageId,
+    required this.hotelOneBody,
   }) : super(key: key);
 
   @override
@@ -351,6 +353,7 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
       passengerCounts: int.parse(widget.passengerCounts),
       paramPassengerBody: widget.paramPassengerBody,
       additionalList: widget.paramAdditionalList,
+      hotelOneBody: widget.hotelOneBody,
     );
 
     /// One way order Trip save successfully
@@ -382,6 +385,7 @@ class _PackageHotelTripTwoScreenState extends State<PackageHotelTripTwoScreen> {
       passengerCounts: int.parse(widget.passengerCounts),
       paramPassengerBody: widget.paramPassengerBody,
       additionalList: widget.paramAdditionalList,
+      hotelOneBody: widget.hotelOneBody,
     );
 
     if (packageHotelTripTwoProvider.isPackageOrdersSaved) {
