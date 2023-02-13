@@ -122,12 +122,12 @@ class PackageHotelTripTwoProvider with ChangeNotifier {
         }
       }
 
-      //TODO: Checkout hotel One issue,
+      // //TODO: Checkout hotel One issue,
       var newHotelOneBody = [];
       for (int i = 0; i < hotelOneBody.length; i++) {
         if (hotelOneBody[i]['rooms_number'] > 0 &&
             hotelOneBody[i]['days'] > 0) {
-          hotelOneBody.add(hotelOneBody[i]);
+          newHotelOneBody.add(hotelOneBody[i]);
           _logger.i("newHotelOneBody:$hotelOneBody");
         }
       }
@@ -213,26 +213,12 @@ class PackageHotelTripTwoProvider with ChangeNotifier {
       _logger.i("additionalList: ${additionalList.map((e) => e)}");
       _logger.i("paramPassengerBody: ${paramPassengerBody.map((e) => e)}");
 
-      // //TODO: Checkout hotel issue,
-      // var newHotelBody = [];
-      // for (int i = 0; i < hotelRoomBody.length; i++) {
-      //   if (hotelRoomBody[i]['rooms_number'] > 0 &&
-      //       hotelRoomBody[i]['days'] > 0) {
-      //     newHotelBody.add(hotelRoomBody[i]);
-      //     _logger.i("newHotelBodyFor:$newHotelBody");
-      //   }
-      //   // else {
-      //   //   newHotelBody = [];
-      //   //   _logger.d("newHotelBodyElse:$newHotelBody");
-      //   // }
-      // }
-
-      //TODO: Checkout hotel One issue,
+      // //TODO: Checkout hotel One issue,
       var newHotelOneBody = [];
       for (int i = 0; i < hotelOneBody.length; i++) {
         if (hotelOneBody[i]['rooms_number'] > 0 &&
             hotelOneBody[i]['days'] > 0) {
-          hotelOneBody.add(hotelOneBody[i]);
+          newHotelOneBody.add(hotelOneBody[i]);
           _logger.i("newHotelOneBody:$hotelOneBody");
         }
       }
