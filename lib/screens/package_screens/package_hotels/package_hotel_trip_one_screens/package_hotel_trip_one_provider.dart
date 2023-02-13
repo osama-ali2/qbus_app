@@ -122,22 +122,33 @@ class PackageHotelTripOneProvider with ChangeNotifier {
       //   // }
       // }
 
-      final body = {
+      // final body = {
+      //   "package_id": packageId,
+      //   "count": passengerCounts,
+      //   "code": "",
+      //   "passengers": paramPassengerBody,
+      //   "additional": additionalList,
+      //   "hotel_rooms": [],
+      //   "user_notes": ""
+      // };
+
+      final updateBody = {
         "package_id": packageId,
         "count": passengerCounts,
         "code": "",
         "passengers": paramPassengerBody,
         "additional": additionalList,
-        "hotel_rooms": [],
+        "hotel_rooms_one": [],
+        "hotel_rooms_two": [],
         "user_notes": ""
       };
 
-      _logger.i("apiBody:$body");
+      _logger.i("apiBody:$updateBody");
 
       packageOrderResponse = await MyApi.callPostApi(
         url: url,
         myHeaders: header,
-        body: body,
+        body: updateBody,
         modelName: Models.packageOrderModel,
       );
 

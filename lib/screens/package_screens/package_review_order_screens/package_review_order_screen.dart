@@ -12,7 +12,6 @@ import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'package_review_order_provider.dart';
 
 class PackageReviewOrderScreen extends StatefulWidget {
@@ -80,48 +79,15 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                           quantity: packageReviewOrderProvider
                                   .packageOrderReviewResponse.data?.count
                                   .toString() ??
-                              "0",
+                              "00.00",
                           fromTime: packageReviewOrderProvider
                                   .packageOrderReviewResponse.data?.timeFrom
                                   .toString() ??
                               "null",
-                          // fromCity:
-                          // packageReviewOrderProvider
-                          //         .packageOrderReviewResponse
-                          //         .data
-                          //         ?.fromCity
-                          //         ?.name
-                          //         ?.en
-                          //         .toString() ??
-                          // packageReviewOrderProvider
-                          //         .packageOrderReviewResponse
-                          //         .data
-                          //         ?.fromCity
-                          //         ?.name
-                          //         ?.ar
-                          //         .toString() ??
-                          // "null",
-                          // toTime: packageReviewOrderProvider
-                          //         .packageOrderReviewResponse.data?.timeTo
-                          //         .toString() ??
-                          //     "null",
-                          // toCity:
-                          // packageReviewOrderProvider.packageOrderReviewResponse
-                          //         .data?.toCity?.name?.en
-                          //         .toString() ??
-
-                          // packageReviewOrderProvider
-                          //         .packageOrderReviewResponse
-                          //         .data
-                          //         ?.toCity
-                          //         ?.name
-                          //         ?.ar
-                          //          .toString() ??
-                          // "null",
                           price: packageReviewOrderProvider
                                   .packageOrderReviewResponse.data?.fees
                                   .toString() ??
-                              "00.0",
+                              "00.00",
                         )
                       : Center(
                           child: Text(AppLocalizations.of(context)!.no_data),
@@ -218,7 +184,7 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                     value: packageReviewOrderProvider
                             .packageOrderReviewResponse.data?.tax
                             .toString() ??
-                        "49.05",
+                        "00.00",
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 5),
                   const Divider(
@@ -231,7 +197,7 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                     value: packageReviewOrderProvider
                             .packageOrderReviewResponse.data?.total
                             .toString() ??
-                        "00.0",
+                        "00.00",
                   ),
                   CommonPadding.sizeBoxWithHeight(height: 20),
                   CustomButton(
@@ -299,9 +265,6 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
     required String packageName,
     required String quantity,
     required String fromTime,
-    // required String fromCity,
-    // required String toTime,
-    // required String toCity,
     required String price,
   }) =>
       Column(
@@ -321,7 +284,6 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                   color: AppColors.black900,
                   lines: 1,
                 ),
-
                 CommonPadding.sizeBoxWithWidth(width: 10),
                 TextView.getGenericText(
                   text: "$packageName ",
@@ -332,82 +294,7 @@ class _PackageReviewOrderScreenState extends State<PackageReviewOrderScreen> {
                   lines: 1,
                 ),
                 const Spacer(),
-                // SvgPicture.asset(
-                //   "assets/svg/skip_icon.svg",
-                //   height: sizes!.heightRatio * 24,
-                //   width: sizes!.widthRatio * 24,
-                //   color: AppColors.black900,
-                // ),
-                // TextView.getGenericText(
-                //     text: "$toTime ",
-                //     fontFamily: Assets.latoRegular,
-                //     fontSize: 14,
-                //     fontWeight: FontWeight.w400,
-                //     color: AppColors.black900,
-                //     lines: 1),
                 CommonPadding.sizeBoxWithWidth(width: 10),
-
-                Container(
-                  height: sizes!.heightRatio * 20,
-                  width: sizes!.widthRatio * 55,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5), color: appColor),
-                  child: Center(
-                    child: CustomText(
-                        text: " ريال$price",
-                        textSize: sizes!.fontRatio * 10,
-                        fontWeight: FontWeight.normal,
-                        textColor: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const Divider(
-            color: AppColors.borderColor,
-            thickness: 1,
-          ),
-          Container(
-            height: sizes!.heightRatio * 50,
-            width: sizes!.width,
-            decoration: const BoxDecoration(color: Colors.transparent),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextView.getGenericText(
-                  text: "X$quantity",
-                  fontFamily: Assets.latoRegular,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black900,
-                  lines: 1,
-                ),
-
-                CommonPadding.sizeBoxWithWidth(width: 10),
-                TextView.getGenericText(
-                  text: "$fromTime ",
-                  fontFamily: Assets.latoRegular,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.black900,
-                  lines: 1,
-                ),
-                const Spacer(),
-                // SvgPicture.asset(
-                //   "assets/svg/skip_icon.svg",
-                //   height: sizes!.heightRatio * 24,
-                //   width: sizes!.widthRatio * 24,
-                //   color: AppColors.black900,
-                // ),
-                // TextView.getGenericText(
-                //     text: "$toTime ",
-                //     fontFamily: Assets.latoRegular,
-                //     fontSize: 14,
-                //     fontWeight: FontWeight.w400,
-                //     color: AppColors.black900,
-                //     lines: 1),
-                CommonPadding.sizeBoxWithWidth(width: 10),
-
                 Container(
                   height: sizes!.heightRatio * 20,
                   width: sizes!.widthRatio * 55,

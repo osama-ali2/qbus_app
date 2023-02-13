@@ -91,6 +91,7 @@ class PackageHotelTripTwoProvider with ChangeNotifier {
     required int passengerCounts,
     required List<Map<String, dynamic>> additionalList,
     required List<Map<String, dynamic>> paramPassengerBody,
+    required List<Map<String, dynamic>> hotelOneBody,
   }) async {
     try {
       _loader.showLoader(context: context);
@@ -108,37 +109,56 @@ class PackageHotelTripTwoProvider with ChangeNotifier {
       _logger.i("packageId: $packageId");
       _logger.i("additionalList: ${additionalList.map((e) => e)}");
       _logger.i("paramPassengerBody: ${paramPassengerBody.map((e) => e)}");
+      _logger.i("hotelRoomBody: ${hotelRoomBody.map((e) => e)}");
+      _logger.i("hotelOneBody: ${hotelOneBody.map((e) => e)}");
 
-      //TODO: Checkout hotel issue,
-      var newHotelBody = [];
+      //TODO: Checkout hotel Two issue,
+      var newHotelTwoBody = [];
       for (int i = 0; i < hotelRoomBody.length; i++) {
         if (hotelRoomBody[i]['rooms_number'] > 0 &&
             hotelRoomBody[i]['days'] > 0) {
-          newHotelBody.add(hotelRoomBody[i]);
-          _logger.i("newHotelBodyFor:$newHotelBody");
+          newHotelTwoBody.add(hotelRoomBody[i]);
+          _logger.i("newHotelTwoBody:$newHotelTwoBody");
         }
-        // else {
-        //   newHotelBody = [];
-        //   _logger.d("newHotelBodyElse:$newHotelBody");
-        // }
       }
 
-      final body = {
+      //TODO: Checkout hotel One issue,
+      var newHotelOneBody = [];
+      for (int i = 0; i < hotelOneBody.length; i++) {
+        if (hotelOneBody[i]['rooms_number'] > 0 &&
+            hotelOneBody[i]['days'] > 0) {
+          hotelOneBody.add(hotelOneBody[i]);
+          _logger.i("newHotelOneBody:$hotelOneBody");
+        }
+      }
+
+      // final body = {
+      //   "package_id": packageId,
+      //   "count": passengerCounts,
+      //   "code": "",
+      //   "passengers": paramPassengerBody,
+      //   "additional": additionalList,
+      //   "hotel_rooms": newHotelBody,
+      //   "user_notes": ""
+      // };
+
+      final updateBody = {
         "package_id": packageId,
         "count": passengerCounts,
         "code": "",
         "passengers": paramPassengerBody,
         "additional": additionalList,
-        "hotel_rooms": newHotelBody,
+        "hotel_rooms_one": newHotelOneBody,
+        "hotel_rooms_two": newHotelTwoBody,
         "user_notes": ""
       };
 
-      _logger.i("apiBody:$body");
+      _logger.i("apiBody:$updateBody");
 
       packageOrderResponse = await MyApi.callPostApi(
         url: url,
         myHeaders: header,
-        body: body,
+        body: updateBody,
         modelName: Models.packageOrderModel,
       );
 
@@ -174,6 +194,7 @@ class PackageHotelTripTwoProvider with ChangeNotifier {
     required int passengerCounts,
     required List<Map<String, dynamic>> additionalList,
     required List<Map<String, dynamic>> paramPassengerBody,
+    required List<Map<String, dynamic>> hotelOneBody,
   }) async {
     try {
       _loader.showLoader(context: context);
@@ -206,22 +227,33 @@ class PackageHotelTripTwoProvider with ChangeNotifier {
       //   // }
       // }
 
-      final body = {
+      //TODO: Checkout hotel One issue,
+      var newHotelOneBody = [];
+      for (int i = 0; i < hotelOneBody.length; i++) {
+        if (hotelOneBody[i]['rooms_number'] > 0 &&
+            hotelOneBody[i]['days'] > 0) {
+          hotelOneBody.add(hotelOneBody[i]);
+          _logger.i("newHotelOneBody:$hotelOneBody");
+        }
+      }
+
+      final updateBody = {
         "package_id": packageId,
         "count": passengerCounts,
         "code": "",
         "passengers": paramPassengerBody,
         "additional": additionalList,
-        "hotel_rooms": [],
+        "hotel_rooms_one": newHotelOneBody,
+        "hotel_rooms_two": [],
         "user_notes": ""
       };
 
-      _logger.i("apiBody:$body");
+      _logger.i("apiBody:$updateBody");
 
       packageOrderResponse = await MyApi.callPostApi(
         url: url,
         myHeaders: header,
-        body: body,
+        body: updateBody,
         modelName: Models.packageOrderModel,
       );
 

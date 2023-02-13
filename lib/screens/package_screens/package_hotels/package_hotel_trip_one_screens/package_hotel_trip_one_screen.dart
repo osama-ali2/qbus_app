@@ -244,6 +244,7 @@ class _PackageHotelTripOneScreenState extends State<PackageHotelTripOneScreen> {
                             paramPassengerBody: widget.paramPassengerBody,
                             paramAdditionalList: widget.paramAdditionalList,
                             secondTripId: widget.secondTripId,
+                            hotelOneBody: packageHotelProvider.hotelRoomBody,
                           ),
                         ),
                       );
@@ -344,28 +345,42 @@ class _PackageHotelTripOneScreenState extends State<PackageHotelTripOneScreen> {
 
   /// Skip And Save Trip Order
   Future<void> _skipAndSaveTripOrder() async {
-    /// Skipping the hotels
-    debugPrint(
-        "SkippingHotelAdditional: ${widget.paramAdditionalList.map((e) => e)}");
-    await packageHotelProvider.skipHotelOneFromScreen(
-      packageId: widget.packageId,
-      passengerCounts: int.parse(widget.passengerCounts),
-      paramPassengerBody: widget.paramPassengerBody,
-      additionalList: widget.paramAdditionalList,
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PackageHotelTripTwoScreen(
+          packageId: widget.packageId,
+          passengerCounts: widget.passengerCounts,
+          paramPassengerBody: widget.paramPassengerBody,
+          paramAdditionalList: widget.paramAdditionalList,
+          secondTripId: widget.secondTripId,
+          hotelOneBody: [],
+        ),
+      ),
     );
 
-    if (packageHotelProvider.isPackageOrdersSaved) {
-      if (!mounted) return;
-      var tripId =
-          packageHotelProvider.packageOrderResponse.data!.packageOrderId;
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ReviewOrderScreen(
-            tripId: tripId!,
-          ),
-        ),
-      );
-    }
+    /// Skipping the hotels
+    // debugPrint(
+    //     "SkippingHotelAdditional: ${widget.paramAdditionalList.map((e) => e)}");
+    // await packageHotelProvider.skipHotelOneFromScreen(
+    //   packageId: widget.packageId,
+    //   passengerCounts: int.parse(widget.passengerCounts),
+    //   paramPassengerBody: widget.paramPassengerBody,
+    //   additionalList: widget.paramAdditionalList,
+    // );
+    //
+    // if (packageHotelProvider.isPackageOrdersSaved) {
+    //   if (!mounted) return;
+    //   var tripId =
+    //       packageHotelProvider.packageOrderResponse.data!.packageOrderId;
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (context) => ReviewOrderScreen(
+    //         tripId: tripId!,
+    //       ),
+    //     ),
+    //   );
+    // }
   }
 }
