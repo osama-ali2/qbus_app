@@ -98,7 +98,8 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
 
   void _addFields() {
     if (widget.passengerCount > 10) {
-      Toasts.getWarningToast(text: "Only 10 Passengers allowed");
+      Toasts.getWarningToast(
+          text: AppLocalizations.of(context)!.only_10_Passengers_allowed);
     } else {
       for (int i = 0; i < widget.passengerCount; i++) {
         final fullNameController = TextEditingController();
@@ -177,9 +178,13 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
 
   /// Validate The data
   void _validateData() async {
+    // Is user enter values
+    bool isDataValidate = false;
+
     for (int i = 0; i < widget.passengerCount; i++) {
-      if (_fullNameControllers[i].value.text.isNotEmpty ||
-          _idNumberControllers[i].value.text.isNotEmpty) {
+      if (_fullNameControllers[i].value.text.isNotEmpty &&
+          _idNumberControllers[i].value.text.isNotEmpty &&
+          _idNumberControllers[i].value.text.length <= 10) {
         var fullName = _fullNameControllers[i].value.text.toString().trim();
         var idNumber = _idNumberControllers[i].value.text.toString().trim();
 
@@ -201,36 +206,45 @@ class _PassengerScreenState extends State<RoundTripPassengerScreen> {
         debugPrint("paraPassengerBody: [$i] $paraPassengerBody");
         passengerBody.add(paraPassengerBody);
         debugPrint("passengerBody: ${passengerBody.map((e) => e)} ");
+        isDataValidate = true;
+      } else if (_idNumberControllers[i].value.text.length > 10) {
+        Toasts.getWarningToast(
+            text: AppLocalizations.of(context)!.max_input_id_10);
+        isDataValidate = false;
       } else {
         Toasts.getWarningToast(
             text: AppLocalizations.of(context)!.required_fields);
+        isDataValidate = false;
       }
     }
 
-    if (widget.isHotelEmpty == true) {
-      debugPrint("isHotelEmpty: ${widget.isHotelEmpty}");
-      // Step Two Trip
-      _stepTwoTrip();
-    } else {
-      // Round Trip Hotel Screen
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => RoundTripHotelScreen(
-            tripId: widget.tripId,
-            passengerCounts: widget.passengerCount.toString(),
-            paramPassengerBody: passengerBody,
-            paramAdditionalList: widget.additionalList,
-            tripFilterModel: widget.tripFilterModel,
-            fromCity: widget.fromCity,
-            toCity: widget.toCity,
-            isRoundTripChecked: widget.isRoundTripChecked,
-            firstTripModel: widget.firstTripModel,
-            tripFirstPassengersCount: widget.passengerCount.toString(),
-            tripFirstAdditionalList: widget.tripFirstAdditionalList,
+    /// Validate Data
+    if (isDataValidate == true) {
+      if (widget.isHotelEmpty == true) {
+        debugPrint("isHotelEmpty: ${widget.isHotelEmpty}");
+        // Step Two Trip
+        _stepTwoTrip();
+      } else {
+        // Round Trip Hotel Screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RoundTripHotelScreen(
+              tripId: widget.tripId,
+              passengerCounts: widget.passengerCount.toString(),
+              paramPassengerBody: passengerBody,
+              paramAdditionalList: widget.additionalList,
+              tripFilterModel: widget.tripFilterModel,
+              fromCity: widget.fromCity,
+              toCity: widget.toCity,
+              isRoundTripChecked: widget.isRoundTripChecked,
+              firstTripModel: widget.firstTripModel,
+              tripFirstPassengersCount: widget.passengerCount.toString(),
+              tripFirstAdditionalList: widget.tripFirstAdditionalList,
+            ),
           ),
-        ),
-      );
+        );
+      }
     }
   }
 

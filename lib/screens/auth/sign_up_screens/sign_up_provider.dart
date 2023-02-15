@@ -100,7 +100,7 @@ class SignUpProvider with ChangeNotifier {
         _logger.d("getCitiesResponse: ${getCitiesResponse.toJson()}");
 
         for (int i = 0; i < getCitiesResponse.data!.cites!.length; i++) {
-          var name = getCitiesResponse.data!.cites![i].name!.en.toString();
+          var name = getCitiesResponse.data!.cites![i].name!.ar.toString();
           var id = getCitiesResponse.data!.cites![i].id.toString();
           _logger.d("name: $name");
           cityList.add(name);

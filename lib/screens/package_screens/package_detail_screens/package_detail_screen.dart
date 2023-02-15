@@ -19,6 +19,8 @@ class PackageDetailScreen extends StatefulWidget {
   final bool isHotelTripeOneEmpty;
   final int firstTripId;
   final int secondTripId;
+  final bool isHotelRoomTripOneEmpty;
+  final bool isHotelRoomTripTwoEmpty;
 
   const PackageDetailScreen({
     Key? key,
@@ -27,6 +29,8 @@ class PackageDetailScreen extends StatefulWidget {
     required this.isHotelTripeOneEmpty,
     required this.firstTripId,
     required this.secondTripId,
+    required this.isHotelRoomTripOneEmpty,
+    required this.isHotelRoomTripTwoEmpty,
   }) : super(key: key);
 
   @override
@@ -102,12 +106,6 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                           errorWidget: (context, url, error) =>
                               const Icon(Icons.error),
                         ),
-                        // Image.asset(
-                        //   "assets/png/thumbnail.png",
-                        //   fit: BoxFit.fill,
-                        //   height: sizes!.heightRatio * 185,
-                        //   width: sizes!.widthRatio * 375,
-                        // ),
                       ),
                       CommonPadding.sizeBoxWithHeight(height: 16),
                       Row(
@@ -143,7 +141,7 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
 
                         packageDetailProvider.packageDetailResponse.data!
                                 .packages?.description ??
-                            "Sed congue risus sit amet massa suscipit travel bibendum. Sed vulputate nec dolor at a tempus. Vestibulum a dolor posuere sapien laoreet trip a iaculis sit amet nec ipsum. Integer ac sapien on orci. Etiam quis neque eros. Sed enim an mauris, viverra sit amet velit non, maximus ullamcorper mauris. Sed fringilla velit a mollis vehicul travel.",
+                            "...",
                         Assets.latoBold,
                         color: AppColors.gray300,
                         fontWeight: FontWeight.w400,
@@ -212,7 +210,8 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                       ).get20HorizontalPadding(),
                       // CommonPadding.sizeBoxWithHeight(height: 16),
                       TextView.getMediumText16(
-                              "Departure Date: ${packageDetailProvider.packageDetailResponse.data!.packages!.dateFrom.toString()}",
+                              AppLocalizations.of(context)!.departure_date +
+                                  " ${packageDetailProvider.packageDetailResponse.data!.packages!.dateFrom.toString()}",
                               Assets.latoBold,
                               color: AppColors.black900,
                               fontWeight: FontWeight.w500,
@@ -220,7 +219,8 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                           .get20HorizontalPadding(),
                       CommonPadding.sizeBoxWithHeight(height: 8),
                       TextView.getMediumText14(
-                        "Time From: ${packageDetailProvider.packageDetailResponse.data!.packages!.timeFrom}",
+                        AppLocalizations.of(context)!.start_time +
+                            " ${packageDetailProvider.packageDetailResponse.data!.packages!.timeFrom}",
                         Assets.latoRegular,
                         color: AppColors.gray300,
                         fontWeight: FontWeight.w400,
@@ -287,6 +287,10 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                                       widget.isHotelTripeOneEmpty,
                                   firstTripId: widget.firstTripId,
                                   secondTripId: widget.secondTripId,
+                                  isHotelRoomTripOneEmpty:
+                                      widget.isHotelRoomTripOneEmpty,
+                                  isHotelRoomTripTwoEmpty:
+                                      widget.isHotelRoomTripTwoEmpty,
                                 ),
                               ),
                             );
@@ -305,6 +309,10 @@ class _PackageDetailScreenState extends State<PackageDetailScreen> {
                                         widget.isHotelTripeOneEmpty,
                                     firstTripId: widget.firstTripId,
                                     secondTripId: widget.secondTripId,
+                                    isHotelRoomTripOneEmpty:
+                                        widget.isHotelRoomTripOneEmpty,
+                                    isHotelRoomTripTwoEmpty:
+                                        widget.isHotelRoomTripTwoEmpty,
                                   ),
                                 ));
                           }

@@ -57,18 +57,18 @@ class PackageOrderReviewResponse {
 class Data {
   Data({
     Name? name,
-    int? count,
-    int? fees,
+    dynamic count,
+    dynamic fees,
     String? timeFrom,
     dynamic timeTo,
     String? dateFrom,
     String? dateTo,
     List<HotelsRooms>? hotelsRooms,
     List<Additionals>? additionals,
-    int? discount,
-    double? tax,
+    dynamic discount,
+    dynamic tax,
     String? taxType,
-    int? total,
+    dynamic total,
   }) {
     _name = name;
     _count = count;
@@ -112,24 +112,24 @@ class Data {
   }
 
   Name? _name;
-  int? _count;
-  int? _fees;
+  dynamic _count;
+  dynamic _fees;
   String? _timeFrom;
   dynamic _timeTo;
   String? _dateFrom;
   String? _dateTo;
   List<HotelsRooms>? _hotelsRooms;
   List<Additionals>? _additionals;
-  int? _discount;
-  double? _tax;
+  dynamic _discount;
+  dynamic _tax;
   String? _taxType;
-  int? _total;
+  dynamic _total;
 
   Name? get name => _name;
 
-  int? get count => _count;
+  dynamic get count => _count;
 
-  int? get fees => _fees;
+  dynamic get fees => _fees;
 
   String? get timeFrom => _timeFrom;
 
@@ -143,13 +143,13 @@ class Data {
 
   List<Additionals>? get additionals => _additionals;
 
-  int? get discount => _discount;
+  dynamic get discount => _discount;
 
-  double? get tax => _tax;
+  dynamic get tax => _tax;
 
   String? get taxType => _taxType;
 
-  int? get total => _total;
+  dynamic get total => _total;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -184,8 +184,8 @@ class Data {
 class Additionals {
   Additionals({
     String? id,
-    int? fees,
-    int? count,
+    dynamic fees,
+    dynamic count,
     String? name,
   }) {
     _id = id;
@@ -202,15 +202,15 @@ class Additionals {
   }
 
   String? _id;
-  int? _fees;
-  int? _count;
+  dynamic _fees;
+  dynamic _count;
   String? _name;
 
   String? get id => _id;
 
-  int? get fees => _fees;
+  dynamic get fees => _fees;
 
-  int? get count => _count;
+  dynamic get count => _count;
 
   String? get name => _name;
 
@@ -231,10 +231,10 @@ class Additionals {
 
 class HotelsRooms {
   HotelsRooms({
-    int? days,
+    dynamic days,
     Name? name,
     CityName? cityName,
-    int? fees,
+    dynamic fees,
   }) {
     _days = days;
     _name = name;
@@ -250,18 +250,18 @@ class HotelsRooms {
     _fees = json['fees'];
   }
 
-  int? _days;
+  dynamic _days;
   Name? _name;
   CityName? _cityName;
-  int? _fees;
+  dynamic _fees;
 
-  int? get days => _days;
+  dynamic get days => _days;
 
   Name? get name => _name;
 
   CityName? get cityName => _cityName;
 
-  int? get fees => _fees;
+  dynamic get fees => _fees;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

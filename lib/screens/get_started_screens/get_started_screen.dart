@@ -374,7 +374,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               number: passengersNumber,
               onAdd: () {
                 if (passengersNumber > 9) {
-                  Toasts.getWarningToast(text: "Only 10 Passengers Allowed");
+                  Toasts.getWarningToast(
+                      text: AppLocalizations.of(context)!
+                          .only_10_Passengers_allowed);
                 } else {
                   passengersNumber++;
                   setState(() {});
@@ -466,6 +468,12 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
 
                       var firstTripId = data.firstTripId;
                       var secondTripId = data.secondTripId;
+
+                      var isHotelRoomTripOneEmpty =
+                          data.hotelRoomTripOne!.isEmpty;
+                      var isHotelRoomTripTwoEmpty =
+                          data.hotelRoomTripTwo!.isEmpty;
+
                       return Padding(
                         padding:
                             EdgeInsets.only(bottom: sizes!.heightRatio * 8.0),
@@ -484,6 +492,10 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                                     data.hotelRoomTripOne!.isEmpty,
                                 firstTripId: firstTripId!,
                                 secondTripId: secondTripId!,
+                                isHotelRoomTripOneEmpty:
+                                    isHotelRoomTripOneEmpty,
+                                isHotelRoomTripTwoEmpty:
+                                    isHotelRoomTripTwoEmpty,
                               ),
                             );
                           },

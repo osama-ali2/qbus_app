@@ -139,6 +139,14 @@ class _PackageScreenState extends State<PackageScreen> {
                               var firstTripId = data.firstTripId;
                               var secondTripId = data.secondTripId;
 
+                              var isHotelRoomTripOneEmpty =
+                                  data.hotelRoomTripOne!.isEmpty;
+                              var isHotelRoomTripTwoEmpty =
+                                  data.hotelRoomTripTwo!.isEmpty;
+
+                              debugPrint(
+                                  "isHotelRoomTripOneEmpty: $isHotelRoomTripOneEmpty\n isHotelRoomTripTwoEmpty: $isHotelRoomTripTwoEmpty");
+
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 8.0),
                                 child: GestureDetector(
@@ -154,6 +162,10 @@ class _PackageScreenState extends State<PackageScreen> {
                                             data.hotelRoomTripOne!.isEmpty,
                                         firstTripId: firstTripId!,
                                         secondTripId: secondTripId!,
+                                        isHotelRoomTripOneEmpty:
+                                            isHotelRoomTripOneEmpty,
+                                        isHotelRoomTripTwoEmpty:
+                                            isHotelRoomTripTwoEmpty,
                                       ),
                                     );
                                   },

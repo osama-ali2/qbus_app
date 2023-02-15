@@ -115,5 +115,13 @@
   "additional": "Additional",
   "room_quantity": "Room Quantity",
   "max_adults": "Max Adults",
-  "hotel_name": "Hotel Name"
+  "hotel_name": "Hotel Name",
+  "max_input_id_10": "The length of the ID must not exceed 10 digits.",
+  "enter_mobile_number_get_activation_code": "Enter your mobile number to get activation code",
+  "submit": "Submit",
+  "mobile_number_required": "Mobile Number is required",
+  "mobile_number_length": "The length of the phone number must not be less than 8 digits",
+  "update_profile": "Update profile",
+  "select_marital_status": "Select marital status",
+  "loading_user_profile": "Loading user profile..."
 }

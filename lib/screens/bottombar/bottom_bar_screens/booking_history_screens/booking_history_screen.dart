@@ -5,8 +5,10 @@ import 'package:provider/provider.dart';
 import 'package:qbus/resources/resources.dart';
 
 import 'package:qbus/utils/constant.dart';
+import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/widgets/text_views.dart';
+import '../package_history_screens/package_history_screen.dart';
 import 'booking_history_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -128,25 +130,25 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                     ),
               CommonPadding.sizeBoxWithHeight(height: 10),
               //TODO: Uncomment Package History Screen later when needed
-              // CustomButton(
-              //     name: "Package History",
-              //     buttonColor: appColor,
-              //     height: sizes!.heightRatio * 45,
-              //     width: double.infinity,
-              //     textSize: sizes!.fontRatio * 14,
-              //     textColor: Colors.white,
-              //     fontWeight: FontWeight.bold,
-              //     borderRadius: 5,
-              //     onTapped: () {
-              //       Navigator.push(
-              //         context,
-              //         MaterialPageRoute(
-              //           builder: (context) => const PackageHistoryScreen(),
-              //         ),
-              //       );
-              //     },
-              //     padding: 20),
-              // CommonPadding.sizeBoxWithHeight(height: 10),
+              CustomButton(
+                  name: "Package History",
+                  buttonColor: appColor,
+                  height: sizes!.heightRatio * 45,
+                  width: double.infinity,
+                  textSize: sizes!.fontRatio * 14,
+                  textColor: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  borderRadius: 5,
+                  onTapped: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PackageHistoryScreen(),
+                      ),
+                    );
+                  },
+                  padding: 20),
+              CommonPadding.sizeBoxWithHeight(height: 10),
             ],
           ),
         ),

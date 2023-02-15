@@ -48,7 +48,7 @@ class PackageHotelTripTwoProvider with ChangeNotifier {
       var url = "$hotelRoomApiUrl$tripId";
       // var url = hotelRoomApiUrl;
       debugPrint("URL: $url");
-      debugPrint("Header: $header");
+      // debugPrint("Header: $header");
 
       hotelRoomResponse = await MyApi.callGetApi(
         url: url,

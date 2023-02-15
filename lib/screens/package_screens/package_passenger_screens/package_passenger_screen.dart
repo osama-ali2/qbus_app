@@ -8,6 +8,7 @@ import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import 'package:qbus/resources/resources.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../package_review_order_screens/package_review_order_screen.dart';
 import 'package_passenger_provider.dart';
 
 class PackagePassengerScreen extends StatefulWidget {
@@ -18,6 +19,9 @@ class PackagePassengerScreen extends StatefulWidget {
   final int firstTripId;
   final int secondTripId;
 
+  final bool isHotelRoomTripOneEmpty;
+  final bool isHotelRoomTripTwoEmpty;
+
   const PackagePassengerScreen({
     Key? key,
     required this.passengerCount,
@@ -26,6 +30,8 @@ class PackagePassengerScreen extends StatefulWidget {
     required this.packageId,
     required this.firstTripId,
     required this.secondTripId,
+    required this.isHotelRoomTripOneEmpty,
+    required this.isHotelRoomTripTwoEmpty,
   }) : super(key: key);
 
   @override
@@ -172,8 +178,9 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
 
     /// Loop throw
     for (int i = 0; i < widget.passengerCount; i++) {
-      if (_fullNameControllers[i].value.text.isNotEmpty ||
-          _idNumberControllers[i].value.text.isNotEmpty) {
+      if (_fullNameControllers[i].value.text.isNotEmpty &&
+          _idNumberControllers[i].value.text.isNotEmpty &&
+          _idNumberControllers[i].value.text.length <= 10) {
         var fullName = _fullNameControllers[i].value.text.toString().trim();
         var idNumber = _idNumberControllers[i].value.text.toString().trim();
 
@@ -197,6 +204,10 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
         _passengerBody.add(paraPassengerBody);
         debugPrint("passengerBody: ${_passengerBody.map((e) => e)} ");
         isDataValidate = true;
+      } else if (_idNumberControllers[i].value.text.length > 10) {
+        Toasts.getWarningToast(
+            text: AppLocalizations.of(context)!.max_input_id_10);
+        isDataValidate = false;
       } else {
         Toasts.getWarningToast(
             text: AppLocalizations.of(context)!.required_fields);
@@ -207,27 +218,32 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
     /// Validate Data
     if (isDataValidate == true) {
       /// Is Hotel Empty, save trip with hotel & additional empty data
-      if (widget.isHotelTripeOneEmpty == true) {
-        debugPrint("isHotelTripeOneEmpty: ${widget.isHotelTripeOneEmpty}");
 
-        /// Save Trip Order
-        //await _saveTripOrderWithEmptyHotelAndAdditional();
+      if (widget.isHotelRoomTripOneEmpty &&
+          widget.isHotelRoomTripTwoEmpty == true) {
+        debugPrint(
+            "isHotelRoomTripOneEmpty: ${widget.isHotelRoomTripOneEmpty}\n isHotelRoomTripTwoEmpty: ${widget.isHotelRoomTripTwoEmpty} ");
+
+        await _skipAndSavePackageOrder(passengerBody: _passengerBody);
+      } else if (widget.isHotelRoomTripOneEmpty == true) {
+        debugPrint("isHotelTripeOneEmpty: ${widget.isHotelTripeOneEmpty}");
 
         debugPrint(
             "packagePassengerScreen: ${widget.packageId}, ${widget.passengerCount.toString()}, $_passengerBody, ${widget.additionalList.map((e) => e)}");
 
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PackageHotelTripTwoScreen(
-                packageId: widget.packageId,
-                passengerCounts: widget.passengerCount.toString(),
-                paramPassengerBody: _passengerBody,
-                paramAdditionalList: widget.additionalList,
-                secondTripId: widget.secondTripId,
-                hotelOneBody: [],
-              ),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => PackageHotelTripTwoScreen(
+              packageId: widget.packageId,
+              passengerCounts: widget.passengerCount.toString(),
+              paramPassengerBody: _passengerBody,
+              paramAdditionalList: widget.additionalList,
+              secondTripId: widget.secondTripId,
+              hotelOneBody: [],
+            ),
+          ),
+        );
       } else {
         /// Hotel and Additional with data
         debugPrint("onPassengerScreen: ${widget.additionalList.map((e) => e)}");
@@ -244,9 +260,40 @@ class _PackagePassengerScreenState extends State<PackagePassengerScreen> {
                 firstTripId: widget.firstTripId,
                 packageId: widget.packageId,
                 secondTripId: widget.secondTripId,
+                isHotelTripTwoEmpty: widget.isHotelRoomTripTwoEmpty,
               ),
             ));
       }
     }
   }
+
+  /// Skip And Save Package Order
+  Future<void> _skipAndSavePackageOrder({
+    required List<Map<String, dynamic>> passengerBody,
+  }) async {
+    /// Skipping the hotels
+    debugPrint(
+        "SkippingHotelAdditional: ${widget.additionalList.map((e) => e)}");
+    await packagePassengerProvider.skipBothHotelFromScreen(
+      packageId: widget.packageId,
+      passengerCounts: widget.passengerCount,
+      paramPassengerBody: passengerBody,
+      additionalList: widget.additionalList,
+    );
+
+    if (packagePassengerProvider.isPackageOrdersSaved) {
+      if (!mounted) return;
+      var packageId =
+          packagePassengerProvider.packageOrderResponse.data!.packageOrderId;
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PackageReviewOrderScreen(
+            packageId: packageId!,
+          ),
+        ),
+      );
+    }
+  }
+
 }
