@@ -9,6 +9,7 @@ import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_button.dart';
 import 'package:qbus/widgets/custom_textField.dart';
 import 'package:qbus/widgets/text_views.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PhoneNumberScreen extends StatefulWidget {
   const PhoneNumberScreen({Key? key}) : super(key: key);
@@ -60,7 +61,8 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                 CommonPadding.sizeBoxWithHeight(height: 30),
                 Center(
                   child: TextView.getMediumText16(
-                      "Enter Your Mobile Number To Get Activation Code",
+                      AppLocalizations.of(context)!
+                          .enter_mobile_number_get_activation_code,
                       Assets.latoBold,
                       color: AppColors.black900,
                       fontWeight: FontWeight.w500,
@@ -73,11 +75,11 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                   padding: 20,
                   validator: (val) => null,
                   inputType: TextInputType.number,
-                  hint: "Mobile Number",
+                  hint: AppLocalizations.of(context)!.mobile_number,
                 ),
-                CommonPadding.sizeBoxWithHeight(height: 80),
+                CommonPadding.sizeBoxWithHeight(height: 30),
                 CustomButton(
-                    name: "Send Code",
+                    name: AppLocalizations.of(context)!.submit,
                     buttonColor: appColor,
                     height: sizes!.heightRatio * 45,
                     width: double.infinity,
@@ -115,7 +117,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
         );
       }
     } else if (phoneNumber.isEmpty) {
-      Toasts.getErrorToast(text: "Mobile Number is required");
+      Toasts.getErrorToast(text: "");
     } else if (phoneNumber.length < 8) {
       Toasts.getErrorToast(text: "The Phone must be at least 8");
     }

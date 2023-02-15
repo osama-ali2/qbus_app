@@ -164,8 +164,9 @@ class _PassengerScreenState extends State<PassengerScreen> {
     // Is user enter values
     bool isDataValidate = false;
     for (int i = 0; i < widget.passengerCount; i++) {
-      if (_fullNameControllers[i].value.text.isNotEmpty ||
-          _idNumberControllers[i].value.text.isNotEmpty) {
+      if (_fullNameControllers[i].value.text.isNotEmpty &&
+          _idNumberControllers[i].value.text.isNotEmpty &&
+          _idNumberControllers[i].value.text.length <= 10) {
         var fullName = _fullNameControllers[i].value.text.toString().trim();
         var idNumber = _idNumberControllers[i].value.text.toString().trim();
 
@@ -188,6 +189,10 @@ class _PassengerScreenState extends State<PassengerScreen> {
         _passengerBody.add(paraPassengerBody);
         debugPrint("passengerBody: ${_passengerBody.map((e) => e)} ");
         isDataValidate = true;
+      } else if (_idNumberControllers[i].value.text.length > 10) {
+        Toasts.getWarningToast(
+            text: AppLocalizations.of(context)!.max_input_id_10);
+        isDataValidate = false;
       } else {
         Toasts.getWarningToast(
             text: AppLocalizations.of(context)!.required_fields);

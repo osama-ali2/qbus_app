@@ -116,5 +116,10 @@
   "additional": "الاضافات",
   "room_quantity": "عدد الغرف",
   "max_adults": "اقصي عدد",
-  "hotel_name": "اسم الفندق"
+  "hotel_name": "اسم الفندق",
+  "max_input_id_10": "يجب الا يتجاوز طول الهوية 10 ارقام",
+  "enter_mobile_number_get_activation_code": "أدخل رقم هاتفك المحمول للحصول على رمز التفعيل",
+  "submit": "ارسال",
+  "mobile_number_required": "رقم الهاتف مطلوب",
+  "mobile_number_length": "يجب ان لايقل طول رقم الهاتف عن 8 ارقام"
 }
