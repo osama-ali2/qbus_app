@@ -374,7 +374,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               number: passengersNumber,
               onAdd: () {
                 if (passengersNumber > 9) {
-                  Toasts.getWarningToast(text: "Only 10 Passengers Allowed");
+                  Toasts.getWarningToast(
+                      text: AppLocalizations.of(context)!
+                          .only_10_Passengers_allowed);
                 } else {
                   passengersNumber++;
                   setState(() {});
