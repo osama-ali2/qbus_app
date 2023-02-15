@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontWeight: FontWeight.normal,
                     textColor: Colors.black),
                 SizedBox(
-                  height: sizes!.heightRatio * 100,
+                  height: sizes!.heightRatio * 20,
                 ),
                 CustomTextField(
                   controller: mobileOrEmailController,

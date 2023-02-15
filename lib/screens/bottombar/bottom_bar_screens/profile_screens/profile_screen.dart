@@ -138,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ).get20HorizontalPadding(),
                   )
                 : const Center(
-                    child: Text("No User Profile Found"),
+                    child: Text("..."),
                   ),
             CommonPadding.sizeBoxWithHeight(height: 15),
             getRow(
