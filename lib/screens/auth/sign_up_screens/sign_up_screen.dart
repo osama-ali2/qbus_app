@@ -210,7 +210,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         underline: const SizedBox(),
                         isExpanded: true,
-                        items: <String>["عازب", "متزوج"].map((String value) {
+                        items:
+                            <String>['Single', 'Married'].map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),

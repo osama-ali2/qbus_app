@@ -121,5 +121,8 @@
   "enter_mobile_number_get_activation_code": "أدخل رقم هاتفك المحمول للحصول على رمز التفعيل",
   "submit": "ارسال",
   "mobile_number_required": "رقم الهاتف مطلوب",
-  "mobile_number_length": "يجب ان لايقل طول رقم الهاتف عن 8 ارقام"
+  "mobile_number_length": "يجب ان لايقل طول رقم الهاتف عن 8 ارقام",
+  "update_profile": "تحديث الملف الشخصي",
+  "select_marital_status": "اختار الحالة الاجتماعية",
+  "loading_user_profile": "جاري تحميل الملف الشخصي ..."
 }

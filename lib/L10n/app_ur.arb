@@ -120,5 +120,8 @@
   "enter_mobile_number_get_activation_code": "Enter your mobile number to get activation code",
   "submit": "Submit",
   "mobile_number_required": "Mobile Number is required",
-  "mobile_number_length": "The length of the phone number must not be less than 8 digits"
+  "mobile_number_length": "The length of the phone number must not be less than 8 digits",
+  "update_profile": "Update profile",
+  "select_marital_status": "Select marital status",
+  "loading_user_profile": "Loading user profile..."
 }

@@ -12,6 +12,7 @@ import '../../../../../widgets/custom_text.dart';
 import '../../../../../widgets/custom_textField.dart';
 import '../change_password_screens/change_password_screen.dart';
 import 'edit_user_profile_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditUserProfileScreen extends StatefulWidget {
   final UserResponse userResponse;
@@ -31,8 +32,8 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
   late TextEditingController userNameController;
   late TextEditingController emailController;
 
-  var selectMaritalStatus = "Select Marital Status";
-  var updateCity = "City";
+  var selectMaritalStatus = "اختار الحالة الاجتماعية";
+  var updateCity = "المدينة";
   var updateCityID = "-1";
 
   @override
@@ -60,7 +61,7 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
         backgroundColor: appColor,
         elevation: 0,
         title: const CustomText(
-            text: "Edit Profile",
+            text: "تحديث الملف الشخصي",
             textSize: 18,
             fontWeight: FontWeight.w700,
             textColor: Colors.white),
@@ -190,7 +191,7 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
                 ),
                 CommonPadding.sizeBoxWithHeight(height: 20),
                 CustomButton(
-                        name: "Update",
+                        name: AppLocalizations.of(context)!.update,
                         buttonColor: appColor,
                         height: sizes!.heightRatio * 45,
                         width: double.infinity,
@@ -205,7 +206,7 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
                     .get20HorizontalPadding(),
                 CommonPadding.sizeBoxWithHeight(height: 10),
                 CustomOutlineButton(
-                        name: "Change Password",
+                        name: AppLocalizations.of(context)!.change_password,
                         buttonColor: appColor,
                         height: sizes!.heightRatio * 45,
                         width: double.infinity,
