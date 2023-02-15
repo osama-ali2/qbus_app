@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:qbus/language.dart';
 import 'package:qbus/utils/constant.dart';
 import 'package:qbus/widgets/custom_text.dart';
 import '../../../../local_cache/utils.dart';
 import '../../../../widgets/text_views.dart';
 import 'package:qbus/resources/resources.dart';
+
+import '../setting_select_lang_screens/setting_select_lang_provider.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -77,8 +80,8 @@ class _SettingScreenState extends State<SettingScreen> {
               CommonPadding.sizeBoxWithWidth(width: 10),
               const Spacer(),
               DropdownButton(
-                onChanged: (language) {
-                  _changeLanguage(language as Language);
+                onChanged: (Language? language) {
+                  _changeLanguage(language!.languageCode);
                   // setState(() {});
                 },
                 underline: const SizedBox(),
@@ -102,7 +105,7 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  _changeLanguage(language as Language);
+                  // _changeLanguage(language);
                   // setState(() {});
                 },
                 child: SvgPicture.asset(
@@ -117,8 +120,9 @@ class _SettingScreenState extends State<SettingScreen> {
       ).get20HorizontalPadding();
 
   /// Change Language
-  void _changeLanguage(Language lang) {
-    debugPrint("lang: ${lang.languageCode}");
-    PreferenceUtils.setString(Strings.language, lang.languageCode);
+  void _changeLanguage(String langCode) {
+    debugPrint("lang: ${langCode}");
+    PreferenceUtils.setString(Strings.language, langCode);
+    Provider.of<SettingSelectLangProvider>(context,listen: false).changeLang(langCode);
   }
 }

@@ -12,7 +12,7 @@ class SplashProvider with ChangeNotifier {
   final Logger _logger = Logger();
 
   Future<void> init({@required BuildContext? context}) async {
-    PreferenceUtils.init();
+    // PreferenceUtils.init();
     this.context = context;
     // await navigateToNextScreen();
   }

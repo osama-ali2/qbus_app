@@ -8,6 +8,7 @@ import 'package:qbus/L10n/L10n.dart';
 import 'package:qbus/local_cache/utils.dart';
 import 'package:qbus/providers/multi_provider.dart';
 import 'package:qbus/resources/resources.dart';
+import 'package:qbus/screens/bottombar/bottom_bar_screens/setting_select_lang_screens/setting_select_lang_provider.dart';
 import 'package:qbus/screens/splash_screens/splash_screen.dart';
 
 import 'firebase_options.dart';
@@ -64,6 +65,7 @@ void main() async {
       debugPrint("Type is Chat Opened");
     }
   });
+  await PreferenceUtils.init();
 
   runApp(const MyApp());
 }
@@ -76,23 +78,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: multiProviders,
-      child: MaterialApp(
-        title: 'QBUS',
-        supportedLocales: L10n.all,
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate
-        ],
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const SplashScreen(),
-        //TODO: Uncomment this
-        locale: const Locale('ar'),
-        //Locale(PreferenceUtils.getString(Strings.language) ?? "en"),
-        debugShowCheckedModeBanner: false,
+      child: Builder(
+        builder: (context) {
+          return MaterialApp(
+            title: 'QBUS',
+            supportedLocales: L10n.all,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate
+            ],
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            home: const SplashScreen(),
+            //TODO: Uncomment this
+            locale:  Locale(Provider.of<SettingSelectLangProvider>(context,listen: true).getLang()),
+            //Locale(PreferenceUtils.getString(Strings.language) ?? "en"),
+            debugShowCheckedModeBanner: false,
+          );
+        }
       ),
     );
   }
